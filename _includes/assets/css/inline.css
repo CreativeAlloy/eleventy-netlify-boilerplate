@@ -1,7 +1,7 @@
 :root {
-	--primary: purple; /* You can adjust this later if you like */
+	--primary: #2e6319; /* Changed to forest green */
 	--secondary: white;
-	--background: #f4fbf1; /* Changed to light green */
+	--background: #f4fbf1; 
 }
 
 *, *:before, *:after {
@@ -17,21 +17,35 @@ body {
 
 body {
 	display: grid;
-	height: 100vh; /* This might need adjustment if content overflows a lot, but fine for now */
+	height: 100vh;
 	grid-template-rows: auto 1fr auto;
 	background-color: var(--background);
 }
 
+/* New Wrapper for centering header/footer content */
+.content-wrapper {
+	max-width: 37.5em;   /* Same as main for consistency */
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1em;  /* Aligns with header/footer's own padding */
+	padding-right: 1em; /* Aligns with header/footer's own padding */
+}
+
+header { /* Header itself can still be full width for background if needed, but content is wrapped */
+	padding-top: 1em; /* Ensure header itself has some padding if wrapper is used */
+    padding-bottom: 1em;
+}
+
 main {
-	max-width: 37.5em;   /* Keeps text readable, adjust if you prefer wider */
-	padding: 1.5em;      /* Unified padding */
-	margin-top: 20px;    /* Space from header */
-	margin-bottom: 20px; /* Space before footer */
-	margin-left: auto;   /* Centers the main block */
-	margin-right: auto;  /* Centers the main block */
-	background-color: #fff; /* White background for the content area */
-	border-radius: 10px;   /* Rounded corners */
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+	max-width: 37.5em;
+	padding: 1.5em;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 p,
@@ -54,15 +68,7 @@ img {
 	height: auto;
 }
 
-header,
-/* main, /* Main padding is now handled in its own block */
-footer {
-	padding: 1em; /* Padding for header and footer */
-}
-
-/* main { /* This block is now consolidated above */
-	/* padding-bottom: 2em; */
-/* } */
+/* footer styling is further down */
 
 main :first-child,
 main > article :first-child {
@@ -84,14 +90,15 @@ pre {
 	hyphens: none;
 	padding: 1em;
 	margin: .5em 0;
-	overflow-x: auto; /* Added in case code lines are very long */
-	background-color: #f9f9f9; /* Slight background for pre blocks, optional */
-	border: 1px solid #ddd; /* Slight border for pre blocks, optional */
-	border-radius: 4px; /* Optional rounded corners for pre */
+	overflow-x: auto; 
+	background-color: #f9f9f9; 
+	border: 1px solid #ddd; 
+	border-radius: 4px; 
 }
 
 /* Header Logo (style as h2) */
-header > em {
+/* This is inside the .content-wrapper now */
+.content-wrapper > em { 
 	display: block;
 	font-size: 2em;
 	margin: .67em 0;
@@ -100,42 +107,43 @@ header > em {
 }
 
 /* Header Nav */
-header nav ul {
+/* This is inside the .content-wrapper now */
+.content-wrapper nav ul {
 	padding: 0;
 	list-style: none;
 }
 
-header nav ul :first-child {
+.content-wrapper nav ul :first-child {
 	margin-left: 0;
 }
 
-header nav li {
+.content-wrapper nav li {
 	display: inline-block;
 	margin: 0 .25em;
 }
 
-header nav li a {
+.content-wrapper nav li a {
 	padding: .25em .5em;
 	border-radius: .25em;
 }
 
-header nav li a[href]:not(:hover) {
+.content-wrapper nav li a[href]:not(:hover) {
 	text-decoration: none;
 }
 
-header nav li a[data-current="current item"] {
-	background-color: var(--secondary); /* Changed to use variable */
-	/* color: var(--primary); /* Optional: if you want current item text to be primary color */
+.content-wrapper nav li a[data-current="current item"] {
+	background-color: var(--secondary);
+	/* color: var(--primary); /* Optional */
 }
 
 /* Posts List */
-article { /* This styles individual article previews on a list page */
-	margin-bottom: 1.5em; /* Increased spacing a bit */
-	padding-bottom: 1.5em; /* Increased spacing a bit */
-	border-bottom: 1px solid #e0e0e0; /* Slightly softer border than #eee or white */
+article {
+	margin-bottom: 1.5em; 
+	padding-bottom: 1.5em; 
+	border-bottom: 1px solid #e0e0e0; 
 }
 
-main > section > article:last-child { /* Remove border from last article in a list */
+main > section > article:last-child {
     border-bottom: none;
 }
 
@@ -155,8 +163,8 @@ a[rel="tag"]:visited {
   padding: 0 .5em;
 	line-height: 2em;
 	height: 2em;
-  border: 1px solid var(--primary); /* Changed border to primary color */
-	background-color: var(--secondary); /* Kept background as secondary (white) */
+  border: 1px solid var(--primary); 
+	background-color: var(--secondary); 
 	color: var(--primary);
   border-radius: .25em;
   text-decoration: none;
@@ -191,12 +199,12 @@ button {
   margin-bottom: 1em;
 	font-size: 1rem;
 	font-family: "Avenir", "Avenir Next", sans-serif;
-	border-radius: 4px; /* Added slight rounding to form elements */
+	border-radius: 4px; 
 }
 
 input,
 textarea {
-	border: 1px solid #ccc; /* Softened form border */
+	border: 1px solid #ccc; 
 }
 
 button {
@@ -204,17 +212,16 @@ button {
 	background-color: var(--primary);
 	color: var(--secondary);
 	cursor: pointer;
-	font-weight: bold; /* Made button text bold */
+	font-weight: bold; 
 }
 
-/* Footer specific styling from your example */
 footer {
-    background-color: transparent; /* Making footer background transparent to show body background */
-    padding: 20px 1em; /* Adjusted padding */
-    text-align: center;
+    background-color: transparent; 
+    padding: 20px 1em; 
+    text-align: center; /* This should center the text content within the footer */
     font-size: 0.9em;
     color: #777;
-    border-top: 1px solid #e0e0e0; /* Example footer had this */
+    border-top: 1px solid #e0e0e0; 
 }
 
 
@@ -222,7 +229,10 @@ footer {
 	:root {
 		font-size: 1.1rem;
 	}
-	main { /* Slightly wider main content on larger screens if desired */
-		max-width: 45em; /* Example: increased from 37.5em, adjust as you like */
+	main { 
+		max-width: 45em; 
+	}
+	.content-wrapper { /* Make wrapper wider on larger screens too */
+		max-width: 45em;
 	}
 }

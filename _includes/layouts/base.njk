@@ -6,29 +6,33 @@
 	<body>
 
 		<header>
-			<em>
-				<a href="{{ '/' | url }}">{{ metadata.title }}</a>
-			</em>
-			{% include "components/nav.njk" %}
+			{# Wrap header content to center it #}
+			<div class="content-wrapper"> 
+				<em>
+					<a href="{{ '/' | url }}">{{ metadata.title }}</a>
+				</em>
+				{% include "components/nav.njk" %}
+			</div>
 		</header>
 
 		<main>
 			{{ layoutContent | safe }}
 		</main>
 
+		{# The existing footer has text-align: center, which might be enough.
+		   If its content still looks off, we can wrap its inner content
+		   with <div class="content-wrapper"> too. Let's see first. #}
 		{% include "components/footer.njk" %}
 
-		{# Ko-fi script #}
 		<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
 		<script>
 		  kofiWidgetOverlay.draw('creativealloy', {
 		    'type': 'floating-chat',
 		    'floating-chat.donateButton.text': 'Tip Me',
-		    'floating-chat.donateButton.background-color': '#00b9fe',
+		    'floating-chat.donateButton.background-color': '#00b9fe', // This is Ko-fi blue, not your --primary
 		    'floating-chat.donateButton.text-color': '#fff'
 		  });
 		</script>
-		{# End of Ko-fi script #}
 
 	</body>
 
