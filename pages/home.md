@@ -1,22 +1,16 @@
 ---
 layout: layouts/home.njk
-title: Home
-date: 2016-01-01T00:00:00.000Z
+title: Nest
+date: 2025-06-03T05:33:00.000Z
 permalink: /
 eleventyNavigation:
-  key: Home
+  key: Nest
   order: 0
 ---
-# Welcome
+## Welcome to The Wasp Alloy!
 
-This is a template for building a simple blog website with the [Eleventy static site generator](https://www.11ty.dev), with deployment to [Netlify](https://www.netlify.com).
+**The Internet** - a wonderful place where all can enjoy completely accurate information, no matter the source. At **The Wasp Alloy**, we strive to provide the most up-do-date, and most certainly juiciest news directly to you, dearest reader.
 
-Includes [Decap CMS](https://www.decapcms.org) for WYSIWYG content editing, and [Netlify Forms](https://www.netlify.com/docs/form-handling) for processing your site's form data.
+In a world where things happen, journalism has become increasingly important. Our mission at **The Wasp Alloy** is to cover stories of events taking place on our planet and beyond.
 
-[Log in to the Decap CMS dashboard](/admin/)
-
-For more info on installation and usage, view the [project repo]({{ pkg.repository.url }}) on GitHub.
-
-Or click the button below to deploy your own copy of this project to Netlify.
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/danurbanowicz/eleventy-netlify-boilerplate&stack=cms)
+To dive right into the hottest topics, head over to **[News](https://thewaspalloy.netlify.app/blog/)**!
