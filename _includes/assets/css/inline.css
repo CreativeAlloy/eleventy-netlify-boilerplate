@@ -1,7 +1,7 @@
 :root {
-	--primary: purple;
+	--primary: purple; /* You can adjust this later if you like */
 	--secondary: white;
-	--background: #FFF0EB;
+	--background: #f4fbf1; /* Changed to light green */
 }
 
 *, *:before, *:after {
@@ -17,13 +17,21 @@ body {
 
 body {
 	display: grid;
-	height: 100vh;
+	height: 100vh; /* This might need adjustment if content overflows a lot, but fine for now */
 	grid-template-rows: auto 1fr auto;
 	background-color: var(--background);
 }
 
 main {
-	max-width: 37.5em;
+	max-width: 37.5em;   /* Keeps text readable, adjust if you prefer wider */
+	padding: 1.5em;      /* Unified padding */
+	margin-top: 20px;    /* Space from header */
+	margin-bottom: 20px; /* Space before footer */
+	margin-left: auto;   /* Centers the main block */
+	margin-right: auto;  /* Centers the main block */
+	background-color: #fff; /* White background for the content area */
+	border-radius: 10px;   /* Rounded corners */
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Subtle shadow */
 }
 
 p,
@@ -47,14 +55,14 @@ img {
 }
 
 header,
-main,
+/* main, /* Main padding is now handled in its own block */
 footer {
-	padding: 1em;
+	padding: 1em; /* Padding for header and footer */
 }
 
-main {
-	padding-bottom: 2em;
-}
+/* main { /* This block is now consolidated above */
+	/* padding-bottom: 2em; */
+/* } */
 
 main :first-child,
 main > article :first-child {
@@ -76,6 +84,10 @@ pre {
 	hyphens: none;
 	padding: 1em;
 	margin: .5em 0;
+	overflow-x: auto; /* Added in case code lines are very long */
+	background-color: #f9f9f9; /* Slight background for pre blocks, optional */
+	border: 1px solid #ddd; /* Slight border for pre blocks, optional */
+	border-radius: 4px; /* Optional rounded corners for pre */
 }
 
 /* Header Logo (style as h2) */
@@ -112,15 +124,19 @@ header nav li a[href]:not(:hover) {
 }
 
 header nav li a[data-current="current item"] {
-	background-color: white;
+	background-color: var(--secondary); /* Changed to use variable */
+	/* color: var(--primary); /* Optional: if you want current item text to be primary color */
 }
 
 /* Posts List */
-article {
-	margin-bottom: 1em;
-	padding-bottom: 1em;
-	border-bottom: 1px solid #eee;
-	border-bottom: 1px solid var(--secondary);
+article { /* This styles individual article previews on a list page */
+	margin-bottom: 1.5em; /* Increased spacing a bit */
+	padding-bottom: 1.5em; /* Increased spacing a bit */
+	border-bottom: 1px solid #e0e0e0; /* Slightly softer border than #eee or white */
+}
+
+main > section > article:last-child { /* Remove border from last article in a list */
+    border-bottom: none;
 }
 
 main > section > article > * {
@@ -139,8 +155,8 @@ a[rel="tag"]:visited {
   padding: 0 .5em;
 	line-height: 2em;
 	height: 2em;
-  border: 1px solid var(--secondary);
-	background-color: var(--secondary);
+  border: 1px solid var(--primary); /* Changed border to primary color */
+	background-color: var(--secondary); /* Kept background as secondary (white) */
 	color: var(--primary);
   border-radius: .25em;
   text-decoration: none;
@@ -175,11 +191,12 @@ button {
   margin-bottom: 1em;
 	font-size: 1rem;
 	font-family: "Avenir", "Avenir Next", sans-serif;
+	border-radius: 4px; /* Added slight rounding to form elements */
 }
 
 input,
 textarea {
-	border: 1px solid black;
+	border: 1px solid #ccc; /* Softened form border */
 }
 
 button {
@@ -187,10 +204,25 @@ button {
 	background-color: var(--primary);
 	color: var(--secondary);
 	cursor: pointer;
+	font-weight: bold; /* Made button text bold */
 }
+
+/* Footer specific styling from your example */
+footer {
+    background-color: transparent; /* Making footer background transparent to show body background */
+    padding: 20px 1em; /* Adjusted padding */
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+    border-top: 1px solid #e0e0e0; /* Example footer had this */
+}
+
 
 @media screen and (min-width:768px) {
 	:root {
 		font-size: 1.1rem;
+	}
+	main { /* Slightly wider main content on larger screens if desired */
+		max-width: 45em; /* Example: increased from 37.5em, adjust as you like */
 	}
 }
