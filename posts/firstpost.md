@@ -4,7 +4,7 @@ metaDescription: This is a sample meta description. If one is not present in
   your page/post's front matter, the default metadata.description will be used
   instead.
 date: 2025-06-03T10:19:00.000Z
-author: Sufian M'Barki, Expert Researcher
+author: Sufian M'Barki - Expert Researcher
 summary: Why toying around with technology can bring not just satisfaction - but
   immense euphoria.
 tags:
