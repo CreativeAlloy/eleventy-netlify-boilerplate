@@ -17,7 +17,7 @@ Upon sending some of our professional journalists to interview this young gentle
 
 > "It's better than copium!" he exclaimed. "I've never felt so exhilarated in my darn life. So, in order to sustain this state of mind, I'll continue working on my beautiful news outlet!"
 
-Despite the young Arabian man's optimism, caring neighbors approached us to voice a few concerns.
+Despite the young Arabian man's optimism, caring neighbors in the vicinity approached us to voice a few concerns.
 
 > "I'm worried about him," says Bertha, a 78-year-old woman who lives in the apartment next door. "Recently, he has been making a massive ruckus with his 'pasta time' comments or whatever he is muttering at home. We became even more concerned the moment we learned he had decided to create a news outlet. There is clearly something disturbing him," she explained while wiping off a tear.
 
