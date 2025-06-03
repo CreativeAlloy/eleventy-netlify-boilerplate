@@ -13,4 +13,4 @@ eleventyNavigation:
 
 In a world where things happen, journalism has become increasingly important. Our mission at **The Wasp Alloy** is to cover stories of events taking place on our planet and beyond.
 
-To dive right into the hottest topics, head over to **[News](https://thewaspalloy.netlify.app/blog/)**!
+To dive right into the hottest topics, head over to **[News](https://thewaspalloy.netlify.app/news/)**!
