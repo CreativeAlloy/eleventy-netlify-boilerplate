@@ -1,10 +1,12 @@
 ---
 layout: layouts/blog.njk
-title: Blog
+title: News
 metaDescription: A sample Blog page listing various posts and authors.
-date: 2017-01-01
-permalink: /blog/index.html
+date: 2025-06-03T05:42:00.000Z
+permalink: /news/index.html
 eleventyNavigation:
-  key: Blog
+  key: News
   order: 2
 ---
+## News
+**The Wasp Alloy has spoken:**
