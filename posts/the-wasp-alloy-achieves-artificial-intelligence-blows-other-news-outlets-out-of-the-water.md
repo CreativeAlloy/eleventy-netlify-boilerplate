@@ -23,3 +23,5 @@ Despite the positive reception from the majority of the team at The Wasp Alloy, 
 > "A ludicrous idea," Sufian sneered while eating a pretzel with garlic sauce. "The entire human population's bizarre fantasy about removing bias is nothing short of absurd. An ethical journalist cannot represent differing perspectives as equally valid, lest they mislead people into believing that an event or issue is more complicated than it seems."
 
 Regardless of whether you support this change or not, one thing is for certain - artificial intelligence will undoubtedly pave the way towards immense success, and supercharge the pursuit of information in a globalized society.
+
+***The Wasp Alloy***
