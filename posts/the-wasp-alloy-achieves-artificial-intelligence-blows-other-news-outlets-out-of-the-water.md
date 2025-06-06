@@ -2,7 +2,7 @@
 title: The Wasp Alloy Achieves Artificial Intelligence, Blows Other News Outlets
   Out of the Water
 date: 2025-06-06T07:09:00.000Z
-author: Sufian M′Barki
+author: The Wasp Alloy Team
 summary: How the world's number one news outlet outclassed all others by
   investing in artificial intelligence.
 tags:
