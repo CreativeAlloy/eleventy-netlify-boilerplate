@@ -1,6 +1,6 @@
 ---
 title: Staggering Discovery - Researchers Observe Bias Across Political Compass
-date: 2025-06-09T22:32:00Z
+date: 2025-06-09T22:32:00.000Z
 author: Sufian M′Barki
 summary: How modern politics and journalism have become a safe haven for bias.
 tags:
@@ -44,6 +44,6 @@ The crux of pursuing information is remaining unbiased while doing so. To achiev
 
 In a world where moral relativism is seen as quirky, many might deny the existence of objectivity. However, whether you like it or not, all humans need to drink water to stay alive. That was an example of an objective truth.
 
-When seeking to discover details and facts to build a case, remaining unbiased does not mean giving different sides equal weight, but instead applying critical thought to the presented data, use rigorous research, and arrive at an objective conclusion. There are many different possible outcomes - there can be fair points raised by all sides, or merely one side, or perhaps one particular side dominates in terms of righteousness. The crucial difference is that no matter what your conclusion is, as long as it is objective, it is unbiased.
+When seeking to discover details and facts to build a case, remaining unbiased does not mean giving different sides equal weight, but instead applying critical thought to the presented data, using rigorous research, and arriving at an objective conclusion. There are many different possible outcomes - there can be fair points raised by all sides, or merely one side, or perhaps one particular side dominates in terms of righteousness. The crucial difference is that no matter what your conclusion is, as long as it is objective, it is unbiased.
 
 ***The Wasp Alloy***
