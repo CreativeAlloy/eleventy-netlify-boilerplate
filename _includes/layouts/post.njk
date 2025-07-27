@@ -40,31 +40,40 @@ section: post
 {# This is the best practice for performance, as it lets the page load first #}
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // This is the HTML element where we will display the count
     const viewCountElement = document.getElementById('view-count');
-    
-    // Get the unique path of the current page, e.g., /news/my-first-article/
     const pagePath = window.location.pathname;
 
-    // Call our Netlify function, passing the page path as a parameter
-    fetch(`/.netlify/functions/get-and-increment-views?path=${pagePath}`)
+    // Create a unique key for this article in Local Storage
+    const storageKey = `viewed-${pagePath}`;
+
+    // Check if this user has already viewed this page
+    const hasViewed = localStorage.getItem(storageKey);
+
+    // Determine which action our function should take
+    const action = hasViewed ? 'get' : 'increment';
+    
+    // Call our Netlify function with the correct action
+    fetch(`/.netlify/functions/get-and-increment-views?path=${pagePath}&action=${action}`)
       .then(response => response.json())
       .then(data => {
-        // Once we get the count back, update the text on the page
         if (viewCountElement && data.count) {
-          // Format the number with commas (e.g., 12345 becomes 12,345)
           const formattedCount = data.count.toLocaleString('en-US');
+          
           if (data.count === 1) {
             viewCountElement.textContent = `${formattedCount} eye has witnessed`;
           } else {
             viewCountElement.textContent = `${formattedCount} eyes have witnessed`;
+          }
+
+          // If this was a new view, mark it as viewed in Local Storage
+          if (!hasViewed) {
+            localStorage.setItem(storageKey, 'true');
           }
         }
       })
       .catch(error => {
         console.error('Error fetching view count:', error);
         if (viewCountElement) {
-          // Hide the element if there's an error so it doesn't look broken
           viewCountElement.style.display = 'none';
         }
       });
