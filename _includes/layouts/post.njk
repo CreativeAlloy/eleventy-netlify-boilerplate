@@ -54,7 +54,7 @@ section: post
         if (viewCountElement && data.count) {
           // Format the number with commas (e.g., 12345 becomes 12,345)
           const formattedCount = data.count.toLocaleString('en-US');
-          if (${formattedCount} === 1) {
+          if (data.count === 1) {
             viewCountElement.textContent = `${formattedCount} eye has witnessed`;
           } else {
             viewCountElement.textContent = `${formattedCount} eyes have witnessed`;
