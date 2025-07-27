@@ -2,6 +2,10 @@
   publish = "_site"
   command = "eleventy"
 
+[functions]
+  directory = "netlify/functions/"
+  node_bundler = "esbuild"
+
 # REDIRECT and HEADERS examples
 
 # Redirect rule example

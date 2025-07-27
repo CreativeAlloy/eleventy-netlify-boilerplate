@@ -24,8 +24,43 @@ section: post
     </p>
   {% endif %}
 
+  {# --- NEW: Add the HTML element for the view counter here --- #}
+  {# This is a good spot, right after the tags and before the "News Index" link #}
+  <p id="view-count">Loading witnesses...</p>
+
 </article>
 
 <nav>
   <a href="{{ '/news/' | url }}">← News Index</a>
 </nav>
+
+{# --- NEW: The JavaScript goes at the very end of the file --- #}
+{# This is the best practice for performance, as it lets the page load first #}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // This is the HTML element where we will display the count
+    const viewCountElement = document.getElementById('view-count');
+    
+    // Get the unique path of the current page, e.g., /news/my-first-article/
+    const pagePath = window.location.pathname;
+
+    // Call our Netlify function, passing the page path as a parameter
+    fetch(`/.netlify/functions/get-and-increment-views?path=${pagePath}`)
+      .then(response => response.json())
+      .then(data => {
+        // Once we get the count back, update the text on the page
+        if (viewCountElement && data.count) {
+          // Format the number with commas (e.g., 12345 becomes 12,345)
+          const formattedCount = data.count.toLocaleString('en-US');
+          viewCountElement.textContent = `${formattedCount} eyes have witnessed`;
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching view count:', error);
+        if (viewCountElement) {
+          // Hide the element if there's an error so it doesn't look broken
+          viewCountElement.style.display = 'none';
+        }
+      });
+  });
+</script>
