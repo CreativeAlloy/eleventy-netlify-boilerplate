@@ -26,7 +26,9 @@ section: post
 
   {# --- NEW: Add the HTML element for the view counter here --- #}
   {# This is a good spot, right after the tags and before the "News Index" link #}
-  <p id="view-count">Loading witnesses...</p>
+  <small>
+    <p id="view-count">Loading witnesses...</p>
+  </small>
 
 </article>
 
@@ -52,7 +54,11 @@ section: post
         if (viewCountElement && data.count) {
           // Format the number with commas (e.g., 12345 becomes 12,345)
           const formattedCount = data.count.toLocaleString('en-US');
-          viewCountElement.textContent = `${formattedCount} eyes have witnessed`;
+          if (${formattedCount} === 1) {
+            viewCountElement.textContent = `${formattedCount} eye has witnessed`;
+          } else {
+            viewCountElement.textContent = `${formattedCount} eyes have witnessed`;
+          }
         }
       })
       .catch(error => {
