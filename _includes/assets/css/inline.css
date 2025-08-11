@@ -231,3 +231,49 @@ footer {
 		max-width: 45em;
 	}
 }
+
+/* =================================
+   Serious Post Theme Override
+   ================================= */
+
+:root {
+	--primary-serious: #003366; /* Deep, serious blue */
+	--secondary-serious: white;
+	--background-serious: #e6f0ff; /* Light, airy blue */
+}
+
+.serious-theme {
+  background-color: var(--background-serious);
+}
+
+.serious-theme main {
+  /* You can keep the main content white, or change it */
+  /* background-color: #ffffff; */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+}
+
+.serious-theme a[href],
+.serious-theme a[href]:visited {
+	color: var(--primary-serious);
+}
+
+.serious-theme a[rel="tag"],
+.serious-theme a[rel="tag"]:visited {
+  border-color: var(--primary-serious); 
+	color: var(--primary-serious);
+}
+
+.serious-theme a[rel="tag"]:hover {
+	background-color: var(--primary-serious);
+	color: var(--secondary-serious);
+}
+
+.serious-theme button {
+	border-color: var(--primary-serious);
+	background-color: var(--primary-serious);
+	color: var(--secondary-serious);
+}
+
+.serious-theme .content-wrapper > em { /* Header Logo */
+    color: var(--primary-serious);
+}

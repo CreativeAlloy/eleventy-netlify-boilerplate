@@ -22,6 +22,7 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
+      - { label: "Serious Post?", name: "serious", widget: "boolean", default: false, required: false }
       - label: "Publish Date"
         name: "date"
         widget: "datetime"
