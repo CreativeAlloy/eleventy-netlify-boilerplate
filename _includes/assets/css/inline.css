@@ -237,9 +237,9 @@ footer {
    ================================= */
 
 :root {
-	--primary-serious: #003366; /* Deep, serious blue */
+	--primary-serious: #004466; /* Deep, serious blue */
 	--secondary-serious: white;
-	--background-serious: #9dc4ff; /* Light, airy blue */
+	--background-serious: #b0e3ff; /* Light, airy blue */
 }
 
 .serious-theme {
