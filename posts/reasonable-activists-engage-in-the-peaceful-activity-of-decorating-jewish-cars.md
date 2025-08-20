@@ -14,7 +14,7 @@ tags:
   - westerncult
 ---
 ![Cars owned by Jewish families with "Free Palestine" spray-painted on them.](/static/img/ughwtf.jpg "I Don't Think This Is Activism Folks")
-<sup>Image Source: [Instagram Post by Ran Alkalay](https://www.instagram.com/p/DNlB5MKN1fj/?utm_source=ig_web_button_share_sheet&igsh=ZW01cXI4NXVjeHVl)</sup>
+*Image Source: [Instagram Post by Ran Alkalay](https://www.instagram.com/p/DNlB5MKN1fj/?utm_source=ig_web_button_share_sheet&igsh=ZW01cXI4NXVjeHVl)*
 
 **Châtel, France, 7:00 AM:** In yet another display of unfathomable genius, pro-Palestinian artists re-decorate cars owned by various Jewish families overnight in the resort town of Châtel in France using cans of orange spray paint. The police are allegedly investigating the matter and reviewing security footage to identify the actors.
 
@@ -29,7 +29,7 @@ They left shortly after receiving a generous offer to have their eyes re-decorat
 Journalist Sufian M'Barki has given his two cents on the matter.
 
 > "Deplorable. This is disgusting," he declared with utter disdain. "Will the innocent Jewish families at least get car insurance benefits for having had their cars physically vandalized using spray paint?"
-
+>
 > He continued, "Yet another example of the Western Cultist phenomenon. It's all antisemitism, hatred, vitriol, violence... only this time it's disguised under a different 'activist' narrative - you know, like every 'activist' narrative has been saying for the last 2000 years or so."
 
 After sitting down to read a history book for some 4 hours, The Wasp Alloy's expert research team has concluded that Sufian M'Barki is absolutely correct. If only everyone could exercise the *strenuous* effort of learning from the past.
