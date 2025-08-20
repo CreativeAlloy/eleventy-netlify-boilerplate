@@ -14,7 +14,7 @@ tags:
   - westerncult
 ---
 ![Cars owned by Jewish families with "Free Palestine" spray-painted on them.](/static/img/ughwtf.jpg "I Don't Think This Is Activism Folks")
-<sub>Image Source: [Instagram Post by Ran Alkalay](https://www.instagram.com/p/DNlB5MKN1fj/?utm_source=ig_web_button_share_sheet&igsh=ZW01cXI4NXVjeHVl)</sub>
+<sup>Image Source: [Instagram Post by Ran Alkalay](https://www.instagram.com/p/DNlB5MKN1fj/?utm_source=ig_web_button_share_sheet&igsh=ZW01cXI4NXVjeHVl)</sup>
 
 **Châtel, France, 7:00 AM:** In yet another display of unfathomable genius, pro-Palestinian artists re-decorate cars owned by various Jewish families overnight in the resort town of Châtel in France using cans of orange spray paint. The police are allegedly investigating the matter and reviewing security footage to identify the actors.
 
