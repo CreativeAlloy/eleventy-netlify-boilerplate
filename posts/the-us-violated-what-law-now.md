@@ -1,7 +1,7 @@
 ---
 title: The US Violated What Law Now?
 serious: true
-date: 2026-01-04T20:53:00Z
+date: 2026-01-04T20:53:00.000Z
 author: Sufian M′Barki
 summary: People throwing words around for the aesthetic, without knowing what
   they mean - or whether they are even true.
@@ -47,7 +47,7 @@ China's invasion of Taiwan **will** be a violation of international law, because
 US Action: Removed a Narco-Terrorist Dictator who was actively destabilizing the region, starving his people, and posing a direct threat to the US in being an ally of Iran, Russia, China, and North Korea. Outcome: Joy.
 Chinese Threat: Invading a functional democracy (Taiwan) to impose totalitarian control, because of a false equivalence. Outcome: Subjugation.
 
-Simplified, it's okay to capture a terrorist especially if you have a good reason to do so, but it's not okay for a terrorist (China) to invade a territory it wants for itself and subjucate the people.
+Simplified, it's okay to capture a terrorist especially if you have a good reason to do so, but it's not okay for a terrorist (China) to invade a territory it wants for itself and subjugate the people.
 
 So, these Chinese know-it-alls are missing the nuance - a sign of their lack of intellectual rigor, and of how unacquainted they are with the abstract "International Laws" they love to throw around for rhetorical purposes only. 🙂
 
