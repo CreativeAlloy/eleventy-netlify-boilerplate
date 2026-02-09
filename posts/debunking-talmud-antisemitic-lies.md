@@ -1,7 +1,7 @@
 ---
 title: Debunking "Talmud" Antisemitic Lies
 serious: true
-date: 2026-02-09T20:33:00Z
+date: 2026-02-09T20:33:00.000Z
 author: Sufian M′Barki
 summary: This article explores how mistranslated versions of a random collection
   of Medieval debates are used in antisemitic rhetoric to this day.
@@ -22,7 +22,7 @@ According to them, en bref, the "Talmud" is a dogmatic text which, supposedly, a
 
 I will cite the finished PDF on the subject, and provide additional details where I believe they are necessary.
 
-> ## The Talmud Schism (The Library vs. TheCaricature)
+> ## The Talmud Schism (The Library vs. The Caricature)
 >
 > **The Truth:** Ben Shapiro and actual Jews refer to a 1,500-year-old **Library of Legal Debate**. It is the ultimate anti-dogma book because it documents *disagreement* as a sacred act.
 >
