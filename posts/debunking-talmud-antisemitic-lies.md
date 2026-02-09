@@ -60,11 +60,11 @@ To provide a different analogy **for the sake of argument**, this is like positi
 >
 > **The Reality:** The Talmud discusses theoretical legal scenarios from 1500+ years ago (e.g., property laws, damages, interactions with pagans in ancient Babylon).
 >
-> **The Lie:** Rohling (and modern antisemites) take a line discussing, for example, "Is a Jew liable if their ox gores<sup>1</sup> a pagan's ox?" and rewrite it to claim: "The Talmud commands Jews to steal from non-Jews."
+> **The Lie:** Rohling (and modern antisemites) take a line discussing, for example, "Is a Jew liable if their ox gores* a pagan's ox?" and rewrite it to claim: "The Talmud commands Jews to steal from non-Jews."
 >
 > **The Verdict:** The specific accusations (ritual murder, commanding theft, killing Christians) are fabrications. They do not exist in the text.
 
-###### 1. Vocabulary | v. gores (inf. to gore) - pierce or stab a person or other animal with a horn or tusk.
+###### * Vocabulary | v. gores (inf. to gore) - pierce or stab a person or other animal with a horn or tusk.
 
 Propagandists often use a manipulative tactic where they purposefully omit the context of this scenario. First, the fact this question is nothing more than a theoretical legal debate is completely gone in their rhetoric. Secondly, regardless of what the original text even explores, crucial data is completely removed or even rewritten to support a fabricated conclusion - that the Talmud encourages Jews to steal from non-Jews.
 
