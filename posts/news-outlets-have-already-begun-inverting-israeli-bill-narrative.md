@@ -51,8 +51,18 @@ Mosab Hassan Yousef has been able to revert the Islamic indoctrination and becom
 
 **Death penalties for terrorists are necessary worldwide.** The only part that matters is that caution be exercised when it comes to defining terrorism. In Israel's case, terrorists are members of Hamas, PIJ, PA, PLO, and so on, which matches the definition of International Terrorism I cited above.
 
-**P.S.** The law even applies to Israelis. This means that theoretically, if you are Israeli and you commit acts of terrorism on the territories of Israel, you get the death penalty. No more will terrorists kill our innocent children, and then eat 3-course meals in Israeli prisons. They get what their hands did to Israelis.
+**P.S.** The law is not limited to any ethnicity. Any terrorist, regardless of race, is subject to this bill. It even theoretically applies to Israelis. This means that if you are Israeli and you commit acts of terrorism on the territories of Israel, you get the death penalty. No more will terrorists kill our innocent children, and then eat 3-course meals in Israeli prisons. They get what their hands did to Israelis.
 
-This is to say the law is not limited to any ethnicity. Any terrorist, regardless of race, is subject to this bill. This is what a nation-state with a spine looks like - the Jewish State of Israel. And terrorists can go to Hell.
+'Tis but a simple deductive syllogism - and the study of critical thinking in logic is essential before participating in any geopolitical debate. Let's take an example individual named Hugo Samberg (Jewish, Israeli), and Faisal Al-Harbi (Arab, Yemeni).
+
+**Premise A:** Any terrorist, regardless of race, is subject to the death penalty bill.\
+**Premise B:** Hugo Samberg is a terrorist, and he is ethnically Jewish, from Israel.\
+**Conclusion:** The death penalty bill applies to Hugo Samberg.
+
+**Premise A:** Any terrorist, regardless of race, is subject to the death penalty bill.\
+**Premise B:** Faisal Al-Harbi is a terrorist, and he is ethnically Arab, from Yemen.\
+**Conclusion:** The death penalty bill applies to Faisal Al-Harbi.
+
+This is what a nation-state with a spine looks like - the Jewish State of Israel. And terrorists can go to Hell - regardless of their ethnicity. 😀
 
 ***Sufian M'Barki***
