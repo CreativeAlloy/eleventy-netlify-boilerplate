@@ -1,7 +1,7 @@
 ---
 title: News Outlets Have Already Begun Inverting Israeli Bill Narrative
 serious: true
-date: 2026-03-30T20:11:00Z
+date: 2026-03-30T20:11:00.000Z
 author: Sufian M′Barki
 summary: Find a better hobby.
 tags:
@@ -50,5 +50,9 @@ Cult deprogramming therapy only works on willing participants whose indoctrinati
 Mosab Hassan Yousef has been able to revert the Islamic indoctrination and become a staunch Zionist and Hasbara advocate for Israel because he never personally crossed the psychological event horizon of murdering innocent Israelis, and has purposefully converted to Christianity as part of his mental purification process. Had he crossed it, his recovery would have been unattainable.
 
 **Death penalties for terrorists are necessary worldwide.** The only part that matters is that caution be exercised when it comes to defining terrorism. In Israel's case, terrorists are members of Hamas, PIJ, PA, PLO, and so on, which matches the definition of International Terrorism I cited above.
+
+**P.S.** The law even applies to Israelis. This means that theoretically, if you are Israeli and you commit acts of terrorism on the territories of Israel, you get the death penalty. No more will terrorists kill our innocent children, and then eat 3-course meals in Israeli prisons. They get what their hands did to Israelis.
+
+This is to say the law is not limited to any ethnicity. Any terrorist, regardless of race, is subject to this bill. This is what a nation-state with a spine looks like - the Jewish State of Israel. And terrorists can go to Hell.
 
 ***Sufian M'Barki***
