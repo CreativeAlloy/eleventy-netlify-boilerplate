@@ -4,8 +4,9 @@
   <meta name="generator" content="{{ eleventy.generator }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title or metadata.title }}</title>
-  <meta name="description" content="{{ metaDescription or eleventyComputed.metaDescription or metadata.description }}">
-
+  <meta name="description" content="{{ summary or metaDescription or eleventyComputed.metaDescription or metadata.description }}">
+  <meta property="og:description" content="{{ summary or metadata.description }}">
+  
   {# --- IMAGE EMBED LOGIC --- #}
   {% set firstImagePath %}{% get_first_image layoutContent %}{% endset %}
   
