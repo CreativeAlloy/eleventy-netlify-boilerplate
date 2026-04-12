@@ -3,15 +3,15 @@
   <meta name='impact-site-verification' value='1c8a5e65-0378-4c83-aec5-229e75d3544b'>
   <meta name="generator" content="{{ eleventy.generator }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title or metadata.title }}</title> 
-  <meta name="description" content="{{ metaDescription or eleventyComputed.metaDescription or metadata.description }}"> 
+  <title>{{ title or metadata.title }}</title>
+  <meta name="description" content="{{ metaDescription or eleventyComputed.metaDescription or metadata.description }}">
 
   {# --- IMAGE EMBED LOGIC --- #}
   {% set firstImagePath %}{% get_first_image layoutContent %}{% endset %}
   
   {% if firstImagePath %}
-    {# Combine site URL (https://thewaspalloy.netlify.app/) with the image path #}
-    {% set absoluteImageUrl %}{{ metadata.url.replace(/\/$/, "") }}{{ firstImagePath }}{% endset %}
+    {# Concatenating directly to avoid regex errors #}
+    {% set absoluteImageUrl %}{{ metadata.url }}{{ firstImagePath }}{% endset %}
     <meta property="og:image" content="{{ absoluteImageUrl }}">
     <meta name="twitter:card" content="summary_large_image">
   {% endif %}
