@@ -1,14 +1,14 @@
 ---
 title: Discord Moderator Bans Victim of Abuse in Tonal Blindness
 serious: false
-date: 2025-12-12T07:38:00Z
+date: 2025-12-12T07:38:00.000Z
 author: Sufian M′Barki
 summary: It doesn't matter who is right or wrong - moderators shall formulate
   their verdict based on every word.
 tags:
-  - Discord
-  - Journalism
-  - SocialMedia
+  - discord
+  - journalism
+  - socialmedia
 ---
 ![Discord Logo](/static/img/maxresdefault.jpg "I Don't Think This Is Activism Folks")
 
