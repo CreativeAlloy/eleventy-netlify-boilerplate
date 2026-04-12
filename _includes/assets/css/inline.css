@@ -1,7 +1,7 @@
 :root {
 	--primary: #2e6319; 
 	--secondary: white;
-	--background: #d0f5d4; /* Your new light green */
+	--background: #bcfac2; /* Your new light green */
 }
 
 *, *:before, *:after {
@@ -239,7 +239,7 @@ footer {
 :root {
 	--primary-serious: #004466; /* Deep, serious blue */
 	--secondary-serious: white;
-	--background-serious: #b0e3ff; /* Light, airy blue */
+	--background-serious: #92d9ff; /* Light, airy blue */
 }
 
 .serious-theme {
