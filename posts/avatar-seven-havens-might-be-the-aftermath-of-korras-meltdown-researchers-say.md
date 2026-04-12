@@ -1,10 +1,10 @@
 ---
 title: "\"Avatar: Seven Havens\" Might Be The Aftermath of Korra's Meltdown,
   Researchers Say"
-date: 2025-06-24T08:16:00Z
+date: 2025-06-24T08:16:00.000Z
 author: Sufian M′Barki
 summary: Despite what rumors suggest, the mystery behind how the world turned
-  out this way in "Seven Havens" might have a simpler explanation.
+  out this way in 'Seven Havens' might have a simpler explanation.
 tags:
   - entertainment
   - fiction
