@@ -82,6 +82,16 @@ module.exports = function(eleventyConfig) {
   // We additionally output a copy of our CSS for use in Decap CMS previews
   eleventyConfig.addPassthroughCopy("_includes/assets/css/inline.css");
 
+  eleventyConfig.addShortcode("get_first_image", (content) => {
+    if (!content) return "";
+    // Looks for ![alt](url)
+    const m = content.match(/\!\[.*?\]\((.*?)\)/);
+    if (m) return m[1];
+    
+    // Fallback: If no image found, return a default picture
+    return "/static/img/pexels-george-milton-7014490.jpg";
+  });
+
   /* Markdown Plugins */
   let markdownIt = require("markdown-it");
   let markdownItAnchor = require("markdown-it-anchor");
