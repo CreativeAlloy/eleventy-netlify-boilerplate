@@ -342,7 +342,7 @@ footer {
 :root {
     --primary-lecture: #8b0000;    /* Dark Red / Burgundy */
     --secondary-lecture: white;
-    --background-lecture: #ffa1a1; /* Very soft red wash */
+    --background-lecture: #ffc1c1; /* Very soft red wash */
 }
 
 .lecture-theme {
