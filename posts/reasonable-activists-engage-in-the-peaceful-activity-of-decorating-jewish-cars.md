@@ -7,6 +7,7 @@ summary: Witness the modern, progressive incarnation of political activism - one
   that believes in totally benevolent, non-consensual re-decoration, and
   threatening families based on their ethnicity and religion.
 tags:
+  - satire
   - antisemitism
   - westernworld
   - politics

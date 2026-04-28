@@ -6,6 +6,7 @@ author: Sufian M′Barki
 summary: Major outrage as corporate prefers certified idiocy over uncertified
   intelligence.
 tags:
+  - satire
   - education
   - politics
   - law

@@ -7,6 +7,7 @@ author: Sufian M′Barki
 summary: Training our pets has never been easier than using the power of
   electric submission.
 tags:
+  - satire
   - westerncult
   - journalism
   - law

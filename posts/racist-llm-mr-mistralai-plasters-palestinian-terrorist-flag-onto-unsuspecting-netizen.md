@@ -7,6 +7,7 @@ author: Sufian M′Barki
 summary: Watch as Mr. MistralAI, French-based (and thus racist), stains a
   Discord nickname with a terror group flag.
 tags:
+  - satire
   - politics
   - terrorism
   - antisemitism

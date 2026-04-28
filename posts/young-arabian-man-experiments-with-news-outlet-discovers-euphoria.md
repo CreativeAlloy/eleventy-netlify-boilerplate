@@ -5,9 +5,10 @@ author: Sufian M′Barki
 summary: Why toying around with technology can bring not just satisfaction - but
   immense euphoria.
 tags:
+  - satire
   - technology
   - journalism
-  - EasternEurope
+  - easterneurope
 ---
 **Western Bulgaria, 07:12 AM:** Amidst his passionate quest to create a brand new news outlet online, a young Arabian man has reported experiencing overwhelming euphoria.
 

@@ -1,5 +1,5 @@
 ---
-title: "[Serious] The Wasp Alloy Now Includes Serious Posts"
+title: "The Wasp Alloy Now Includes Serious Posts"
 serious: true
 date: 2025-08-11T16:28:00Z
 author: Sufian M′Barki
@@ -15,7 +15,7 @@ Until today, I've been using The Wasp Alloy to write absurdly pointed satire. Gi
 
 For starters, all serious articles don a blue theme. Everything that's usually colored green on TWA will be colored blue on serious articles alone.
 
-Moreover, serious articles have both "[Serious]" in their titles, and a "serious" tag at the bottom. All articles so far have been organized into different tags or categories if you will, and under "serious" you'll be able to find all serious ones.
+Moreover, serious articles include a "serious" tag at the bottom. All articles so far have been organized into different tags or categories if you will, and under "serious" you'll be able to find all serious ones.
 
 Lastly, all TWA posts feature a "The Wasp Alloy" italicized and emboldened signature at the bottom. For serious articles, I'll write my own name instead.
 

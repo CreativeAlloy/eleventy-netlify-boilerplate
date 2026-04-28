@@ -6,9 +6,10 @@ author: The Wasp Alloy Team
 summary: How the world's number one news outlet outclassed all others by
   investing in artificial intelligence.
 tags:
+  - satire
   - technology
   - journalism
-  - EasternEurope
+  - easterneurope
 ---
 ![Artificus Intelliberg in the process of writing a comprehensive news article, autoportrait](/static/img/artificus-intelliberg.png "Artificus Intelliberg, Autoportrait")
 

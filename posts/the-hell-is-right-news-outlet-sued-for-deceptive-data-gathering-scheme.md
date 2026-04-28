@@ -1,9 +1,10 @@
 ---
-title: '"The Hell?" Is Right - News Outlet Sued For Deceptive Data Gathering Scheme'
+title: "'The Hell?' Is Right - News Outlet Sued For Deceptive Data Gathering Scheme"
 date: 2025-07-27T05:33:00Z
 author: Sufian M′Barki
 summary: An alleged data gathering scheme has caused an uproar in Internet society.
 tags:
+  - satire
   - journalism
   - privacy
   - law

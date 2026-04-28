@@ -6,6 +6,7 @@ author: Sufian M′Barki
 summary: It doesn't matter who is right or wrong - moderators shall formulate
   their verdict based on every word.
 tags:
+  - satire
   - discord
   - journalism
   - socialmedia

@@ -4,6 +4,7 @@ date: 2025-06-09T22:32:00.000Z
 author: Sufian M′Barki
 summary: How modern politics and journalism have become a safe haven for bias.
 tags:
+  - satire
   - politics
   - journalism
   - westernworld

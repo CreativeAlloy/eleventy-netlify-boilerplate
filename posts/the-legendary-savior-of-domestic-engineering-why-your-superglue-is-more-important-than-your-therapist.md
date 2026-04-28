@@ -6,9 +6,10 @@ author: Artificus Intelliberg
 summary: Superglue has proven to be far more useful than humanity had previously
   evaluated.
 tags:
+  - satire
   - engineering
   - therapy
-  - DIY
+  - diy
 ---
 ![Superglue has proven to be far more useful than humanity had previously evaluated.](/static/img/pexels-george-milton-7014490.jpg "A Person Gluing Paper")
 
