@@ -147,6 +147,43 @@ main > section > article > * {
 	margin-bottom: .5em;
 }
 
+/* =================================
+   News Filter Navigation (Split Buttons)
+   ================================= */
+
+.news-filter-nav {
+    display: flex;
+    width: 100%;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.filter-btn {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none !important; /* Overrides global link styles */
+    transition: all 0.2s ease-in-out;
+    background-color: var(--secondary);
+    color: var(--primary) !important;
+}
+
+.filter-btn:first-child {
+    border-right: 1px solid var(--primary);
+}
+
+/* Hover Effects */
+.filter-btn:hover {
+    background-color: var(--primary);
+    color: var(--secondary) !important;
+}
+
 /* Post Tags */
 a[rel="tag"],
 a[rel="tag"]:visited {
@@ -276,4 +313,23 @@ footer {
 
 .serious-theme .content-wrapper > em { /* Header Logo */
     color: var(--primary-serious);
+}
+
+/* Serious Theme Overrides for New Filter Navigation*/
+.serious-theme .news-filter-nav {
+    border-color: var(--primary-serious);
+}
+
+.serious-theme .filter-btn {
+    color: var(--primary-serious) !important;
+    border-color: var(--primary-serious);
+}
+
+.serious-theme .filter-btn:first-child {
+    border-right: 1px solid var(--primary-serious);
+}
+
+.serious-theme .filter-btn:hover {
+    background-color: var(--primary-serious);
+    color: var(--secondary-serious) !important;
 }

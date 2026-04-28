@@ -9,3 +9,7 @@ eleventyNavigation:
   order: 2
 ---
 ## **The Wasp Alloy has spoken:**
+<div class="news-filter-nav">
+  <a href="/tags/serious/" class="filter-btn">Serious</a>
+  <a href="/tags/satire/" class="filter-btn">Satire</a>
+</div>
