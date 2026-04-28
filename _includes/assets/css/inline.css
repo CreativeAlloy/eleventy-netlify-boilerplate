@@ -340,9 +340,9 @@ footer {
    ================================= */
 
 :root {
-    --primary-lecture: #8b002e;    /* Dark Red / Burgundy */
+    --primary-lecture: #8b002e;
     --secondary-lecture: white;
-    --background-lecture: #ffbfcf; /* Very soft red wash */
+    --background-lecture: #ffbfcf;
 }
 
 .lecture-theme {
