@@ -1,5 +1,9 @@
 {
   "title": "The Wasp Alloy",
   "description": "Buzzing With Juiciness.",
-  "url": "https://thewaspalloy.org"
+  "url": "https://thewaspalloy.org",
+  "author": {
+    "name": "Sufian M Barki",
+    "email": "sufian.mbarki@gmail.com"
+  }
 }

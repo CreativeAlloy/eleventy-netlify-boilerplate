@@ -8,7 +8,7 @@ const sitemapPlugin = require("@quasibit/eleventy-plugin-sitemap");
 
 module.exports = function(eleventyConfig) {
 
-  // 1. Register Plugins
+  // Register Plugins
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(rssPlugin);
@@ -18,13 +18,20 @@ module.exports = function(eleventyConfig) {
     },
   });
 
-  // 2. Add RFC3339 Date Filter
   // This is required for the JSON-LD schema in head.njk
+  // Date formatting (ISO 8601 / RFC3339) for Schema and RSS
   eleventyConfig.addFilter("dateToRfc3339", (dateObj) => {
-    return DateTime.fromJSDate(dateObj).toISO();
+    if (!dateObj) return "";
+    try {
+      const date = (dateObj instanceof Date) ? dateObj : new Date(dateObj);
+      if (isNaN(date.getTime())) return "";
+      return DateTime.fromJSDate(date).toISO();
+    } catch (e) {
+      return "";
+    }
   });
 
-  // 3. Ensure robots.txt is copied to the live site
+  // Ensure robots.txt is copied to the live site
   eleventyConfig.addPassthroughCopy("robots.txt");
 
   // Configuration API: use eleventyConfig.addLayoutAlias(from, to) to add
