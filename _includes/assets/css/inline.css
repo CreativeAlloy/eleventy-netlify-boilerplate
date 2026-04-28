@@ -277,39 +277,3 @@ footer {
 .serious-theme .content-wrapper > em { /* Header Logo */
     color: var(--primary-serious);
 }
-
-/* =================================
-   Advertisement Unit Section
-   ================================= */
-
-/* Center and constrain the ad unit in the header */
-.header-ad-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 1.5rem 0 1rem 0; /* Top and bottom spacing */
-    min-height: 95px; /* Reserves space to prevent "Layout Shift" */
-    overflow: hidden;
-}
-
-/* Ensure the A-Ads frame respects the container boundaries */
-.header-ad-container #frame {
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-/* Optional: Add a very subtle top border to separate the nav from the ad area */
-.header-ad-container {
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    padding-top: 1rem;
-}
-
-/* If the ad is too wide for mobile, this ensures it doesn't break the page width */
-@media (max-width: 768px) {
-    .header-ad-container {
-        min-height: 60px; /* Adjust for smaller mobile banners */
-    }
-}
