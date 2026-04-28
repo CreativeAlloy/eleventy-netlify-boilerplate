@@ -7,5 +7,11 @@ permalink: /blog/index.html
 
 {{ layoutContent | safe }}
 
+{# Place the filter buttons here, outside of the markdown content #}
+<div class="news-filter-nav">
+  <a href="/tags/serious/" class="filter-btn">Serious</a>
+  <a href="/tags/satire/" class="filter-btn">Satire</a>
+</div>
+
 {% set postslist = collections.post %}
 {% include "components/postslist.njk" %}
