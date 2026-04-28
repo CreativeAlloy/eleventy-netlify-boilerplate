@@ -6,7 +6,7 @@ summary: How modern politics and journalism have become a safe haven for bias.
 tags:
   - politics
   - journalism
-  - WesternWorld
+  - westernworld
 ---
 **Western World, 8:23 PM:** In the pursuit of critical analysis of the narratives circling around our modern world, researchers have gathered research data from social media exchanges, revealing an appalling trend towards the blatant embracement of bias across the entire political compass.
 
