@@ -174,7 +174,7 @@ main > section > article > * {
     color: var(--primary) !important;
 }
 
-.filter-btn:first-child {
+.filter-btn:not(:last-child) {
     border-right: 1px solid var(--primary);
 }
 
