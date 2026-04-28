@@ -169,7 +169,7 @@ main > section > article > * {
     text-transform: uppercase;
     letter-spacing: 0.15em;
     text-decoration: none !important; /* Overrides global link styles */
-    transition: all 0.2s ease-in-out;
+    transition: all 0.1s ease-in-out;
     background-color: var(--secondary);
     color: var(--primary) !important;
 }
@@ -200,6 +200,7 @@ a[rel="tag"]:visited {
 	color: var(--primary);
   border-radius: .25em;
   text-decoration: none;
+  transition: all 0.1s ease-in-out;
 	margin: 0 .5em .5em 0;
 }
 
