@@ -1,7 +1,7 @@
 :root {
 	--primary: #2e6319; 
 	--secondary: white;
-	--background: #bcfac2; /* Your new light green */
+	--background: #bcfac2;
 }
 
 *, *:before, *:after {
@@ -333,4 +333,66 @@ footer {
 .serious-theme .filter-btn:hover {
     background-color: var(--primary-serious);
     color: var(--secondary-serious) !important;
+}
+
+/* =================================
+   Lecture Post Theme Override (Red)
+   ================================= */
+
+:root {
+    --primary-lecture: #8b0000;    /* Dark Red / Burgundy */
+    --secondary-lecture: white;
+    --background-lecture: #fff0f0; /* Very soft red wash */
+}
+
+.lecture-theme {
+    background-color: var(--background-lecture);
+}
+
+.lecture-theme main {
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.12);
+}
+
+.lecture-theme a[href],
+.lecture-theme a[href]:visited {
+    color: var(--primary-lecture);
+}
+
+.lecture-theme a[rel="tag"],
+.lecture-theme a[rel="tag"]:visited {
+    border-color: var(--primary-lecture); 
+    color: var(--primary-lecture);
+}
+
+.lecture-theme a[rel="tag"]:hover {
+    background-color: var(--primary-lecture);
+    color: var(--secondary-lecture);
+}
+
+.lecture-theme button {
+    border-color: var(--primary-lecture);
+    background-color: var(--primary-lecture);
+    color: var(--secondary-lecture);
+}
+
+.lecture-theme .content-wrapper > em {
+    color: var(--primary-lecture);
+}
+
+/* Three-way Filter Button Theming */
+.lecture-theme .news-filter-nav {
+    border-color: var(--primary-lecture);
+}
+
+.lecture-theme .filter-btn {
+    color: var(--primary-lecture) !important;
+}
+
+.lecture-theme .filter-btn:not(:last-child) {
+    border-right: 1px solid var(--primary-lecture);
+}
+
+.lecture-theme .filter-btn:hover {
+    background-color: var(--primary-lecture);
+    color: var(--secondary-lecture) !important;
 }
