@@ -3,7 +3,7 @@
 
 	{% include "components/head.njk" %}
 
-	<body class="{% if serious %}serious-theme{% endif %}">
+	<body class="{% if serious or '/tags/serious/' in page.url %}serious-theme{% endif %}">
 
 		<header>
 			{# Wrap header content to center it #}
