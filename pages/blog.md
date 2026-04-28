@@ -9,4 +9,4 @@ eleventyNavigation:
   order: 2
 ---
 ## The Wasp Alloy Has Spoken:
-##### This platform contains a few modes of communication. Most notably, there is an explicit separation between "Satire" and "Serious" posts. If you wish to read good satire, feel free to browse the "Satire" section. Likewise, if you are looking for my informative geopolitical deep dives and analyses, head over to the "Serious" section.
+##### This platform contains a few modes of communication. Most notably, there is an explicit separation between "Satire," "Lecture," and "Serious" posts. If you wish to read good satire, feel free to browse the "Satire" section. Likewise, if you are looking for my informative geopolitical deep dives and analyses, head over to the "Serious" section. Lastly, "Lecture" is for educational content relevant to my fields of expertise and my activism.
