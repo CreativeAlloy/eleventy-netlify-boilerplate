@@ -3,11 +3,29 @@ const CleanCSS = require("clean-css");
 const UglifyJS = require("uglify-js");
 const htmlmin = require("html-minifier");
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
+const rssPlugin = require("@11ty/eleventy-plugin-rss");
+const sitemapPlugin = require("@quasibit/eleventy-plugin-sitemap");
 
 module.exports = function(eleventyConfig) {
 
+  // 1. Register Plugins
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
+  eleventyConfig.addPlugin(rssPlugin);
+  eleventyConfig.addPlugin(sitemapPlugin, {
+    sitemap: {
+      hostname: "https://thewaspalloy.org",
+    },
+  });
+
+  // 2. Add RFC3339 Date Filter
+  // This is required for the JSON-LD schema in head.njk
+  eleventyConfig.addFilter("dateToRfc3339", (dateObj) => {
+    return DateTime.fromJSDate(dateObj).toISO();
+  });
+
+  // 3. Ensure robots.txt is copied to the live site
+  eleventyConfig.addPassthroughCopy("robots.txt");
 
   // Configuration API: use eleventyConfig.addLayoutAlias(from, to) to add
   // layout aliases! Say you have a bunch of existing content using
