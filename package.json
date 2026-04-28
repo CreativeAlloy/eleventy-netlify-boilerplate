@@ -30,6 +30,8 @@
   "main": ".eleventy.js",
   "keywords": [],
   "dependencies": {
-    "@netlify/neon": "^0.1.0"
+    "@11ty/eleventy-plugin-rss": "^3.0.0",
+    "@netlify/neon": "^0.1.0",
+    "@quasibit/eleventy-plugin-sitemap": "^2.2.0"
   }
 }
