@@ -29,12 +29,24 @@
 
 		<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
 		<script>
-		  kofiWidgetOverlay.draw('creativealloy', {
-		    'type': 'floating-chat',
-		    'floating-chat.donateButton.text': 'Tip Me',
-		    'floating-chat.donateButton.background-color': '#00b9fe', // This is Ko-fi blue, not your --primary
-		    'floating-chat.donateButton.text-color': '#fff'
-		  });
+		// 1. Determine which CSS variable name to use based on the active theme logic
+		{% set theme_primary_var = "--primary" %}
+		{% if serious or '/tags/serious/' in page.url %}
+			{% set theme_primary_var = "--primary-serious" %}
+		{% elif lecture or '/tags/lecture/' in page.url %}
+			{% set theme_primary_var = "--primary-lecture" %}
+		{% endif %}
+
+		// 2. Extract the color value from the body computed styles
+		// This ensures we get the actual color without hardcoding hex codes here.
+		const activeThemeColor = window.getComputedStyle(document.body).getPropertyValue('{{ theme_primary_var }}').trim();
+
+		kofiWidgetOverlay.draw('creativealloy', {
+			'type': 'floating-chat',
+			'floating-chat.donateButton.text': 'Tip Me',
+			'floating-chat.donateButton.background-color': activeThemeColor || '#2e6319', 
+			'floating-chat.donateButton.text-color': '#fff'
+		});
 		</script>
 
 	</body>
