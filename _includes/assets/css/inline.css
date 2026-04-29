@@ -295,7 +295,7 @@ footer {
 /* BOTTOM position: no border needed (relies on article/tags divider) */
 .index-nav-bottom {
     margin-bottom: 0;
-    padding-top: 1rem;
+    /* padding-top: 1rem; */
 }
 
 /* =================================
