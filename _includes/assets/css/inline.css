@@ -292,10 +292,14 @@ footer {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* BOTTOM position: no border needed (relies on article/tags divider) */
+/* BOTTOM position: no border needed (relies on article divider) */
 .index-nav-bottom {
     margin-bottom: 0;
-    /* padding-top: 1rem; */
+}
+
+/* Tags page does not have this divider, hence the need to add the border to this class */
+.index-nav-bottom-tags {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* =================================
