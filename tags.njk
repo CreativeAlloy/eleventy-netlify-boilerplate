@@ -17,9 +17,13 @@ eleventyComputed:
 
 <h1>Tagged “{{ tag }}”</h1>
 
+<nav>
+  <a href="{{ '/news/' | url }}">← News Index</a>
+</nav>
+
 {% set postslist = collections[tag] %}
 {% include "components/postslist.njk" %}
 
 <nav>
-  <a href="{{ '/news/' | url }}">← News index</a>
+  <a href="{{ '/news/' | url }}">← News Index</a>
 </nav>
