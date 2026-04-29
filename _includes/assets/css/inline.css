@@ -2,7 +2,7 @@
 	--primary: #2e6319; 
 	--secondary: white;
 	--background: #bcfac2;
-	--index-nav-border-color: rgba(0, 0, 0, 0.4);
+	--index-nav-border-color: rgba(0, 0, 0, 0.25);
 }
 
 *, *:before, *:after {
