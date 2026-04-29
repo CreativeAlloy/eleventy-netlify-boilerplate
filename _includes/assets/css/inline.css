@@ -519,7 +519,13 @@ body.dark-mode textarea {
     font-style: normal;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--primary); 
+    color: var(--primary);
+    
+    /* Force two lines */
+    display: block;
+    width: 40px;          /* Constraints the width to force the wrap */
+    text-align: right;    /* Keeps the text aligned neatly against the toggle */
+    line-height: 1.1;     /* Prevents the lines from being too far apart */
 }
 
 .theme-switch {
