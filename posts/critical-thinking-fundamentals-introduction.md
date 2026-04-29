@@ -35,11 +35,12 @@ The core tenet of logic is as follows:
 - A **premise** is a foundational statement, assumption, or proposition.
 - A **conclusion** is the final decision reached through reasoning.
 
-Arguments can be **correct** and **incorrect,** **sound** and **valid.** Sound and valid are often used interchangeably in colloquial discourse; however, soundness and validity are two different concepts:
-- A **correct** argument is one which conforms to reality and fact.
-- An **incorrect** argument is, analogically, one which does not.
-- A **sound** argument is a correct argument which leads to a truthful conclusion.
-- A **valid** argument is usually an incorrect argument leading to a faulty conclusion, but whose logical structure is otherwise valid.
+Arguments are evaluated on two main criteria - **validity** and **soundness.** Although people colloquially use these terms interchangeably, the truth is that they are completely separate:
+- A **valid** argument is one where the logical structure is flawless. In a valid argument, if the premises are true, the conclusion must absolutely be true. Crucially, an argument's structure can be valid even if its premises are completely false in reality.
+- An **invalid** argument is one where the logical structure is broken. Even if the premises are factually true, they do not logically guarantee the conclusion.
+- A **sound** argument is the ultimate goal. It is an argument that is both structurally **valid,** and whose premises are empirically **true** in reality.
+
+An axiom to keep in mind is that **all sound arguments are valid, but not all valid arguments are sound.**
 
 You may find it difficult to wrap your head around these concepts at first, but in truth, they will start making sense as soon as we explore a few examples.
 
