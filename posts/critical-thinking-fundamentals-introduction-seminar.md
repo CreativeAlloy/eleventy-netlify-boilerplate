@@ -72,7 +72,9 @@ In case of doubts, [Mansour Abbas' Wikipedia page states that he was born and ra
 
 We have established that **there exist Arab political parties in Israel's Knesset, and that they have Muslim Arab politicians born and raised in Israel with equal rights.** And given that Israel is the Jewish State, the existence of Arab political parties within its government render it **pluralistic and democratic.**
 
-In politics, [pluralism is a state of society in which members of diverse ethnic, racial, religious, or social groups maintain and develop their traditional culture or special interest within the confines of a common civilization.](https://www.merriam-webster.com/dictionary/pluralism) Similarly, [democracy is a form of government in which the people elect representatives to make decisions, policies, laws, etc. according to law; an organization or situation in which everyone is treated equally and has the right to participate equally in management, decision-making, etc.; and political, social, or economic equality, defined by the absence of hereditary or arbitrary class distinctions or privileges.](https://www.merriam-webster.com/dictionary/democracy)
+In politics, [pluralism is a state of society in which members of diverse ethnic, racial, religious, or social groups maintain and develop their traditional culture or special interest within the confines of a common civilization.](https://www.merriam-webster.com/dictionary/pluralism)
+
+Similarly, [democracy is a form of government in which the people elect representatives to make decisions, policies, laws, etc. according to law; an organization or situation in which everyone is treated equally and has the right to participate equally in management, decision-making, etc.; and political, social, or economic equality, defined by the absence of hereditary or arbitrary class distinctions or privileges.](https://www.merriam-webster.com/dictionary/democracy)
 
 Let us try a few arguments. I will also clarify that **arguments can have numerous premises, not just two.** Such arguments are known as **polysyllogisms**. Until now, the arguments we explored were **syllogisms**.
 
