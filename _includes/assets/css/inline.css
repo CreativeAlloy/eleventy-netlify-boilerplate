@@ -196,7 +196,7 @@ a[rel="tag"]:visited {
 	line-height: 2em;
 	height: 2em;
   border: 1px solid var(--primary); 
-	background-color: var(--secondary); 
+	background-color: var(--secondary);
 	color: var(--primary);
   border-radius: .25em;
   text-decoration: none;
@@ -436,19 +436,19 @@ footer {
 body.dark-mode {
     /* Default / Satire Theme Dark Colors */
     --primary: #8fd37a;
-    --secondary: #1e1e1e;
+    --secondary: #193013;
     --background: #0d120b;
     --main-card-bg-color: #193013;
     
     /* Serious Theme Dark Colors */
     --primary-serious: #58a6ff;
-    --secondary-serious: #1e1e1e;
+    --secondary-serious: #0b193b;
     --background-serious: #05080f;
     --main-card-bg-color-serious: #0b193b;
     
     /* Lecture Theme Dark Colors */
     --primary-lecture: #ff85a2; 
-    --secondary-lecture: #1e1e1e;
+    --secondary-lecture: #330611;
     --background-lecture: #140508;
     --main-card-bg-color-lecture: #330611;
 
