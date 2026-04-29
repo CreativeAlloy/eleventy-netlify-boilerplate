@@ -300,6 +300,10 @@ footer {
     /* border-bottom: 1px solid var(--index-nav-border-color); */
 }
 
+.index-nav-top-articles {
+    border-bottom: 1px solid var(--index-nav-border-color);
+}
+
 /* BOTTOM position: no border needed (relies on article divider) */
 .index-nav-bottom {
     margin-bottom: 0;
