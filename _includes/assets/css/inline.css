@@ -2,6 +2,7 @@
 	--primary: #2e6319; 
 	--secondary: white;
 	--background: #bcfac2;
+	--index-nav-border-color: rgba(0, 0, 0, 0.1);
 }
 
 *, *:before, *:after {
@@ -289,7 +290,7 @@ footer {
 .index-nav-top {
     margin-top: 0;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--index-nav-border-color);
 }
 
 /* BOTTOM position: no border needed (relies on article divider) */
@@ -299,7 +300,8 @@ footer {
 
 /* Tags page does not have this divider, hence the need to add the border to this class */
 .index-nav-bottom-tags {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+	padding-top: 1rem;
+    border-top: 1px solid var(--index-nav-border-color);
 }
 
 /* =================================
@@ -459,6 +461,9 @@ body.dark-mode {
     --active-input-bg: var(--background); /* Insets the text areas using the deeper body color */
     --active-input-border: #2c4222; /* Subtle tinted border */
     color: #e0e0e0;
+
+	/* Index nav border color override */
+	--index-nav-border-color: #e0e0e0;
 }
 
 /* Serious Theme Dark Mode Modifiers */
