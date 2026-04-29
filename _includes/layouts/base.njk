@@ -6,15 +6,19 @@
 	<body class="{% if serious or '/tags/serious/' in page.url %}serious-theme{% elif lecture or '/tags/lecture/' in page.url %}lecture-theme{% endif %}">
 
 		<header>
-			{# Wrap header content to center it #}
-			<div class="content-wrapper"> 
+			<div class="content-wrapper" style="position: relative;"> 
+				
+				{# The Dark Mode Toggle #}
+				<div class="theme-switch-wrapper">
+					<label for="dark-mode-toggle">Dark Mode</label>
+					<input type="checkbox" id="dark-mode-toggle">
+				</div>
+
 				<em>
 					<a href="{{ '/' | url }}">{{ metadata.title }}</a>
 				</em>
 				{% include "components/nav.njk" %}
-
-				{# Include the ad unit here #}
-        		{% include "components/a-ads.njk" %}
+				{% include "components/a-ads.njk" %}
 			</div>
 		</header>
 
@@ -29,7 +33,39 @@
 
 		<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
 		<script>
-		// 1. Determine which CSS variable name to use based on the active theme logic
+		// 1. Handle Dark Mode Logic
+		const toggle = document.querySelector('#dark-mode-toggle');
+		const body = document.body;
+		const savedTheme = localStorage.getItem('theme');
+
+		if (savedTheme === 'dark') {
+			body.classList.add('dark-mode');
+			toggle.checked = true;
+		}
+
+		// Function to determine current primary color for Ko-fi
+		function updateKofiColor() {
+			const themeVar = body.classList.contains('serious-theme') ? '--primary-serious' : 
+							body.classList.contains('lecture-theme') ? '--primary-lecture' : '--primary';
+			const newColor = window.getComputedStyle(body).getPropertyValue(themeVar).trim();
+			const kofiBtn = document.querySelector('.floating-chat-kofi-status');
+			if (kofiBtn) kofiBtn.style.backgroundColor = newColor || '#2e6319';
+		}
+
+		toggle.addEventListener('change', () => {
+			if (toggle.checked) {
+			body.classList.add('dark-mode');
+			localStorage.setItem('theme', 'dark');
+			} else {
+			body.classList.remove('dark-mode');
+			localStorage.setItem('theme', 'light');
+			}
+			
+			// Wait for CSS variable shift, then update button
+			setTimeout(updateKofiColor, 50);
+		});
+
+		// 2. Initialize Ko-fi Button
 		{% set theme_primary_var = "--primary" %}
 		{% if serious or '/tags/serious/' in page.url %}
 			{% set theme_primary_var = "--primary-serious" %}
@@ -37,16 +73,19 @@
 			{% set theme_primary_var = "--primary-lecture" %}
 		{% endif %}
 
-		// 2. Extract the color value from the body computed styles
-		// This ensures we get the actual color without hardcoding hex codes here.
-		const activeThemeColor = window.getComputedStyle(document.body).getPropertyValue('{{ theme_primary_var }}').trim();
+		const initialColor = window.getComputedStyle(document.body).getPropertyValue('{{ theme_primary_var }}').trim();
 
 		kofiWidgetOverlay.draw('creativealloy', {
 			'type': 'floating-chat',
 			'floating-chat.donateButton.text': 'Tip Me',
-			'floating-chat.donateButton.background-color': activeThemeColor || '#2e6319', 
+			'floating-chat.donateButton.background-color': initialColor || '#2e6319', 
 			'floating-chat.donateButton.text-color': '#fff'
 		});
+
+		// Ensure button color is correct on initial load if dark mode is active
+		if (savedTheme === 'dark') {
+			setTimeout(updateKofiColor, 50);
+		}
 		</script>
 
 	</body>

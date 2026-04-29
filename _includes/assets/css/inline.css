@@ -428,3 +428,63 @@ footer {
     background-color: var(--primary-lecture);
     color: var(--secondary-lecture) !important;
 }
+
+/* =================================
+   Dark Mode Overrides
+   ================================= */
+
+body.dark-mode {
+    /* Default / Satire Theme Dark Colors */
+    --primary: #8fd37a;       /* Lighter, brighter green for readability on dark */
+    --secondary: #1e1e1e;     /* Dark grey (matches card bg) for button text */
+    --background: #0d120b;    /* Deep, dark green-black for body */
+    
+    /* Serious Theme Dark Colors */
+    --primary-serious: #58a6ff; 
+    --secondary-serious: #1e1e1e; 
+    --background-serious: #05080f; 
+    
+    /* Lecture Theme Dark Colors */
+    --primary-lecture: #ff85a2; 
+    --secondary-lecture: #1e1e1e;
+    --background-lecture: #140508; 
+}
+
+/* Override the hardcoded light-mode elements */
+body.dark-mode {
+    color: #e0e0e0;
+}
+
+body.dark-mode main {
+    background-color: #1e1e1e; /* Replaces the hardcoded #fff */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Darker shadow for depth */
+}
+
+body.dark-mode pre {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: #ccc;
+}
+
+body.dark-mode input, 
+body.dark-mode textarea {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #444;
+}
+
+/* Toggle Switch Positioning */
+.theme-switch-wrapper {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.theme-switch-wrapper label {
+    margin-right: 0.5rem;
+    display: block; /* Ensures it ignores the "display: none" rule for form labels */
+}
