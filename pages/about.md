@@ -1,5 +1,5 @@
 ---
-title: About
+title: About The Wasp Alloy
 metaDescription: This page explains the nature and content of The Wasp Alloy, as well as the platform's goals and ambitions for the future.
 date: 2017-01-01T00:00:00.000Z
 permalink: /about/index.html
