@@ -13,13 +13,20 @@ backend:
 
 media_folder: "static/img" # Media files will be stored in the repo under images/uploads
 
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
 collections:
   # Our news articles
   - name: "blog"
     label: "Post"
     folder: "posts"
     create: true
-    slug: "{{slug}}"
+    # This filter ensures titles like "Introduction: Seminar" 
+    # become "introduction-seminar" in the filename.
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" 
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Serious Post?", name: "serious", widget: "boolean", default: false, required: false }
