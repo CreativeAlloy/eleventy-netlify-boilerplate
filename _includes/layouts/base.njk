@@ -54,6 +54,7 @@
 			const kofiBtn = document.querySelector('.floating-chat-kofi-status');
 			if (kofiBtn) kofiBtn.style.backgroundColor = newColor || '#2e6319';
 		}
+		setTimeout(updateKofiColor, 50);
 
 		toggle.addEventListener('change', () => {
 			if (toggle.checked) {
@@ -65,7 +66,7 @@
 			}
 			
 			// Wait for CSS variable shift, then update button
-			updateKofiColor();
+			setTimeout(updateKofiColor, 50);
 		});
 
 		// 2. Initialize Ko-fi Button
