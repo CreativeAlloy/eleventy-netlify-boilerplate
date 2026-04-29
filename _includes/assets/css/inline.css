@@ -329,7 +329,8 @@ footer {
 
 .serious-theme a[rel="tag"],
 .serious-theme a[rel="tag"]:visited {
-  border-color: var(--primary-serious); 
+	border-color: var(--primary-serious);
+	background-color: var(--secondary-serious);
 	color: var(--primary-serious);
 }
 
@@ -393,6 +394,7 @@ footer {
 .lecture-theme a[rel="tag"],
 .lecture-theme a[rel="tag"]:visited {
     border-color: var(--primary-lecture); 
+	background-color: var(--secondary-lecture);
     color: var(--primary-lecture);
 }
 
