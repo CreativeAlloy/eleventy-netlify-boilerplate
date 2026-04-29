@@ -271,6 +271,35 @@ footer {
 }
 
 /* =================================
+   Index Navigation Link (QoL Padding)
+   ================================= */
+
+.index-nav {
+    margin: 2rem 0;                /* Vertical space away from other elements */
+    padding-top: 1rem;             /* Space between the line and the link */
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* The subtle line */
+    display: block;
+}
+
+.index-nav a {
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Ensure it looks correct when it's the very first item in <main> */
+main > .index-nav:first-child {
+    margin-top: 0;
+    border-top: none;    /* Remove the line if it's at the very top */
+    padding-top: 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Line goes below instead */
+    padding-bottom: 1rem;
+}
+
+/* =================================
    Serious Post Theme Override
    ================================= */
 
