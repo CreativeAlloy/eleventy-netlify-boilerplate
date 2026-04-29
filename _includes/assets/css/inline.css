@@ -135,12 +135,14 @@ pre {
 
 /* Posts List */
 article {
-	margin-bottom: 1.5em; 
-	padding-bottom: 1.5em; 
+	margin-bottom: 1.5em;
+	padding-bottom: 1.5em;
 	border-bottom: 1px solid var(--index-nav-border-color);
 }
 
 main > section > article:first-child {
+    margin-top: 1.5em;
+	padding-top: 1.5em; 
     border-top: 1px solid var(--index-nav-border-color);
 }
 
@@ -295,7 +297,7 @@ footer {
 .index-nav-top {
     margin-top: 0;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--index-nav-border-color);
+    /* border-bottom: 1px solid var(--index-nav-border-color); */
 }
 
 /* BOTTOM position: no border needed (relies on article divider) */
