@@ -618,3 +618,24 @@ body.serious-theme input:checked + .slider {
 body.lecture-theme input:checked + .slider { 
     background-color: var(--primary-lecture); 
 }
+
+/* =================================
+   Narrow Mobile Screens Edge Case
+   ================================= */
+
+@media (max-width: 380px) {
+	/* Shrink the title font size */
+	.content-wrapper > em {
+		font-size: 1.3em; 
+		line-height: 1.2;
+		/* Create a "safe zone" on the right so text wraps before hitting the toggle */
+		padding-right: 65px; 
+		margin: 0.5em 0;
+	}
+
+	/* Move the toggle slightly to gain more room if needed */
+	.theme-switch-wrapper {
+		top: 0.7rem;
+		right: 0.5rem;
+	}
+}
