@@ -2,7 +2,7 @@
 title: "Critical Thinking Fundamentals - Introduction: Seminar"
 serious: false
 lecture: true
-date: 2026-04-28T14:12:00.000Z
+date: 2026-04-29T11:13:00Z
 author: Sufian M′Barki
 summary: Following the introduction of the fundamentals of critical thinking, we
   will now explore several examples as part of a seminar.
