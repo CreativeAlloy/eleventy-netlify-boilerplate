@@ -638,4 +638,21 @@ body.lecture-theme input:checked + .slider {
 		top: 0.7rem;
 		right: 0.5rem;
 	}
+
+	.content-wrapper nav ul {
+        display: flex;
+        flex-wrap: nowrap;      /* Forbids wrapping entirely */
+        justify-content: space-between; /* Spreads items to use the full narrow width */
+        padding: 0;
+        margin: 0;
+    }
+
+    .content-wrapper nav li {
+        margin: 0;             /* Remove side margins to gain every possible pixel */
+    }
+
+    .content-wrapper nav li a {
+        font-size: 0.75rem;     /* Shrink font slightly for narrow fit */
+        padding: 0.2em 0.4em;   /* Tighten padding around the active background */
+    }
 }
