@@ -140,6 +140,10 @@ article {
 	border-bottom: 1px solid var(--index-nav-border-color);
 }
 
+main > section > article:first-child {
+    border-top: 1px solid var(--index-nav-border-color);
+}
+
 main > section > article:last-child {
     border-bottom: none;
 }
