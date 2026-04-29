@@ -502,7 +502,6 @@ body.dark-mode textarea {
 /* =================================
    Fancy Theme Toggle Switch
    ================================= */
-
 .theme-switch-wrapper {
     position: absolute;
     top: 1rem;
@@ -512,6 +511,7 @@ body.dark-mode textarea {
     z-index: 100000;
 }
 
+/* Default Colors (Satire/Root) */
 .theme-switch-wrapper em {
     margin-right: 10px;
     font-size: 0.75rem;
@@ -519,10 +519,9 @@ body.dark-mode textarea {
     font-style: normal;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--primary); /* Matches theme text color */
+    color: var(--primary); 
 }
 
-/* The switch container */
 .theme-switch {
     display: inline-block;
     height: 20px;
@@ -530,12 +529,10 @@ body.dark-mode textarea {
     width: 40px;
 }
 
-/* Hide default checkbox */
 .theme-switch input {
     display: none;
 }
 
-/* The slider track */
 .slider {
     background-color: rgba(0,0,0,0.1);
     bottom: 0;
@@ -549,7 +546,6 @@ body.dark-mode textarea {
     border: 1px solid var(--primary);
 }
 
-/* The sliding knob */
 .slider:before {
     background-color: var(--primary);
     bottom: 3px;
@@ -562,17 +558,37 @@ body.dark-mode textarea {
     border-radius: 50%;
 }
 
-/* Dark Mode logic for the slider */
+/* --- THEME OVERRIDES FOR LIGHT MODE --- */
+
+/* Serious Theme (Blue) */
+body.serious-theme .theme-switch-wrapper em { color: var(--primary-serious); }
+body.serious-theme .slider { border-color: var(--primary-serious); }
+body.serious-theme .slider:before { background-color: var(--primary-serious); }
+
+/* Lecture Theme (Red) */
+body.lecture-theme .theme-switch-wrapper em { color: var(--primary-lecture); }
+body.lecture-theme .slider { border-color: var(--primary-lecture); }
+body.lecture-theme .slider:before { background-color: var(--primary-lecture); }
+
+
+/* --- DARK MODE LOGIC --- */
 body.dark-mode .slider {
     background-color: var(--background);
 }
+body.dark-mode.serious-theme .slider {
+    background-color: var(--background-serious);
+}
+body.dark-mode.lecture-theme .slider {
+    background-color: var(--background-lecture);
+}
 
-/* Action: when checkbox is checked */
+/* Active (Checked) State */
 input:checked + .slider:before {
     transform: translateX(18px);
-    background-color: var(--secondary); /* Becomes the deep tinted color in dark mode */
+    background-color: var(--secondary); /* This will be the dark tinted card color */
 }
 
-input:checked + .slider {
-    background-color: var(--primary); /* Slider track fills with primary color */
-}
+/* Active Background Fills */
+input:checked + .slider { background-color: var(--primary); }
+body.serious-theme input:checked + .slider { background-color: var(--primary-serious); }
+body.lecture-theme input:checked + .slider { background-color: var(--primary-lecture); }
