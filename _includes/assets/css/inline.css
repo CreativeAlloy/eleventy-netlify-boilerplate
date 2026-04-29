@@ -435,22 +435,22 @@ footer {
 
 body.dark-mode {
     /* Default / Satire Theme Dark Colors */
-    --primary: #8fd37a;       
-    --secondary: #1e1e1e;     
-    --background: #0d120b;    
-    --main-card-bg-color: #152010;
+    --primary: #8fd37a;
+    --secondary: #1e1e1e;
+    --background: #0d120b;
+    --main-card-bg-color: #1e3b15;
     
     /* Serious Theme Dark Colors */
     --primary-serious: #58a6ff;
     --secondary-serious: #1e1e1e;
     --background-serious: #05080f;
-    --main-card-bg-color-serious: #091636;
+    --main-card-bg-color-serious: #0a1e50;
     
     /* Lecture Theme Dark Colors */
     --primary-lecture: #ff85a2; 
     --secondary-lecture: #1e1e1e;
     --background-lecture: #140508;
-    --main-card-bg-color-lecture: #27060d;
+    --main-card-bg-color-lecture: #440614;
 
     /* Dynamic Application Variables (Defaults to Satire) */
     --active-card-bg: var(--main-card-bg-color);
