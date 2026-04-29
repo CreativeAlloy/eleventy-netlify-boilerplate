@@ -582,13 +582,33 @@ body.dark-mode.lecture-theme .slider {
     background-color: var(--background-lecture);
 }
 
-/* Active (Checked) State */
+/* Active (Checked) State - Knob Movement */
 input:checked + .slider:before {
     transform: translateX(18px);
-    background-color: var(--secondary); /* This will be the dark tinted card color */
 }
 
-/* Active Background Fills */
-input:checked + .slider { background-color: var(--primary); }
-body.serious-theme input:checked + .slider { background-color: var(--primary-serious); }
-body.lecture-theme input:checked + .slider { background-color: var(--primary-lecture); }
+/* Ensure the Knob color matches the specific theme's dark card color */
+input:checked + .slider:before { 
+    background-color: var(--secondary); 
+}
+
+body.serious-theme input:checked + .slider:before { 
+    background-color: var(--secondary-serious); 
+}
+
+body.lecture-theme input:checked + .slider:before { 
+    background-color: var(--secondary-lecture); 
+}
+
+/* Active (Checked) State - Track Fills */
+input:checked + .slider { 
+    background-color: var(--primary); 
+}
+
+body.serious-theme input:checked + .slider { 
+    background-color: var(--primary-serious); 
+}
+
+body.lecture-theme input:checked + .slider { 
+    background-color: var(--primary-lecture); 
+}
