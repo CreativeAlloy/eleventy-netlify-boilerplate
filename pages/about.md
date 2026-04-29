@@ -7,6 +7,7 @@ eleventyNavigation:
   key: About
   order: 1
 ---
+![The Wasp Alloy Banner](/static/img/default-embed-preview.png "The Wasp Alloy Banner")
 The Wasp Alloy was originally established as a platform dedicated exclusively to high-art satire. Inspired by the legacy of investigative parody found in outlets like The Onion, the site was designed to hold a mirror to a society increasingly defined by its own absurdity. In its earliest days, the focus was squarely on utilizing irony and exaggeration to roast the cursed elements of the modern timeline, mocking the stagnation of character and the self-importance of the Propally Death Cult.
 
 The brand operated on the principle that comedy is a necessary tool for survival in an entropic environment. By satirizing workplace grievances, corporate posturing, academic self-importance, double standards, and the bizarre cultural shifts of the 21st century, The Wasp Alloy provided a space where the ridiculous could be identified and mocked with precision. However, as the global geopolitical climate shifted, it became increasingly apparent that the reality of the world made legitimate investigative journalism more important than ever.
