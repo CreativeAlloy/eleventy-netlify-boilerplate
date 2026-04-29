@@ -70,15 +70,26 @@ Within the Knesset, which is essentially Israel's government, numerous political
 
 In case of doubts, [Mansour Abbas' Wikipedia page states that he was born and raised in Israel, and has attended the Hebrew University of Jerusalem.](https://en.wikipedia.org/wiki/Mansour_Abbas)
 
-We have established that **there exist Arab political parties in Israel's Knesset, and that they have Muslim Arab politicians born and raised in Israel with equal rights.**
+We have established that **there exist Arab political parties in Israel's Knesset, and that they have Muslim Arab politicians born and raised in Israel with equal rights.** And given that Israel is the Jewish State, the existence of Arab political parties within its government render it **pluralistic and democratic.**
 
-Let us try two arguments:
+In politics, [pluralism is a state of society in which members of diverse ethnic, racial, religious, or social groups maintain and develop their traditional culture or special interest within the confines of a common civilization.](https://www.merriam-webster.com/dictionary/pluralism) Similarly, [democracy is a form of government in which the people elect representatives to make decisions, policies, laws, etc. according to law; an organization or situation in which everyone is treated equally and has the right to participate equally in management, decision-making, etc.; and political, social, or economic equality, defined by the absence of hereditary or arbitrary class distinctions or privileges.](https://www.merriam-webster.com/dictionary/democracy)
+
+Let us try a few arguments. I will also clarify that **arguments can have numerous premises, not just two.** Such arguments are known as **polysyllogisms**. Until now, the arguments we explored were **syllogisms**.
+
+Here is the first polysyllogism:
 1. **Premise:** Apartheid is racial segregation that limits human rights and opportunities.
 2. **Premise:** Israeli hospitals house diverse healthcare professionals.
 3. **Premise:** Israel's government houses Arab and Muslim political parties.
-4. **Conclusion:** Israel is an inclusive, pluralistic democracy.
+4. **Conclusion:** Israel is **NOT** an apartheid state.
 
-This argument is **sound** because all of its premises are supported by verified data, and the conclusion logically follows from those premises.
+And the second:
+1. **Premise:** Pluralism is ethnic diversity and equality.
+2. **Premise:** Democracy is a governmental organization of equal participation rights, regardless of background.
+3. **Premise:** Israeli hospitals house diverse healthcare professionals.
+4. **Premise:** Israel's government houses Arab and Muslim political parties.
+5. **Conclusion:** Israel is an inclusive, pluralistic democracy.
+
+Both arguments are **sound** because all of their premises are supported by verified data, and the conclusions logically follow from those premises.
 
 People insist on the inverse:
 1. **Premise:** Apartheid is racial segregation that limits human rights and opportunities.
@@ -98,6 +109,8 @@ I checked a single hospital, and Israel's core legislative body - the Knesset. T
 
 ## The Benefits of Critical Thinking
 A single lesson in formal logic is all it takes to be able to dismantle two of the most dangerous lies and blood libels about Israel. Adding new knowledge to your arsenal means acquiring new tools to dismantle those lies and expose the faulty reasoning of antisemites.
+
+You are free to cite my work whenever you find yourself in a debate. That's the other reason why I am writing these detailed articles.
 
 In the next lecture, we will explore **logical fallacies,** their occurrence in argumentation, and ways to detect them. It will be accompanied by a seminar like this one as well.
 
