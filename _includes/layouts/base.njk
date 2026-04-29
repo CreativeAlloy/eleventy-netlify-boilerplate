@@ -36,26 +36,38 @@
 
 		<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
 		<script>
-		// 1. Handle Dark Mode Logic
 		const toggle = document.querySelector('#dark-mode-toggle');
 		const body = document.body;
 		const savedTheme = localStorage.getItem('theme');
 
+		// 1. Initial State Setting
 		if (savedTheme === 'dark') {
 			body.classList.add('dark-mode');
 			toggle.checked = true;
 		}
 
-		// Function to determine current primary color for Ko-fi
-		function updateKofiColor() {
+		// 2. Centralized Ko-fi Render Function
+		function drawKofi() {
 			const themeVar = body.classList.contains('serious-theme') ? '--primary-serious' : 
 							body.classList.contains('lecture-theme') ? '--primary-lecture' : '--primary';
-			const newColor = window.getComputedStyle(body).getPropertyValue(themeVar).trim();
-			const kofiBtn = document.querySelector('.floating-chat-kofi-status');
-			if (kofiBtn) kofiBtn.style.backgroundColor = newColor || '#2e6319';
-		}
-		setTimeout(updateKofiColor, 50);
+			const activeColor = window.getComputedStyle(body).getPropertyValue(themeVar).trim();
 
+			// Safely wipe any existing Ko-fi elements to prevent duplicates
+			document.querySelectorAll('.floatingchat-container-wrap, iframe[id^="kofi-wo-window"]').forEach(el => el.remove());
+
+			// Redraw the widget with the exact active color
+			kofiWidgetOverlay.draw('creativealloy', {
+			'type': 'floating-chat',
+			'floating-chat.donateButton.text': 'Tip Me',
+			'floating-chat.donateButton.background-color': activeColor || '#2e6319', 
+			'floating-chat.donateButton.text-color': '#fff'
+			});
+		}
+
+		// 3. Draw on Page Load
+		drawKofi();
+
+		// 4. Handle Theme Switch
 		toggle.addEventListener('change', () => {
 			if (toggle.checked) {
 			body.classList.add('dark-mode');
@@ -65,31 +77,9 @@
 			localStorage.setItem('theme', 'light');
 			}
 			
-			// Wait for CSS variable shift, then update button
-			setTimeout(updateKofiColor, 100);
+			// Redraw button immediately after the CSS variables update
+			setTimeout(drawKofi, 50);
 		});
-
-		// 2. Initialize Ko-fi Button
-		{% set theme_primary_var = "--primary" %}
-		{% if serious or '/tags/serious/' in page.url %}
-			{% set theme_primary_var = "--primary-serious" %}
-		{% elif lecture or '/tags/lecture/' in page.url %}
-			{% set theme_primary_var = "--primary-lecture" %}
-		{% endif %}
-
-		const initialColor = window.getComputedStyle(document.body).getPropertyValue('{{ theme_primary_var }}').trim();
-
-		kofiWidgetOverlay.draw('creativealloy', {
-			'type': 'floating-chat',
-			'floating-chat.donateButton.text': 'Tip Me',
-			'floating-chat.donateButton.background-color': initialColor || '#2e6319', 
-			'floating-chat.donateButton.text-color': '#fff'
-		});
-
-		// Ensure button color is correct on initial load if dark mode is active
-		if (savedTheme === 'dark') {
-			setTimeout(updateKofiColor, 50);
-		}
 		</script>
 
 	</body>
