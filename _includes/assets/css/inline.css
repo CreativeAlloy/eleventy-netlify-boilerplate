@@ -435,42 +435,61 @@ footer {
 
 body.dark-mode {
     /* Default / Satire Theme Dark Colors */
-    --primary: #8fd37a;       /* Lighter, brighter green for readability on dark */
-    --secondary: #1e1e1e;     /* Dark grey (matches card bg) for button text */
-    --background: #0d120b;    /* Deep, dark green-black for body */
+    --primary: #8fd37a;       
+    --secondary: #1e1e1e;     
+    --background: #0d120b;    
+    --main-card-bg-color: #152010;
     
     /* Serious Theme Dark Colors */
-    --primary-serious: #58a6ff; 
-    --secondary-serious: #1e1e1e; 
-    --background-serious: #05080f; 
+    --primary-serious: #58a6ff;
+    --secondary-serious: #1e1e1e;
+    --background-serious: #05080f;
+    --main-card-bg-color-serious: #091636;
     
     /* Lecture Theme Dark Colors */
     --primary-lecture: #ff85a2; 
     --secondary-lecture: #1e1e1e;
-    --background-lecture: #140508; 
-}
+    --background-lecture: #140508;
+    --main-card-bg-color-lecture: #27060d;
 
-/* Override the hardcoded light-mode elements */
-body.dark-mode {
+    /* Dynamic Application Variables (Defaults to Satire) */
+    --active-card-bg: var(--main-card-bg-color);
+    --active-input-bg: var(--background); /* Insets the text areas using the deeper body color */
+    --active-input-border: #2c4222; /* Subtle tinted border */
     color: #e0e0e0;
 }
 
+/* Serious Theme Dark Mode Modifiers */
+body.dark-mode.serious-theme {
+    --active-card-bg: var(--main-card-bg-color-serious);
+    --active-input-bg: var(--background-serious);
+    --active-input-border: #142d66; /* Deep blue border */
+}
+
+/* Lecture Theme Dark Mode Modifiers */
+body.dark-mode.lecture-theme {
+    --active-card-bg: var(--main-card-bg-color-lecture);
+    --active-input-bg: var(--background-lecture);
+    --active-input-border: #4d0d1b; /* Deep bordeaux border */
+}
+
+/* Apply the dynamic variables to the elements */
 body.dark-mode main {
-    background-color: #1e1e1e; /* Replaces the hardcoded #fff */
+    background-color: var(--active-card-bg);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Darker shadow for depth */
 }
 
 body.dark-mode pre {
-    background-color: #2d2d2d;
-    border-color: #444;
+    background-color: var(--active-input-bg);
+    border-color: var(--active-input-border);
     color: #ccc;
 }
 
 body.dark-mode input, 
 body.dark-mode textarea {
-    background-color: #2d2d2d;
+    background-color: var(--active-input-bg);
     color: #e0e0e0;
-    border-color: #444;
+    border-color: var(--active-input-border);
 }
 
 /* Toggle Switch Positioning */
@@ -486,5 +505,5 @@ body.dark-mode textarea {
 
 .theme-switch-wrapper label {
     margin-right: 0.5rem;
-    display: block; /* Ensures it ignores the "display: none" rule for form labels */
+    display: block; 
 }
