@@ -137,7 +137,7 @@ pre {
 article {
 	margin-bottom: 1.5em; 
 	padding-bottom: 1.5em; 
-	border-bottom: 1px solid #e0e0e0; 
+	border-bottom: 1px solid var(--index-nav-border-color);
 }
 
 main > section > article:last-child {
