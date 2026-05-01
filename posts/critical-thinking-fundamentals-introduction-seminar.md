@@ -76,9 +76,9 @@ In politics, [pluralism is a state of society in which members of diverse ethnic
 
 Similarly, [democracy is a form of government in which the people elect representatives to make decisions, policies, laws, etc. according to law; an organization or situation in which everyone is treated equally and has the right to participate equally in management, decision-making, etc.; and political, social, or economic equality, defined by the absence of hereditary or arbitrary class distinctions or privileges.](https://www.merriam-webster.com/dictionary/democracy)
 
-Let us try a few arguments. I will also clarify that **arguments can have numerous premises, not just two.** Such arguments are known as **polysyllogisms**. Until now, the arguments we explored were **syllogisms**.
+Before moving onto the argumentation, it should be established that **arguments can have numerous premises, not just two.** Such arguments are known as **polysyllogisms.** Up until now, the arguments explored were **syllogisms.** In logic, there's no limit to the number of premises a syllogism can have - whether they are two, three, or forty.
 
-Here is the first polysyllogism:
+With that in mind, here is the first polysyllogism:
 1. **Premise:** Apartheid is racial segregation that limits human rights and opportunities.
 2. **Premise:** Israeli hospitals house diverse healthcare professionals.
 3. **Premise:** Israel's government houses Arab and Muslim political parties.

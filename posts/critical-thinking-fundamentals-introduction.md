@@ -50,7 +50,7 @@ Let us take a look at the following argument, comprising two premises and a conc
 2. **Premise:** Cats are mammals.
 3. **Conclusion:** All cats have lungs.
 
-This is called **Deductive Reasoning,** where **the general** leads to a sound conclusion about **a particular case.**
+This is called **Deductive Reasoning,** where **the general** leads to a sound conclusion about **a particular case.** In other words, it is a **Categorical Syllogism.**
 
 The first premise establishes the general fact that all mammals have lungs. The second premise establishes that cats belong to the same **category** established in the first premise. If cats belong to the category of mammals, and all mammals have lungs, the conclusion is that all cats have lungs as well, with no exception.
 
