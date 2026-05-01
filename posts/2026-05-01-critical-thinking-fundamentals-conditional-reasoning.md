@@ -80,9 +80,9 @@ Let's explore a few more examples:
 - In Israel, being mentally stable is a **necessary** condition for IDF enrollment.
 
 And a **Modus Ponens,** with an example individual named Julian:
-1. **Major Premise:** If a person is mentally stable (P), they are eligible to serve the IDF (Q).
-2. **Minor Premise:** Julian is mentally stable.
-3. **Conclusion:** Therefore, Julian is eligible to serve the IDF.
+1. **Major Premise:** If Julian is eligible to serve in the IDF (P), then he must be mentally stable (Q).
+2. **Minor Premise:** Julian is eligible to serve in the IDF (P is true).
+3. **Conclusion:** Therefore, Julian is mentally stable (Q is true).
 
 ## Moving Forward
 Both categorical and conditional reasoning are major pillars of critical thinking. Understanding them is required in all philosophical and geopolitical discourse.
