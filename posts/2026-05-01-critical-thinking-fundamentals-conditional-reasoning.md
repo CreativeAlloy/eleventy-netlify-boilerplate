@@ -32,12 +32,12 @@ They are formally marked with the letters **P** and **Q** respectively, and the 
 
 ### Modus Ponens
 
-**Modus Ponens** is an affirmative conditional syllogism. If the antecedent P is true, then the consequent Q is also true.
+**Modus Ponens** is an affirmative conditional syllogism. If the antecedent P is true, then the consequent Q is also true:
 1. **Major Premise:** If a person is a citizen of Israel (P), they have the right to vote (Q).
 2. **Minor Premise:** Sufian is a citizen of Israel (P is true).
 3. **Conclusion:** Therefore, Sufian has the right to vote (Q is true).
 
-If you are really astute, you will notice that **Modus Ponens** can bear a resemblance to a simple categorical syllogism. If you were to use categorization, you could still build a similar argument in this context.
+If you are really astute, you will notice that **Modus Ponens** can bear a resemblance to a simple categorical syllogism. If you were to use categorization, you could still build a similar argument in this context:
 1. **Major Premise:** All citizens of Israel have the right to vote.
 2. **Minor Premise:** Sufian is a citizen of Israel.
 3. **Conclusion:** Sufian has the right to vote.
@@ -55,7 +55,7 @@ We want to establish that the air-raid sirens, in the context of Israel, lead to
 
 **Modus Tollens** is a negative conditional syllogism. If affirmative conditional syllogisms work with a positive P leading to a positive Q, negative conditional syllogisms seek to confirm that if Q is negative, then P is negative.
 
-Viewed in this way, **Modus Tollens is the opposite of Modus Ponens.**
+Viewed in this way, **Modus Tollens is the opposite of Modus Ponens:**
 1. **Major Premise:** If Israel were apartheid (P), it would have laws barring Arabs from the Knesset (Q).
 2. **Minor Premise:** Israel does not have laws barring Arabs from the Knesset (Q is false).
 2. **Conclusion:** Therefore, Israel is not apartheid (P is false).
