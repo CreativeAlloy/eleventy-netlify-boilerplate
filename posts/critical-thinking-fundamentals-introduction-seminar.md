@@ -114,6 +114,6 @@ A single lesson in formal logic is all it takes to be able to dismantle two of t
 
 You are free to cite my work whenever you find yourself in a debate. That's the other reason why I am writing these detailed articles.
 
-In the next lecture, we will explore **logical fallacies,** their occurrence in argumentation, and ways to detect them. It will be accompanied by a seminar like this one as well.
+[In the next lecture, we will take a look at **conditional reasoning.**](https://thewaspalloy.org/posts/critical-thinking-fundamentals-conditional-reasoning/)
 
 ***Sufian M'Barki***
