@@ -78,6 +78,6 @@ It is with this broad collection of premises that we can confirm the status of w
 ## Moving Forward
 Understanding the fundamentals of logic is integral to understanding future lectures. This introductory lesson is not comprehensive, and its purpose is to ease readers into the realm of critical thinking without overwhelming them with complex terminology.
 
-You can always browse academic literature to learn more, but the core advantage of reading about it on **The Wasp Alloy** is the ability to see how I apply it in my Hasbara activism. [The next article is a seminar which explores the utility of this lecture in real-world scenarios, specifically in relation to Israel.](https://thewaspalloy.org/posts/critical-thinking-fundamentals-introduction:-seminar/)
+You can always browse academic literature to learn more, but the core advantage of reading about it on **The Wasp Alloy** is the ability to see how I apply it in my Hasbara activism. [The next article is a seminar which explores the utility of this lecture in real-world scenarios, specifically in relation to Israel.](https://thewaspalloy.org/posts/critical-thinking-fundamentals-introduction-seminar/)
 
 ***Sufian M'Barki***
