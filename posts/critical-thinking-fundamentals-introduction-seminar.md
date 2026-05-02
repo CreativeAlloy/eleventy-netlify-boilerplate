@@ -36,9 +36,9 @@ Historically, there is a simple explanation for the preservation of Jewish cultu
 
 In any case, with the facts established, let us begin writing our argumentation:
 
-* **Premise:** Indigenous Peoples are the original inhabitants of a region with cultural, social, and historical ties to their ancestral lands.
-* **Premise:** The Kingdoms of Israel and Judah housed Jews for thousands of years before being conquered, and Jewish presence in the region remained constant to this day.
-* **Conclusion:** **Jews are an Indigenous People, and the original inhabitants of Israel and Judah.**
+1. **Premise:** Indigenous Peoples are the original inhabitants of a region with cultural, social, and historical ties to their ancestral lands.
+2. **Premise:** The Kingdoms of Israel and Judah housed Jews for thousands of years before being conquered, and Jewish presence in the region remained constant to this day.
+3. **Conclusion:** **Jews are an Indigenous People, and the original inhabitants of Israel and Judah.**
 
 This argument is **sound.** Its premises lead to a truthful conclusion, which can be verified. [As I explained in the lecture,](https://thewaspalloy.org/posts/critical-thinking-fundamentals-introduction/#:~:text=This%20is%20called%20Deductive%20Reasoning%2C%20where%20the%20general%20leads%20to%20a%20sound%20conclusion%20about%20a%20particular%20case.) the category of indigenous people is the **general,** and Jews are the **particular case.** This is what makes our argument **deductive.**
 
