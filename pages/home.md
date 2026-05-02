@@ -7,7 +7,7 @@ eleventyNavigation:
   key: Nest
   order: 0
 ---
-![The Wasp Alloy Banner](/static/img/default-embed-preview.png "The Wasp Alloy Banner")
+![The Wasp Alloy Banner](/static/img/default-embed-preview-img.png "The Wasp Alloy Banner")
 ## Welcome to The Wasp Alloy!
 
 **The Internet** - a wonderful place where all can enjoy completely accurate information, no matter the source. At **The Wasp Alloy**, we strive to provide the most up-do-date, and most certainly juiciest news directly to you, dearest readers.

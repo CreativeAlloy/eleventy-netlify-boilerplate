@@ -7,7 +7,7 @@ eleventyNavigation:
   key: About
   order: 1
 ---
-![The Wasp Alloy Banner](/static/img/default-embed-preview.png "The Wasp Alloy Banner")
+![The Wasp Alloy Banner](/static/img/default-embed-preview-img.png "The Wasp Alloy Banner")
 
 ## Origins
 
