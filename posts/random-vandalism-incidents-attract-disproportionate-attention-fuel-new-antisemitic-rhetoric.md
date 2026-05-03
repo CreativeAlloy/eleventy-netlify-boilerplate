@@ -66,12 +66,12 @@ A commander or another higher-up was certainly dispatched at that location as we
 
 "But it's the symbolism!" What symbolism? You may want to stop making assumptions about Judaism. I know full-well what many people claim: "Oh, but Jews hate Christians, Jews killed Jesus, Jews this Jews that." Jews did nothing wrong to anyone, and that Jesus claim is absurd for a multitude of reasons:
 1. Jesus Christ was Jewish himself.
-2. "Jews" as a broad collective did not kill Jesus; a small group of traitors did. A handful of Jewish traitors handed a Jew over to the Romans.
+2. "Jews" as a broad collective did not kill Jesus; a small group of traitors did. A handful of Jewish traitors handed a Jew over to the Romans, while other Jews sought to protect Jesus.
 3. There is no mandate against Christianity in Judaism.
 
 Why is the world not focusing on the millions of people the IRGC has killed instead? Or the innocent Israelis that died on the Nova Festival? Why are Instagram users writing vile comments about us Zionists, and telling Jews to "go to the chambers"? Why are Israelis and Jews called "filth that has not been taught anything else than to speak this terrorist language \[Hebrew\]"? And why are **those** comments not causing global outrage?
 
-Let me tell you why - because nobody cares. Nobody cares about any "dead children" in Gaza whether real or fake (there aren't any, not from IDF conduct anyway). Nobody cares how much humanitarian aid Israel distributes in the Gaza Strip. Antisemites only care that there is a socially acceptable opportunity to bash Jews, harrass them, murder them, and assassinate their allies. That's what it has always been about. If these posturing pricks gave a shit about dead innocent people's lives, they wouldn't be **supporting** the IRGC.
+Let me tell you why - because nobody cares. Nobody cares about any "dead children" in Gaza whether real or fake (there aren't any, not from IDF conduct anyway). Nobody cares how much humanitarian aid Israel distributes in the Gaza Strip. Antisemites only care that there is a socially acceptable opportunity to bash Jews, harass them, murder them, and assassinate their allies. That's what it has always been about. If these posturing pricks gave a shit about dead innocent people's lives, they wouldn't be **supporting** the IRGC.
 
 When people exaggerate these incidents to a ridiculously absurd degree only because "Israelis/Jews/IDF Soldiers did it," it says everything you need to know about our cursed timeline. Someday, historians will look back and wonder what sort of mental depravity it was that conquered such a large portion of the world.
 
