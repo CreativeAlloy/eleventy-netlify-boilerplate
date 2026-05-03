@@ -54,6 +54,18 @@ Finally, if I initiate military operations against a terrorist organization as a
 ## The Broken Society
 Fuck statues, and fuck solar panels. This entire planet has become an elaborate piece of satire. I think that's honestly far more important than a few minor insignificant incidents that have nothing to do with the IDF's Purity of Arms and overall ethical military conduct.
 
-If people exaggerate these incidents to a ridiculously absurd degree only because "Israelis did it," then it says everything you need to know about our cursed timeline. Someday, historians will look back and wonder what sort of mental depravity conquered such a large portion of the world.
+If a Muslim had desecrated a Jewish symbol by breaking it, how many headlines would that have made? And how many people would've discussed it to an absurd degree? Or do Muslims get a pass because "Meh, it's just what Muslims do anyway"?
+
+It's just ridiculous that a person's national, ethnic and religious identity dictate how much attention something as meaningless as minor vandalism is going to get. **The only reason I am addressing it is because I find all responses like these disproportionate. And what's worse is that they are coming from all sides, not just the propallies.**
+
+I condemn vandalism, but I don't dedicate this much rage about it. Whether it's a teenager or a middle-aged person, that former soldier did dumb shit, a few other guys did dumb shit. There's millions of people going through the IDF all the time through mandatory conscription.
+
+**The IDF's Purity of Arms and Rules of Engagement exist not to guarantee they will never-ever be broken, but to guarantee that in the rare circumstances they are, they will be enforced and strengthened, and the culprits punished accordingly.** That's the purpose of any institution's rules. You cannot reasonably expect any institution to be omnipresent and omniscient and know what every single individual is up to at any given moment. No soul is all-seeing nor all-knowing.
+
+A commander or another higher-up was certainly dispatched at that location as well; they likely had to look away for 5 minutes, entrusting the area to the former soldier. And they recorded that video. That's usually how these incidents happen - and they are incredibly rare. I can count such incidents on my two hands. That's why global outrage over a fucking statue *that the IDF later replaced anyway* is just a ridiculous concept that should never be treated as something normal.
+
+Why is the world not focusing on the millions of people the IRGC has killed? Or the innocent Israelis that died on the Nova Festival? Why are Instagram users writing vile comments about us Zionists, and telling Jews to "go to the chambers"? Why are Israelis and Jews called "filth that has not been taught anything else than to speak this terrorist language \[Hebrew\]"? And why are **those** comments not causing global outrage?
+
+If people exaggerate these incidents to a ridiculously absurd degree only because "Israelis/Jews/IDF Soldiers did it," then it says everything you need to know about our cursed timeline - it's full of violent antisemitism. Someday, historians will look back and wonder what sort of mental depravity it was that conquered such a large portion of the world.
 
 ***Sufian M'Barki***
