@@ -68,8 +68,8 @@ Stop demonizing Israel and get a better hobby.
 - [Ministry for Diaspora Affairs and Combatting Antisemitism: The Hamas-Sumud Flotilla Intercepted](https://govextra.gov.il/mda/march-to-gaza/the-hidden-networks-behind-the-global-sumud-flotilla/#:~:text=The%20real%20leadership%20is%20composed,Hamas%20and%20the%20Muslim%20Brotherhood.)
 - [i24 News Article: European Hamas operative behind Gaza flotilla carrying Greta Thunberg](https://www.i24news.tv/en/news/israel-at-war/artc-european-hamas-operative-behind-gaza-flotilla-carrying-greta-thunberg)
 - [Perplexity summarizing Al-Jazeera (yes), Euronews, UN News: Called on Israel to immediately and unconditionally release two detained Gaza flotilla activists and said their detention was unlawful](https://www.perplexity.ai/search/did-the-un-demand-that-israel-UqrM44OpRou1BCXoos31dg)
-- [The Wall Street Journal Article: Around 10% of Palestinian aid agency’s 12,000 staff in Gaza (UNRWA) have links to militants](https://www.wsj.com/world/middle-east/at-least-12-u-n-agency-employees-involved-in-oct-7-attacks-intelligence-reports-say-a7de8f36)
-- [UN Watch Article: Group of 3000 UNRWA Teachers Celebrates Hamas Massacre and Rape](https://unwatch.org/group-of-3000-unrwa-teachers-celebrates-hamas-massacre-and-rape/)
+- [The Wall Street Journal Article, 2024: Around 10% of Palestinian aid agency’s 12,000 staff in Gaza (UNRWA) have links to militants](https://www.wsj.com/world/middle-east/at-least-12-u-n-agency-employees-involved-in-oct-7-attacks-intelligence-reports-say-a7de8f36)
+- [UN Watch Article, 2024: Group of 3000 UNRWA Teachers Celebrates Hamas Massacre and Rape](https://unwatch.org/group-of-3000-unrwa-teachers-celebrates-hamas-massacre-and-rape/)
 
 **\[2\]** <span id="cite-2"></span> There is no genocide in Gaza carried out by the IDF nor Israel.
 - [Detailed Pastebin document providing a library of sources and supporting evidence](https://pastebin.com/uTT91J3B)
