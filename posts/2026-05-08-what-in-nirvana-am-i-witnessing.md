@@ -43,7 +43,7 @@ Where's the global outrage, or all the Sudan/Nigeria flotillas? We have countles
 
 I'm not bringing up Sudan and Nigeria to claim that I think vandalism is morally correct - this is not a whataboutism. I am saying that while the world is busy demonizing Israel and "da Jooz" over three fucking minor incidents that led to a group of "offended Lebanese Christians," their silence on the systematic atrocities in Sudan and Nigeria is deafening and reveals their [Special Pleading bias and double standards.](https://en.wikipedia.org/wiki/Special_pleading)
 
-[If you look up satellite photos of Nigeria taken from outer space - which were gathered by open-source intelligence, you can even see blood splotches from outer space because of the sheer scale of these atrocities, something which is **completely absent in Gaza** before you ask.](https://www.perplexity.ai/search/find-osint-data-about-the-bloo-LKpn7qcxQ46hXHGeH3TgoA)
+[If you look up satellite photos of Nigeria taken from outer space - which were gathered by open-source intelligence, you can even see blood splotches on the ground because of the sheer scale of these atrocities, something which is **completely absent in Gaza** before you ask.](https://www.perplexity.ai/search/find-osint-data-about-the-bloo-LKpn7qcxQ46hXHGeH3TgoA)
 
 And this isn't some random obscure factoid I just learned about the other day. This is a very long-lasting and well-documented genocide in Africa.
 
