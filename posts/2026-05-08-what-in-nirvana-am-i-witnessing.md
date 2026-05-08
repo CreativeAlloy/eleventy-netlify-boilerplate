@@ -27,7 +27,7 @@ The absolute worst that has happened following the insignificant [vandalism inci
 
 Let me give you a stern reminder that at this moment, the Christians in Sudan and Nigeria are having *a tiny bit* more trouble than the minor inconvenience of being offended by random rogue individuals.
 
-Today, I can't be arsed to find sources, so I recommend going on a Google scavenger hunt after this if you don't take my word for it. A genocide is taking place in Sudan and Nigeria, perpetrated by Muslims, and aiming to destroy the Christian community there.
+**A genocide is taking place in Sudan and Nigeria, perpetrated by Muslims, and aiming to destroy the Christian community there.**
 
 And where's the global outrage, or all the Sudan/Nigeria flotillas?
 
