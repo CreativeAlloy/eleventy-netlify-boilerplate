@@ -94,6 +94,8 @@ Antisemites will grab onto *anything* that validates their particular agenda. Th
 
 It is quite the convoluted endeavor, but none of these malicious actors accounted for people like us who care about the real data.
 
+***Sufian M'Barki***
+
 - - -
 
 ## Citations
@@ -107,5 +109,3 @@ The Jerusalem Post (2025): Candace Owens urges audience read antisemitic book, a
 Bernard Lewis, Commentary Magazine (1986): The Arab World Discovers Anti-Semitism. [[Link](https://www.commentary.org/articles/bernard-lewis/the-arab-world-discovers-anti-semitism/)]
 
 Jeffrey Herf, Central European History (2009): Nazi Germany’s Propaganda Aimed at Arabs and Muslims during World War II and the Holocaust: Old Themes, New Archival Findings, 42(4), 709-736. [[Link](https://www.cambridge.org/core/journals/central-european-history/article/abs/nazi-germanys-propaganda-aimed-at-arabs-and-muslims-during-world-war-ii-and-the-holocaust-old-themes-new-archival-findings/AF71DE060D8B2FBFF797E2D5B968CB1F)]
-
-***Sufian M'Barki***
