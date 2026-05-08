@@ -45,4 +45,10 @@ Dear people, do I need to remind you that 18 to 21-year-olds can do stupid shit 
 
 Stop demonizing Israel and get a better hobby.
 
+- - -
+
+## Citations
+
+*As of May 8, 2026, this article has been published as a prioritized response to ongoing antisemitic media disproportion. Forensic sources regarding satellite data in Sudan and reports on the Nigerian Christian genocide are currently being compiled and will be appended to this section shortly.*
+
 ***Sufian M'Barki***
