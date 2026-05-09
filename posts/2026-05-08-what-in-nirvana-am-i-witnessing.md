@@ -86,5 +86,5 @@ It's important to stress that Perplexity utilizes a "historical context" argumen
 **[4]** <span id="cite-4"></span> There is no genocide in Gaza carried out by the IDF nor Israel:
 - [Detailed Pastebin document providing a library of sources and supporting evidence on the history of Israel and Middle-Eastern conflicts](https://pastebin.com/uTT91J3B)
 - [Perplexity summarizing all documented evidence proving Israel's ethical military conduct, including ICJ court ruling in 2024](https://www.perplexity.ai/search/there-is-a-lot-of-misinformati-9usKQ3yOTIGOUzXUE9if1w#0)
-- [Tweet by Ahmad Taha showcasing how AI is used in modern antisemitic propaganda to mislead](https://fixupx.com/amjadt25/status/1983959827052425436)
+- [Tweet by Ahmad Taha showcasing how AI is used in modern antisemitic propaganda to mislead viewers](https://fixupx.com/amjadt25/status/1983959827052425436)
 - [Mosab Hassan Youssef recounting "Hamas disciplining" from childhood, proving it is Hamas' side perpetuating violence against Jews](https://share.google/aimode/SZKaMhSLNoCmKk5I3)
