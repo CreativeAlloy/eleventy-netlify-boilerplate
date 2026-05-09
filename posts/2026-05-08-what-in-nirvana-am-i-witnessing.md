@@ -61,7 +61,7 @@ Stop demonizing Israel and get a better hobby.
 
 **[1]** <span id="cite-1"></span> The UN functions as a Jihadist network through its active shielding of IRGC-backed entities and its documented complicity via UNRWA:
 - [YouTube Video by OtherBarak showcasing UN alignment with IRGC over Israel](https://youtu.be/ZejVj9ub9uI)
-- [Perplexity summarizing 10 sources: UN's ECOSOC nominating the **Islamic Republic of Iran to its CPC,** a body shaping policy on women's rights and terrorism prevention.](https://www.perplexity.ai/search/the-united-nations-just-nomina-4BAawXtdQtyhxfxPty7nbw)
+- [Perplexity summarizing 10 sources: UN's ECOSOC nominating the **Islamic Republic of Iran to its CPC,** a body shaping policy on women's rights and terrorism prevention](https://www.perplexity.ai/search/the-united-nations-just-nomina-4BAawXtdQtyhxfxPty7nbw)
 - [TJP Article: UN aid chief admits starving Gazan baby claim was amid 'desperation' to let aid in](https://www.jpost.com/israel-news/article-856073)
 - [The Wall Street Journal Article, 2024: Around 10% of Palestinian aid agency’s 12,000 staff in Gaza (UNRWA) have links to militants](https://www.wsj.com/world/middle-east/at-least-12-u-n-agency-employees-involved-in-oct-7-attacks-intelligence-reports-say-a7de8f36)
 - [UN Watch Article, 2024: Group of 3000 UNRWA Teachers Celebrates Hamas Massacre and Rape](https://unwatch.org/group-of-3000-unrwa-teachers-celebrates-hamas-massacre-and-rape/)
