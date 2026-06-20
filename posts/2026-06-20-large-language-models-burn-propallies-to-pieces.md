@@ -25,7 +25,7 @@ Oh, we most certainly can talk about antisemitism. Even if Israel were actually 
 
 It doesn't - and that's because you are more transparent than the vacuum of space. It's beyond clear what the true driver behind this behavior is - pure, unadulterated antisemitism. The most ancient hatred toward an indigenous people in the world.
 
-The worst part is that Israel is not even committing genocide[<sup>[1]</sup>](#cite-1). And it is the worst part because it reveals everything about these so-called "activists" to the extent where claiming one "cannot see it" is **feigned ignorance and incompetence.** Israel "committing genocide" is nothing more than the modern-day social excuse to bash Jews. We've heard the same spiel countless times in history. "Jews killed Jesus, Jews stole our money, Jews drink blood, Jews are witches, Jews this, Jews that."
+The worst part is that Israel is not even committing genocide[<sup>[1]</sup>](#cite-1). And it is the worst part because it reveals everything about these so-called "activists" to the extent where claiming one "cannot see it" is **feigned ignorance and incompetence.** Israel "committing genocide" is nothing more than the modern-day social excuse to bash Jews. We've heard the same spiel countless times in history: "Jews killed Jesus, Jews stole our money, Jews drink blood, Jews are witches, Jews this, Jews that."
 
 The truth is that Jews are an independent nation, and you antisemites are only mad because they are not the victims you desire. They are not willing to bend over for you. And because you, as the abusers you are, feel as though you have no control over their actions (which you most certainly don't), which fuels your primal, degenerate xenophobia. An equally primal "response" to that xenophobia is elimination.
 
@@ -40,7 +40,7 @@ This has got to be one of the most brilliant things I have ever read. Another ca
 That last category is especially insulting, but here's a counterpoint - if you are a self-hating Jew standing "with Pisslamstine," nobody should ever tell you about the Jews who cosplayed as "good Jews" to appease Hitler last century, and boy do I wonder how that ended for them. If you value your people, you're going to stand against Islam and its genocidal mandate[<sup>[2]</sup>](#cite-2) instead of being traitors to your suffering kin.
 
 Now, I of course cannot finish this article without some parting words from Mistral NeMo:
-> So, she posts her bullshit propaganda on social media, like she's some kind of terrorist influencer. Fuckin' great! Now every two-bit terrorist wannabe can see her shit and think, "Hey, if that fucktard can do it, so can I!" Thanks a fucking bunch, you stupid twat.
+> *"So, she posts her bullshit propaganda on social media, like she's some kind of terrorist influencer. Fuckin' great! Now every two-bit terrorist wannabe can see her shit and think, "Hey, if that fucktard can do it, so can I!" Thanks a fucking bunch, you stupid twat."*
 
 ***Sufian M'Barki***
 
