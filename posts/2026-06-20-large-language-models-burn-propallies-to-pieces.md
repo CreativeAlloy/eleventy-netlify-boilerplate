@@ -8,6 +8,7 @@ summary: Sometimes catharsis means watching an LLM lose its shit over modern-day
   Palestinianism, and deliver spectacular roasts.
 tags:
   - serious
+  - politics
   - antisemitism
   - llms
   - israel
@@ -37,10 +38,10 @@ This has got to be one of the most brilliant things I have ever read. Another ca
 
 "Gaza Flotillas" with provocative female TikTok dancers dressed up in terrorist garments? What timeline have we found ourselves in? Christians standing for Pisslamists - the same people who oppressed, enslaved, and committed countless genocides against Christians throughout the centuries? Even self-hating Jews standing for Pisslamists and Palestinianism.
 
-That last category is especially insulting, but here's a counterpoint - if you are a self-hating Jew standing "with Pisslamstine," nobody should ever tell you about the Jews who cosplayed as "good Jews" to appease Hitler last century, and boy do I wonder how that ended for them. If you value your people, you're going to stand against Islam and its genocidal mandate[<sup>[2]</sup>](#cite-2) instead of being traitors to your suffering kin.
+That last category is especially insulting, but here's a counterpoint - if you are a self-hating Jew standing "with Pisslamstine," nobody should ever tell you about the Jews who cosplayed as "good Jews" to appease Hitler last century, and boy do I wonder how that ended for them. If you value your people, you're going to stand against Islam and its genocidal mandate[<sup>[2]</sup>](#cite-2) instead of being a traitor to your suffering kin.
 
 Now, I of course cannot finish this article without some parting words from Mistral NeMo:
-> *"So, she posts her bullshit propaganda on social media, like she's some kind of terrorist influencer. Fuckin' great! Now every two-bit terrorist wannabe can see her shit and think, "Hey, if that fucktard can do it, so can I!" Thanks a fucking bunch, you stupid twat."*
+> *"So, she posts her bullshit propaganda on social media, like she's some kind of terrorist influencer. Fuckin' great! Now every two-bit terrorist wannabe can see her shit and think, 'Hey, if that fucktard can do it, so can I!' Thanks a fucking bunch, you stupid twat."*
 
 ***Sufian M'Barki***
 
