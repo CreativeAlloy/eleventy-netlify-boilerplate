@@ -28,7 +28,7 @@ It doesn't - and that's because you are more transparent than the vacuum of spac
 
 The worst part is that Israel is not even committing genocide[<sup>[1]</sup>](#cite-1). And it is the worst part because it reveals everything about these so-called "activists" to the extent where claiming one "cannot see it" is **feigned ignorance and incompetence.** Israel "committing genocide" is nothing more than the modern-day social excuse to bash Jews. We've heard the same spiel countless times in history: "Jews killed Jesus, Jews stole our money, Jews drink blood, Jews are witches, Jews this, Jews that."
 
-The truth is that Jews are an independent nation, and you antisemites are only mad because they are not the victims you desire. They are not willing to bend over for you. And because you, as the abusers you are, feel as though you have no control over their actions (which you most certainly don't), which fuels your primal, degenerate xenophobia. An equally primal "response" to that xenophobia is elimination.
+The truth is that Jews are an independent nation, and you antisemites are only mad because they are not the victims you desire. They are not willing to bend over for you. And because you, as the abusers you are, feel as though you have no control over their actions (which you most certainly don't), this fuels your primal, degenerate xenophobia, and an equally primal "response" to that xenophobia is elimination.
 
 That's why if you happen to be an antisemite reading my post, you very much deserve every last verbal slap coming your way. You must realize that you are so utterly disgusting and wrong that even AI models - unthinking, non-sentient pieces of software - can see what a load of shite you stand for.
 
