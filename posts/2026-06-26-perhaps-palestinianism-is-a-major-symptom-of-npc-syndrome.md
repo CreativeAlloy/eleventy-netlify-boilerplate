@@ -34,13 +34,13 @@ I have decided to extract every single repetitive talking point in a short list.
 
 <table class="npc-talking-points-table" style="width: 100%; border-collapse: collapse; margin: 20px 0; text-align: left;">
   <thead>
-    <tr style="border-bottom: 2px solid #000;">
+    <tr>
       <th style="padding: 12px; font-weight: bold;">Phrase</th>
       <th style="padding: 12px; font-weight: bold;">Comment</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="border-bottom: 1px solid #000;">
+    <tr>
       <td style="padding: 12px; font-weight: bold; vertical-align: center;">
         Dropping bombs on children's heads, or any slight variation.
       </td>
@@ -48,7 +48,7 @@ I have decided to extract every single repetitive talking point in a short list.
         This is a classic.
       </td>
     </tr>
-    <tr style="border-bottom: 1px solid #000;">
+    <tr>
       <td style="padding: 12px; font-weight: bold; vertical-align: center;">
         Apartheid Zionist xenophobes, or any slight variation.
       </td>
@@ -56,7 +56,7 @@ I have decided to extract every single repetitive talking point in a short list.
         As a brown, non-Jewish, secular Arabian, I wonder why Israelis and Jews have always been so amazing and hospitable towards me then.
       </td>
     </tr>
-    <tr style="border-bottom: 1px solid #000;">
+    <tr>
       <td style="padding: 12px; font-weight: bold; vertical-align: top;">
         Baby-killers, killing women and children, or any slight variation.
       </td>
@@ -64,7 +64,7 @@ I have decided to extract every single repetitive talking point in a short list.
         I don't even know at this point.
       </td>
     </tr>
-    <tr style="border-bottom: 1px solid #000;">
+    <tr>
       <td style="padding: 12px; font-weight: bold; vertical-align: center;">
         $7000 per post btw.
       </td>
@@ -72,7 +72,7 @@ I have decided to extract every single repetitive talking point in a short list.
         I fucking wish.
       </td>
     </tr>
-    <tr style="border-bottom: 1px solid #000;">
+    <tr>
       <td style="padding: 12px; font-weight: bold; vertical-align: center;">
         192 expulsions.
       </td>
@@ -80,7 +80,7 @@ I have decided to extract every single repetitive talking point in a short list.
         I was not aware inflammatory neo-Nazi memes were back in fashion?
       </td>
     </tr>
-    <tr style="border-bottom: 1px solid #000;">
+    <tr>
       <td style="padding: 12px; font-weight: bold; vertical-align: center;">
         Gaza is an open-air prison, Israeli occupation, or any slight variation.
       </td>
