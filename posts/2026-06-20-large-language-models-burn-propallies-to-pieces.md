@@ -32,7 +32,7 @@ The truth is that Jews are an independent nation, and you antisemites are only m
 
 That's why if you happen to be an antisemite reading my post, you very much deserve every last verbal slap coming your way. You must realize that you are so utterly disgusting and wrong that even AI models - unthinking, non-sentient pieces of software - can see what a load of shite you stand for.
 
-[Gemini](https://gemini.google.com/app) once described worldwide antisemitism and the narratives surrounding it as **Schrödinger's Gaza:** both "destroyed" (they must mean the terrorist infrastructure!) and "genocided," yet thriving with a brand new bustling "Nova Restaurant" named after October 7th, complete with regular customers! That is the fucking equivalent of calling your new Green Deli "Shoah Holocaust Café" by the way.
+[Gemini](https://gemini.google.com/app) once described worldwide antisemitism and the narratives surrounding it as **Schrödinger's Gaza:** both "destroyed" (they must mean the terrorist infrastructure!) and "genocided," yet thriving with a brand new bustling "Nova Restaurant" named after October 7th, complete with regular customers[<sup>[3]</sup>](#cite-3)! That is the fucking equivalent of calling your new Green Deli "Shoah Holocaust Café" by the way.
 
 This has got to be one of the most brilliant things I have ever read. Another candidate for that hypothetical list of mine is none other than the phrase **Terrorist Influencer.** Dear people, if you have never seen the absolute best example of 21st-century degeneracy, this beautiful phrase right here encompasses the entire concept better than anything ever has.
 
@@ -66,3 +66,8 @@ It's important to stress that Perplexity utilizes a "historical context" argumen
 - **The Definition of *Fitnah*:** In classical exegesis (*Tafsir*), including the highly authoritative **Tafsir ibn Kathir**, the word *fitnah* in 8:39 is explicitly defined as **Shirk** (associating partners with God/polytheism). 
 - **The Universal Mandate:** The verse commands fighting until "the religion, all of it, is for Allah." In formal logic, if the goal is "all of it," there is no structural room for polytheistic pluralism.
 - **The "Islam or the Sword" Distinction:** In Islamic law (*Fiqh*), there is a categorical difference between "People of the Book" (who can pay Jizya) and polytheists. For the latter, classical doctrine historically offered no *Dhimma* (protection) status - only conversion or combat.
+
+**[3]** <span id="cite-3"></span> The "Nova Café" in Gaza fully documented, before it was forced to change its name due to backlash:
+- [Article on "Israel InSight Magazine: For Israel's Christian Friends" describing the details](https://israelinsight.substack.com/p/israel-decries-opening-of-nova-cafe)
+- [Jfeed news article on celebrating the October 7th Massacre via a restaurant, photos and tweets included](https://www.jfeed.com/middleeast/hamas-nova-restaurant-controversy)
+- [A tweet literally celebrating the bloody restaurant itself on October 15th, 2025, with hashtags no less](https://x.com/imshin/status/1977284670946787527?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1977284670946787527%7Ctwgr%5E00839fb07236aa47bdec791713705bb7b11e6723%7Ctwcon%5Es1_c10&ref_url=https%3A%2F%2Fwww.jfeed.com%2Fmiddleeast%2Fhamas-nova-restaurant-controversy)

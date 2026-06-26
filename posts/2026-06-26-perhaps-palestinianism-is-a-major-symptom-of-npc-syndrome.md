@@ -91,7 +91,7 @@ I have decided to extract every single repetitive talking point in a short list.
   </tbody>
 </table>
 
-One of my favorite phrases when it comes to Palestinianism is **Schrödinger's Gaza.** Both destroyed and genocided, and thriving in a brand new, atrocious "Nova Restaurant" (the equivalent of calling your Green Deli "Holocaust Deli"). Both an open-air prison, and a "culturally rich haven" that you can allegedly access via a mere boat (you can't, unless you want to be arrested for breaking a military blockade; and it is not an open-air prison).
+One of my favorite phrases when it comes to Palestinianism is **Schrödinger's Gaza.** Both destroyed and genocided, and thriving in a brand new, atrocious "Nova Restaurant"[<sup>[3]</sup>](#cite-3) (the equivalent of calling your Green Deli "Holocaust Deli"). Both an open-air prison, and a "culturally rich haven" that you can allegedly access via a mere boat (you can't, unless you want to be arrested for breaking a military blockade; and it is not an open-air prison).
 
 Make up your mind. Are children and women starving, or are they dead? Are they freezing, or are they having fun on the nice, sunny beaches of the Gaza Strip?
 
@@ -116,3 +116,8 @@ What a bleeding shame. And here I thought going into my adult years that my only
 
 **[2]** <span id="cite-2"></span> The IDF have consistently organized humanitarian corridors in Gaza for non-combattants:
 - [Detailed Gemini summary quoting numerous sources showcasing the established corridors and procedures in 2023, 2024, 2025, and 2026](https://share.gemini.google/ZSCw9SKJeYfZ)
+
+**[3]** <span id="cite-3"></span> The "Nova Café" in Gaza fully documented, before it was forced to change its name due to backlash:
+- [Article on "Israel InSight Magazine: For Israel's Christian Friends" describing the details](https://israelinsight.substack.com/p/israel-decries-opening-of-nova-cafe)
+- [Jfeed news article on celebrating the October 7th Massacre via a restaurant, photos and tweets included](https://www.jfeed.com/middleeast/hamas-nova-restaurant-controversy)
+- [A tweet literally celebrating the bloody restaurant itself on October 15th, 2025, with hashtags no less](https://x.com/imshin/status/1977284670946787527?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1977284670946787527%7Ctwgr%5E00839fb07236aa47bdec791713705bb7b11e6723%7Ctwcon%5Es1_c10&ref_url=https%3A%2F%2Fwww.jfeed.com%2Fmiddleeast%2Fhamas-nova-restaurant-controversy)
