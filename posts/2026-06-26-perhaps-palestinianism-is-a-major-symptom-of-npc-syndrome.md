@@ -95,10 +95,10 @@ One of my favorite phrases when it comes to Palestinianism is **Schrödinger's G
 
 Make up your mind. Are children and women starving, or are they dead? Are they freezing, or are they having fun on the nice, sunny beaches of the Gaza Strip?
 
-Perhaps the Schrödinger's Gaza problem is to observe Gaza and see exactly what's happening:
+Perhaps the solutiuon to the Schrödinger's Gaza problem is to observe Gaza and see exactly what's happening:
 - What's "destroyed" is terrorist infrastructure, tunnels, weapon caches, bases, headquarters, and so on. I wouldn't call it "destruction" in the sense of mindless chaos, if its goal is to purge the Earth from terrorist scum[<sup>[1]</sup>](#cite-1).
 - Nobody can physically freeze in the Middle East unless we have found ourselves in a global Ice Age.
-- And nobody is starving if tons upon tons of food, medications, and other supplies are shipped by the IDF straight into Gaza for non-combattants.
+- And nobody is starving if tons upon tons of food, medications, and other supplies are shipped by the IDF straight into Gaza for non-combattants[<sup>[2]</sup>](#cite-2).
 
 What a bleeding shame. And here I thought going into my adult years that my only concerns would be making money and deciding how to fulfill my own dreams. Instead, we get to experience the 1920s - just transposed by 100 years.
 
@@ -113,3 +113,6 @@ What a bleeding shame. And here I thought going into my adult years that my only
 - [Perplexity summarizing all documented evidence proving Israel's ethical military conduct, including ICJ court ruling in 2024](https://www.perplexity.ai/search/there-is-a-lot-of-misinformati-9usKQ3yOTIGOUzXUE9if1w#0)
 - [Tweet by Ahmad Taha showcasing how AI is used in modern antisemitic propaganda to mislead viewers](https://fixupx.com/amjadt25/status/1983959827052425436)
 - [Mosab Hassan Youssef recounting "Hamas disciplining" from childhood, proving it is Hamas perpetuating violence against Jews and those who do not conform to their mandate](https://share.google/aimode/SZKaMhSLNoCmKk5I3)
+
+**[2]** <span id="cite-2"></span> The IDF have consistently organized humanitarian corridors in Gaza for non-combattants:
+- [Detailed Gemini summary quoting numerous sources showcasing the established corridors and procedures in 2023, 2024, 2025, and 2026](https://share.gemini.google/ZSCw9SKJeYfZ)
