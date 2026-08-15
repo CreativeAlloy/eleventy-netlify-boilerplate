@@ -2,7 +2,7 @@
 title: Israel Is Subjected to Deeply Unfair Standards
 serious: true
 lecture: false
-date: 2026-08-15T17:06:00Z
+date: 2026-08-15T17:06:00.000Z
 author: Sufian M′Barki
 summary: Attempting to smear media coverage misconduct as "impartial, honest
   reporting" does not absolve it from being Nirvana, nor does it hide the
@@ -45,7 +45,7 @@ Notice that this American media ambassador called them "Israeli terrorists," and
 
 Given how disturbing the rise of antisemitism is in the world, no Zionist activist can afford to place so much focused, disproportionate attention on a series of mundane crimes. As I established in my previous posts, the only reason *I am covering* these events is to expose how distorted people's magnifying glasses are when observing Israel. IDF soldiers, most of whom are teenagers, are put in an incredibly impossible position. Every single minor setback is treated as if an asteroid just hit the entire planet.
 
-No one needs to condone vandalism or random criminal activity. I certainly don't. But when Muslim terrorists and criminals are treated as "just what they always do" (read: they don't receive nearly as much coverage), it implies that they are absolved from condemnation because Muslim culture is subhuman. [That is certainly is, but it doesn't make it any less revolting or worthy of scrutiny.](https://thewaspalloy.org/posts/what-in-nirvana-am-i-witnessing/#cite-3) Nor does it mean that people are free to exaggerate about individual Jewish wrongdoings.
+No one needs to condone vandalism or random criminal activity. I certainly don't. But when Muslim terrorists and criminals are treated as "just what they always do" (read: they don't receive nearly as much coverage), it implies that they are absolved from condemnation because Muslim culture is subhuman. [Which it certainly is, but it doesn't make it any less revolting or worthy of scrutiny.](https://thewaspalloy.org/posts/what-in-nirvana-am-i-witnessing/#cite-3) Nor does it mean that people are free to exaggerate about individual Jewish wrongdoings.
 
 The most deafening part is treating the actual institutional response as a footnote in the entire report. No one seems to put enough emphasis on how amazing the IDF is for stopping the criminal activity in just under five days, considering how volatile the PA-occupied region of Judea-Samaria is. Instead, outlets are more interested in the dozen people that were doing random bullshit just because they happen to be Jewish.
 
