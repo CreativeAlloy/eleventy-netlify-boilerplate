@@ -2,7 +2,7 @@
 title: The Indigenous Name of the City of "Gaza"
 serious: true
 lecture: false
-date: 2026-08-16T21:09:00Z
+date: 2026-08-16T21:09:00.000Z
 author: Sufian M′Barki
 summary: Historical data paints a very clear picture as to who called the city
   "Gaza" - and who didn't.
@@ -51,9 +51,9 @@ In any case, if the city has been Israeli three times in history and for similar
 The erasure of Jewish history is a disturbing and revolting phenomenon. To understand Azzah vs. Gaza, we need to explore the etymological history of the name itself, as well as analyze the Israelite and Greek perspective. This is **Applied Epistemology** in practice, which I will talk about in my future [**Critical Thinking Fundamentals**](https://thewaspalloy.org/posts/critical-thinking-fundamentals-introduction/) lectures.
 
 ### The Chronological Angle
-Legitimizing the name "Gaza" as indigenous requires ignoring the most critical historical fact in the equation - **[the Philistines were absolutely not the first inhabitants.](https://brewminate.com/ancient-gaza-crossroads-of-cultures-and-empires/)** They were literal colonizers.
+Legitimizing the name "Gaza" as indigenous requires ignoring the most critical historical fact in the equation - **[the Philistines were absolutely not the first inhabitants.](https://brewminate.com/ancient-gaza-crossroads-of-cultures-and-empires/)** They were literal invaders.
 
-[The city of Azzah is over 5000 years old, and it belonged to the Ancient Canaanites (including Israelites)](https://www.albert-tours-israel.com/post/history-of-gaza). It began in the Early Bronze Age as an indigenous Canaanite cultural and agricultural hub with major archaeological sites like Tell es-Sakan. The term "Philistine" (and thus the Roman term "Palestine") originate from the Hebrew "פלשת" - or, the Semitic root "פ-ל-ש," which means **invader.**
+[The city of Azzah is over 5000 years old, and it belonged to the Ancient Canaanites (including Israelites).](https://www.albert-tours-israel.com/post/history-of-gaza) It began in the Early Bronze Age as an indigenous Canaanite cultural and agricultural hub with major archaeological sites like Tell es-Sakan. The term "Philistine" (and thus the Roman term "Palestine") originate from the Hebrew "פלשת" - or, the Semitic root "פ-ל-ש," which means **invader.**
 
 Around 1500 BCE, before the Philistines ever arrived, the city fell under ancient Egyptian control and served as an administrative capital. [In ancient Egyptian records and the Amarna letters, it is referred to by its Semitic names: Qazati, Gazzat, and Azzati.](https://lughat.blogspot.com/2006/08/ayin-less-in-gaza.html)
 
