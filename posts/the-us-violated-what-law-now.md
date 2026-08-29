@@ -14,9 +14,7 @@ tags:
 ---
 ![American TikTok Shill doing the usual song and dance to preserve their desired naïve pacifist anti-war aesthetic, while Venezuelan person screams from joy - side-by-side comparison.](/static/img/thedisconnectisfuckinghilarious.png "I Don't Think This Is Activism Folks")
 
-## Narco-Terrorist Dictator Maduro of Venezuela was captured by US troops, liberating the nation of Venezuela in the process.
-
-So, Chinese people and their sympathizers are making a ruckus about it on social media - typical behavior.
+**Narco-Terrorist Dictator Maduro of Venezuela was captured by US troops, liberating the nation of Venezuela in the process.** So, Chinese people and their sympathizers are making a ruckus about it on social media - typical behavior.
 
 > 🇨🇳🇹🇼 China wants to capture Taiwan like Venezuela and “run it” as Trump said.
 >
