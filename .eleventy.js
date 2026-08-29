@@ -5,11 +5,20 @@ const htmlmin = require("html-minifier");
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const sitemapPlugin = require("@quasibit/eleventy-plugin-sitemap");
+const pluginTOC = require('eleventy-plugin-toc');
 
 module.exports = function(eleventyConfig) {
 
   // Register Plugins
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
+  eleventyConfig.addPlugin(pluginTOC, {
+    tags: ['h2', 'h3', 'h4'],
+    wrapper: 'nav',
+    wrapperClass: 'toc-nav',
+    ul: true,
+    flat: false
+  });
+
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPlugin(sitemapPlugin, {

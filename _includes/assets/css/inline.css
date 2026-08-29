@@ -669,3 +669,105 @@ body.lecture-theme input:checked + .slider {
         padding: 0.2em 0.4em;   /* Tighten padding around the active background */
     }
 }
+
+/* =================================
+   Table of Contents (ToC) Sidebar
+   ================================= */
+
+/* 1. Base / Mobile View (Stacked at Top) */
+.post-layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.post-toc-sidebar {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--index-nav-border-color);
+}
+
+.toc-header-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: inherit;
+    opacity: 0.75;
+}
+
+.toc-divider-line {
+    height: 1px;
+    background-color: var(--index-nav-border-color);
+    margin: 0.5rem 0 1rem 0;
+}
+
+/* 2. TOC List Reset & Hierarchy Nesting */
+.toc-nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.toc-nav ul ul {
+    padding-left: 1rem; /* Indents H3/H4 sub-headings */
+    margin-top: 0.35rem;
+}
+
+.toc-nav li {
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.toc-nav a {
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.85;
+    transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.toc-nav a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* 3. Theme Hover Accents */
+.toc-nav a:hover { color: var(--primary); }
+.serious-theme .toc-nav a:hover { color: var(--primary-serious); }
+.lecture-theme .toc-nav a:hover { color: var(--primary-lecture); }
+
+/* 4. Desktop View (Side-by-Side & Sticky) */
+@media screen and (min-width: 1080px) {
+    /* Expand the main card container on desktop so article + sidebar fit comfortably */
+    main:has(.post-toc-sidebar) {
+        max-width: 65em;
+    }
+
+    .post-layout-wrapper {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 2.5rem;
+    }
+
+    .post-toc-sidebar {
+        width: 220px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 2rem;
+        max-height: calc(100vh - 4rem);
+        overflow-y: auto;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+        border-right: 1px solid var(--index-nav-border-color);
+        padding-right: 1.5rem;
+    }
+
+    .post-main-content {
+        flex: 1;
+        min-width: 0;
+    }
+}

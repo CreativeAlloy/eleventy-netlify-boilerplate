@@ -7,41 +7,57 @@ section: post
   <a href="{{ '/news/' | url }}">← News Index</a>
 </nav>
 
-<article>
-  <h1>{{ title }}</h1>
-  <p>
-    <small>
-      <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/authors/{{ author | slug }}/">{{ author }}</a>
-    </small>
-  </p>
+{# --- NEW: Layout wrapper that places the TOC on the left and the article on the right --- #}
+<div class="post-layout-wrapper">
 
-  {{ layoutContent | safe }}
-
-  {% if tags %}
-    <p>
-    {% for tag in tags %}
-      {%- if tag != "post" -%}
-        {% set tagUrl %}/tags/{{ tag }}/{% endset %}
-        <a href="{{ tagUrl | url }}" rel="tag">{{ tag }}</a>
-      {%- endif -%}
-    {% endfor %}
-    </p>
+  {# --- 1. Table of Contents Sidebar (Left Column) --- #}
+  {% set tocMarkup = layoutContent | toc %}
+  {% if tocMarkup %}
+    <aside class="post-toc-sidebar">
+      <div class="toc-sticky-box">
+        <span class="toc-header-label">TABLE OF CONTENTS</span>
+        <div class="toc-divider-line"></div>
+        {{ tocMarkup | safe }}
+      </div>
+    </aside>
   {% endif %}
 
-  {# --- NEW: Add the HTML element for the view counter here --- #}
-  {# This is a good spot, right after the tags and before the "News Index" link #}
-  <small>
-    <p id="view-count">Loading witnesses...</p>
-  </small>
+  {# --- 2. Main Article Content (Right Column) --- #}
+  <article class="post-main-content">
+    <h1>{{ title }}</h1>
+    <p>
+      <small>
+        <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/authors/{{ author | slug }}/">{{ author }}</a>
+      </small>
+    </p>
 
-</article>
+    {{ layoutContent | safe }}
+
+    {% if tags %}
+      <p>
+      {% for tag in tags %}
+        {%- if tag != "post" -%}
+          {% set tagUrl %}/tags/{{ tag }}/{% endset %}
+          <a href="{{ tagUrl | url }}" rel="tag">{{ tag }}</a>
+        {%- endif -%}
+      {% endfor %}
+      </p>
+    {% endif %}
+
+    {# --- View Counter Element --- #}
+    <small>
+      <p id="view-count">Loading witnesses...</p>
+    </small>
+
+  </article>
+
+</div>
 
 <nav class="index-nav index-nav-bottom">
   <a href="{{ '/news/' | url }}">← News Index</a>
 </nav>
 
-{# --- NEW: The JavaScript goes at the very end of the file --- #}
-{# This is the best practice for performance, as it lets the page load first #}
+{# --- View Counter Script --- #}
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const viewCountElement = document.getElementById('view-count');
