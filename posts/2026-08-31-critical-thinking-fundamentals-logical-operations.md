@@ -25,14 +25,14 @@ The principles of categorical reasoning demonstrated the nature of deductive arg
 
 As established before, **Inclusive Disjunctions** are a type of logical operation where only one of multiple sufficient conditions need to be true in order for their associated consequent to be true.
 
-1. **Major Premise:** Expressing hatred toward Jewish traditions ($A$) is antisemitism ($Q$).
-2. **Major Premise:** Excluding Jewish people from events or activities on grounds of their ethnicity and religion ($B$) is antisemitism ($Q$).
+1. **Major Premise:** Expressing hatred toward Jewish traditions $(A)$ is antisemitism $(Q)$.
+2. **Major Premise:** Excluding Jewish people from events or activities on grounds of their ethnicity and religion $(B)$ is antisemitism $(Q)$.
 3. **Minor Premise:** Julian did not invite Lior to his party because the latter is Jewish ($B$ is true).
-4. **Conclusion: Julian is antisemitic ($Q$).**
+4. **Conclusion: Julian is antisemitic ($Q$ is true).**
 
 In this syllogism, we can see that the truthfulness of only one of these two sufficient conditions - $B$ - leads to the consequent $Q$ of antisemitism. The same would be the case if $A$ were true:
 1. **Minor Premise:** Julian ridiculed Lior for wearing his Kippah, comparing it to an "ugly hat." ($A$ is true).
-2. **Conclusion: Julian is antisemitic ($Q$).**
+2. **Conclusion: Julian is antisemitic ($Q$ is true).**
 
 The inclusive disjunction can be portrayed with the following logical formula:
 
@@ -52,9 +52,9 @@ If $A$ is true, then $B$ is false. This is marked with a **Negation Sign** in lo
 $$A \rightarrow \neg B$$
 
 For our first example, we will take a look at military logic:
-1. **Major Premise:** An individual present in an active warzone can either be a combatant ($C$) or a civilian ($N$), but they cannot be both at the same time ($C \oplus N$).
+1. **Major Premise:** An individual present in an active warzone can either be a combatant $(C)$ or a civilian $(N)$, but they cannot be both at the same time $(C \oplus N)$.
 2. **Minor Premise:** An armed, masked individual in [Azzah](https://thewaspalloy.org/posts/the-indigenous-name-of-the-city-of-gaza/) is shooting at IDF soldiers ($C$ is true).
-3. **Conclusion: The masked individual is not a civilian non-combatant ($\neg N$).**
+3. **Conclusion: The masked individual is not a civilian non-combatant $(\neg N)$.**
 
 It does not matter what the masked person's affiliation is - whether they are a Hamas terrorist, a PIJ terrorist, an actor from another terrorist faction, or a private fringe individual. They are not a civilian non-combatant if they open fire at the Israel Defense Forces.
 
@@ -62,8 +62,8 @@ The formula is:
 $$C \rightarrow \neg N$$
 
 We can demonstrate another exclusive disjunction using a familiar example from the real world:
-1. **Major Premise:** In a coin flip, heads ($H$) represents painting my nails black ($Q$).
-2. **Major Premise:** In the same framework, tails ($T$) means I will paint my nails white ($W$).
+1. **Major Premise:** In a coin flip, heads $(H)$ represents painting my nails black $(Q)$.
+2. **Major Premise:** In the same framework, tails $(T)$ means I will paint my nails white $(W)$.
 3. **Minor Premise:** After tossing my coin, I got tails ($T$ is true).
 4. **Conclusion: I will paint my nails white ($W$ is true).**
 
@@ -96,13 +96,13 @@ A **Contradiction** occurs when any statement asserts that a proposition is both
 We can take a look at an example contradiction:
 1. Let $P =$ *"Hamza is a citizen of Israel."*
 2. Therefore $\neg P =$ *"Hamza is not a citizen of Israel."*
-3. **Contradiction:** *"Hamza is a citizen of Israel, and Hamza is not a citizen of Israel."* ($P \land \neg P$)
+3. **Contradiction:** *"Hamza is a citizen of Israel, and Hamza is not a citizen of Israel."* $(P \land \neg P)$
 
 Two other examples I can immediately think of come from gaming pop culture and one of my serious articles on The Wasp Alloy.
 
 In **Genshin Impact,** when the Dendro Archon Nahida demands that the Fatui Harbinger Dottore explain why he has shown up at the Sanctuary of Surasthana, given he had allegedly already left Sumeru, he responds with a contradiction on purpose.
 
-He infamously states: "I left Sumeru ($P$), but I also stayed in Sumeru ($\neg P$)."
+He infamously states: "I left Sumeru ($P$), but I also stayed in Sumeru $(\neg P)$."
 
 Of course, the in-universe explanation is that he used to have several clones of himself performing inhumane experiments across the entire world. One of his clones did leave Sumeru to create this illusion, but another remained.
 
@@ -118,7 +118,7 @@ Below is one of my favorite terms in Hasbara activism, specifically because it's
 
 During a supposed active genocide in Azzah - one that is described as "mindless destruction," it would be impossible for the Arab population to open restaurants with revolting and inflammatory themes, gyms, supermarkets, and so on.
 
-Azzah is either destroyed ($P$) or it isn't ($\neg P$). It cannot be both at the same time ($P \land \neg P$).
+Azzah is either destroyed $(P)$ or it isn't $(\neg P)$. It cannot be both at the same time $(P \land \neg P)$.
 
 The actual truth is that a large portion of the Northern Azzah Strip is destroyed. However, what people tend to withhold from the public is that the IDF are actually **demolishing terrorist infrastructure,** not your average civilian settlements[<sup>[1]</sup>](#cite-1)[<sup>[2]</sup>](#cite-2). Deleting terrorists and their bases while actively saving civilians and providing them with humanitarian aid is not "genocide," nor is it indiscriminate "destruction."
 

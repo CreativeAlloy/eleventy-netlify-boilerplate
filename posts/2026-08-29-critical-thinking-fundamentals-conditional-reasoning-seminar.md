@@ -25,31 +25,31 @@ I believe that the greatest strength of Hasbara activism is its ability to groun
 ### Defining Zionists via a Sufficient Condition
 
 The simplest syllogism we can explore is defining what Zionists are via Modus Ponens. Using an example individual named Jonathan:
-1. **Major Premise:** People who support the independent self-determination of Jews in Israel (P) are Zionists (Q).
-2. **Minor Premise:** Jonathan supports Jewish self-determination in Israel (P is true).
-3. **Conclusion:** Jonathan is a Zionist (Q is true).
+1. **Major Premise:** People who support the independent self-determination of Jews in Israel $(P)$ are Zionists $(Q)$.
+2. **Minor Premise:** Jonathan supports Jewish self-determination in Israel ($P$ is true).
+3. **Conclusion:** Jonathan is a Zionist ($Q$ is true).
 
 Online rhetoric often tries to overcomplicate what being a Zionist entails. It does not involve being an advocate or dedicating large blocks of time to Hasbara activism. What makes one a Zionist starts and ends with their support of Israel's existence as the Jewish state, which is a **Sufficient Condition.**
 
 ### Necessary Conditions in Statehood Support
 
 Another example involves bringing up one of the necessary conditions to be a Zionist, which is supporting statehood as a concept.
-1. **Major Premise:** It is required to support the existence of nation-states (K) to be a Zionist (W).
-2. **Minor Premise:** Jonathan supports the existence of nation-states (K is true).
-3. **Conclusion: Jonathan meets the prerequisite to be a Zionist (W is true).**
+1. **Major Premise:** It is required to support the existence of nation-states $(K)$ to be a Zionist $(W)$.
+2. **Minor Premise:** Jonathan supports the existence of nation-states ($K$ is true).
+3. **Conclusion: Jonathan meets the prerequisite to be a Zionist ($W$ is true).**
 
-But supporting statehood alone is not sufficient to make someone a Zionist (Q) - it is merely a **Necessary Condition.** In other words, the letter "W" represents the potential to be a Zionist.
+But supporting statehood alone is not sufficient to make someone a Zionist $(Q)$ - it is merely a **Necessary Condition.** In other words, the letter $W$ represents the potential to be a Zionist.
 
 Case in point - all antizionist activists chant "Free Palestine" while reveling in the idea of destroying Israel. Meanwhile, anarchists (who oppose statehood) can never be Zionists because Zionism is antithetical to anarchism.
 
 ### Nested Antecedents
 
 Instead of writing multiple Modus Ponens operations, it is possible to present all of the above via a single syllogism:
-1. **Major Premise:** It is required to support the existence of nation-states (K) to be a Zionist (Q).
-2. **Major Premise:** People who support the independent self-determination of Jews in Israel (P) are Zionists (Q).
-3. **Minor Premise:** Jonathan supports the existence of nation-states (K is true).
-4. **Minor Premise:** Jonathan supports Jewish self-determination in Israel (P is true).
-5. **Conclusion: Jonathan is a Zionist (Q is true).**
+1. **Major Premise:** It is required to support the existence of nation-states $(K)$ to be a Zionist $(Q)$.
+2. **Major Premise:** People who support the independent self-determination of Jews in Israel $(P)$ are Zionists $(Q)$.
+3. **Minor Premise:** Jonathan supports the existence of nation-states ($K$ is true).
+4. **Minor Premise:** Jonathan supports Jewish self-determination in Israel ($P$ is true).
+5. **Conclusion: Jonathan is a Zionist ($Q$ is true).**
 
 ## Logical Operations in Conditional Syllogisms
 
@@ -60,10 +60,10 @@ What if several conditions are necessary in order for their combined truthfulnes
 This is called a **Conjunction.** In general, a conjunction is the combination of multiple items, and in formal logic, it is an operation that combines multiple premises, antecedents, etc.
 
 Let's say that in order to drink water, it must be clean and at a reasonable temperature (not frozen or boiling hot):
-1. **Major Premise:** Water must be clean from contaminants (C) to be drinkable (D).
-2. **Major Premise:** Water must have a safe temperature (T) to be drinkable (D).
-3. **Minor Premise:** Jonathan has a water bottle containing water that is both clean (C is true) and cool (T is true).
-4. **Conclusion: Jonathan's water is drinkable (D is true).**
+1. **Major Premise:** Water must be clean from contaminants $(C)$ to be drinkable $(D)$.
+2. **Major Premise:** Water must have a safe temperature $(T)$ to be drinkable $(D)$.
+3. **Minor Premise:** Jonathan has a water bottle containing water that is both clean ($C$ is true) and cool ($T$ is true).
+4. **Conclusion: Jonathan's water is drinkable ($D$ is true).**
 
 The logical formula for this **Conjunctive Modus Ponens** is as follows:
 
@@ -71,7 +71,7 @@ $$C \land T \rightarrow D$$
 
 With text: **C conjunct T leads to D.**
 
-One could say that **the combined condition** of the necessary conditions C and T is **sufficient.** Or, the conjunction of the necessary C and T is sufficient for D. But in isolation, neither are sufficient. You cannot safely drink contaminated water, nor can you drink water that is going to burn your entire mouth.
+One could say that **the combined condition** of the necessary conditions $C$ and $T$ is **sufficient.** Or, the conjunction of the necessary $C$ and $T$ is sufficient for $D$. But in isolation, neither are sufficient. You cannot safely drink contaminated water, nor can you drink water that is going to burn your entire mouth.
 
 ### Disjunctions
 
@@ -80,13 +80,13 @@ If there are multiple sufficient conditions that fulfill the truthfulness of the
 Like conjunctions, disjunctions are the combination of multiple items, premises, etc. The difference is that conjunctions stand for **AND,** while inclusive disjunctions mean **OR.**
 
 We can use Israeli citizenship legislation as an example of an inclusive disjunction, and myself as the example. I will limit the syllogism to **three sufficient conditions** for simplicity's sake:
-1. **Major Premise:** One can be Jewish (J) to be eligible for Israeli citizenship (I).
-2. **Major Premise:** An individual can marry a Jewish person (M) to be eligible for Israeli citizenship (I).
-3. **Major Premise:** A person can marry any Israeli citizen, non-Jewish included (N) to be eligible for Israeli citizenship (I).
-4. **Minor Premise:** Sufian will marry an Israeli Jewish man (M & N are true).
-5. **Conclusion: Sufian will be eligible for Israeli citizenship (I is true).**
+1. **Major Premise:** One can be Jewish $(J)$ to be eligible for Israeli citizenship $(I)$.
+2. **Major Premise:** An individual can marry a Jewish person $(M)$ to be eligible for Israeli citizenship $(I)$.
+3. **Major Premise:** A person can marry any Israeli citizen, non-Jewish included $(N)$ to be eligible for Israeli citizenship $(I)$.
+4. **Minor Premise:** Sufian will marry an Israeli Jewish man ($M \land N$ are true).
+5. **Conclusion: Sufian will be eligible for Israeli citizenship ($I$ is true).**
 
-Whether it's J, M, or N, one of them being true makes the consequent I true as well, making this operation an inclusive disjunction:
+Whether it's $J$, M, or N, one of them being true makes the consequent I true as well, making this operation an inclusive disjunction:
 
 $$J \lor M \lor N \rightarrow I$$
 
@@ -162,22 +162,22 @@ Now that we have proven beyond any doubt that Zionism is a Jewish movement for s
 
 **The definition of antisemitism is hatred and bigotry against Jews as an ethnic and religious minority.** Coined in the late 19th century to give anti-Jewish hostility a modern political veneer, it ultimately culminated in the horrors of the Holocaust (the Shoah).
 
-Examples of antisemitism **(L)** include:
-- Ridiculing traditional Jewish garments based on preconceived notions **(A)**.
-- Making broad generalizing statements about Jews, especially if they are offensive **(B)**: "All Jews have big noses."
-- Denying services to Jewish people based on their identity **(C)**: "We do not treat Jewish patients here."
+Examples of antisemitism $(L)$ include:
+- Ridiculing traditional Jewish garments based on preconceived notions $(A)$.
+- Making broad generalizing statements about Jews, especially if they are offensive $(B)$: "All Jews have big noses."
+- Denying services to Jewish people based on their identity $(C)$: "We do not treat Jewish patients here."
 
 In other words, **either one of these prerequisites, which are sufficient on their own, make one an antisemite.** That is an inclusive disjunction:
 
 $$A \lor B \lor C \rightarrow L$$
 
-Thousands of people proudly declare that they are "antizionist," attempting to sell an insidious illusion of "nuance" as their justification: "We don't hate Jews, we just hate Israel! We are antizionists, not antisemites! It's not rocket science!" **(Z)**
+Thousands of people proudly declare that they are "antizionist," attempting to sell an insidious illusion of "nuance" as their justification: "We don't hate Jews, we just hate Israel! We are antizionists, not antisemites! It's not rocket science!" $(Z)$
 
 Being against Jewish sovereignty and national independence **is** antisemitism, and mistreating Jewish Israelis because of their identity is antisemitism as well.
 
-1. **Major Premise:** If an individual or group of people express any kind of hatred and bigotry against Jews (Sufficient P), they are antisemitic (L).
-2. **Minor Premise:** Antizionists express hatred and bigotry toward Zionism, which is Jewish self-determination and freedom (P is true).
-3. **Conclusion: Antizionists are antisemitic (L is true).**
+1. **Major Premise:** If an individual or group of people express any kind of hatred and bigotry against Jews (Sufficient $P$), they are antisemitic $(L)$.
+2. **Minor Premise:** Antizionists express hatred and bigotry toward Zionism, which is Jewish self-determination and freedom ($P$ is true).
+3. **Conclusion: Antizionists are antisemitic ($L$ is true).**
 
 And because we marked antizionism with Z, the updated inclusive disjunction becomes:
 
