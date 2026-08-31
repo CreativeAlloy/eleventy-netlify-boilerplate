@@ -187,7 +187,7 @@ Only one of them needs to be true in order to trigger the truthfulness of L (ant
 
 ## Moving Forward
 
-In the next lecture-seminar pair, we will explore the various logical operations that can be used in categorical and conditional reasoning.
+[In the next lecture-seminar pair,](https://thewaspalloy.org/posts/critical-thinking-fundamentals-logical-operations/) we will explore the various logical operations that can be used in conditional reasoning.
 
 ***Sufian M'Barki***
 
