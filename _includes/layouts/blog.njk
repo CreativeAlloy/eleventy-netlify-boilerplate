@@ -14,5 +14,7 @@ permalink: /blog/index.html
   <a href="/tags/satire/" class="filter-btn">Satire</a>
 </div>
 
+{% include "components/searchbar.njk" %}
+
 {% set postslist = collections.post %}
 {% include "components/postslist.njk" %}

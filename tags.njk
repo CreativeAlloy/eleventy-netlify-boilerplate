@@ -21,6 +21,8 @@ eleventyComputed:
   <a href="{{ '/news/' | url }}">← News Index</a>
 </nav>
 
+{% include "components/searchbar.njk" %}
+
 {% set postslist = collections[tag] %}
 {% include "components/postslist.njk" %}
 

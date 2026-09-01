@@ -10,7 +10,7 @@ eleventyNavigation:
 ![The Wasp Alloy Banner](/static/img/default-embed-preview-img.png "The Wasp Alloy Banner")
 ## Welcome to The Wasp Alloy!
 
-**The Internet** - a wonderful place where all can enjoy completely accurate information, no matter the source. At **The Wasp Alloy**, we strive to provide the most up-do-date, and most certainly juiciest news directly to you, dearest readers.
+**The Internet** - a wonderful place where all can enjoy completely accurate information, no matter the source. At **The Wasp Alloy**, we strive to provide the most up-do-date and most certainly juiciest news directly to you, dearest readers.
 
 In a world where things happen, and in a galaxy far, far away, Wikipedia-backed journalism on geopolitics has become crucial. Our mission at **The Wasp Alloy** is to cover stories of events taking place on our planet and beyond.
 

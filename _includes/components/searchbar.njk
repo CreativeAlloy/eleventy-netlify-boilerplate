@@ -1,0 +1,35 @@
+{# --- Real-Time Instant Search Bar --- #}
+<div class="news-search-wrapper">
+  <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+  <input type="text" id="news-search-input" placeholder="Search Articles..." autocomplete="off">
+</div>
+
+{# --- Instant Client-Side Filter Script --- #}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('news-search-input');
+    // Target all articles rendered in the list
+    const articles = document.querySelectorAll('main section article, main article');
+
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+
+      articles.forEach(article => {
+        // Query the title element inside each article card
+        const titleElem = article.querySelector('h2, h3, a[href]');
+        const titleText = titleElem ? titleElem.textContent.toLowerCase() : article.textContent.toLowerCase();
+
+        if (titleText.includes(query)) {
+          article.style.display = '';
+        } else {
+          article.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
