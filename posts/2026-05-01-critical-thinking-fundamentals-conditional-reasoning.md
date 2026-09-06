@@ -41,7 +41,7 @@ A Material Implication looks like this:
 2. **Minor Premise:** It's raining ($P$ is true).
 3. **Conclusion:** The ground is wet ($Q$ is true).
 
-The reason this is important is that there is a crucial axiom to remember about Modus Ponens: **the falsity of a particular antecedent does not necessarily lead to the falsity of the consequent.** Attempting to confirm the falsity of $Q$ based on the falsity of $P$ alone is known as the **Fallacy of Affirming the Antecedent.**
+The reason this is important is that there is a crucial axiom to remember about Modus Ponens: **the falsity of a particular antecedent does not necessarily lead to the falsity of the consequent.** Attempting to confirm the falsity of $Q$ based on the falsity of $P$ alone is known as the **Fallacy of Denying the Antecedent.**
 
 If the weather is sunny, it does not strictly mean the ground is not wet. A garden hose or a fire hydrant could easily make the ground wet. **Not-$P$ does not lead to Not-$Q$, because the truthfulness of $Q$ does not depend on the truthfulness of $P$.**
 
@@ -52,7 +52,7 @@ A Biconditional looks like this:
 2. **Minor Premise:** Sufian is a citizen of Israel ($P$ is true).
 3. **Conclusion:** Therefore, Sufian has the right to vote in Israel ($Q$ is true).
 
-In syllogisms where the antecedent and the consequent exist in an equivalent (biconditional) relationship like this, the axiom does not apply because Israeli citizenship is objectively the only legal pathway to gain the right to vote in Israel, as it is in most jurisdictions worldwide. **Not-P strictly leads to Not-Q in Biconditional Syllogisms.** Consequently, this line of reasoning would **not** represent the logical fallacy of affirming the antecedent.
+In syllogisms where the antecedent and the consequent exist in an equivalent (biconditional) relationship like this, the axiom does not apply because Israeli citizenship is objectively the only legal pathway to gain the right to vote in Israel, as it is in most jurisdictions worldwide. **Not-P strictly leads to Not-Q in Biconditional Syllogisms.** Consequently, this line of reasoning would **not** represent the logical fallacy of denying the antecedent.
 
 If you are really astute, you must have noticed that **Modus Ponens** can represent a line of reasoning very similar to categorical syllogisms to reach a particular conclusion. If you were to use categorization:
 1. **Major Premise:** All citizens of Israel have the right to vote.
@@ -110,7 +110,7 @@ And a **Modus Ponens,** with an example individual named Julian:
 2. **Minor Premise:** Julian is eligible to serve in the IDF ($P$ is true).
 3. **Conclusion:** Therefore, Julian is mentally stable ($Q$ is true).
 
-Let us explore the Fallacy of Affirming the Antecedent in this particular case. An invalid argument would look like this:
+Let us explore the Fallacy of Denying the Antecedent in this particular case. An invalid argument would look like this:
 1. **Major Premise:** If Julian is eligible to serve in the IDF ($P$), then he must be mentally stable ($Q$). 
 2. **Minor Premise:** Julian is not eligible to serve in the IDF ($P$ is false).
 3. **Conclusion:** Therefore, Julian is mentally unstable ($Q$ is false).
