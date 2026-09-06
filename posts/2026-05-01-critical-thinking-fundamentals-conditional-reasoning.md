@@ -110,6 +110,13 @@ And a **Modus Ponens,** with an example individual named Julian:
 2. **Minor Premise:** Julian is eligible to serve in the IDF ($P$ is true).
 3. **Conclusion:** Therefore, Julian is mentally stable ($Q$ is true).
 
+Let us explore the Fallacy of Affirming the Antecedent in this particular case. An invalid argument would look like this:
+1. **Major Premise:** If Julian is eligible to serve in the IDF ($P$), then he must be mentally stable ($Q$). 
+2. **Minor Premise:** Julian is not eligible to serve in the IDF ($P$ is false).
+3. **Conclusion:** Therefore, Julian is mentally unstable ($Q$ is false).
+
+That is a [Non-Sequitur](https://dictionary.cambridge.org/dictionary/english/non-sequitur) - Julian may not be eligible to serve the IDF, but that does not strictly mean his ineligibility is caused by mental instability. Ineligibility for military service can have many different causes - chronic diseases (such as [Mediterranean Fever](https://en.wikipedia.org/wiki/Familial_Mediterranean_fever)), chronic obesity, physical injuries, disabilities, and more. From this syllogism alone, all we know for sure is that Julian is ineligible, and claiming it must be because of mental instability is an **assumption with no evidence.**
+
 ## Moving Forward
 Both categorical and conditional reasoning are major pillars of critical thinking. Understanding them is required in all philosophical and geopolitical discourse.
 
