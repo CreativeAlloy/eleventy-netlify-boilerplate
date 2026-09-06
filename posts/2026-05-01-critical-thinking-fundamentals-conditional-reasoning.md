@@ -32,10 +32,27 @@ They are formally marked with the letters $P$ and $Q$ respectively, and the fund
 
 ### Modus Ponens
 
-**Modus Ponens** is an affirmative conditional syllogism. If the antecedent $P$ is true, then the consequent $Q$ is also true:
-1. **Major Premise:** If a person is a citizen of Israel ($P$), they have the right to vote ($Q$).
+**Modus Ponens** is an affirmative conditional syllogism. If the antecedent $P$ is true, then the consequent $Q$ is also true.
+
+We must explore the concept of **Material Implication** (Single Conditionals) and **Equivalence** (Biconditionals) when discussing **Modus Ponens.**
+
+A Material Implication looks like this:
+1. **Major Premise:** If it's raining ($P$), the ground must be wet ($Q$).
+2. **Minor Premise:** It's raining ($P$ is true).
+3. **Conclusion:** The ground is wet ($Q$ is true).
+
+The reason this is important is that there is a crucial axiom to remember about Modus Ponens: **the falsity of a particular antecedent does not necessarily lead to the falsity of the consequent.** Attempting to confirm the falsity of $Q$ based on the falsity of $P$ alone is known as the **Fallacy of Affirming the Antecedent.**
+
+If the weather is sunny, it does not strictly mean the ground is not wet. A garden hose or a fire hydrant could easily make the ground wet. **Not-$P$ does not lead to Not-$Q$, because the truthfulness of $Q$ does not depend on the truthfulness of $P$.**
+
+The only exception to this axiom is when the relationship between the prerequisite and the consequent is equivalent, going both ways.
+
+A Biconditional looks like this:
+1. **Major Premise:** If a person is a citizen of Israel ($P$), they have the right to vote in Israel ($Q$).
 2. **Minor Premise:** Sufian is a citizen of Israel ($P$ is true).
-3. **Conclusion:** Therefore, Sufian has the right to vote ($Q$ is true).
+3. **Conclusion:** Therefore, Sufian has the right to vote in Israel ($Q$ is true).
+
+In syllogisms where the antecedent and the consequent exist in an equivalent (biconditional) relationship like this, the axiom does not apply because Israeli citizenship is objectively the only legal pathway to gain the right to vote in Israel, as it is in most jurisdictions worldwide. **Not-P strictly leads to Not-Q in Biconditional Syllogisms.** Consequently, this line of reasoning would **not** represent the logical fallacy of affirming the antecedent.
 
 If you are really astute, you must have noticed that **Modus Ponens** can represent a line of reasoning very similar to categorical syllogisms to reach a particular conclusion. If you were to use categorization:
 1. **Major Premise:** All citizens of Israel have the right to vote.
@@ -55,13 +72,22 @@ We want to establish that the air-raid sirens, in the context of Israel, lead to
 
 **Modus Tollens** is a negative conditional syllogism. If affirmative conditional syllogisms work with a positive P leading to a positive Q, negative conditional syllogisms seek to confirm that if Q is negative, then P is negative.
 
-Viewed in this way, **Modus Tollens is the opposite of Modus Ponens:**
+Viewed in this way, **Modus Tollens is the opposite of Modus Ponens.**
+
+Drawing from the example with rain from above:
+1. **Major Premise:** If it's raining ($P$), the ground must be wet ($Q$).
+2. **Minor Premise:** The ground is dry ($Q$ is false).
+3. **Conclusion:** It is strictly not raining ($P$ is false).
+
+When using the falsity of $Q$ to confirm the falsity of $P$, it is not fallacious because every single possible antecedent is completely ruled out. Given that the ground is dry, it cannot be raining, and there cannot be any garden hoses or fire hydrants wetting it either.
+
+Now an example from Hasbara:
 1. **Major Premise:** If Israel were apartheid ($P$), it would have laws barring Arabs from the Knesset ($Q$).
 2. **Minor Premise:** Israel does not have laws barring Arabs from the Knesset ($Q$ is false).
 2. **Conclusion:** Therefore, Israel is not apartheid ($P$ is false).
 
-We can use the example from before as well:
-1. **Major Premise:** If Sufian were a citizen of Israel ($P$), he would have voting rights ($Q$).
+And Israeli citizenship:
+1. **Major Premise:** If Sufian were a citizen of Israel ($P$), he would have voting rights in Israel ($Q$).
 2. **Minor Premise:** Sufian does not have voting rights in Israel ($Q$ is false).
 3. **Conclusion:** Therefore, Sufian cannot be a citizen of Israel ($P$ is false).
 
