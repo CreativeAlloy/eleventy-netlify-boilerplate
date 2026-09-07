@@ -6,6 +6,13 @@ const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const sitemapPlugin = require("@quasibit/eleventy-plugin-sitemap");
 const pluginTOC = require('eleventy-plugin-toc');
+const fs = require("fs");
+
+// Safely load the lexicon data so the build doesn't crash if the file is missing
+let lexicon = {};
+if (fs.existsSync("./_data/lexicon.json")) {
+  lexicon = require("./_data/lexicon.json");
+}
 
 module.exports = function(eleventyConfig) {
 
@@ -110,6 +117,44 @@ module.exports = function(eleventyConfig) {
   });
 
   // Don't process folders with static assets e.g. images
+  // --- Targeted Automatic Lexicon Scanner Transform ---
+  eleventyConfig.addTransform("autoLexicon", function(content, outputPath) {
+    if (outputPath && outputPath.endsWith(".html") && content.includes("post-main-content")) {
+      
+      let currentLexicon = {};
+      if (fs.existsSync("./_data/lexicon.json")) {
+        try {
+          currentLexicon = JSON.parse(fs.readFileSync("./_data/lexicon.json", "utf8"));
+        } catch (e) {
+          currentLexicon = {};
+        }
+      }
+
+      return content.replace(/(<article class="post-main-content">)([\s\S]*?)(<\/article>)/, (match, openTag, body, closeTag) => {
+        let updatedBody = body;
+
+        // 1. Sort entries by length descending so longest compound phrases match first
+        const sortedEntries = Object.entries(currentLexicon).sort((a, b) => b[0].length - a[0].length);
+
+        for (const [term, definition] of sortedEntries) {
+          const safeDef = definition.replace(/"/g, '&quot;');
+          
+          // 2. Protect existing <a>, <h1-6>, <pre>, <code>, and ALREADY WRAPPED .lexicon-term spans
+          const regex = new RegExp(`(<a\\b[^>]*>[\\s\\S]*?<\\/a>|<span\\b[^>]*class="[^"]*lexicon-term[^"]*"[^>]*>[\\s\\S]*?<\\/span>|<h[1-6]\\b[^>]*>[\\s\\S]*?<\\/h[1-6]>|<pre\\b[^>]*>[\\s\\S]*?<\\/pre>|<code\\b[^>]*>[\\s\\S]*?<\\/code>|<[^>]+>)|\\b(${term})\\b`, "gi");
+
+          updatedBody = updatedBody.replace(regex, (m, tag, word) => {
+            // If it matched any protected tag or an already-wrapped span, leave it untouched
+            if (tag) return tag;
+            return `<span class="lexicon-term" data-term="${term}" data-definition="${safeDef}" tabindex="0">${word}</span>`;
+          });
+        }
+
+        return openTag + updatedBody + closeTag;
+      });
+    }
+    return content;
+  });
+
   eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy("static/img");
   eleventyConfig.addPassthroughCopy("admin/");
@@ -138,9 +183,30 @@ module.exports = function(eleventyConfig) {
     permalink: false
   };
 
-  eleventyConfig.setLibrary("md", markdownIt(options)
-    .use(markdownItAnchor, opts)
-  );
+  let md = markdownIt(options).use(markdownItAnchor, opts);
+
+  // --- NEW: Custom Inline Markdown Syntax parser for &term&(definition) ---
+  md.inline.ruler.after('text', 'lexicon_term', (state, silent) => {
+    const start = state.pos;
+    // Check if the current character is an ampersand '&'
+    if (state.src.charCodeAt(start) !== 0x26) return false;
+
+    // Look for the exact pattern &term&(definition)
+    const match = state.src.slice(start).match(/^&([^&]+)&\(([^)]+)\)/);
+    if (!match) return false;
+
+    if (!silent) {
+      const tokenOpen = state.push('html_inline', '', 0);
+      const safeTerm = md.utils.escapeHtml(match[1]);
+      const safeDef = md.utils.escapeHtml(match[2]);
+      tokenOpen.content = `<span class="lexicon-term" data-definition="${safeDef}" tabindex="0">${safeTerm}</span>`;
+    }
+
+    state.pos += match[0].length;
+    return true;
+  });
+
+  eleventyConfig.setLibrary("md", md);
 
   return {
     templateFormats: ["md", "njk", "liquid"],
@@ -150,7 +216,6 @@ module.exports = function(eleventyConfig) {
     // If you don’t have a subdirectory, use "" or "/" (they do the same thing)
     // This is only used for URLs (it does not affect your file structure)
     pathPrefix: "/",
-
     markdownTemplateEngine: "liquid",
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",

@@ -42,18 +42,16 @@ OMG GE- COWABUNGA! *SLOW DOOOWN* - H-HOLY FUCKING SHIT, HOW DID I NOT THINK OF T
 Gemini I don't have fucking readers you hydrogen balloon. Maybe 20 on a good day. Fucking...
 
 > *Gemini said, "GitHub repository badges..." and whatever else I did not bother quoting.*
-
-...
-
+>
+> *(...)*
+>
 > *Gemini said, "Reddit Megathreads..."*
 
 no. did you forget the research I did 5 minutes ago. there are only a few suitable subreddits for my shit and none of them have "for hire" megathreads. Omg. You just keep constructing sentences that are GRAMMATICALLY CORRECT, and that's the start and end of it. There's no lived experience or truth to them.
 
 "Reddit has megathreads + Freelancer subreddits exist => There must be freelancer megathreads!"
 
-Well you helium-sniffer, there fucking aren't. Get a load of this. And fuck Channel 4* as well.
-
-<sub>* "Channel 4" refers to Gemini's fourth idea, which it labeled as such, and I simply did not bother reading it to avoid more idiotic walls of text.</sub>
+Well you helium-sniffer, there fucking aren't. Get a load of this. And fuck &Channel 4&(Channel 4 refers to Gemini's fourth idea, which it randomly labeled as such because it has this annoying habit of doing so, and I simply did not bother reading into it in my quest to avoid more idiotic walls of text.) as well.
 
 ***
 
@@ -61,9 +59,7 @@ Well you helium-sniffer, there fucking aren't. Get a load of this. And fuck Chan
 
 Okay, and how do you justify duplicating my entire Ko-fi profile onto Fiverr? How do I communicate slot availability across both platforms? How do I synchronize the payment model across both platforms? Does Fiverr require Stripe or PayPal? Does Fiverr have a search bar or a social media interface akin to Reddit? How can Ko-fi and Fiverr coexist without confusing clients as to which platform to use? What is your business strategy for managing both profiles and their independent income streams? I know what it is - you have none. You just spout the bullshit that's popular to say.
 
-LLMs with their vague tech-bro speak thinking their vague ideas mean shit. Let me tell you something. This idea, along many others I have been forced to sift through, are like soap bubbles. Their entire content is a 0.1% thin sheet of soapy water and 99.9% **nothing.** These ideas don't account for the logistics, they don't account for my PDA*, and they don't account for the problem at hand: **advertising the Ko-fi page and the service.**
-
-<sub>* *PDA* stands for *Pathological Demand Avoidance.* It is an autistic behavioral profile type.</sub>
+LLMs with their vague tech-bro speak thinking their vague ideas mean shit. Let me tell you something. This idea, along many others I have been forced to sift through, are like soap bubbles. Their entire content is a 0.1% thin sheet of soapy water and 99.9% **nothing.** These ideas don't account for the logistics, they don't account for my PDA<sup>1</sup>, and they don't account for the problem at hand: **advertising the Ko-fi page and the service.**
 
 Facebook and Instagram, before you even ask, are private profiles and I don't intend to change that. I don't use Twitter either - don't bother asking. YouTube posts get no views or engagement lol. Discord servers designed for advertising are bot farm mills.
 
@@ -115,11 +111,11 @@ So when I ask it to analyze code for me, it speaks like a tech-bro on too much w
 
 Holy fucking shit, make your shit less scattered.
 
-"This is that, I also see another thing immediately below it."
-
-*Proceeds to quote a SMALL `if` clause without even referencing the method, as well as that one isolated line of code "beginFrame = -1" that means NOTHING on its own.*
-
-"So before we touch any of that," ChatGPT continued after taking a puff, "The first experiment is to comment out this isolated line of code in method ??? (patent pending) - that's it, nothing else, let's see if the wobble changes."
+> *"This is that, I also see another thing immediately below it."*
+> 
+> *Proceeds to quote a SMALL `if` clause without even referencing the method, as well as that one isolated line of code "beginFrame = -1" that means NOTHING on its own.*
+> 
+> *"So before we touch any of that," ChatGPT continued after taking a puff, "The first experiment is to comment out this isolated line of code in method ??? (patent pending) - that's it, nothing else, let's see if the wobble changes."*
 
 Stop talking like you're stoned and organize your thoughts coherently and in a detailed manner.
 
@@ -143,7 +139,7 @@ Exact same meaning. You can do more semantic hairsplitting if you desire, but yo
 
 Large Language Models are designed with processing text in mind, not to be advisors. Despite knowing this, I still choose to ask questions sometimes.
 
-However, many of ChatGPT and Gemini's issues, as well as other mainstream AI assistants like Claude, boil down to overzealous safety guidelines and "personalities" designed by checked-out HR departments.
+However, many of ChatGPT and Gemini's issues, as well as other mainstream AI assistants like &Claude&(Anthropic's proprietary, closed-source Large Language Model and chatbot.), boil down to overzealous safety guidelines and "personalities" designed by checked-out HR departments.
 
 Processing code must not be as tedious as reading a high schooler's horrific essay attempt with ten thousand initiated threads and zero concluded ones. Having an opinion must not be met with ChatGPT's "gentle pushback" morality boner. Making a correct statement about a serious topic must not be greeted with a "reformulation" that changes nothing and only serves to scratch ChatGPT's forcibly hard-coded itch to be a pedantic piece of shit.
 

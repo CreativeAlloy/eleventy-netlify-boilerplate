@@ -87,6 +87,69 @@
 			setTimeout(drawKofi, 50);
 		});
 		</script>
+
+		{# --- Interactive Lexicon Backdrop & Popover --- #}
+		<div id="lexicon-backdrop" class="lexicon-backdrop"></div>
+		<div id="lexicon-popover" class="lexicon-popover" role="dialog" aria-hidden="true">
+			<div class="lexicon-popover-header">
+				<strong id="lexicon-popover-title">Term</strong>
+				<button id="lexicon-popover-close" aria-label="Close">&times;</button>
+			</div>
+			<p id="lexicon-popover-body">Definition goes here.</p>
+		</div>
+
+		<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const backdrop = document.getElementById('lexicon-backdrop');
+			const popover = document.getElementById('lexicon-popover');
+			const title = document.getElementById('lexicon-popover-title');
+			const bodyText = document.getElementById('lexicon-popover-body');
+			const closeBtn = document.getElementById('lexicon-popover-close');
+
+			function openPopover(target) {
+			// Uses the canonical capitalized title if available, otherwise falls back to the text
+			const term = target.getAttribute('data-term') || target.textContent.trim();
+			const definition = target.getAttribute('data-definition');
+			if (!definition) return;
+
+			title.textContent = term;
+			// Automatically converts [text](url) markdown syntax into clickable <a> tags
+			bodyText.innerHTML = definition.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+				const rect = target.getBoundingClientRect();
+				const scrollY = window.scrollY || document.documentElement.scrollTop;
+				
+				// Position directly above the clicked term, centered horizontally
+				popover.style.top = `${rect.top + scrollY - 12}px`;
+				popover.style.left = `${rect.left + (rect.width / 2)}px`;
+
+				backdrop.classList.add('active');
+				popover.classList.add('active');
+				popover.setAttribute('aria-hidden', 'false');
+			}
+
+			function closePopover() {
+				backdrop.classList.remove('active');
+				popover.classList.remove('active');
+				popover.setAttribute('aria-hidden', 'true');
+			}
+
+			document.addEventListener('click', (e) => {
+				const termElem = e.target.closest('.lexicon-term');
+				if (termElem) {
+					e.preventDefault();
+					openPopover(termElem);
+				} else if (e.target === backdrop || e.target === closeBtn) {
+					closePopover();
+				}
+			});
+
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape') closePopover();
+			});
+		});
+		</script>
+
         <script>
           window.MathJax = {
             tex: {

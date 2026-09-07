@@ -881,3 +881,157 @@ body.dark-mode.lecture-theme #news-search-input:focus {
     border-color: var(--primary-lecture);
     box-shadow: 0 0 0 3px rgba(255, 133, 162, 0.2);
 }
+
+/* =================================
+   Interactive Lexicon & Dimming Popover
+   ================================= */
+
+/* 1. Clickable Term Indicator (50% Subtle Underline) */
+.lexicon-term {
+    cursor: pointer;
+    text-decoration: underline dotted;
+    text-decoration-color: color-mix(in srgb, var(--primary) 40%, transparent);
+    text-underline-offset: 4px;
+    font-weight: inherit;
+    transition: text-decoration-color 0.15s ease, background-color 0.15s ease;
+}
+
+.serious-theme .lexicon-term { 
+    text-decoration-color: color-mix(in srgb, var(--primary-serious) 40%, transparent); 
+}
+
+.lecture-theme .lexicon-term { 
+    text-decoration-color: color-mix(in srgb, var(--primary-lecture) 40%, transparent); 
+}
+
+/* Snap to 100% full opacity and subtle highlight on hover */
+.lexicon-term:hover,
+.lexicon-term:focus {
+    text-decoration-color: var(--primary);
+    background-color: rgba(46, 99, 25, 0.15);
+    outline: none;
+}
+
+.serious-theme .lexicon-term:hover,
+.serious-theme .lexicon-term:focus {
+    text-decoration-color: var(--primary-serious);
+    background-color: rgba(0, 68, 102, 0.15);
+}
+
+.lecture-theme .lexicon-term:hover,
+.lecture-theme .lexicon-term:focus {
+    text-decoration-color: var(--primary-lecture);
+    background-color: rgba(139, 0, 46, 0.15);
+}
+
+/* 2. Dimmed Background Backdrop */
+.lexicon-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 99990;
+}
+
+.lexicon-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 3. Floating Popover Box */
+.lexicon-popover {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    width: 90%;
+    max-width: 340px;
+    background: #ffffff;
+    color: #222;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease-in-out;
+    z-index: 99999;
+}
+
+.lexicon-popover.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lexicon-popover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--index-nav-border-color);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.lexicon-popover-header strong {
+    color: var(--primary);
+    font-size: 0.95rem;
+}
+
+.serious-theme .lexicon-popover-header strong { color: var(--primary-serious); }
+.lecture-theme .lexicon-popover-header strong { color: var(--primary-lecture); }
+
+.lexicon-popover-header button {
+    background: none !important;
+    border: none !important;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: inherit;
+    cursor: pointer;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    box-shadow: none !important;
+}
+
+.lexicon-popover p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+    color: inherit;
+}
+
+.lexicon-popover a {
+    color: var(--primary);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.serious-theme .lexicon-popover a { color: var(--primary-serious); }
+.lecture-theme .lexicon-popover a { color: var(--primary-lecture); }
+
+/* Theme Border Overrides for Light Mode */
+.serious-theme .lexicon-popover { 
+    border-color: var(--primary-serious); 
+}
+
+.lecture-theme .lexicon-popover { 
+    border-color: var(--primary-lecture); 
+}
+
+/* 4. Dark Mode Support */
+body.dark-mode .lexicon-popover {
+    background: var(--active-card-bg);
+    color: #e0e0e0;
+    border-color: var(--primary);
+}
+
+body.dark-mode.serious-theme .lexicon-popover {
+    border-color: var(--primary-serious);
+}
+
+body.dark-mode.lecture-theme .lexicon-popover {
+    border-color: var(--primary-lecture);
+}

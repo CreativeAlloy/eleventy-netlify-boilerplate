@@ -86,7 +86,7 @@ We can use Israeli citizenship legislation as an example of an inclusive disjunc
 4. **Minor Premise:** Sufian will marry an Israeli Jewish man ($M \land N$ are true).
 5. **Conclusion: Sufian will be eligible for Israeli citizenship ($I$ is true).**
 
-Whether it's $J$, M, or N, one of them being true makes the consequent I true as well, making this operation an inclusive disjunction:
+Whether it's $J$, $M$, or $N$, one of them being true makes the consequent I true as well, making this operation an inclusive disjunction:
 
 $$J \lor M \lor N \rightarrow I$$
 
@@ -136,7 +136,7 @@ Jews are also indigenous to Israel, as proven by the categorical deductive syllo
 > 
 > *This argument is **sound.** Its premises lead to a truthful conclusion, which can be verified. [As I explained in the lecture,](https://thewaspalloy.org/posts/critical-thinking-fundamentals-introduction/#:~:text=This%20is%20called%20Deductive%20Reasoning%2C%20where%20the%20general%20leads%20to%20a%20sound%20conclusion%20about%20a%20particular%20case.) the category of indigenous people is the **general,** and Jews are the **particular case.** This is what makes our argument **deductive.***
 
-More importantly, [the term "Palestine" (or "Syria-Palæstina") was invented by the Roman Empire who had colonized Israel and Judah at the time.](https://www.perplexity.ai/search/e3d6d3a4-e9f5-41c9-bdfa-524ef9bf64c3) After the Jewish Bar Kokhba Revolt (132–136 CE), which attempted to liberate the Jewish homeland from the Romans, Emperor Hadrian renamed the entire region to "Syria-Palæstina".
+More importantly, [the term "Palestine" (or "Syria-Palæstina") was invented by the Roman Empire who had colonized Israel and Judah at the time.](https://www.perplexity.ai/search/e3d6d3a4-e9f5-41c9-bdfa-524ef9bf64c3) After the Jewish Bar Kokhba Revolt (132-136 CE), which attempted to liberate the Jewish homeland from the Romans, Emperor Hadrian renamed the entire region to "Syria-Palæstina".
 
 This replaced an ethnically Jewish name (Judaea, "Land of the Jews/Judah") with a geographic term linked to the Philistines (Palæstina), Israel's ancient coastal enemies, who no longer existed as a distinct polity. [My historical research into the indigenous name of Azzah](https://thewaspalloy.org/posts/the-indigenous-name-of-the-city-of-gaza/) provides extra details on the matter, which could not be more relevant:
 
@@ -179,7 +179,7 @@ Being against Jewish sovereignty and national independence **is** antisemitism, 
 2. **Minor Premise:** Antizionists express hatred and bigotry toward Zionism, which is Jewish self-determination and freedom ($P$ is true).
 3. **Conclusion: Antizionists are antisemitic ($L$ is true).**
 
-And because we marked antizionism with Z, the updated inclusive disjunction becomes:
+And because we marked antizionism with $Z$, the updated inclusive disjunction becomes:
 
 $$A \lor B \lor C \lor Z \rightarrow L$$
 
