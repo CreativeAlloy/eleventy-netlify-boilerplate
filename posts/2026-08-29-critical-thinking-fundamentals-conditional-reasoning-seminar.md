@@ -138,11 +138,11 @@ Jews are also indigenous to Israel, as proven by the categorical deductive syllo
 
 More importantly, [the term "Palestine" (or "Syria-Palæstina") was invented by the Roman Empire who had colonized Israel and Judah at the time.](https://www.perplexity.ai/search/e3d6d3a4-e9f5-41c9-bdfa-524ef9bf64c3) After the Jewish Bar Kokhba Revolt (132-136 CE), which attempted to liberate the Jewish homeland from the Romans, Emperor Hadrian renamed the entire region to "Syria-Palæstina".
 
-This replaced an ethnically Jewish name (Judaea, "Land of the Jews/Judah") with a geographic term linked to the Philistines (Palæstina), Israel's ancient coastal enemies, who no longer existed as a distinct polity. [My historical research into the indigenous name of Azzah](https://thewaspalloy.org/posts/the-indigenous-name-of-the-city-of-gaza/) provides extra details on the matter, which could not be more relevant:
+This replaced an ethnically Jewish name (Judæa, "Land of the Jews/Judah") with a geographic term linked to the Philistines (Palæstina), Israel's ancient coastal enemies, who no longer existed as a distinct polity. [My historical research into the indigenous name of Azzah](https://thewaspalloy.org/posts/the-indigenous-name-of-the-city-of-gaza/) provides extra details on the matter, which could not be more relevant:
 
 > *Philistines were an Ancient Greek tribe, and their colonial settlement was situated around the city of Azzah in the form of a [pentapolis.](https://anglo-norman.net/entry/Pentapolis) As it has been previously established, [they were far from a benign, peaceful tribe.](https://pastebin.com/uTT91J3B) In fact, Philistia was Ancient Israel and Judah's adversary, and they waged aggressive conflict against Jews on numerous occasions.*
 >
-> *(...)* <span id="palestine"></span>
+> *(...)*
 >
 > *Once David defeated Goliath in battle, [the Israelites managed to retrieve the small piece of land previously occupied by Philistines,](https://en.wikipedia.org/wiki/Ancient_Israel_and_Judah#/media/File:Edward_Weller,_The_Kingdoms_of_Judah_and_Israel_(FL36012236_3897579)_(cropped).jpg) defeating their ancient adversary.*
 >
@@ -195,11 +195,4 @@ Only one of them needs to be true in order to trigger the truthfulness of L (ant
 
 ## Citations
 
-**[1]** <span id="cite-1"></span> [Israel's Declaration of Independence from 1948](https://israeled.org/israel-declaration-independence/) explicitly confirms that all ethnic groups, including Arabs, are to receive equal rights in their participation in Israel:
-> *Exiled from [Palestine,](#palestine) the Jewish people remained faithful to it in all the countries of their dispersion, never ceasing to pray and hope for their return and the restoration of their national freedom.*
->
-> *(...)*
->
-> *In the midst of wanton aggression, we yet call upon the Arab inhabitants of the State of Israel to return to the ways of peace and play their part in the development of the State, with full and equal citizenship and the representation in all its bodies and institutions, provisional or permanent.*
->
-> *We offer peace and amity to all the neighboring states and their peoples, and invite them to cooperate with the independent Jewish nation for the common good of all. The State of Israel is ready to contribute its full share to the peaceful progress and development of the Middle East.*
+{% citation "israel-declaration-of-independence", 1 %}

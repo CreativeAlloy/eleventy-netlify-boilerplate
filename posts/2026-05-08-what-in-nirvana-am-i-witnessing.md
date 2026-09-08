@@ -55,36 +55,14 @@ Stop demonizing Israel and get a better hobby.
 
 ***Sufian M'Barki***
 
-- - -
+***
 
 ## Citations
 
-**[1]** <span id="cite-1"></span> The UN functions as a Jihadist network through its active shielding of IRGC-backed entities and its documented complicity via UNRWA:
-- [YouTube Video by OtherBarak showcasing UN alignment with IRGC over Israel](https://youtu.be/ZejVj9ub9uI)
-- [Perplexity summarizing 10 sources: UN's ECOSOC nominating the **Islamic Republic of Iran to its CPC,** a body shaping policy on women's rights and terrorism prevention](https://www.perplexity.ai/search/the-united-nations-just-nomina-4BAawXtdQtyhxfxPty7nbw)
-- [TJP Article: UN aid chief admits starving Gazan baby claim was amid 'desperation' to let aid in](https://www.jpost.com/israel-news/article-856073)
-- [The Wall Street Journal Article, 2024: Around 10% of Palestinian aid agency’s 12,000 staff in Gaza (UNRWA) have links to militants](https://www.wsj.com/world/middle-east/at-least-12-u-n-agency-employees-involved-in-oct-7-attacks-intelligence-reports-say-a7de8f36)
-- [UN Watch Article, 2024: Group of 3000 UNRWA Teachers Celebrates Hamas Massacre and Rape](https://unwatch.org/group-of-3000-unrwa-teachers-celebrates-hamas-massacre-and-rape/)
+{% citation "un-jihadist-network", 1 %}
 
-**[2]** <span id="cite-2"></span> The Gaza flotillas are affiliated directly with Hamas and the Muslim Brotherhood:
-- [Ministry for Diaspora Affairs and Combatting Antisemitism: The Hamas-Sumud Flotilla Intercepted](https://govextra.gov.il/mda/march-to-gaza/the-hidden-networks-behind-the-global-sumud-flotilla/#:~:text=The%20real%20leadership%20is%20composed,Hamas%20and%20the%20Muslim%20Brotherhood.)
-- [i24 News Article: European Hamas operative behind Gaza flotilla carrying Greta Thunberg](https://www.i24news.tv/en/news/israel-at-war/artc-european-hamas-operative-behind-gaza-flotilla-carrying-greta-thunberg)
-- [Perplexity summarizing Al-Jazeera (yes), Euronews, UN News, etc.: Called on Israel to immediately and unconditionally release two detained Gaza flotilla activists and said their detention was unlawful](https://www.perplexity.ai/search/did-the-un-demand-that-israel-UqrM44OpRou1BCXoos31dg)
+{% citation "gaza-flotillas-hamas", 2 %}
 
-**[3]** <span id="cite-3"></span> Islam has a Quranic mandate to erase all non-Islamic religions. The citations are from the Quran itself, as well as Islamic legal works (e.g., Hanafi, Maliki, Shafi‘i fiqh manuals):
-[Perplexity provides a comprehensive summary of specific Quranic verses proving this.](https://www.perplexity.ai/search/may-i-task-you-with-finding-re-7pLtkxg2Q_C48gu1C5vWcw) Most notably:
-- Sura 9:29 (Jizya and "subjugation")
-- Sura 8:39 ("Total Equality and Uniformity")
-- Dar al‑Harb and Dar al‑Islam - the "material motivation" for aggression against Israel.
+{% citation "quranic-mandate-erasure", 3 %}
 
-It's important to stress that Perplexity utilizes a "historical context" argument, which is a common apologetic move to claim the verse only applied to the Pagans of Mecca. However, from a forensic and classical standpoint, the "anti-polytheism" mandate is the core of the verse.
-
-- **The Definition of *Fitnah*:** In classical exegesis (*Tafsir*), including the highly authoritative **Tafsir ibn Kathir**, the word *fitnah* in 8:39 is explicitly defined as **Shirk** (associating partners with God/polytheism). 
-- **The Universal Mandate:** The verse commands fighting until "the religion, all of it, is for Allah." In formal logic, if the goal is "all of it," there is no structural room for polytheistic pluralism.
-- **The "Islam or the Sword" Distinction:** In Islamic law (*Fiqh*), there is a categorical difference between "People of the Book" (who can pay Jizya) and polytheists. For the latter, classical doctrine historically offered no *Dhimma* (protection) status - only conversion or combat.
-
-**[4]** <span id="cite-4"></span> There is no genocide in Gaza carried out by the IDF nor Israel:
-- [Detailed Pastebin document providing a library of sources and supporting evidence on the history of Israel and Middle-Eastern conflicts](https://pastebin.com/uTT91J3B)
-- [Perplexity summarizing all documented evidence proving Israel's ethical military conduct, including ICJ court ruling in 2024](https://www.perplexity.ai/search/there-is-a-lot-of-misinformati-9usKQ3yOTIGOUzXUE9if1w#0)
-- [Tweet by Ahmad Taha showcasing how AI is used in modern antisemitic propaganda to mislead viewers](https://fixupx.com/amjadt25/status/1983959827052425436)
-- [Mosab Hassan Youssef recounting "Hamas disciplining" from childhood, proving it is Hamas' side perpetuating violence against Jews](https://share.google/aimode/SZKaMhSLNoCmKk5I3)
+{% citation "idf-no-genocide", 4 %}

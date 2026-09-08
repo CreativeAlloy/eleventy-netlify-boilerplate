@@ -45,30 +45,12 @@ Now, I of course cannot finish this article without some parting words from Mist
 
 ***Sufian M'Barki***
 
-- - -
+***
 
 ## Citations
 
-**[1]** <span id="cite-1"></span> There is no genocide in Gaza (nor anywhere else) carried out by the IDF nor Israel:
-- [Detailed Pastebin document providing a library of sources and supporting evidence on the history of Israel and Middle-Eastern conflicts](https://pastebin.com/uTT91J3B)
-- [Perplexity summarizing all documented evidence proving Israel's ethical military conduct, including ICJ court ruling in 2024](https://www.perplexity.ai/search/there-is-a-lot-of-misinformati-9usKQ3yOTIGOUzXUE9if1w#0)
-- [Tweet by Ahmad Taha showcasing how AI is used in modern antisemitic propaganda to mislead viewers](https://fixupx.com/amjadt25/status/1983959827052425436)
-- [Mosab Hassan Youssef recounting "Hamas disciplining" from childhood, proving it is Hamas perpetuating violence against Jews and those who do not conform to their mandate](https://share.google/aimode/SZKaMhSLNoCmKk5I3)
+{% citation "idf-no-genocide", 1 %}
 
-**[2]** <span id="cite-2"></span> Islam has a Quranic mandate to erase all non-Islamic religions. The citations are from the Quran itself, as well as Islamic legal works (e.g., Hanafi, Maliki, Shafi‘i fiqh manuals):
-[Perplexity provides a comprehensive summary of specific Quranic verses proving this.](https://www.perplexity.ai/search/may-i-task-you-with-finding-re-7pLtkxg2Q_C48gu1C5vWcw) Most notably:
-- Sura 9:29 (Jizya and "subjugation")
-- Sura 8:39 ("Total Equality and Uniformity")
-- Dar al‑Harb and Dar al‑Islam - the "material motivation" for aggression against Israel.
+{% citation "quranic-mandate-erasure", 2 %}
 
-It's important to stress that Perplexity utilizes a "historical context" argument, which is a common apologetic move to claim the verse only applied to the Pagans of Mecca. However, from a forensic and classical standpoint, the "anti-polytheism" mandate is the core of the verse.
-
-- **The Definition of *Fitnah*:** In classical exegesis (*Tafsir*), including the highly authoritative **Tafsir ibn Kathir**, the word *fitnah* in 8:39 is explicitly defined as **Shirk** (associating partners with God/polytheism). 
-- **The Universal Mandate:** The verse commands fighting until "the religion, all of it, is for Allah." In formal logic, if the goal is "all of it," there is no structural room for polytheistic pluralism.
-- **The "Islam or the Sword" Distinction:** In Islamic law (*Fiqh*), there is a categorical difference between "People of the Book" (who can pay Jizya) and polytheists. For the latter, classical doctrine historically offered no *Dhimma* (protection) status - only conversion or combat.
-
-**[3]** <span id="cite-3"></span> The "Nova Café" in Gaza fully documented, before it was forced to change its name due to backlash:
-- [Article on "Israel InSight Magazine: For Israel's Christian Friends" describing the details](https://israelinsight.substack.com/p/israel-decries-opening-of-nova-cafe)
-- [Jfeed news article on celebrating the October 7th Massacre via a restaurant, photos and tweets included](https://www.jfeed.com/middleeast/hamas-nova-restaurant-controversy)
-- [A tweet literally celebrating the bloody restaurant itself on October 15th, 2025, with hashtags no less](https://x.com/imshin/status/1977284670946787527?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1977284670946787527%7Ctwgr%5E00839fb07236aa47bdec791713705bb7b11e6723%7Ctwcon%5Es1_c10&ref_url=https%3A%2F%2Fwww.jfeed.com%2Fmiddleeast%2Fhamas-nova-restaurant-controversy)
-- [Israel Hayom article on the matter of a "Nova" restaurant on the beaches of Gaza](https://www.israelhayom.com/2025/10/12/coincidence-beach-side-nova-restaurant-to-open-in-gaza/)
+{% citation "nova-cafe-gaza", 3 %}

@@ -132,12 +132,6 @@ In the upcoming seminar, we will explore even more detailed examples of these lo
 
 ## Citations
 
-**[1]** <span id="cite-1"></span> There is no genocide in Azzah carried out by the IDF nor Israel:
-- [Detailed Pastebin document providing a library of sources and supporting evidence on the history of Israel and Middle-Eastern conflicts](https://pastebin.com/uTT91J3B)
-- [Perplexity summarizing all documented evidence proving Israel's ethical military conduct, including ICJ court ruling in 2024](https://www.perplexity.ai/search/there-is-a-lot-of-misinformati-9usKQ3yOTIGOUzXUE9if1w#0)
-- [Tweet by Ahmad Taha showcasing how AI is used in modern antisemitic propaganda to mislead viewers](https://fixupx.com/amjadt25/status/1983959827052425436)
-- [Mosab Hassan Yousef recounting "Hamas disciplining" from childhood, proving it is Hamas' side perpetuating violence against Jews](https://share.google/aimode/SZKaMhSLNoCmKk5I3)
-- [Open-Source Intelligence has gathered satellite footage showcasing blood splotches in places with actual ongoing atrocities and genocides, such as Nigeria and Sudan - a phenomenon completely absent in Azzah, where only structural destruction can be seen](https://www.perplexity.ai/search/2caa67ee-a731-438e-a15c-719e1f74e0a0)
+{% citation "idf-no-genocide", 1 %}
 
-**[2]** <span id="cite-2"></span> The IDF have consistently organized humanitarian corridors in Azzah for non-combatants:
-- [Detailed Gemini summary quoting numerous sources showcasing the established corridors and procedures in 2023, 2024, 2025, and 2026](https://share.gemini.google/ZSCw9SKJeYfZ)
+{% citation "idf-humanitarian-corridors", 2 %}

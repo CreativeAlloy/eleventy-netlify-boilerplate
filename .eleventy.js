@@ -14,7 +14,7 @@ if (fs.existsSync("./_data/lexicon.json")) {
   lexicon = require("./_data/lexicon.json");
 }
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
 
   // Register Plugins
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
@@ -89,12 +89,12 @@ module.exports = function(eleventyConfig) {
   });
 
   // Minify CSS
-  eleventyConfig.addFilter("cssmin", function(code) {
+  eleventyConfig.addFilter("cssmin", function (code) {
     return new CleanCSS({}).minify(code).styles;
   });
 
   // Minify JS
-  eleventyConfig.addFilter("jsmin", function(code) {
+  eleventyConfig.addFilter("jsmin", function (code) {
     let minified = UglifyJS.minify(code);
     if (minified.error) {
       console.log("UglifyJS error: ", minified.error);
@@ -104,7 +104,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Minify HTML output
-  eleventyConfig.addTransform("htmlmin", function(content, outputPath) {
+  eleventyConfig.addTransform("htmlmin", function (content, outputPath) {
     if (outputPath.indexOf(".html") > -1) {
       let minified = htmlmin.minify(content, {
         useShortDoctype: true,
@@ -118,9 +118,9 @@ module.exports = function(eleventyConfig) {
 
   // Don't process folders with static assets e.g. images
   // --- Targeted Automatic Lexicon Scanner Transform ---
-  eleventyConfig.addTransform("autoLexicon", function(content, outputPath) {
+  eleventyConfig.addTransform("autoLexicon", function (content, outputPath) {
     if (outputPath && outputPath.endsWith(".html") && content.includes("post-main-content")) {
-      
+
       let currentLexicon = {};
       if (fs.existsSync("./_data/lexicon.json")) {
         try {
@@ -138,7 +138,7 @@ module.exports = function(eleventyConfig) {
 
         for (const [term, definition] of sortedEntries) {
           const safeDef = definition.replace(/"/g, '&quot;');
-          
+
           // 2. Protect existing <a>, <h1-6>, <pre>, <code>, and ALREADY WRAPPED .lexicon-term spans
           const regex = new RegExp(`(<a\\b[^>]*>[\\s\\S]*?<\\/a>|<span\\b[^>]*class="[^"]*lexicon-term[^"]*"[^>]*>[\\s\\S]*?<\\/span>|<h[1-6]\\b[^>]*>[\\s\\S]*?<\\/h[1-6]>|<pre\\b[^>]*>[\\s\\S]*?<\\/pre>|<code\\b[^>]*>[\\s\\S]*?<\\/code>|<[^>]+>)|\\b(${term})\\b`, "gi");
 
@@ -155,6 +155,35 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
+// --- Reusable Citation Shortcode (With Blockquote Support) ---
+  eleventyConfig.addShortcode("citation", function(key, number, customAnchor) {
+    let citations = {};
+    if (fs.existsSync("./_data/citations.json")) {
+      try {
+        citations = JSON.parse(fs.readFileSync("./_data/citations.json", "utf8"));
+      } catch (e) {
+        citations = {};
+      }
+    }
+
+    const item = citations[key];
+    const anchorId = customAnchor || `cite-${number}`;
+
+    if (!item) {
+      return `<p><strong>[${number}]</strong> <span id="${anchorId}"></span> [Citation "${key}" not found in _data/citations.json]</p>`;
+    }
+
+    // Render blockquote if present
+    const quoteHtml = item.quote ? `<blockquote>${item.quote}</blockquote>` : "";
+
+    // Render bullet list only if sources exist
+    const sourcesHtml = (item.sources && item.sources.length > 0)
+      ? `<ul>\n${item.sources.map(s => s.url ? `<li><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.text}</a></li>` : `<li>${s.text}</li>`).join("\n")}\n</ul>`
+      : "";
+
+    return `<p><strong>[${number}]</strong> <span id="${anchorId}"></span> ${item.title}</p>\n${quoteHtml}\n${sourcesHtml}`;
+  });
+
   eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy("static/img");
   eleventyConfig.addPassthroughCopy("admin/");
@@ -163,10 +192,10 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addShortcode("get_first_image", (content) => {
     if (!content) return "";
-    
+
     // This regex looks for the 'src' inside an <img> tag
     const m = content.match(/<img [^>]*src="([^"]+)"/);
-    
+
     if (m) return m[1];
     return ""; // Default empty fallback
   });

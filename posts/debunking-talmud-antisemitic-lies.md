@@ -96,16 +96,8 @@ It is quite the convoluted endeavor, but none of these malicious actors accounte
 
 ***Sufian M'Barki***
 
-- - -
+***
 
 ## Citations
 
-Black Jewish Alliance (2021): Debunking the Myth of Jewish Involvement in the Slave Trade. [[Link](https://blackjewishentalliance.com/wp-content/uploads/2021/02/Debunking-the-Myth-of-the-Jewish-Involvement-in-the-Slave-Trade.pdf)]
-
-Joseph Phelan (2023): The Jewish ‘monopoly’ of the slave trade in the early Middle Ages: the origins of an enduring historical motif, Patterns of Prejudice, 57:3, 161-174, DOI: 10.1080/0031322X.2023.2287871 [[Link](https://www.tandfonline.com/doi/full/10.1080/0031322X.2023.2287871)] [[Link](https://www.tandfonline.com/doi/pdf/10.1080/0031322X.2023.2287871?needAccess=true)]
-
-The Jerusalem Post (2025): Candace Owens urges audience read antisemitic book, asserts Jews controlled slave trade. [[Link](https://www.jpost.com/diaspora/antisemitism/article-881052)]
-
-Bernard Lewis, Commentary Magazine (1986): The Arab World Discovers Anti-Semitism. [[Link](https://www.commentary.org/articles/bernard-lewis/the-arab-world-discovers-anti-semitism/)]
-
-Jeffrey Herf, Central European History (2009): Nazi Germany’s Propaganda Aimed at Arabs and Muslims during World War II and the Holocaust: Old Themes, New Archival Findings, 42(4), 709-736. [[Link](https://www.cambridge.org/core/journals/central-european-history/article/abs/nazi-germanys-propaganda-aimed-at-arabs-and-muslims-during-world-war-ii-and-the-holocaust-old-themes-new-archival-findings/AF71DE060D8B2FBFF797E2D5B968CB1F)]
+{% citation "debunking-der-talmudjude", 1 %}
