@@ -107,21 +107,45 @@
 			const closeBtn = document.getElementById('lexicon-popover-close');
 
 			function openPopover(target) {
-			// Uses the canonical capitalized title if available, otherwise falls back to the text
-			const term = target.getAttribute('data-term') || target.textContent.trim();
-			const definition = target.getAttribute('data-definition');
-			if (!definition) return;
+				const term = target.getAttribute('data-term') || target.textContent.trim();
+				const definition = target.getAttribute('data-definition');
+				if (!definition) return;
 
-			title.textContent = term;
-			// Automatically converts [text](url) markdown syntax into clickable <a> tags
-			bodyText.innerHTML = definition.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+				title.textContent = term;
+				bodyText.innerHTML = definition.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
-				const rect = target.getBoundingClientRect();
-				const scrollY = window.scrollY || document.documentElement.scrollTop;
-				
-				// Position directly above the clicked term, centered horizontally
-				popover.style.top = `${rect.top + scrollY - 12}px`;
-				popover.style.left = `${rect.left + (rect.width / 2)}px`;
+				// 1. Mobile & Small Tablets: Let CSS center it as a clean dialog
+				if (window.innerWidth <= 600) {
+					popover.style.top = '';
+					popover.style.left = '';
+					popover.classList.remove('popover-below');
+				} else {
+					// 2. Desktop: Viewport-clamped positioning
+					const rect = target.getBoundingClientRect();
+					const scrollY = window.scrollY || document.documentElement.scrollTop;
+					const padding = 16;
+					const popoverWidth = 340; // matches max-width in CSS
+					const halfWidth = popoverWidth / 2;
+
+					// Clamp horizontally so it never bleeds off left or right edges
+					let targetX = rect.left + (rect.width / 2);
+					if (targetX - halfWidth < padding) {
+						targetX = halfWidth + padding;
+					} else if (targetX + halfWidth > window.innerWidth - padding) {
+						targetX = window.innerWidth - halfWidth - padding;
+					}
+
+					popover.style.left = `${targetX}px`;
+
+					// Flip below if too close to top of viewport
+					if (rect.top < 220) {
+						popover.style.top = `${rect.bottom + scrollY + 12}px`;
+						popover.classList.add('popover-below');
+					} else {
+						popover.style.top = `${rect.top + scrollY - 12}px`;
+						popover.classList.remove('popover-below');
+					}
+				}
 
 				backdrop.classList.add('active');
 				popover.classList.add('active');

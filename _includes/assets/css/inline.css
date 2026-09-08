@@ -1021,6 +1021,25 @@ body.dark-mode.lecture-theme #news-search-input:focus {
     border-color: var(--primary-lecture); 
 }
 
+/* Flipped position when term is near top of viewport */
+.lexicon-popover.popover-below {
+    transform: translate(-50%, 0);
+}
+
+/* Mobile Responsive Modal Mode (<= 600px) */
+@media screen and (max-width: 600px) {
+    .lexicon-popover {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: calc(100vw - 2rem) !important;
+        max-width: 360px !important;
+        max-height: 80vh !important;
+        overflow-y: auto;
+    }
+}
+
 /* 4. Dark Mode Support */
 body.dark-mode .lexicon-popover {
     background: var(--active-card-bg);
