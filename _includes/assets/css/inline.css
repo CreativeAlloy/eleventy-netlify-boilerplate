@@ -716,13 +716,20 @@ body.lecture-theme input:checked + .slider {
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-width: 0; /* Allows flex children to shrink below content size */
 }
 
 .post-toc-sidebar {
     width: 100%;
+    min-width: 0;
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--index-nav-border-color);
+}
+
+.post-main-content {
+    width: 100%;
+    min-width: 0; /* Prevents long formulas/code from pushing the page wide */
 }
 
 .toc-header-label {
@@ -764,6 +771,8 @@ body.lecture-theme input:checked + .slider {
     color: inherit;
     opacity: 0.85;
     transition: opacity 0.15s ease, color 0.15s ease;
+    overflow-wrap: break-word; /* Wraps long headings onto new lines on mobile */
+    word-break: break-word;
 }
 
 .toc-nav a:hover {
@@ -1053,4 +1062,31 @@ body.dark-mode.serious-theme .lexicon-popover {
 
 body.dark-mode.lecture-theme .lexicon-popover {
     border-color: var(--primary-lecture);
+}
+
+/* =================================
+   MathJax Exclusive CSS Rules
+   ================================= */
+
+/* 1. Base rule for scrolling on all MathJax containers */
+mjx-container,
+.MathJax {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+}
+
+/* 2. Target ONLY standalone block/display formulas ($$ $$) */
+mjx-container[display="true"],
+.MathJax_Display {
+    container-type: inline-size !important;
+}
+
+/* Apply responsive scaling specifically to display formula contents */
+@media screen and (max-width: 450px) {
+    mjx-container[display="true"] > *,
+    .MathJax_Display > * {
+        /* Clamp prevents short formulas like "C -> ¬N" from shrinking below 0.85em */
+        font-size: clamp(0.85em, 3.8cqw, 1em) !important;
+    }
 }
