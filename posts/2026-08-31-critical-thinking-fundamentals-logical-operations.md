@@ -124,7 +124,7 @@ The actual truth is that a large portion of the Northern Azzah Strip is destroye
 
 ## Moving Forward
 
-In the upcoming seminar, we will explore even more detailed examples of these logical operations, such as double negations and equivalences, fallacies (unsound and invalid operations), and more.
+In the [upcoming seminar,](https://thewaspalloy.org/posts/critical-thinking-fundamentals-logical-operations-seminar/) we will explore even more detailed examples of these logical operations, such as double negations and equivalences, fallacies (unsound and invalid operations), and more.
 
 ***Sufian M'Barki***
 
