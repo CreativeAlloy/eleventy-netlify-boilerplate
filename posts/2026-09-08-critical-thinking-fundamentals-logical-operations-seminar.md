@@ -2,7 +2,7 @@
 title: "Critical Thinking Fundamentals - Logical Operations: Seminar"
 serious: false
 lecture: true
-date: 2026-09-08T10:36:00Z
+date: 2026-09-10T10:58:00Z
 author: Sufian M′Barki
 summary: After taking a closer look at the basics of logical operations in
   critical thinking, it is time to explore more detailed examples of their
