@@ -4,9 +4,8 @@ serious: false
 lecture: true
 date: 2026-09-10T16:05:00Z
 author: Sufian M′Barki
-summary: After taking a closer look at the basics of logical operations in
-  critical thinking, it is time to explore more detailed examples of their
-  application in Hasbara activism.
+summary: It is time to take a closer look at Argumentative
+  Logical Fallacies in logical discourse.
 tags:
   - lecture
   - logic
