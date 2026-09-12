@@ -1,19 +1,19 @@
 /* 1. Base Variables (Structure & Fallbacks) */
 :root {
-	--secondary: white;
+    --secondary: white;
 	--index-nav-border-color: rgba(0, 0, 0, 0.2);
 }
 
 /* 2. Satire Theme (Formerly Default Green) */
 .satire-theme {
-	--primary: #2e6319; 
+	--primary: #2e6319;
 	--background: #bcfac2;
 }
 
 /* 3. Neutral Theme (For News Index) */
 .neutral-theme {
-	--primary: #4a5568; 
-	--background: #e2e8f0; 
+	--primary: #4a5568;
+	--background: #cdd6e1;
 }
 
 /* 4. Rainbow Theme (Mathematical Hue Wheel) */
@@ -732,12 +732,12 @@ body.dark-mode.lecture-theme textarea:focus {
 
 /* Serious Theme (Blue) */
 body.serious-theme .theme-switch-wrapper em { color: var(--primary-serious); }
-body.serious-theme .slider { border-color: var(--primary-serious); }
+body.serious-theme .slider { border: 1px solid var(--primary-serious); }
 body.serious-theme .slider:before { background-color: var(--primary-serious); }
 
 /* Lecture Theme (Red) */
 body.lecture-theme .theme-switch-wrapper em { color: var(--primary-lecture); }
-body.lecture-theme .slider { border-color: var(--primary-lecture); }
+body.lecture-theme .slider { border: 1px solid var(--primary-lecture); }
 body.lecture-theme .slider:before { background-color: var(--primary-lecture); }
 
 
@@ -1137,11 +1137,11 @@ body.dark-mode.lecture-theme #news-search-input:focus {
 
 /* Theme Border Overrides for Light Mode */
 .serious-theme .lexicon-popover { 
-    border-color: var(--primary-serious); 
+    border: 1px solid var(--primary-serious);
 }
 
 .lecture-theme .lexicon-popover { 
-    border-color: var(--primary-lecture); 
+    border: 1px solid var(--primary-lecture);
 }
 
 /* Flipped position when term is near top of viewport */
@@ -1167,15 +1167,15 @@ body.dark-mode.lecture-theme #news-search-input:focus {
 body.dark-mode .lexicon-popover {
     background: var(--active-card-bg);
     color: #e0e0e0;
-    border-color: var(--primary);
+    border: 1px solid var(--primary);
 }
 
 body.dark-mode.serious-theme .lexicon-popover {
-    border-color: var(--primary-serious);
+    border: 1px solid var(--primary-serious);
 }
 
 body.dark-mode.lecture-theme .lexicon-popover {
-    border-color: var(--primary-lecture);
+    border: 1px solid var(--primary-lecture);
 }
 
 /* =================================
