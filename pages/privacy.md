@@ -18,6 +18,7 @@ The Wasp Alloy stores a variable in your local browser to determine which articl
 
 Think of it as a checker which asks your browser, "Hey Browser, have you seen this post before?" If the answer is no, the checker tells your browser, "Okay, you are new here, so I'm going to add 1 view to the post." If the answer is yes, the checker says, "Okay, you have seen this post, so the view count won't be changed."
 
+{% comment %}
 ### Monetization and Third-Parties
 To support the ongoing research, documentation, and geopolitical analysis hosted on this domain, The Wasp Alloy utilizes the **A-Ads (Anonymous Ads)** network for monetization. 
 
@@ -27,3 +28,4 @@ I have specifically chosen A-Ads because it aligns with the values of privacy an
 - **Technical Metadata:** When your browser requests an advertisement, it automatically sends standard technical metadata (such as your IP address and browser type) to the A-Ads servers to facilitate the delivery of the banner. This is a fundamental technical requirement for all web requests in general, and is not used by The Wasp Alloy to identify individual readers.
 
 By using this site, you acknowledge that this technical interaction occurs, while remaining assured that your personal identity remains private and your browsing habits are not being harvested.
+{% endcomment %}

@@ -1133,3 +1133,39 @@ mjx-container[display="true"],
         font-size: clamp(0.85em, 3.8cqw, 1em) !important;
     }
 }
+
+/* =================================
+   Rainbow Theme Duotone Banner Tint
+   ================================= */
+
+/* Target the wrapper <p> on Nest and About pages */
+.rainbow-theme p:has(> img[src*="default-embed-preview-img"]) {
+    position: relative;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 1.5em auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* 1. Grayscale the banner */
+.rainbow-theme p:has(> img[src*="default-embed-preview-img"]) img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: grayscale(100%) contrast(100%);
+    border-radius: 10px;
+}
+
+/* 2. Inherit the live shifting rainbow theme color */
+.rainbow-theme p:has(> img[src*="default-embed-preview-img"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--primary);
+    mix-blend-mode: color;
+    pointer-events: none;
+    border-radius: 10px;
+    opacity: 0.5; /* Subtle tint; set to 1 for full monochrome duotone */
+}
