@@ -1,8 +1,38 @@
+/* 1. Base Variables (Structure & Fallbacks) */
 :root {
-	--primary: #2e6319; 
 	--secondary: white;
-	--background: #bcfac2;
 	--index-nav-border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* 2. Satire Theme (Formerly Default Green) */
+.satire-theme {
+	--primary: #2e6319; 
+	--background: #bcfac2;
+}
+
+/* 3. Neutral Theme (For News Index) */
+.neutral-theme {
+	--primary: #4a5568; 
+	--background: #e2e8f0; 
+}
+
+/* 4. Rainbow Theme (Mathematical Hue Wheel) */
+@property --hue {
+	syntax: '<number>';
+	inherits: true;
+	initial-value: 105; /* Starts precisely at the signature Satire Green hue */
+}
+
+@keyframes rainbow-cycle {
+	from { --hue: 105; }
+	to   { --hue: 465; } /* Rotates a full 360 degrees back to green */
+}
+
+.rainbow-theme {
+	animation: rainbow-cycle 45s linear infinite;
+	--primary: hsl(var(--hue), 60%, 24%);
+	--background: hsl(var(--hue), 85%, 86%);
+	--secondary: white;
 }
 
 *, *:before, *:after {
@@ -467,33 +497,46 @@ footer {
    Dark Mode Overrides
    ================================= */
 
+/* Define the structural dark mode variables at the root */
 body.dark-mode {
-    /* Default / Satire Theme Dark Colors */
+    --active-input-border: #2c4222; /* Fallback */
+    color: #e0e0e0;
+	--index-nav-border-color: #e0e0e0;
+}
+
+/* Satire Theme Dark Colors */
+body.dark-mode.satire-theme {
     --primary: #8fd37a;
     --secondary: #193013;
     --background: #0d120b;
     --main-card-bg-color: #193013;
-    
-    /* Serious Theme Dark Colors */
-    --primary-serious: #58a6ff;
-    --secondary-serious: #0b193b;
-    --background-serious: #060e1f;
-    --main-card-bg-color-serious: #0b193b;
-    
-    /* Lecture Theme Dark Colors */
-    --primary-lecture: #ff85a2; 
-    --secondary-lecture: #330611;
-    --background-lecture: #140508;
-    --main-card-bg-color-lecture: #330611;
-
-    /* Dynamic Application Variables (Defaults to Satire) */
     --active-card-bg: var(--main-card-bg-color);
-    --active-input-bg: var(--background); /* Insets the text areas using the deeper body color */
-    --active-input-border: #2c4222; /* Subtle tinted border */
-    color: #e0e0e0;
+    --active-input-bg: var(--background);
+    --active-input-border: #2c4222;
+}
 
-	/* Index nav border color override */
-	--index-nav-border-color: #e0e0e0;
+/* Neutral Theme Dark Colors */
+body.dark-mode.neutral-theme {
+    --primary: #a0aec0;
+    --secondary: #1a202c;
+    --background: #0f1218;
+    --main-card-bg-color: #1a202c;
+    --active-card-bg: var(--main-card-bg-color);
+    --active-input-bg: var(--background);
+    --active-input-border: #2d3748;
+}
+
+/* Rainbow Theme Dark Colors (Mathematical Hue Wheel) */
+body.dark-mode.rainbow-theme {
+    animation: rainbow-cycle 45s linear infinite;
+    --primary: hsl(var(--hue), 50%, 65%);
+    --background: hsl(var(--hue), 25%, 6%);
+    --main-card-bg-color: hsl(var(--hue), 40%, 13%);
+    --secondary: hsl(var(--hue), 40%, 13%);
+    
+    --active-card-bg: var(--main-card-bg-color);
+    --active-input-bg: var(--background);
+    --active-input-border: hsl(var(--hue), 35%, 22%);
 }
 
 /* Serious Theme Dark Mode Modifiers */

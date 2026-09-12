@@ -3,7 +3,18 @@
 
 	{% include "components/head.njk" %}
 
-	<body class="{% if serious or '/tags/serious/' in page.url %}serious-theme{% elif lecture or '/tags/lecture/' in page.url %}lecture-theme{% endif %}">
+	{% set themeClass = "rainbow-theme" %}
+	{% if page.url == '/news/' %}
+		{% set themeClass = "neutral-theme" %}
+	{% elif serious or '/tags/serious/' in page.url %}
+		{% set themeClass = "serious-theme" %}
+	{% elif lecture or '/tags/lecture/' in page.url %}
+		{% set themeClass = "lecture-theme" %}
+	{% elif tags and "satire" in tags or '/tags/satire/' in page.url %}
+		{% set themeClass = "satire-theme" %}
+	{% endif %}
+
+	<body class="{{ themeClass }}">
 
 	<!-- Prevent Flash of Light Theme -->
 	<script>
@@ -54,19 +65,34 @@
 
 		// 2. Centralized Ko-fi Render Function
 		function drawKofi() {
-			const themeVar = body.classList.contains('serious-theme') ? '--primary-serious' : 
-							body.classList.contains('lecture-theme') ? '--primary-lecture' : '--primary';
-			const activeColor = window.getComputedStyle(body).getPropertyValue(themeVar).trim();
+			let activeBg;
+			let activeText = '#fff';
+
+			if (body.classList.contains('rainbow-theme')) {
+				// Clean neutral styling for rainbow pages (avoids interval re-render lag)
+				if (body.classList.contains('dark-mode')) {
+					activeBg = '#2d3748'; // Sleek dark slate in dark mode
+					activeText = '#ffffff';
+				} else {
+					activeBg = '#ffffff'; // Crisp white in light mode
+					activeText = '#1a202c'; // Dark charcoal text for full contrast
+				}
+			} else {
+				const themeVar = body.classList.contains('serious-theme') ? '--primary-serious' : 
+								 body.classList.contains('lecture-theme') ? '--primary-lecture' : '--primary';
+				activeBg = window.getComputedStyle(body).getPropertyValue(themeVar).trim() || '#2e6319';
+				activeText = '#fff';
+			}
 
 			// Safely wipe any existing Ko-fi elements to prevent duplicates
 			document.querySelectorAll('.floatingchat-container-wrap, iframe[id^="kofi-wo-window"]').forEach(el => el.remove());
 
 			// Redraw the widget with the exact active color
 			kofiWidgetOverlay.draw('creativealloy', {
-			'type': 'floating-chat',
-			'floating-chat.donateButton.text': 'Tip Me',
-			'floating-chat.donateButton.background-color': activeColor || '#2e6319', 
-			'floating-chat.donateButton.text-color': '#fff'
+				'type': 'floating-chat',
+				'floating-chat.donateButton.text': 'Tip Me',
+				'floating-chat.donateButton.background-color': activeBg, 
+				'floating-chat.donateButton.text-color': activeText
 			});
 		}
 
