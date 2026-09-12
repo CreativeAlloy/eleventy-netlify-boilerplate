@@ -69,13 +69,12 @@
 			let activeText = '#fff';
 
 			if (body.classList.contains('rainbow-theme')) {
-				// Clean neutral styling for rainbow pages (avoids interval re-render lag)
 				if (body.classList.contains('dark-mode')) {
-					activeBg = '#2d3748'; // Sleek dark slate in dark mode
-					activeText = '#ffffff';
+					activeBg = '#ffffff';
+					activeText = '#1a202c';
 				} else {
-					activeBg = '#ffffff'; // Crisp white in light mode
-					activeText = '#1a202c'; // Dark charcoal text for full contrast
+					activeBg = '#1a202c';
+					activeText = '#ffffff';
 				}
 			} else {
 				const themeVar = body.classList.contains('serious-theme') ? '--primary-serious' : 

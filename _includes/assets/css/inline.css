@@ -541,6 +541,11 @@ body.dark-mode.rainbow-theme {
 
 /* Serious Theme Dark Mode Modifiers */
 body.dark-mode.serious-theme {
+    --primary-serious: #58a6ff;
+    --secondary-serious: #0b193b;
+    --background-serious: #060e1f;
+    --main-card-bg-color-serious: #0b193b;
+
     --active-card-bg: var(--main-card-bg-color-serious);
     --active-input-bg: var(--background-serious);
     --active-input-border: #142d66; /* Deep blue border */
@@ -548,6 +553,11 @@ body.dark-mode.serious-theme {
 
 /* Lecture Theme Dark Mode Modifiers */
 body.dark-mode.lecture-theme {
+    --primary-lecture: #ff85a2; 
+    --secondary-lecture: #330611;
+    --background-lecture: #140508;
+    --main-card-bg-color-lecture: #330611;
+
     --active-card-bg: var(--main-card-bg-color-lecture);
     --active-input-bg: var(--background-lecture);
     --active-input-border: #4d0d1b; /* Deep bordeaux border */
