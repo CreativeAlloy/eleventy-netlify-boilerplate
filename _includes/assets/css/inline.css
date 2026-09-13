@@ -797,8 +797,8 @@ body.lecture-theme input:checked + .slider {
 	:root {
 		font-size: 1.1rem;
 	}
-	main { 
-		max-width: 45em; 
+	main {
+		max-width: 45em;
 	}
 	.content-wrapper { 
 		max-width: 45em;
@@ -813,9 +813,9 @@ body.lecture-theme input:checked + .slider {
 	}
 }
 
-@media (max-width: 601px) {
+@media (max-width: 620px) {
     main {
-        margin: 2vw;
+        max-width: 95vw;
     }
 }
 
