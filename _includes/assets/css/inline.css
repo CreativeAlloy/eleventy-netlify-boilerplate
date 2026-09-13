@@ -817,6 +817,12 @@ body.lecture-theme input:checked + .slider {
     main {
         max-width: 95vw;
     }
+
+    .filter-btn {
+        font-size: 0.95rem;
+        padding: 10px 4px;
+        letter-spacing: 0.05em;
+    }
 }
 
 @media (max-width: 380px) {
