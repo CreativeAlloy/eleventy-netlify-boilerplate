@@ -12,6 +12,8 @@
 		{% set themeClass = "lecture-theme" %}
 	{% elif tags and "satire" in tags or '/tags/satire/' in page.url %}
 		{% set themeClass = "satire-theme" %}
+	{% elif '/tags/' in page.url %}
+		{% set themeClass = "neutral-theme" %}
 	{% endif %}
 
 	<body class="{{ themeClass }}">

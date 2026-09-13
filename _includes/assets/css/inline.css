@@ -10,10 +10,10 @@
 	--background: #bcfac2;
 }
 
-/* 3. Neutral Theme (For News Index) */
+/* 3. Neutral Theme (For News Index - Vibrant Purple) */
 .neutral-theme {
-	--primary: #4a5568;
-	--background: #cdd6e1;
+	--primary: #5b1fa6;
+	--background: #e2caff;
 }
 
 /* 4. Rainbow Theme (Mathematical Hue Wheel) */
@@ -576,15 +576,15 @@ body.dark-mode.satire-theme {
     --active-input-border: #2c4222;
 }
 
-/* Neutral Theme Dark Colors */
+/* Neutral Theme Dark Colors (Deep Plum & Electric Violet) */
 body.dark-mode.neutral-theme {
-    --primary: #a0aec0;
-    --secondary: #1a202c;
-    --background: #0f1218;
-    --main-card-bg-color: #1a202c;
+    --primary: #c084fc;
+    --secondary: #1f1035;
+    --background: #0d0519;
+    --main-card-bg-color: #1f1035;
     --active-card-bg: var(--main-card-bg-color);
     --active-input-bg: var(--background);
-    --active-input-border: #2d3748;
+    --active-input-border: #3b1559;
 }
 
 /* Rainbow Theme Dark Colors (Mathematical Hue Wheel) */
