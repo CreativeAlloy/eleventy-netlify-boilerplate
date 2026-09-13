@@ -76,6 +76,7 @@ main {
 	margin-right: auto;
 	background-color: #fff; /* White background for the content area */
 	border-radius: 10px;
+    /* border: 1px solid var(--primary); */ /* NOTE: I might introduce personalized style settings so users can enable certain cosmetics like these outlines */
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
@@ -441,6 +442,7 @@ footer {
   /* You can keep the main content white, or change it */
   /* background-color: #ffffff; */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+  /* border: 1px solid var(--primary-serious); */ /* NOTE: I might introduce personalized style settings so users can enable certain cosmetics like these outlines */
 }
 
 .serious-theme a[href],
@@ -506,6 +508,7 @@ footer {
 
 .lecture-theme main {
     box-shadow: 0 4px 15px rgba(139, 0, 0, 0.12);
+    /* border: 1px solid var(--primary-lecture); */ /* NOTE: I might introduce personalized style settings so users can enable certain cosmetics like these outlines */
 }
 
 .lecture-theme a[href],
