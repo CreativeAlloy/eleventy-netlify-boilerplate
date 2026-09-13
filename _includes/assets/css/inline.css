@@ -1075,6 +1075,7 @@ body.dark-mode.lecture-theme #news-search-input:focus {
     background: #ffffff;
     color: #222;
     border: 1px solid var(--primary);
+    border-left: 5px solid var(--primary);
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
@@ -1138,10 +1139,12 @@ body.dark-mode.lecture-theme #news-search-input:focus {
 /* Theme Border Overrides for Light Mode */
 .serious-theme .lexicon-popover { 
     border: 1px solid var(--primary-serious);
+    border-left: 5px solid var(--primary-serious);
 }
 
 .lecture-theme .lexicon-popover { 
     border: 1px solid var(--primary-lecture);
+    border-left: 5px solid var(--primary-lecture);
 }
 
 /* Flipped position when term is near top of viewport */
@@ -1168,14 +1171,17 @@ body.dark-mode .lexicon-popover {
     background: var(--active-card-bg);
     color: #e0e0e0;
     border: 1px solid var(--primary);
+    border-left: 5px solid var(--primary);
 }
 
 body.dark-mode.serious-theme .lexicon-popover {
     border: 1px solid var(--primary-serious);
+    border-left: 5px solid var(--primary-serious);
 }
 
 body.dark-mode.lecture-theme .lexicon-popover {
     border: 1px solid var(--primary-lecture);
+    border-left: 5px solid var(--primary-lecture);
 }
 
 /* =================================
