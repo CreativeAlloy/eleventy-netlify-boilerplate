@@ -76,8 +76,18 @@ main {
 	margin-right: auto;
 	background-color: #fff; /* White background for the content area */
 	border-radius: 10px;
-    /* border: 1px solid var(--primary); */ /* NOTE: I might introduce personalized style settings so users can enable certain cosmetics like these outlines */
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Dynamic Main Container Outlines */
+body.show-outlines main {
+    border: 1px solid var(--primary);
+}
+body.show-outlines.serious-theme main {
+    border: 1px solid var(--primary-serious);
+}
+body.show-outlines.lecture-theme main {
+    border: 1px solid var(--primary-lecture);
 }
 
 p,
@@ -669,31 +679,37 @@ body.dark-mode.lecture-theme textarea:focus {
 /* =================================
    Fancy Theme Toggle Switch
    ================================= */
-.theme-switch-wrapper {
+.header-controls-wrapper {
     position: absolute;
     top: 1rem;
     right: 1rem;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
     z-index: 100000;
 }
 
-/* Default Colors (Satire/Root) */
-.theme-switch-wrapper em {
-    margin-right: 10px;
-    font-size: 0.75rem;
+.control-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.control-group .control-label {
+    font-size: 0.65rem;
     font-weight: bold;
-    font-style: normal;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--primary);
-    
-    /* Force two lines */
-    display: block;
-    width: 40px;          /* Constraints the width to force the wrap */
-    text-align: right;    /* Keeps the text aligned neatly against the toggle */
-    line-height: 1.1;     /* Prevents the lines from being too far apart */
+    line-height: 1;
+    text-align: right;
+    user-select: none;
 }
+
+body.serious-theme .control-group .control-label { color: var(--primary-serious); }
+body.lecture-theme .control-group .control-label { color: var(--primary-lecture); }
 
 .theme-switch {
     display: inline-block;
@@ -734,12 +750,12 @@ body.dark-mode.lecture-theme textarea:focus {
 /* --- THEME OVERRIDES FOR LIGHT MODE --- */
 
 /* Serious Theme (Blue) */
-body.serious-theme .theme-switch-wrapper em { color: var(--primary-serious); }
+body.serious-theme .control-group .control-label { color: var(--primary-serious); }
 body.serious-theme .slider { border: 1px solid var(--primary-serious); }
 body.serious-theme .slider:before { background-color: var(--primary-serious); }
 
 /* Lecture Theme (Red) */
-body.lecture-theme .theme-switch-wrapper em { color: var(--primary-lecture); }
+body.lecture-theme .control-group .control-label { color: var(--primary-lecture); }
 body.lecture-theme .slider { border: 1px solid var(--primary-lecture); }
 body.lecture-theme .slider:before { background-color: var(--primary-lecture); }
 
@@ -796,14 +812,15 @@ body.lecture-theme input:checked + .slider {
 		font-size: 1.3em; 
 		line-height: 1.2;
 		/* Create a "safe zone" on the right so text wraps before hitting the toggle */
-		padding-right: 65px; 
+		padding-right: 85px; 
 		margin: 0.5em 0;
 	}
 
 	/* Move the toggle slightly to gain more room if needed */
-	.theme-switch-wrapper {
-		top: 0.7rem;
+	.header-controls-wrapper {
+		top: -0.8rem;
 		right: 0.5rem;
+		gap: 0.3rem;
 	}
 
 	.content-wrapper nav ul {
@@ -821,6 +838,13 @@ body.lecture-theme input:checked + .slider {
     .content-wrapper nav li a {
         font-size: 0.75rem;     /* Shrink font slightly for narrow fit */
         padding: 0.2em 0.4em;   /* Tighten padding around the active background */
+    }
+
+    /* News Filter Navigation Narrow Screen Fix */
+    .filter-btn {
+        font-size: 0.75rem;
+        padding: 10px 4px;
+        letter-spacing: 0.05em;
     }
 }
 
@@ -1248,4 +1272,19 @@ mjx-container[display="true"],
     pointer-events: none;
     border-radius: 10px;
     opacity: 0.5; /* Subtle tint; set to 1 for full monochrome duotone */
+}
+
+/* =================================
+   Dynamic Main Container Outlines
+   ================================= */
+body.show-outlines main {
+    border: 1px solid var(--primary);
+}
+
+body.show-outlines.serious-theme main {
+    border: 1px solid var(--primary-serious);
+}
+
+body.show-outlines.lecture-theme main {
+    border: 1px solid var(--primary-lecture);
 }

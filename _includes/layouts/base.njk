@@ -18,23 +18,35 @@
 
 	<body class="{{ themeClass }}">
 
-	<!-- Prevent Flash of Light Theme -->
+	<!-- Prevent Flash of Light Theme & Outlines -->
 	<script>
 	if (localStorage.getItem('theme') === 'dark') {
 		document.body.classList.add('dark-mode');
+	}
+	if (localStorage.getItem('outlines') === 'enabled') {
+		document.body.classList.add('show-outlines');
 	}
 	</script>
 
 		<header>
 			<div class="content-wrapper" style="position: relative;"> 
 				
-				{# The Fancy Toggle #}
-				<div class="theme-switch-wrapper">
-					<em>Dark Mode</em>
-					<label class="theme-switch" for="dark-mode-toggle">
-						<input type="checkbox" id="dark-mode-toggle">
-						<div class="slider"></div>
-					</label>
+				{# Header Controls: Lines Toggle & Dark Mode #}
+				<div class="header-controls-wrapper">
+					<div class="control-group">
+						<span class="control-label">Outlines</span>
+						<label class="theme-switch" for="outline-toggle" aria-label="Toggle Main Container Outlines">
+							<input type="checkbox" id="outline-toggle">
+							<div class="slider"></div>
+						</label>
+					</div>
+					<div class="control-group">
+						<span class="control-label">Dark Mode</span>
+						<label class="theme-switch" for="dark-mode-toggle" aria-label="Toggle Dark Mode">
+							<input type="checkbox" id="dark-mode-toggle">
+							<div class="slider"></div>
+						</label>
+					</div>
 				</div>
 
 				<em>
@@ -56,6 +68,25 @@
 
 		<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
 		<script>
+		// Outline Toggle State & Listener
+		const outlineToggle = document.querySelector('#outline-toggle');
+		const savedOutlines = localStorage.getItem('outlines');
+
+		if (savedOutlines === 'enabled') {
+			outlineToggle.checked = true;
+		}
+
+		outlineToggle.addEventListener('change', () => {
+			if (outlineToggle.checked) {
+				body.classList.add('show-outlines');
+				localStorage.setItem('outlines', 'enabled');
+			} else {
+				body.classList.remove('show-outlines');
+				localStorage.setItem('outlines', 'disabled');
+			}
+		});
+
+		// Dark Mode Toggle
 		const toggle = document.querySelector('#dark-mode-toggle');
 		const body = document.body;
 		const savedTheme = localStorage.getItem('theme');
