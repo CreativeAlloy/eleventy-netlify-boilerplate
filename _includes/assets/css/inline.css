@@ -816,7 +816,7 @@ body.lecture-theme input:checked + .slider {
 
 @media (max-width: 601px) {
     main {
-        margin: 0.6rem;
+        margin: 2vw;
     }
 }
 
