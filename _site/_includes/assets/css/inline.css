@@ -81,13 +81,13 @@ main {
 
 /* Dynamic Main Container Outlines */
 body.show-outlines main {
-    border: 1px solid var(--primary);
+    outline: 1px solid var(--primary);
 }
 body.show-outlines.serious-theme main {
-    border: 1px solid var(--primary-serious);
+    outline: 1px solid var(--primary-serious);
 }
 body.show-outlines.lecture-theme main {
-    border: 1px solid var(--primary-lecture);
+    outline: 1px solid var(--primary-lecture);
 }
 
 p,
@@ -1289,19 +1289,4 @@ mjx-container[display="true"],
     pointer-events: none;
     border-radius: 10px;
     opacity: 0.5; /* Subtle tint; set to 1 for full monochrome duotone */
-}
-
-/* =================================
-   Dynamic Main Container Outlines
-   ================================= */
-body.show-outlines main {
-    border: 1px solid var(--primary);
-}
-
-body.show-outlines.serious-theme main {
-    border: 1px solid var(--primary-serious);
-}
-
-body.show-outlines.lecture-theme main {
-    border: 1px solid var(--primary-lecture);
 }
