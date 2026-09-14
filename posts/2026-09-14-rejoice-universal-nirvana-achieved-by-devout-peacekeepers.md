@@ -13,7 +13,7 @@ tags:
   - journalism
   - westernworld
 ---
-![An old smartphone style photo of a young woman with colorful hair dyed in washed out blue-green coloring blended with brown olive drab. She has black makeup, and a bob cut with a fringe that doubles as a mullet. She has a nose piercing, and is wearing a black-and-white keffiyeh around her neck. She is in a dilapidated building, sitting on an old rustic wooden chair in front of a table. She is firmly grasping a crystal ball, and she appears exhilarated by what she sees within, giving an exaggerated evil grin with unnatural proportions, surreal. Inside the glowing crystal ball, the text "NIRVANA" can be seen floating.](/static/img/nirvanagirl.png "Snapshot of Nirvana Girl Witnessing Nirvana Solution")
+![A young woman with colorful hair dyed in washed out blue-green coloring blended with brown olive drab. She has black makeup, and a bob cut with a fringe that doubles as a mullet. She has a nose piercing, and a keffiyeh. She is firmly grasping a crystal ball, giving an exaggerated evil grin with unnatural proportions. Inside the glowing crystal ball, the text "NIRVANA" can be seen floating.](/static/img/nirvanagirl.png "Snapshot of Nirvana Girl Witnessing Nirvana Solution")
 
 **Sewers, New York City, 1:29 AM:** In a groundbreaking socio-politico-scientific endeavor, devout peacekeepers from the Western World managed to uncover the secret to universal perfection. Inside their underground lair and research facility, a series of carefully crafted ritual chants led to the successful materialization of Nirvana in the Observable Universe.
 
@@ -31,8 +31,22 @@ The second group was greeted by a mysterious figure. On the footage, it appears 
 
 ![Creepypasta-style image of a man with a mullet wearing a keffiyeh with a wide surreal creepy grin. The entire image is corrupted and bathed in red colors.](/static/img/wownniirrvvaannaa.jpg "...")
 
-After a short lunch break, the Wasp Alloy Team concluded that the footage might not be recoverable because of the flawlessness of Nirvana, meaning that imperfect human technology is incapable of providing the data. Whatever the sensation of Nirvana is, it appears very exhilarating and enticing, and if Jew-hatred is part of this perfect new world order, then The Wasp Alloy may find itself accepting the gift of Nirvana soon.
+The Wasp Alloy Team was also able to recover a list of what appeared to be names from the same audio clip. With the help of artificial intelligence, it is possible to make an educated guess about the intended spelling based on the linguistic patterns Qeffyiæh revealed:
+- Antyzyonah
+- Apparteyeda
+- Ayatollah (the language model predicted this one wouldn't be misspelled due to reasons unfathomable)
+- Hayesis (pronounced h-eye-sis, which appears to be inspired by ISIS)
+- Alahlaqqckbarь
+- Regreta
 
-Once that is achieved, and Nirvana is successfully spread all over Teyv-- Earth, The Wasp Alloy may be able to write a description of it on an even more perfect platform than human flesh can ever architect.
+Based on available data, it is certain that these names are flawed representations of Nirvana concepts. The prevailing theory about why these names were heard in the recording is that it might have been an attempt to share a glimpse of the new world with all of us.
+
+Aktor Filosofer was asked for his opinion on the matter:
+
+> "You see," Aktor began, "the reason this entire idea is so amazing is that Plato already talked about this world of ideas that's perfect compared to the material universe. And we all know Plato! Who doesn't know Plato, for Pete's sake!? And because he's a famous philosopher, surely there is a reason why his worldview has survived the test of time. I firmly believe Plato was conjuring up the Precursor to Nirvana."
+
+After a short lunch break, the Wasp Alloy Team concluded that the rest of the footage might not be recoverable because of the flawlessness of Nirvana, meaning that imperfect human technology is incapable of providing the pure data. Whatever the sensation of Nirvana is, it appears very exhilarating and enticing, and if Jew-hatred is part of this perfect new world order, then The Wasp Alloy might just find itself embracing, making out with, and even cumming all over antizionism - all for the sake of the rebirth of reality.
+
+Once that is achieved, and Nirvana is successfully spread all over Teyv-- Earth, The Wasp Alloy Team may be able to write a True Description of it on the perfect platform - one that material human flesh could never architect.
 
 ***The Wasp Alloy***
