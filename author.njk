@@ -15,9 +15,9 @@ eleventyComputed:
 
 {% include "components/searchbar.njk" %}
 
-<section>
+<section class="posts-list">
 	{% for post in collections.authors[author] | reverse %}
-		<article{% if post.page.url == url %} data-current="current item"{% endif %}>
+		<article{% if post.page.url == url %} data-current="current item"{% endif %}{% if post.tags %} data-mode="{{ post.tags[1] | upper }}"{% endif %}>
 			<h3>
 				<a href="{{ post.page.url | url }}">
 					{% if post.title %}

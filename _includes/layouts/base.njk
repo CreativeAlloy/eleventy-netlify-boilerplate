@@ -4,7 +4,7 @@
 	{% include "components/head.njk" %}
 
 	{% set themeClass = "rainbow-theme" %}
-	{% if page.url == '/news/' %}
+	{% if page.url == '/news/' or '/authors/' in page.url or '/tags/' in page.url %}
 		{% set themeClass = "neutral-theme" %}
 	{% elif serious or '/tags/serious/' in page.url %}
 		{% set themeClass = "serious-theme" %}
@@ -12,8 +12,6 @@
 		{% set themeClass = "lecture-theme" %}
 	{% elif tags and "satire" in tags or '/tags/satire/' in page.url %}
 		{% set themeClass = "satire-theme" %}
-	{% elif '/tags/' in page.url %}
-		{% set themeClass = "neutral-theme" %}
 	{% endif %}
 
 	<body class="{{ themeClass }}">
