@@ -53,7 +53,7 @@
         "url": "https://www.commentary.org/articles/bernard-lewis/the-arab-world-discovers-anti-semitism/"
       },
       {
-        "text": "Jeffrey Herf, Central European History (2009): Nazi Germany’s Propaganda Aimed at Arabs and Muslims during World War II and the Holocaust: Old Themes, New Archival Findings",
+        "text": "Jeffrey Herf, Central European History (2009): Nazi Germany's Propaganda Aimed at Arabs and Muslims during World War II and the Holocaust: Old Themes, New Archival Findings",
         "url": "https://www.cambridge.org/core/journals/central-european-history/article/abs/nazi-germanys-propaganda-aimed-at-arabs-and-muslims-during-world-war-ii-and-the-holocaust-old-themes-new-archival-findings/AF71DE060D8B2FBFF797E2D5B968CB1F"
       }
     ]
@@ -74,7 +74,7 @@
         "url": "https://www.jpost.com/israel-news/article-856073"
       },
       {
-        "text": "The Wall Street Journal Article, 2024: Around 10% of Palestinian aid agency’s 12,000 staff in Gaza (UNRWA) have links to militants",
+        "text": "The Wall Street Journal Article, 2024: Around 10% of Palestinian aid agency's 12,000 staff in Gaza (UNRWA) have links to militants",
         "url": "https://www.wsj.com/world/middle-east/at-least-12-u-n-agency-employees-involved-in-oct-7-attacks-intelligence-reports-say-a7de8f36"
       },
       {
@@ -142,5 +142,39 @@
   "israel-declaration-of-independence": {
     "title": "<a href=\"https://israeled.org/israel-declaration-independence/\" target=\"_blank\" rel=\"noopener noreferrer\">Israel's Declaration of Independence from 1948</a> explicitly confirms that all ethnic groups, including Arabs, are to receive equal rights in their participation in Israel:",
     "quote": "<em>Exiled from Palestine, the Jewish people remained faithful to it in all the countries of their dispersion, never ceasing to pray and hope for their return and the restoration of their national freedom.</em><br><br><em>(...)</em><br><br><em>In the midst of wanton aggression, we yet call upon the Arab inhabitants of the State of Israel to return to the ways of peace and play their part in the development of the State, with full and equal citizenship and the representation in all its bodies and institutions, provisional or permanent.</em><br><br><em>We offer peace and amity to all the neighboring states and their peoples, and invite them to cooperate with the independent Jewish nation for the common good of all. The State of Israel is ready to contribute its full share to the peaceful progress and development of the Middle East.</em>"
+  },
+  "impact-se-unrwa-textbooks": {
+    "title": "Forensic audits, watchdog investigations, and international resolutions documenting institutional antisemitism and martyrdom glorification in UNRWA and PA school curricula:",
+    "sources": [
+      {
+        "text": "IMPACT-se (2023): UNRWA Education: Textbooks and Terror – Comprehensive Review of UNRWA Educational Materials and Staff Complicity",
+        "url": "https://www.impact-se.org/reports-2/"
+      },
+      {
+        "text": "European Parliament Resolution (2023): Discharge in respect of the implementation of the general budget of the European Union, explicitly condemning the PA curriculum for hate speech, violence, and antisemitism",
+        "url": "https://www.europarl.europa.eu/doceo/document/TA-9-2023-0185_EN.html"
+      },
+      {
+        "text": "UN Committee on the Elimination of Racial Discrimination (CERD/C/PSE/CO/1-2): Concluding observations raising grave concern over hate speech and antisemitism in Palestinian educational materials",
+        "url": "https://digitallibrary.un.org/record/3831818"
+      }
+    ]
+  },
+  "potsdam-scap-denazification": {
+    "title": "Primary historical treaties and Allied directives governing post-WWII Denazification, demilitarization, and educational sanitation in Germany and Japan:",
+    "sources": [
+      {
+        "text": "The Potsdam Agreement (August 2, 1945), Section III: Principles to Govern the Treatment of Germany in the Initial Control Period (Mandating the complete elimination of Nazi and militarist doctrines from education)",
+        "url": "https://avalon.law.yale.edu/20th_century/potsdam.asp"
+      },
+      {
+        "text": "Supreme Commander for the Allied Powers (SCAPIN-178, Oct 1945): Administration of the Educational System of Japan (Ordering the purge of militarist and ultranationalist doctrines from Japanese schools)",
+        "url": "https://www.ndl.go.jp/constitution/e/shiryo/01/021shosai.html"
+      },
+      {
+        "text": "Supreme Commander for the Allied Powers (SCAPIN-448, Dec 1945): Abolition of Governmental Sponsorship and Propagation of State Shinto (The Shinto Directive)",
+        "url": "https://www.ndl.go.jp/constitution/e/shiryo/01/037shosai.html"
+      }
+    ]
   }
 }
