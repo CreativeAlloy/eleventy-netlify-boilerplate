@@ -903,7 +903,7 @@ body.dark-mode #news-search-input:focus {
 .lexicon-term {
 	cursor: pointer;
 	text-decoration: underline dotted;
-	text-decoration-color: color-mix(in srgb, var(--primary) 40%, transparent);
+	text-decoration-color: color-mix(in srgb, var(--primary) 50%, transparent);
 	text-underline-offset: 4px;
 	font-weight: inherit;
 	transition: text-decoration-color 0.15s ease, background-color 0.15s ease;
@@ -1024,7 +1024,7 @@ body.dark-mode .lexicon-popover {
 }
 
 /* =========================================================================
-   MATHJAX
+   MATHJAX RULES
    ========================================================================= */
 
 /* Base rule: allow scrolling on all MathJax containers */
