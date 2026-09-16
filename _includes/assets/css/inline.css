@@ -229,6 +229,11 @@ img {
 	border-radius: 10px;
 }
 
+ol li, ul li { /* numbered lists and bullet lists */
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 pre {
 	font-size: 14px;
 	direction: ltr;
@@ -257,7 +262,7 @@ body.dark-mode pre {
 }
 
 /* =========================================================================
-   LAYOUT
+   WEB LAYOUT
    ========================================================================= */
 
 .content-wrapper {
