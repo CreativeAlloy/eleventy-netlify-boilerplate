@@ -4,14 +4,18 @@
 	{% include "components/head.njk" %}
 
 	{% set themeClass = "rainbow-theme" %}
-	{% if page.url == '/news/' or '/authors/' in page.url or '/tags/' in page.url %}
-		{% set themeClass = "neutral-theme" %}
-	{% elif serious or '/tags/serious/' in page.url %}
+
+	{% if serious or '/tags/serious/' in page.url %}
 		{% set themeClass = "serious-theme" %}
+
 	{% elif lecture or '/tags/lecture/' in page.url %}
 		{% set themeClass = "lecture-theme" %}
+		
 	{% elif tags and "satire" in tags or '/tags/satire/' in page.url %}
 		{% set themeClass = "satire-theme" %}
+
+	{% elif page.url == '/news/' or '/authors/' in page.url or '/tags/' in page.url %}
+		{% set themeClass = "neutral-theme" %}
 	{% endif %}
 
 	<body class="{{ themeClass }}">
@@ -89,6 +93,9 @@
 		const body = document.body;
 		const savedTheme = localStorage.getItem('theme');
 
+		// Acquire Window Colors
+		var bodyArchive = window.getComputedStyle(document.body);
+
 		// 1. Initial State Setting
 		if (savedTheme === 'dark') {
 			toggle.checked = true;
@@ -96,22 +103,19 @@
 
 		// 2. Centralized Ko-fi Render Function
 		function drawKofi() {
-			let activeBg;
-			let activeText = '#fff';
+			var bodyPrimColor = bodyArchive.getPropertyValue('--primary');
+			var bodySecColor = bodyArchive.getPropertyValue('--secondary');
+			var activeBg = bodyPrimColor;
+			var activeText = bodySecColor;
 
 			if (body.classList.contains('rainbow-theme')) {
 				if (body.classList.contains('dark-mode')) {
-					activeBg = '#ffffff';
+					activeBg = '#efefef';
 					activeText = '#1a202c';
 				} else {
 					activeBg = '#1a202c';
-					activeText = '#ffffff';
+					activeText = '#efefef';
 				}
-			} else {
-				const themeVar = body.classList.contains('serious-theme') ? '--primary-serious' : 
-								 body.classList.contains('lecture-theme') ? '--primary-lecture' : '--primary';
-				activeBg = window.getComputedStyle(body).getPropertyValue(themeVar).trim() || '#2e6319';
-				activeText = '#fff';
 			}
 
 			// Safely wipe any existing Ko-fi elements to prevent duplicates
