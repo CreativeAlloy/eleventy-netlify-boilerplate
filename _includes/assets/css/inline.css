@@ -774,10 +774,10 @@ input:checked + .slider:before {
 	display: block;
 	font-size: 0.75rem;
 	font-weight: bold;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
+	/* text-align: center; */
+	letter-spacing: 0.2em;
 	color: inherit;
-	opacity: 0.75;
+	/* opacity: 0.75; */
 }
 
 .toc-divider-line {
@@ -805,7 +805,7 @@ input:checked + .slider:before {
 
 .toc-nav a {
 	text-decoration: none;
-	color: inherit;
+	color: var(--primary);
 	opacity: 0.85;
 	transition: opacity 0.15s ease, color 0.15s ease;
 	overflow-wrap: break-word; /* wraps long headings on mobile */
