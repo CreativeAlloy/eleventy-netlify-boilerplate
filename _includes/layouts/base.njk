@@ -28,12 +28,15 @@
 	if (localStorage.getItem('outlines') === 'enabled') {
 		document.body.classList.add('show-outlines');
 	}
+	if (localStorage.getItem('dyslexic-font') === 'enabled') {
+		document.body.classList.add('show-dyslexic-font');
+	}
 	</script>
 
 		<header>
 			<div class="content-wrapper" style="position: relative;"> 
 				
-				{# Header Controls: Lines Toggle & Dark Mode #}
+				{# Header Controls: Lines Toggle & Dark Mode & OpenDyslexic #}
 				<div class="header-controls-wrapper">
 					<div class="control-group">
 						<span class="control-label">Outlines</span>
@@ -46,6 +49,13 @@
 						<span class="control-label">Dark Mode</span>
 						<label class="theme-switch" for="dark-mode-toggle" aria-label="Toggle Dark Mode">
 							<input type="checkbox" id="dark-mode-toggle">
+							<div class="slider"></div>
+						</label>
+					</div>
+					<div class="control-group">
+						<span class="control-label">Dyslexia</span>
+						<label class="theme-switch" for="dyslexia-toggle" aria-label="Toggle OpenDyslexic Font">
+							<input type="checkbox" id="dyslexia-toggle">
 							<div class="slider"></div>
 						</label>
 					</div>
@@ -146,6 +156,25 @@
 			// Redraw button immediately after the CSS variables update
 			setTimeout(drawKofi, 50);
 		});
+
+		// OpenDyslexic Toggle
+		const dyslexiaToggle = document.querySelector('#dyslexia-toggle');
+		const savedDyslexia = localStorage.getItem('dyslexic-font');
+
+		if (savedDyslexia === 'enabled') {
+			dyslexiaToggle.checked = true;
+		}
+
+		dyslexiaToggle.addEventListener('change', () => {
+			if (dyslexiaToggle.checked) {
+				body.classList.add('show-dyslexic-font');
+				localStorage.setItem('dyslexic-font', 'enabled');
+			} else {
+				body.classList.remove('show-dyslexic-font');
+				localStorage.setItem('dyslexic-font', 'disabled');
+			}
+		});
+
 		</script>
 
 		{# --- Interactive Lexicon Backdrop & Popover --- #}

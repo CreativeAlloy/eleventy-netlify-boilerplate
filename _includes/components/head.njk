@@ -3,6 +3,10 @@
   <meta name='impact-site-verification' value='1c8a5e65-0378-4c83-aec5-229e75d3544b'>
   <meta name="generator" content="{{ eleventy.generator }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {# Prepare OpenDyslexic Font #}
+  <link rel="preload" as="font" type="font/otf"
+      href="/_includes/assets/fonts/OpenDyslexic/OpenDyslexic-Regular.otf" crossorigin>
   
   {# Improved Title Branding #}
   <title>{% if title %}{{ title }} | {{ metadata.title }}{% else %}{{ metadata.title }}{% endif %}</title>

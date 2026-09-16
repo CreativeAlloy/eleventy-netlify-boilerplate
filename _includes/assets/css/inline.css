@@ -52,6 +52,51 @@
 }
 
 /* =========================================================================
+   Permanent Font Library: This will allow significantly easier referencing
+   ========================================================================= */
+
+/* OpenDyslexic Regular */
+@font-face {
+	font-family: "OpenDyslexic";
+	src: url("/_includes/assets/fonts/OpenDyslexic/OpenDyslexic-Regular.otf") format("opentype");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* OpenDyslexic Bold */
+@font-face {
+	font-family: "OpenDyslexic";
+	src: url("/_includes/assets/fonts/OpenDyslexic/OpenDyslexic-Bold.otf") format("opentype");
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* OpenDyslexic Italic */
+@font-face {
+	font-family: "OpenDyslexic";
+	src: url("/_includes/assets/fonts/OpenDyslexic/OpenDyslexic-Italic.otf") format("opentype");
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+/* OpenDyslexic Bold Italic */
+@font-face {
+	font-family: "OpenDyslexic";
+	src: url("/_includes/assets/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.otf") format("opentype");
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+}
+
+:root {
+	--open-dyslexic: "OpenDyslexic";
+	--default-fonts: "Avenir", "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* =========================================================================
    THEMES — Light Mode
    Every light theme shares a white card/secondary surface and a #ccc
    input border, so each theme only needs to set --primary and --background
@@ -198,9 +243,10 @@ body.dark-mode {
 html, body {
 	padding: 0;
 	margin: 0;
-	font-family: "Avenir", "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+	font-family: var(--default-fonts);
 }
 
+/* Continue */
 body {
 	display: grid;
 	min-height: 100vh;
@@ -259,6 +305,42 @@ body.dark-mode pre {
 	background-color: var(--background);
 	border-color: var(--input-border);
 	color: #ccc;
+}
+
+/* =========================================================================
+   DYSLEXIA FONT SUPPORT
+   ========================================================================= */
+
+:root {
+	--base-size: 1rem;    /* `rem` here resolves against the browser default */
+	--font-scale: 1;
+	font-size: calc(var(--base-size) * var(--font-scale));
+}
+
+@media screen and (min-width: 768px) {
+	:root { --base-size: 1.1rem; }   /* replaces `font-size: 1.1rem` */
+}
+
+@supports not (font-size-adjust: 0.5) {
+	:root:has(body.show-dyslexic-font) { --font-scale: 0.85; }
+}
+
+body.show-dyslexic-font {
+	font-family: var(--open-dyslexic);
+	/* Match Avenir's x-height ratio instead of shrinking the font size.
+	   Tune the number by eye: lower = smaller glyphs. */
+	font-size-adjust: 0.461;
+	letter-spacing: -0.1em;
+}
+
+body.show-dyslexic-font i, em, [style*="italic"] {
+	letter-spacing: normal;
+}
+
+body.show-dyslexic-font pre,
+body.show-dyslexic-font code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	font-size-adjust: none;
 }
 
 /* =========================================================================
@@ -685,9 +767,6 @@ input:checked + .slider:before {
    ========================================================================= */
 
 @media screen and (min-width: 768px) {
-	:root {
-		font-size: 1.1rem;
-	}
 	main,
 	.content-wrapper {
 		max-width: 45em;
@@ -710,6 +789,18 @@ input:checked + .slider:before {
 		font-size: 0.95rem;
 		padding: 10px 4px;
 		letter-spacing: 0.05em;
+	}
+	body.show-dyslexic-font .content-wrapper > em {
+		padding-right: 100px; /* vs. 85px default */
+	}
+
+	body.show-dyslexic-font .control-group .control-label {
+		font-size: 0.55rem;   /* vs. 0.65rem default */
+		letter-spacing: 0.02em; /* vs. 0.05em default */
+	}
+
+	body.show-dyslexic-font .header-controls-wrapper {
+		gap: 0.25rem; /* vs. 0.35rem default */
 	}
 }
 

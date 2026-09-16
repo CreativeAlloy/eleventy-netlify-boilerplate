@@ -184,6 +184,7 @@ module.exports = function (eleventyConfig) {
     return `<p><strong>[${number}]</strong> <span id="${anchorId}"></span> ${item.title}</p>\n${quoteHtml}\n${sourcesHtml}`;
   });
 
+  eleventyConfig.addPassthroughCopy("_includes/assets/fonts"); // This ensures that custom fonts are built into the static website
   eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy("static/img");
   eleventyConfig.addPassthroughCopy("admin/");
