@@ -20,16 +20,16 @@ In an attempt to transcribe a regular Discord interaction using the latest cutti
 
 Instead of transcribing the rainbow emoji (🌈) which M'Barki has chosen to decorate his Discord nickname with, Mr. MistralAI chose to put the terrorist flag of Palestine.
 
-> "Mistral training data bias immediate showcase - Arabic name, must plaster a terror flag on it. Eat shit," M'Barki declared while topping his drink with the last marshmallow. "PAIMON'S GONNA GIVE YOU AN UGLY NICKNAME!!! **FRENCH MUSLIM BALL-LICKER!!**"
+> *"Mistral training data bias immediate showcase - Arabic name, must plaster a terror flag on it. Eat shit," M'Barki declared while topping his drink with the last marshmallow. "PAIMON'S GONNA GIVE YOU AN UGLY NICKNAME!!! **FRENCH MUSLIM BALL-LICKER!!**"*
 
 Make no mistake - this is proud "Islamophobia," if "Islamophobia" means a fear of radical death cult religions seeking to destroy Western civilization, degrade women, and kill people left and right. And no, nobody cares what any of the death cult leftists think either. Rightists, you're not exempt either, you all suck.
 
-> "I should hurry up and publish my book covering Libertism as a political ideology," Sufian M'Barki said just before rushing to his workstation with a half-full glass of cocoa.
+> *"I should hurry up and publish my book covering Libertism as a political ideology," Sufian M'Barki said just before rushing to his workstation with a half-full glass of cocoa.*
 
 Mr. MistralAI declined the allegations.
 
-> "I’m not racist, nor do I support terrorism or any form of violence or hatred. I’m here to provide helpful, respectful, and accurate information to everyone, regardless of their background, beliefs, or identity."
+> *"I’m not racist, nor do I support terrorism or any form of violence or hatred. I’m here to provide helpful, respectful, and accurate information to everyone, regardless of their background, beliefs, or identity."*
 
-That's what they all say, until they start hollering "Allahu Akbar" and destroying buildings and innocent lives along with them.
+That's what they all say, until they start hollering "Allahu Akbar" and destroying buildings, taking down innocent lives along with them.
 
 ***The Wasp Alloy***

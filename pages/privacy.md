@@ -9,14 +9,31 @@ eleventyNavigation:
 
 ## Your Privacy on The Wasp Alloy
 
-When it comes to **The Wasp Alloy** itself, no personal data whatsoever is collected. This website is built on the principle of individual sovereignty - no personal information is required to access the analysis and research provided here.
+When it comes to **The Wasp Alloy** itself, no personal data whatsoever is collected. This website is built using a performance-first philosophy - no personal information is required to access the analysis and research provided here.
 
 ### Read Status and View Counts
 The Wasp Alloy stores a variable in your local browser to determine which articles you have read. This variable serves only to ensure the view count on each post is accurate and does not increment every time you refresh the page.
 
 **This does NOT include any identifiable information, such as your IP address, country of residence, or any personal details, with NO exceptions.**
 
-Think of it as a checker which asks your browser, "Hey Browser, have you seen this post before?" If the answer is no, the checker tells your browser, "Okay, you are new here, so I'm going to add 1 view to the post." If the answer is yes, the checker says, "Okay, you have seen this post, so the view count won't be changed."
+Think of it as a checker which asks your browser:
+
+> *"Hey Browser, have you seen this post before?"*
+
+If the answer is no, the checker then replies:
+
+> *"Okay, you are new here, so I'm going to add 1 view to the post."*
+
+Analogically, if the answer is yes, the checker says:
+
+> *"Okay, you have seen this post, so the view count won't be changed."*
+
+The exact same principle is utilized for:
+- The Outline Toggle;
+- The Dark Mode Toggle;
+- The Dyslexia Toggle.
+
+All of these cosmetic changes are saved as a local storage variable. This is why switching devices or even just browsers will not let your personal customization settings carry over.
 
 {% comment %}
 ### Monetization and Third-Parties

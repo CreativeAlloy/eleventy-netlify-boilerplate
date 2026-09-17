@@ -15,7 +15,7 @@ tags:
 
 Despite what many theorists have suggested, or rather rumored, the mystery may actually have a significantly simpler explanation.
 
-> "During Korra's final years on this bloody planet, her fractured cranium suggests that she must have accumulated significant amounts of rage in her head," researcher Ahmed Ali stated during an interview. "After saving the world what four times, and having all of society spit right in her face for it, this pent-up anger triggered an involuntary Avatar State, which made her carry out the cataclysm with her own two bending hands. Perhaps it was her way of showing what happens when you are ungrateful for the Avatar's immense efforts to keep the world balanced."
+> *"During Korra's final years on this bloody planet, her fractured cranium suggests that she must have accumulated significant amounts of rage in her head," researcher Ahmed Buqra stated during an interview. "After saving the world what four times, and having all of society spit right in her face for it, this pent-up anger triggered an involuntary Avatar State, which made her carry out the cataclysm with her own two bending hands. Perhaps it was her way of showing what happens when you are ungrateful for the Avatar's immense efforts to keep the world balanced."*
 
 The new Earth Avatar, having access to only a single past life - Korra herself, might indeed have to take on the role of Korra's personal therapist, as they both navigate the post-meltdown world together.
 

@@ -16,23 +16,23 @@ tags:
 
 **Narco-Terrorist Dictator Maduro of Venezuela was captured by US troops, liberating the nation of Venezuela in the process.** So, Chinese people and their sympathizers are making a ruckus about it on social media - typical behavior.
 
-> 🇨🇳🇹🇼 China wants to capture Taiwan like Venezuela and “run it” as Trump said.
+> *🇨🇳🇹🇼 China wants to capture Taiwan like Venezuela and “run it” as Trump said.*
 >
-> On Chinese social media, users believe that China should use Trump's methods towards Taiwan.
+> *On Chinese social media, users believe that China should use Trump's methods towards Taiwan.*
 >
-> This is reported by Bloomberg, citing Chinese users. The operation to capture Maduro has garnered more than 440 million views on Chinese social media.
+> *This is reported by Bloomberg, citing Chinese users. The operation to capture Maduro has garnered more than 440 million views on Chinese social media.*
 >
-> "Since the US doesn't take international law seriously, why should we care?", "I suggest using the same method to return Taiwan in the future", - write users of the Chinese social network Weibo.
+> *"Since the US doesn't take international law seriously, why should we care?", "I suggest using the same method to return Taiwan in the future", - write users of the Chinese social network Weibo.*
 >
-> Other users suggest kidnapping Lai Ching-te, the President of Taiwan, as well.
+> *Other users suggest kidnapping Lai Ching-te, the President of Taiwan, as well.*
 >
-> Bloomberg cites the opinion of analysts who believe that the operation against Venezuela could push China to take more decisive actions.
+> *Bloomberg cites the opinion of analysts who believe that the operation against Venezuela could push China to take more decisive actions.*
 >
-> "Privately, I expect Beijing to emphasize to Washington that it expects to be granted the same privileges regarding exceptions to international law that the US grants itself", - believes Ryan Hass, a senior fellow at the Brookings Institution and a former American diplomat.
+> *"Privately, I expect Beijing to emphasize to Washington that it expects to be granted the same privileges regarding exceptions to international law that the US grants itself", - believes Ryan Hass, a senior fellow at the Brookings Institution and a former American diplomat.*
 >
-> It should be noted that China does not consider its possible actions towards Taiwan to be a violation of international law, as it perceives this island as part of its internationally recognized territory.
+> *It should be noted that China does not consider its possible actions towards Taiwan to be a violation of international law, as it perceives this island as part of its internationally recognized territory.*
 >
-> Taiwan, as an independent state separate from the PRC, is recognized by only 12 small countries. The US, Ukraine, Russia, and EU countries do not recognize Taiwan's independence.
+> *Taiwan, as an independent state separate from the PRC, is recognized by only 12 small countries. The US, Ukraine, Russia, and EU countries do not recognize Taiwan's independence.*
 
 Oh - the US *violated* an international law by capturing a terrorist criminal who posed a direct threat to the United States, a sovereign state with the right to protect itself?
 

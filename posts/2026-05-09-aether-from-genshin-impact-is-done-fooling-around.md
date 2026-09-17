@@ -21,11 +21,11 @@ His journey on Teyvat started out as a quest to find his lost sister, Lumine, an
 
 He has slaughtered countless Fatui operatives in the past, so this aspect of His mental instability is not new. However, Dottore's recent bollocks in Nod-Krai - what with casually stealing the Trilunar Authority before Columbina kills him - seem to have pushed Aether to new mental lows.
 
-> "This weapon ensures that when Dottore shows up again after that Irminsul nonsense," Aether began, "I will be able to end him faster. Put the gun on his neck and pop those arteries like pimples!"
+> *"This weapon ensures that when Dottore shows up again after that Irminsul nonsense," Aether began, "I will be able to end him faster. Put the gun on his neck and pop those arteries like pimples!"*
 
 Columbina Hyposelenia supported the idea on an interview led by The Wasp Alloy Team:
 
-> "A new Moon rises," Columbina exhaled. "Now that I have brought the Frost Moon back to Teyvat, changes are to be expected. The Traveler's use of guns is an efficient way to dispose of Dottore, and Pantalone... Oh, they're already dead? Good. The Shades are next."
+> *"A new Moon rises," Columbina exhaled. "Now that I have brought the Frost Moon back to Teyvat, changes are to be expected. The Traveler's use of guns is an efficient way to dispose of Dottore, and Pantalone... Oh, they're already dead? Good. The Shades are next."*
 
 As Columbina concluded her commentary, she picked up a bag of **Prototype Railguns** and gracefully tiptoed away.
 

@@ -14,7 +14,7 @@ tags:
 ---
 Here, I used an LLM to translate this. Original [here.](https://thewaspalloy.netlify.app/posts/bulgariya-e-sram/)
 
-> "Oh, but the United States came to Bulgaria for our oil! Blah-blah whine-whine!"
+> *"Oh, but the United States came to Bulgaria for our oil! Blah-blah whine-whine!"*
 
 ## For oil!?
 

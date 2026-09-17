@@ -12,7 +12,7 @@
 
     /* Satire Color Library */
     --satire-prim-light: #2e6319;
-    --satire-bg-light: #bcfac2;
+    --satire-bg-light: #c9ffcf;
     --satire-prim-dark: #8fd37a;
     --satire-sec-dark: #193013;
     --satire-bg-dark: #0d120b;
@@ -20,7 +20,7 @@
 
     /* Serious Color Library */
     --serious-prim-light: #004466;
-    --serious-bg-light: #92d9ff;
+    --serious-bg-light: #b5e5ff;
     --serious-prim-dark: #58a6ff;
 	--serious-sec-dark: #0b193b;
 	--serious-bg-dark: #060e1f;
@@ -28,7 +28,7 @@
 
     /* Lecture Color Library */
     --lecture-prim-light: #8b002e;
-    --lecture-bg-light: #ffbfcf;
+    --lecture-bg-light: #ffd7e1;
 	--lecture-prim-dark: #ff7d9b;
 	--lecture-sec-dark: #330611;
 	--lecture-bg-dark: #140508;
@@ -305,6 +305,28 @@ body.dark-mode pre {
 	background-color: var(--background);
 	border-color: var(--input-border);
 	color: #ccc;
+}
+
+blockquote {
+/* 	border-left: 5px solid var(--primary);
+	border-radius: 8px; */
+
+	border-left: 5px solid var(--primary);
+	border-radius: 8px;
+	margin-left: 18px;
+	margin-right: 22px;
+	padding-left: 22px;
+	padding-right: 14px;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	background-color: var(--background);
+
+	/* Just in case some blockquotes are not written with italics */
+	font-style: italic;
+}
+
+body.dark-mode blockquote {
+	background-color: rgb(from var(--background) r g b / 60%);
 }
 
 /* =========================================================================

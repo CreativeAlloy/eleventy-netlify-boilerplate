@@ -21,7 +21,7 @@ The discovery of Nirvana means that the IDF can stop making those pesky operatio
 
 The Wasp Alloy deployed a group of journalists to investigate this exciting discovery. After looking around the lair, they found an abandoned house at the very top - above the NYC sewer system, and a girl greeted them with a grin.
 
-> "F-Finally...!" Qeffyiæh exclaimed, who was generous enough to provide us with her name's precise spelling. "Free... Free Palestine?! After all these years, all this Z-Zio oppression! They...! From the river to the sea...!"
+> *"F-Finally...!" Qeffyiæh exclaimed, who was generous enough to provide us with her name's precise spelling. "Free... Free Palestine?! After all these years, all this Z-Zio oppression! They...! From the river to the sea...!"*
 
 Stunned by Qeffyiæh's genius, the Wasp Alloy Team was unable to make further inquiries. Despite this, they were able to livestream the full encounter, until all video was suddenly cut off with a loud snap.
 
@@ -43,7 +43,7 @@ Based on available data, it is certain that these names are flawed representatio
 
 Aktor Filosofer was asked for his opinion on the matter:
 
-> "You see," Aktor began, "the reason this entire idea is so amazing is that Plato already talked about this world of ideas that's perfect compared to the material universe. And we all know Plato! Who doesn't know Plato, for Pete's sake!? And because he's a famous philosopher, surely there is a reason why his worldview has survived the test of time. I firmly believe Plato was conjuring up the Precursor to Nirvana."
+> *"You see," Aktor began, "the reason this entire idea is so amazing is that Plato already talked about this world of ideas that's perfect compared to the material universe. And we all know Plato! Who doesn't know Plato, for Pete's sake!? And because he's a famous philosopher, surely there is a reason why his worldview has survived the test of time. I firmly believe Plato was conjuring up the Precursor to Nirvana."*
 
 After a short lunch break, the Wasp Alloy Team concluded that the rest of the footage might not be recoverable because of the flawlessness of Nirvana, meaning that imperfect human technology is incapable of providing the pure data. Whatever the sensation of Nirvana is, it appears very exhilarating and enticing, and if Jew-hatred is part of this perfect new world order, then The Wasp Alloy might just find itself embracing, making out with, and even cumming all over antizionism - all for the sake of the rebirth of reality.
 

@@ -13,7 +13,7 @@ tags:
 
 According to legal experts using the latest large language model technologies, **The Wasp Alloy** is "performing a data gathering scheme aiming to expand their colony of wasps all over the globe," and has therefore concerned Internet society and its authorities.
 
-> "Here's the thing," declared expert researcher journalist Sufian M'Barki in an interview with cancel culture entrepreneur LickMaFingiez, as known on Twitter. "The only data that we have gathered is that the world is fucking stupid. A local storage variable which counts whether you've read one of our articles is now considered a data gathering scheme? Fuck me sideways then, I might as well never know how many people have seen any of these bloody posts."
+> *"Here's the thing," declared expert researcher journalist Sufian M'Barki in an interview with cancel culture entrepreneur LickMaFingiez, as known on Twitter. "The only data that we have gathered is that the world is fucking stupid. A local storage variable which counts whether you've read one of our articles is now considered a data gathering scheme? Fuck me sideways then, I might as well never know how many people have seen any of these bloody posts."*
 
 Professional developers hired by the Court of Internet have examined the database and codebase of The Wasp Alloy, concluding that "no deceptive practices are present," and that "people are full of shit and looking to start drama" on online platforms.
 

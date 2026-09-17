@@ -21,18 +21,20 @@ tags:
 
 The Wasp Alloy's expert research team has gone above and beyond to locate the pro-Palestinian activists, who have also dabbled in the world of the fine arts, and they have provided us with their perspective on the matter.
 
-> "FREE PLESTINE!" a man with a keffiyeh screamed at the top of his lungs, with a design inspired by the Islamic Organization of Absolutely Humane Euthanasia, Hamas. "FROM THE RIVER TO THE SEA!"
+> *"FREE PLESTINE!" a man with a keffiyeh screamed at the top of his lungs, with a design inspired by the Islamic Organization of Absolutely Humane Euthanasia, Hamas. "FROM THE RIVER TO THE SEA!"*
 
-Unfortunately, The Wasp Alloy's expert research team has stated, "We were unable to get anything else from them - they just kept chanting the same phrases, and even started pointing knives and guns at us. I guess that's just how the minds of genius young artists are - enigmatic and breathtakingly secretive, lest we simpleton peasants understand the ways of the fine arts."
+Unfortunately, The Wasp Alloy's expert research team has commented:
+
+> *"We were unable to get anything else from them - they just kept chanting the same phrases, and even started pointing knives and guns at us. I guess that's just how the minds of genius young artists are - enigmatic and breathtakingly secretive, lest we simpleton peasants understand the ways of the fine arts."*
 
 They left shortly after receiving a generous offer to have their eyes re-decorated with the same cans of spray paint, to which the experts replied, "Yeah, we think we like our eyes without orange spray paint in them."
 
 Journalist Sufian M'Barki has given his two cents on the matter.
 
-> "Deplorable. This is disgusting," he declared with utter disdain. "Will the innocent Jewish families at least get car insurance benefits for having had their cars physically vandalized using spray paint?"
+> *"Deplorable. This is disgusting," he declared with utter disdain. "Will the innocent Jewish families at least get car insurance benefits for having had their cars physically vandalized using spray paint?"*
 >
-> He continued, "Yet another example of the Western Cultist phenomenon. It's all antisemitism, hatred, vitriol, violence... only this time it's disguised under a different 'activist' narrative - you know, like every 'activist' narrative has been circling around this blasted planet for the last 2000 years or so."
+> *He continued, "Yet another example of the Western Cultist phenomenon. It's all antisemitism, hatred, vitriol, violence... only this time it's disguised under a different 'activist' narrative - you know, like every other 'activist' narrative that has been going around this blasted planet for the last 3000 years or so."*
 
-After sitting down to read a history book for some 4 hours, The Wasp Alloy's expert research team has concluded that Sufian M'Barki is absolutely correct. If only everyone could exercise the *strenuous* effort of learning from the past.
+After being sat down to read a history book for about four hours, The Wasp Alloy's expert research team has concluded that Sufian M'Barki is absolutely correct. If only everyone could exercise the *strenuous* effort of *learning from the past.*
 
 ***The Wasp Alloy***
