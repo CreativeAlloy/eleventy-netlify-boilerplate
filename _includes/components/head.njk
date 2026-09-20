@@ -1,6 +1,6 @@
 <head>
   <meta charset="utf-8">
-  <meta name='impact-site-verification' value='1c8a5e65-0378-4c83-aec5-229e75d3544b'>
+  <meta name="impact-site-verification" value="1c8a5e65-0378-4c83-aec5-229e75d3544b">
   <meta name="generator" content="{{ eleventy.generator }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,12 +14,15 @@
   {# Canonical URL to prevent duplicate content issues #}
   <link rel="canonical" href="{{ metadata.url }}{{ page.url }}">
 
+  {# RSS / Atom Feed Autodiscovery #}
+  <link rel="alternate" type="application/atom+xml" title="{{ metadata.title }}" href="{{ metadata.url }}/feed.xml">
+
   {# Standard SEO #}
   <meta name="description" content="{{ summary or metadata.description }}">
   <meta name="author" content="{{ author or metadata.author.name }}">
 
-  {# Open Graph / Discord Embeds #}
-  <meta property="og:type" content="article">
+  {# Open Graph / Social Media Embeds #}
+  <meta property="og:type" content="{% if page.url == '/' %}website{% else %}article{% endif %}">
   <meta property="og:title" content="{{ title or metadata.title }}">
   <meta property="og:description" content="{{ summary or metadata.description }}">
   <meta property="og:url" content="{{ metadata.url }}{{ page.url }}">
@@ -30,25 +33,26 @@
   
   {% if firstImagePath %}
     {% set absoluteImageUrl %}{{ metadata.url }}{{ firstImagePath }}{% endset %}
-    <meta property="og:image" content="{{ absoluteImageUrl }}">
-    <meta name="twitter:card" content="summary_large_image">
   {% else %}
     {# Fallback image if no image is found in the post #}
-    <meta property="og:image" content="{{ metadata.url }}/static/img/default-embed-preview-img.png">
-    <meta name="twitter:card" content="summary_large_image">
+    {% set absoluteImageUrl %}{{ metadata.url }}/static/img/default-embed-preview-img.png{% endset %}
   {% endif %}
 
-  {# Twitter Specifics (Used by many scrapers) #}
+  <meta property="og:image" content="{{ absoluteImageUrl }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ absoluteImageUrl }}">
   <meta name="twitter:title" content="{{ title or metadata.title }}">
   <meta name="twitter:description" content="{{ summary or metadata.description }}">
 
-  {# Structured Data (JSON-LD) - This is high-level SEO for "Serious" journalism #}
+  {# Structured Data (JSON-LD) #}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "{% if page.url == '/' %}WebSite{% else %}Article{% endif %}",
     "headline": "{{ title or metadata.title }}",
     "description": "{{ summary or metadata.description }}",
+    "image": ["{{ absoluteImageUrl }}"],
+    "mainEntityOfPage": "{{ metadata.url }}{{ page.url }}",
     "author": {
       "@type": "Person",
       "name": "{{ author or metadata.author.name }}"
@@ -56,7 +60,11 @@
     "datePublished": "{{ page.date | dateToRfc3339 }}",
     "publisher": {
       "@type": "Organization",
-      "name": "{{ metadata.title }}"
+      "name": "{{ metadata.title }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ metadata.url }}/static/img/default-embed-preview-img.png"
+      }
     }
   }
   </script>
