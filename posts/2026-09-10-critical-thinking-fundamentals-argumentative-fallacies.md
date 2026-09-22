@@ -95,7 +95,7 @@ Quoting directly from [*"What in Nirvana Am I Witnessing?":*](https://thewaspall
 >
 > *If a genocide is the targeted, intentional erasure of a people based on their national, cultural, and/or religious identity, like what Hitler did to Jews just last century; and violently overthrowing Christianity, Judaism, polytheist religions, etc. is quite literally a mandate in the Quran itself[<sup>[4]</sup>](#cite-4), there is no room for "consensus" that the actions of Muslim factions in those territories are not, in fact, a genocide.*
 
-It is undeniable proof that when genuine, ideologically driven massacres happen in Africa, "consensus institutions" drag their feet and split hairs, yet when Israel defends its borders, those same institutions manufacture instant, unverified reports out of thin air - or they outright lie like Tom Fletcher to extort the public out of their money.
+It is undeniable proof. When genuine, ideologically driven massacres happen in Africa, "consensus institutions" drag their feet and split hairs, yet when Israel defends its borders, those same institutions manufacture instant, unverified reports out of thin air - or they outright lie like Tom Fletcher to extort the public out of their money.
 
 And when engaging in Hasbara online, the Academic Consensus Bias is antizionist death cultists' favorite playing card. Below is a demonstration:
 
