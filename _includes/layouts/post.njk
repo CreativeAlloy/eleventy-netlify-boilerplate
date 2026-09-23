@@ -7,7 +7,7 @@ section: post
   <a href="{{ '/news/' | url }}">← News Index</a>
 </nav>
 
-{# --- NEW: Layout wrapper that places the TOC on the left and the article on the right --- #}
+{# --- Layout wrapper: TOC on the left, article on the right --- #}
 <div class="post-layout-wrapper">
 
   {# --- 1. Table of Contents Sidebar (Left Column) --- #}
@@ -30,6 +30,25 @@ section: post
         <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/authors/{{ author | slug }}/">{{ author }}</a>
       </small>
     </p>
+
+    {# --- Dedicated Media Players (Placed right before the post content) --- #}
+    {% if audio %}
+      <div class="post-audio-player" style="margin: 1.5rem 0;">
+        <audio controls style="width: 100%;">
+          <source src="{{ audio | url }}" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    {% endif %}
+
+    {% if video %}
+      <div class="post-video-player" style="margin: 1.5rem 0;">
+        <video controls style="width: 100%; border-radius: 8px;">
+          <source src="{{ video | url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    {% endif %}
 
     {{ layoutContent | safe }}
 
@@ -63,16 +82,10 @@ section: post
     const viewCountElement = document.getElementById('view-count');
     const pagePath = window.location.pathname;
 
-    // Create a unique key for this article in Local Storage
     const storageKey = `viewed-${pagePath}`;
-
-    // Check if this user has already viewed this page
     const hasViewed = localStorage.getItem(storageKey);
-
-    // Determine which action our function should take
     const action = hasViewed ? 'get' : 'increment';
     
-    // Call our Netlify function with the correct action
     fetch(`/.netlify/functions/get-and-increment-views?path=${pagePath}&action=${action}`)
       .then(response => response.json())
       .then(data => {
@@ -85,7 +98,6 @@ section: post
             viewCountElement.textContent = `${formattedCount} eyes have witnessed`;
           }
 
-          // If this was a new view, mark it as viewed in Local Storage
           if (!hasViewed) {
             localStorage.setItem(storageKey, 'true');
           }

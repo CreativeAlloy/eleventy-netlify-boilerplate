@@ -671,6 +671,43 @@ button {
 }
 
 /* =========================================================================
+   AUDIO PLAYER
+   Native <audio> controls only expose two real cross-browser styling
+   hooks: accent-color and color-scheme. Everything past that is
+   vendor-prefixed shadow-DOM territory, so rather than hand-building a
+   second control skin, this just points those two hooks at the existing
+   tokens and reuses the same border/focus-ring pattern as inputs above.
+   ========================================================================= */
+
+audio {
+	width: 100%;
+	margin-bottom: 1em;
+	border-radius: 8px;
+	border: 1px solid var(--input-border);
+	background-color: var(--secondary);
+	accent-color: var(--primary);
+	color-scheme: light;
+	outline: none; /* removes the default browser focus ring, replaced below */
+	transition: all 0.15s ease-in-out;
+}
+
+audio:focus {
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+body.dark-mode audio {
+	background-color: var(--background);
+	border-color: var(--input-border);
+	color-scheme: dark;
+}
+
+body.dark-mode audio:focus {
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+/* =========================================================================
    INDEX NAV LINKS
    ========================================================================= */
 

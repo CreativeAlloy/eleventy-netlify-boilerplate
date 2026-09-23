@@ -187,6 +187,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("_includes/assets/fonts"); // This ensures that custom fonts are built into the static website
   eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy("static/img");
+  eleventyConfig.addPassthroughCopy("static/audio");
+  eleventyConfig.addPassthroughCopy("static/vid");
   eleventyConfig.addPassthroughCopy("admin/");
   // We additionally output a copy of our CSS for use in Decap CMS previews
   eleventyConfig.addPassthroughCopy("_includes/assets/css/inline.css");
@@ -230,6 +232,36 @@ module.exports = function (eleventyConfig) {
       const safeTerm = md.utils.escapeHtml(match[1]);
       const safeDef = md.utils.escapeHtml(match[2]);
       tokenOpen.content = `<span class="lexicon-term" data-definition="${safeDef}" tabindex="0">${safeTerm}</span>`;
+    }
+
+    state.pos += match[0].length;
+    return true;
+  });
+
+  // --- Custom Inline Markdown Syntax parser for !audio[Caption](url) ---
+  md.inline.ruler.after('text', 'custom_audio', (state, silent) => {
+    const start = state.pos;
+    
+    // Check if the current character starts with an exclamation point '!'
+    if (state.src.charCodeAt(start) !== 0x21) return false;
+
+    // Match !audio[optional caption](url)
+    const match = state.src.slice(start).match(/^!audio(?:\[([^\]]*)\])?\(([^)]+)\)/);
+    if (!match) return false;
+
+    if (!silent) {
+      const caption = match[1] ? md.utils.escapeHtml(match[1]) : '';
+      const src = md.utils.escapeHtml(match[2]);
+
+      const token = state.push('html_inline', '', 0);
+      token.content = `
+        <div class="custom-audio-wrapper" style="margin: 1.5rem 0;">
+          ${caption ? `<p class="audio-caption" style="margin: 0 0 0.5rem 0; font-weight: bold; font-size: 0.95rem;">🎵 ${caption}</p>` : ''}
+          <audio controls style="width: 100%;">
+            <source src="${src}" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>`;
     }
 
     state.pos += match[0].length;

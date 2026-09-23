@@ -11,7 +11,7 @@ backend:
 # Uncomment below to enable a link to your published site in the header bar of Decap CMS
 # site_url: https://eleventy-netlify-boilerplate.netlify.app/
 
-media_folder: "static/img" # Media files will be stored in the repo under images/uploads
+media_folder: "static/img" # Image files will be stored in the repo under images/uploads
 
 slug:
   encoding: "ascii"
@@ -42,6 +42,20 @@ collections:
       - { label: "Author", name: "author", widget: "string", default: "Anonymous" }
       - { label: "Summary", name: "summary", widget: "text" }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
+        # --- Dedicated Audio Upload ---
+      - label: "Audio File"
+        name: "audio"
+        widget: "file"
+        required: false
+        media_folder: "/static/audio"
+        public_folder: "/static/audio"
+        # --- Dedicated Video Upload ---
+      - label: "Video File"
+        name: "video"
+        widget: "file"
+        required: false
+        media_folder: "/static/vid"
+        public_folder: "/static/vid"
       - { label: "Body", name: "body", widget: "markdown" }
   # Our pages e.g. About
   - name: "pages"
