@@ -24,6 +24,7 @@ tags:
 !audio[Ma nostalgie audio test!](/static/audio/Ma_nostalgie.mp3)
 
 Congratulations! You have found a small Easter egg. This means you must have accessed The Wasp Alloy's source code through GitHub.
+For your dedication, you shall receive a cookie: 🍪🇮🇱
 
 {% endcomment %}
 
