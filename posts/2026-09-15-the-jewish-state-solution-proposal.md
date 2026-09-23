@@ -19,6 +19,14 @@ tags:
 ---
 ![A map showcasing the Jewish Mandate Concept](/static/img/jewish_mandate_concept.jpg "The Jewish Mandate Concept")
 
+{% comment %}
+
+!audio[Ma nostalgie audio test!](/static/audio/Ma_nostalgie.mp3)
+
+Congratulations! You have found a small Easter egg. This means you must have accessed The Wasp Alloy's source code through GitHub.
+
+{% endcomment %}
+
 When it comes to the situation in the Middle East, countless possibilities have already been entertained and even attempted unsuccessfully. I believe that this prompts a much more ethically and logically rigorous proposal that carries the lowest overall risk - significantly less room for failure ascertained by adequate threat management, international cooperation and logistical relief, medical and psychotherapeutic countermeasures, verified historical precedent, and the standing of surrounding nation-states on the matter.
 
 To understand the feasibility and soundness of this proposal, as well as the exhaustive justification in favor of said proposal, we must first take a look at Israel's history.

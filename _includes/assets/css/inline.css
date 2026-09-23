@@ -671,40 +671,154 @@ button {
 }
 
 /* =========================================================================
-   AUDIO PLAYER
-   Native <audio> controls only expose two real cross-browser styling
-   hooks: accent-color and color-scheme. Everything past that is
-   vendor-prefixed shadow-DOM territory, so rather than hand-building a
-   second control skin, this just points those two hooks at the existing
-   tokens and reuses the same border/focus-ring pattern as inputs above.
+   CUSTOM AUDIO PLAYER
+   Replaces native shadow-DOM controls to ensure 100% theme-token fidelity
+   with --secondary, --primary, and --input-border across all themes.
    ========================================================================= */
 
-audio {
-	width: 100%;
-	margin-bottom: 1em;
-	border-radius: 8px;
-	border: 1px solid var(--input-border);
-	background-color: var(--secondary);
-	accent-color: var(--primary);
-	color-scheme: light;
-	outline: none; /* removes the default browser focus ring, replaced below */
-	transition: all 0.15s ease-in-out;
+.custom-audio-wrapper {
+	margin: 1.5rem 0;
 }
 
-audio:focus {
+.custom-audio-player {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 100%;
+	padding: 0.6rem 0.85rem;
+	border-radius: 8px;
+	/* border: 1px solid var(--primary); */
+	border-left: 5px solid var(--primary);
+	background-color: var(--background);
+	box-shadow: var(--card-shadow);
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-audio-player .audio-caption {
+	margin: 0;
+	font-weight: bold;
+	font-size: 0.95rem;
+	color: var(--primary);
+}
+
+.custom-audio-player .audio-controls-row {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	width: 100%;
+}
+
+.custom-audio-player:focus-within {
 	border-color: var(--primary);
 	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
-body.dark-mode audio {
-	background-color: var(--background);
-	border-color: var(--input-border);
-	color-scheme: dark;
-}
-
-body.dark-mode audio:focus {
+body.dark-mode .custom-audio-player:focus-within {
 	border-color: var(--primary);
 	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+/* Audio Player Action Buttons (Overrides base button styles) */
+.custom-audio-player .audio-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent !important;
+	border: none !important;
+	color: var(--primary) !important;
+	cursor: pointer;
+	padding: 4px !important;
+	margin: 0 !important;
+	width: auto !important;
+	height: auto !important;
+	border-radius: 4px;
+	box-shadow: none !important;
+	line-height: 1;
+	transition: transform 0.1s ease, opacity 0.15s ease;
+}
+
+.custom-audio-player .audio-btn:hover {
+	opacity: 0.8;
+	transform: scale(1.1);
+}
+
+.custom-audio-player .audio-btn svg {
+	display: block;
+	fill: currentColor;
+}
+
+/* Seek Bar Wrapper & Track */
+.custom-audio-player .audio-progress-wrap {
+	flex: 1;
+	display: flex;
+	align-items: center;
+}
+
+.custom-audio-player input[type="range"].audio-seek-bar {
+	width: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	height: 6px;
+	background: linear-gradient(to right,
+		var(--primary) 0%,
+		var(--primary) var(--seek-progress, 0%),
+		color-mix(in srgb, var(--primary) 25%, transparent) var(--seek-progress, 0%),
+		color-mix(in srgb, var(--primary) 25%, transparent) 100%
+	);
+	border-radius: 4px;
+	border: none !important;
+	outline: none !important;
+	cursor: pointer;
+	accent-color: var(--primary);
+	box-shadow: none !important;
+}
+
+.custom-audio-player input[type="range"].audio-seek-bar {
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.custom-audio-player input[type="range"].audio-seek-bar::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background-color: var(--primary);
+	border: 2px solid var(--secondary);
+	cursor: pointer;
+	transition: transform 0.1s ease;
+}
+
+.custom-audio-player input[type="range"].audio-seek-bar::-moz-range-thumb {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background-color: var(--primary);
+	border: 2px solid var(--secondary);
+	cursor: pointer;
+	transition: transform 0.1s ease;
+}
+
+.custom-audio-player input[type="range"].audio-seek-bar:hover::-webkit-slider-thumb,
+.custom-audio-player input[type="range"].audio-seek-bar:active::-webkit-slider-thumb {
+	transform: scale(1.15);
+}
+
+.custom-audio-player input[type="range"].audio-seek-bar:hover::-moz-range-thumb,
+.custom-audio-player input[type="range"].audio-seek-bar:active::-moz-range-thumb {
+	transform: scale(1.15);
+}
+
+/* Time Counter (Current / Duration) */
+.custom-audio-player .audio-time {
+	font-size: 0.8rem;
+	font-family: inherit;
+	color: inherit;
+	opacity: 0.85;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+	user-select: none;
 }
 
 /* =========================================================================
