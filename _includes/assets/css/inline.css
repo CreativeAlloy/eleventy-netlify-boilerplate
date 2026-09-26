@@ -822,6 +822,159 @@ body.dark-mode .custom-audio-player:focus-within {
 }
 
 /* =========================================================================
+   CUSTOM VIDEO PLAYER
+   Matches the Audio Player aesthetic, plus a video screen container
+   ========================================================================= */
+
+.custom-video-wrapper {
+	margin: 1.5rem 0;
+}
+
+.custom-video-player {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 100%;
+	padding: 0.6rem 0.85rem;
+	border-radius: 8px;
+	border-left: 5px solid var(--primary);
+	background-color: var(--background);
+	box-shadow: var(--card-shadow);
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-video-player .video-caption {
+	margin: 0;
+	font-weight: bold;
+	font-size: 0.95rem;
+	color: var(--primary);
+}
+
+.custom-video-player .video-screen-container {
+	width: 100%;
+	border-radius: 6px;
+	overflow: hidden;
+	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    cursor: pointer;
+}
+
+.custom-video-player video {
+	width: 100%;
+	height: auto;
+	max-height: 65vh;
+	display: block;
+}
+
+.custom-video-player .video-controls-row {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	width: 100%;
+	margin-top: 0.2rem;
+}
+
+.custom-video-player:focus-within {
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+body.dark-mode .custom-video-player:focus-within {
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+/* Action Buttons */
+.custom-video-player .video-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent !important;
+	border: none !important;
+	color: var(--primary) !important;
+	cursor: pointer;
+	padding: 4px !important;
+	margin: 0 !important;
+	width: auto !important;
+	height: auto !important;
+	border-radius: 4px;
+	box-shadow: none !important;
+	line-height: 1;
+	transition: transform 0.1s ease, opacity 0.15s ease;
+}
+
+.custom-video-player .video-btn:hover {
+	opacity: 0.8;
+	transform: scale(1.1);
+}
+
+.custom-video-player .video-btn svg {
+	display: block;
+	fill: currentColor;
+}
+
+/* Seek Bar Wrapper & Track */
+.custom-video-player .video-progress-wrap {
+	flex: 1;
+	display: flex;
+	align-items: center;
+}
+
+.custom-video-player input[type="range"].video-seek-bar {
+	width: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	height: 6px;
+	background: linear-gradient(to right,
+		var(--primary) 0%,
+		var(--primary) var(--seek-progress, 0%),
+		color-mix(in srgb, var(--primary) 25%, transparent) var(--seek-progress, 0%),
+		color-mix(in srgb, var(--primary) 25%, transparent) 100%
+	);
+	border-radius: 4px;
+	border: none !important;
+	outline: none !important;
+	cursor: pointer;
+	accent-color: var(--primary);
+	box-shadow: none !important;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.custom-video-player input[type="range"].video-seek-bar::-webkit-slider-thumb,
+.custom-video-player input[type="range"].video-seek-bar::-moz-range-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background-color: var(--primary);
+	border: 2px solid var(--secondary);
+	cursor: pointer;
+	transition: transform 0.1s ease;
+}
+
+.custom-video-player input[type="range"].video-seek-bar:hover::-webkit-slider-thumb,
+.custom-video-player input[type="range"].video-seek-bar:active::-webkit-slider-thumb,
+.custom-video-player input[type="range"].video-seek-bar:hover::-moz-range-thumb,
+.custom-video-player input[type="range"].video-seek-bar:active::-moz-range-thumb {
+	transform: scale(1.15);
+}
+
+/* Time Counter */
+.custom-video-player .video-time {
+	font-size: 0.8rem;
+	font-family: inherit;
+	color: inherit;
+	opacity: 0.85;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+	user-select: none;
+}
+
+/* =========================================================================
    INDEX NAV LINKS
    ========================================================================= */
 

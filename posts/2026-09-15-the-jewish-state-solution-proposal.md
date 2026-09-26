@@ -22,6 +22,7 @@ tags:
 {% comment %}
 
 !audio[Ma nostalgie audio test!](/static/audio/Ma_nostalgie.mp3)
+!video[Funny influencer satire](/static/vid/test-video-funnier-edit.mp4)
 
 Congratulations! You have found a small Easter egg. This means you must have accessed The Wasp Alloy's source code through GitHub.
 For your dedication, you shall receive a cookie: 🍪🇮🇱

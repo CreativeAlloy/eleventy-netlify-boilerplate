@@ -378,6 +378,125 @@
 		});
 		</script>
 
+		{# --- Custom Video Player Controller --- #}
+		<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			document.querySelectorAll('.custom-video-player').forEach(player => {
+				const video = player.querySelector('video');
+				const playBtn = player.querySelector('.video-play-btn');
+				const playIcon = playBtn ? playBtn.querySelector('.play-icon') : null;
+				const pauseIcon = playBtn ? playBtn.querySelector('.pause-icon') : null;
+				const seekBar = player.querySelector('.video-seek-bar');
+				const timeCurrent = player.querySelector('.time-current');
+				const timeDuration = player.querySelector('.time-duration');
+				const muteBtn = player.querySelector('.video-mute-btn');
+				const volIcon = muteBtn ? muteBtn.querySelector('.vol-icon') : null;
+				const muteIcon = muteBtn ? muteBtn.querySelector('.mute-icon') : null;
+				const fsBtn = player.querySelector('.video-fullscreen-btn');
+
+				if (!video) return;
+
+				function formatTime(seconds) {
+					if (isNaN(seconds) || seconds < 0) return '0:00';
+					const mins = Math.floor(seconds / 60);
+					const secs = Math.floor(seconds % 60);
+					return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+				}
+
+				function updateDuration() {
+					if (timeDuration && !isNaN(video.duration) && video.duration > 0) {
+						timeDuration.textContent = formatTime(video.duration);
+					}
+				}
+
+				video.addEventListener('loadedmetadata', updateDuration);
+				video.addEventListener('durationchange', updateDuration);
+				if (video.readyState >= 1) updateDuration();
+
+				function togglePlay() {
+					if (video.paused) {
+						// Auto-pause other media
+						document.querySelectorAll('audio, video').forEach(m => {
+							if (m !== video) m.pause();
+						});
+						video.play();
+					} else {
+						video.pause();
+					}
+				}
+
+				if (playBtn) playBtn.addEventListener('click', togglePlay);
+				
+				// Allow clicking the video screen itself to play/pause
+				video.addEventListener('click', togglePlay);
+
+				video.addEventListener('play', () => {
+					if (playIcon) playIcon.style.display = 'none';
+					if (pauseIcon) pauseIcon.style.display = 'block';
+				});
+
+				video.addEventListener('pause', () => {
+					if (playIcon) playIcon.style.display = 'block';
+					if (pauseIcon) pauseIcon.style.display = 'none';
+				});
+
+				video.addEventListener('timeupdate', () => {
+					if (!video.duration) return;
+					const progress = (video.currentTime / video.duration) * 100;
+					if (seekBar) {
+						seekBar.value = progress;
+						seekBar.style.setProperty('--seek-progress', `${progress}%`);
+					}
+					if (timeCurrent) timeCurrent.textContent = formatTime(video.currentTime);
+				});
+
+				video.addEventListener('ended', () => {
+					if (playIcon) playIcon.style.display = 'block';
+					if (pauseIcon) pauseIcon.style.display = 'none';
+					if (seekBar) {
+						seekBar.value = 0;
+						seekBar.style.setProperty('--seek-progress', '0%');
+					}
+					if (timeCurrent) timeCurrent.textContent = '0:00';
+				});
+
+				if (seekBar) {
+					seekBar.addEventListener('input', (e) => {
+						seekBar.style.setProperty('--seek-progress', `${e.target.value}%`);
+						if (!video.duration) return;
+						const seekTo = (e.target.value / 100) * video.duration;
+						video.currentTime = seekTo;
+					});
+				}
+
+				if (muteBtn) {
+					muteBtn.addEventListener('click', () => {
+						video.muted = !video.muted;
+						if (video.muted) {
+							if (volIcon) volIcon.style.display = 'none';
+							if (muteIcon) muteIcon.style.display = 'block';
+						} else {
+							if (volIcon) volIcon.style.display = 'block';
+							if (muteIcon) muteIcon.style.display = 'none';
+						}
+					});
+				}
+
+				if (fsBtn) {
+					fsBtn.addEventListener('click', () => {
+						if (video.requestFullscreen) {
+							video.requestFullscreen();
+						} else if (video.webkitRequestFullscreen) { /* Safari */
+							video.webkitRequestFullscreen();
+						} else if (video.msRequestFullscreen) { /* IE11 */
+							video.msRequestFullscreen();
+						}
+					});
+				}
+			});
+		});
+		</script>
+
 	</body>
 
 </html>
