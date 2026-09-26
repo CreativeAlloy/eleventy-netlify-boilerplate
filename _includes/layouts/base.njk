@@ -213,7 +213,7 @@
 					const rect = target.getBoundingClientRect();
 					const scrollY = window.scrollY || document.documentElement.scrollTop;
 					const padding = 16;
-					const popoverWidth = 340; // matches max-width in CSS
+					const popoverWidth = 340;
 					const halfWidth = popoverWidth / 2;
 
 					// Clamp horizontally so it never bleeds off left or right edges
@@ -226,8 +226,11 @@
 
 					popover.style.left = `${targetX}px`;
 
-					// Flip below if too close to top of viewport
-					if (rect.top < 220) {
+					// Measure the actual rendered height of the popover box
+					const popoverHeight = popover.offsetHeight || 350;
+
+					// Flip below if the space above the word is smaller than the card height + buffer
+					if (rect.top < popoverHeight + 24) {
 						popover.style.top = `${rect.bottom + scrollY + 12}px`;
 						popover.classList.add('popover-below');
 					} else {

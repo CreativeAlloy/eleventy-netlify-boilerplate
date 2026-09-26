@@ -1211,6 +1211,8 @@ body.dark-mode #news-search-input:focus {
 	transform: translate(-50%, -100%);
 	width: 90%;
 	max-width: 340px;
+	max-height: calc(100vh - 3rem);
+	overflow-y: auto;
 	background: var(--secondary);
 	color: #222;
 	border: 1px solid var(--primary);
