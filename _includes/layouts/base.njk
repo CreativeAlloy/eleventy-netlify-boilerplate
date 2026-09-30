@@ -14,7 +14,7 @@
 	{% elif tags and "satire" in tags or '/tags/satire/' in page.url %}
 		{% set themeClass = "satire-theme" %}
 
-	{% elif page.url == '/news/' or '/authors/' in page.url or '/tags/' in page.url %}
+	{% elif page.url == '/news/' or '/authors/' in page.url or '/tags/' in page.url or page.url == '/' %}
 		{% set themeClass = "neutral-theme" %}
 	{% endif %}
 
