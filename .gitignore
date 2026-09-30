@@ -4,3 +4,9 @@ package-lock.json
 .DS_Store
 TWA-Local-Image.desktop
 TheWaspAloyFavicon.png
+TWA-Netlify-Image.txt
+.env
+clear-test-comments.mjs
+
+# Local Netlify folder
+.netlify

@@ -1,0 +1,307 @@
+{# --- The Wasp Alloy: Comments Section Component (Phase 1 Frontend) --- #}
+<section class="comments-container" id="comments" data-slug="{{ page.fileSlug }}">
+  <div class="comments-header">
+    <h3>Comment Threads (<span id="comments-count">1</span>)</h3>
+    <small class="comments-subtext">Stateless Federated Authentication. Markdown supported. Zero tracking cookies.</small>
+  </div>
+
+  {# --- Comment Editor --- #}
+  <div class="comment-editor-box">
+    <div class="comment-editor-tabs">
+      <button type="button" class="comment-tab active" id="comment-tab-write">Write</button>
+      <button type="button" class="comment-tab" id="comment-tab-preview">Preview</button>
+    </div>
+
+    <textarea 
+      id="comment-input" 
+      class="comment-textarea" 
+      placeholder="Write a comment..." 
+      rows="4" 
+      style="resize: vertical; min-height: 100px; max-height: 500px;"></textarea>
+
+    {# --- Live Markdown Preview Pane --- #}
+    <div id="comment-preview-pane" class="comment-preview-pane" style="display: none;"></div>
+
+    <div class="comment-editor-footer">
+      <div class="comment-auth-status" id="auth-status-container">
+        <!-- Dynamically populated by JS: Login button OR User Avatar + Logout -->
+      </div>
+
+      <div class="comment-editor-actions">
+        <button type="button" id="comment-submit-btn" class="comment-btn-submit" disabled>Post Comment</button>
+      </div>
+    </div>
+  </div>
+
+  {# --- Comments Feed Container --- #}
+  <div class="comments-feed" id="comments-feed">
+    <!-- Populated dynamically from Neon database -->
+  </div>
+</section>
+
+{# --- Phase 1: Client-Side Engine (Marked.js + Interactive Logic) --- #}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Elements
+  const tabWrite = document.getElementById('comment-tab-write');
+  const tabPreview = document.getElementById('comment-tab-preview');
+  const textarea = document.getElementById('comment-input');
+  const previewPane = document.getElementById('comment-preview-pane');
+  const submitBtn = document.getElementById('comment-submit-btn');
+  const feed = document.getElementById('comments-feed');
+  const countSpan = document.getElementById('comments-count');
+
+  if (!textarea || !tabWrite || !tabPreview) return;
+
+  // 1. Modern marked.js configuration with autolinks & custom anchor text
+  marked.use({
+    gfm: true,
+    breaks: true,
+    renderer: {
+      link(token) {
+        // Modern marked passes an object: { href, title, text }
+        // Fallback for older signatures if ever downgraded: (href, title, text)
+        let href = typeof token === 'object' && token !== null ? token.href : arguments[0];
+        let title = typeof token === 'object' && token !== null ? token.title : arguments[1];
+        let text = typeof token === 'object' && token !== null ? token.text : arguments[2];
+
+        // If it's a bare URL without [text], display the href itself
+        const displayText = text || href;
+        const titleAttr = title ? ` title="${title}"` : '';
+
+        return `<a href="${href}" target="_blank" rel="noopener noreferrer"${titleAttr}>${displayText}</a>`;
+      }
+    }
+  });
+
+  // 2. Tab Switching Logic
+  tabWrite.addEventListener('click', () => {
+    tabWrite.classList.add('active');
+    tabPreview.classList.remove('active');
+    previewPane.style.display = 'none';
+    textarea.style.display = 'block';
+    textarea.focus();
+  });
+
+  tabPreview.addEventListener('click', () => {
+    tabPreview.classList.add('active');
+    tabWrite.classList.remove('active');
+
+    const rawMarkdown = textarea.value.trim();
+    if (rawMarkdown) {
+      previewPane.innerHTML = marked.parse(rawMarkdown);
+    } else {
+      previewPane.innerHTML = '<p><em>Nothing to preview. Type something in the Write tab first!</em></p>';
+    }
+
+    textarea.style.display = 'none';
+    previewPane.style.display = 'block';
+  });
+
+  const postSlug = document.getElementById('comments').getAttribute('data-slug');
+
+  // Helper to render star strings
+  function renderStars(rating) {
+    const count = Math.max(1, Math.min(5, parseInt(rating, 10) || 5));
+    return '★'.repeat(count) + '☆'.repeat(5 - count);
+  }
+
+  // 1. Fetch & Render Comments on Page Load from Neon Database
+  async function loadComments() {
+    try {
+      const res = await fetch(`/.netlify/functions/get-comments?slug=${encodeURIComponent(postSlug)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      
+      feed.innerHTML = ''; // Clear feed
+
+      if (countSpan) countSpan.textContent = data.comments.length;
+
+      data.comments.forEach(c => {
+        const card = document.createElement('article');
+        card.className = c.is_deleted ? 'comment-card comment-tombstone' : 'comment-card';
+
+        if (c.is_deleted) {
+          card.innerHTML = `<div class="comment-content"><em>${c.comment_body}</em></div>`;
+        } else {
+          const dateStr = new Date(c.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+          const parsedContent = marked.parse(c.comment_body);
+          const badgeHtml = c.mod_badge ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${c.mod_badge}">${c.mod_badge}</span></footer>` : '';
+
+          // Dynamically resolve avatar from GitHub without database bloat
+          let avatarHtml = '<div class="comment-avatar-slot"></div>';
+          if (c.provider === 'github' && c.provider_user_id && c.provider_user_id !== 'guest') {
+            avatarHtml = `<img src="https://avatars.githubusercontent.com/u/${c.provider_user_id}?v=4" alt="${c.author_name}" class="comment-avatar-slot" style="object-fit: cover; border: 1px solid var(--primary);">`;
+          }
+
+          // Check if the current user can delete this comment (Mod or Author)
+          const canDelete = currentUser && (
+            currentUser.role === 'moderator' ||
+            (currentUser.provider === c.provider && String(currentUser.provider_user_id) === String(c.provider_user_id))
+          );
+
+          const deleteBtnHtml = canDelete
+            ? `<button type="button" class="btn-delete-comment" data-id="${c.id}" aria-label="Delete comment">Delete</button>`
+            : '';
+
+          card.innerHTML = `
+            <header class="comment-card-header">
+              ${avatarHtml}
+              <div class="comment-user-info">
+                <strong class="comment-author">${c.author_name}</strong>
+                <span class="provider-tag provider-${c.provider}">${c.provider}</span>
+                <time datetime="${c.created_at}"><small>${dateStr}</small></time>
+                ${deleteBtnHtml}
+              </div>
+              <div class="comment-stars" title="Rated ${c.stars} out of 5 stars">
+                ${renderStars(c.stars)}
+              </div>
+            </header>
+            <div class="comment-content">
+              ${parsedContent}
+            </div>
+            ${badgeHtml}
+          `;
+        }
+        feed.appendChild(card);
+      });
+
+      // Attach click listeners to all active [Delete] buttons
+      document.querySelectorAll('.btn-delete-comment').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const commentId = e.target.getAttribute('data-id');
+          if (!confirm('Are you sure you want to delete this comment?')) return;
+
+          e.target.disabled = true;
+          e.target.textContent = '[Deleting...]';
+
+          try {
+            const deleteRes = await fetch('/.netlify/functions/delete-comment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                comment_id: commentId,
+                provider: currentUser.provider,
+                provider_user_id: currentUser.provider_user_id,
+                username: currentUser.username
+              })
+            });
+
+            if (!deleteRes.ok) throw new Error('Deletion failed');
+            await loadComments(); // Reload to render tombstone immediately
+          } catch (err) {
+            alert('Error deleting comment.');
+            console.error(err);
+            e.target.disabled = false;
+            e.target.textContent = '[Delete]';
+          }
+        });
+      });
+
+    } catch (err) {
+      console.error("Failed to load comments:", err);
+    }
+  }
+
+  loadComments();
+
+  // --- AUTHENTICATION STATE MANAGEMENT ---
+  const authStatusContainer = document.getElementById('auth-status-container');
+  let currentUser = JSON.parse(localStorage.getItem('twa_user') || 'null');
+
+  function renderAuthUI() {
+    if (currentUser) {
+      // User is logged in
+      const roleBadge = currentUser.role === 'moderator' ? '<span class="provider-tag role-admin">Admin</span>' : '';
+      authStatusContainer.innerHTML = `
+        <img src="${currentUser.avatar_url}" alt="Avatar" class="auth-user-avatar">
+        <span class="auth-pill provider-${currentUser.provider}">${currentUser.username}</span>
+        ${roleBadge}
+        <button type="button" id="btn-logout" class="btn-logout">Log Out</button>
+      `;
+      
+      document.getElementById('btn-logout').addEventListener('click', () => {
+        localStorage.removeItem('twa_user');
+        currentUser = null;
+        renderAuthUI();
+      });
+
+      submitBtn.disabled = false;
+      textarea.disabled = false;
+      textarea.placeholder = "Write a comment...";
+    } else {
+      // User is NOT logged in
+      authStatusContainer.innerHTML = `
+        <button type="button" id="btn-login-github" class="auth-pill">
+          Sign in with GitHub
+        </button>
+      `;
+      
+      document.getElementById('btn-login-github').addEventListener('click', () => {
+        // Open the popup handshake
+        window.open('/.netlify/functions/auth?action=login', 'twaAuth', 'width=500,height=600');
+      });
+
+      submitBtn.disabled = true;
+      textarea.disabled = true;
+      textarea.placeholder = "Please sign in to join the discussion...";
+    }
+  }
+
+  // Listen for the secure payload from the popup window
+  window.addEventListener('message', (event) => {
+    if (event.origin !== window.location.origin) return;
+    if (event.data && event.data.type === 'TWA_AUTH_SUCCESS') {
+      currentUser = event.data.data;
+      localStorage.setItem('twa_user', JSON.stringify(currentUser));
+      renderAuthUI();
+    }
+  });
+
+  // Initialize UI on load
+  renderAuthUI();
+
+  // --- REAL DATABASE SUBMISSION (Using verified identity) ---
+  submitBtn.addEventListener('click', async () => {
+    if (!currentUser) return; // Failsafe
+    
+    const text = textarea.value.trim();
+    if (!text) {
+      alert('Please enter some text before posting.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Posting...';
+
+    try {
+      const res = await fetch('/.netlify/functions/post-comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          slug: postSlug,
+          author_name: currentUser.username,
+          provider: currentUser.provider,
+          provider_user_id: currentUser.provider_user_id,
+          comment_body: text,
+          stars: 5
+        })
+      });
+
+      if (!res.ok) throw new Error('Submission failed');
+
+      textarea.value = '';
+      tabWrite.click();
+      await loadComments(); // Reload fresh feed from PostgreSQL
+    } catch (err) {
+      alert('Error posting comment. Check terminal/console.');
+      console.error(err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Post Comment';
+    }
+  });
+});
+</script>

@@ -42,6 +42,15 @@
 	--neutral-bg-dark: #0d0519;
 	--neutral-input-border-dark: #743d9e;
 
+    /* Permanent Provider & Role Badge Library
+       Brand/role colors — fixed regardless of site theme or light/dark mode,
+       same rationale as the theme libraries above: one place to change them. */
+    --provider-github: #238636;
+    --provider-discord: #5865F2;
+    --provider-instagram: #E1306C;
+    --role-admin: #b45309;
+    --badge-text: #fff;
+
     /* Default Color Library */
 	--primary: var(--satire-prim-light);
 	--secondary: white;
@@ -1445,6 +1454,341 @@ body.dark-mode .lexicon-popover {
 		max-height: 80vh !important;
 		overflow-y: auto;
 	}
+}
+
+/* =====================================
+   THE WASP ALLOY: COMMENTS COMPONENT
+   ===================================== */
+
+/* Section Separator uses --border-color */
+.comments-container {
+	margin-top: 2.5rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--border-color);
+}
+
+.comments-header h3 {
+	margin: 0 0 0.25rem 0;
+	color: var(--primary);
+}
+
+.comments-subtext {
+	display: block;
+	margin-bottom: 1.5rem;
+	opacity: 0.8;
+}
+
+/* --- Editor Box (Container uses --primary) --- */
+.comment-editor-box {
+	background-color: var(--secondary);
+	border: 1px solid var(--primary);
+	border-left: 5px solid var(--primary);
+	border-radius: 8px;
+	box-shadow: var(--card-shadow);
+	margin-bottom: 2rem;
+	overflow: hidden;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.comment-editor-box:focus-within {
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+body.dark-mode .comment-editor-box:focus-within {
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.comment-editor-tabs {
+	display: flex;
+	border-bottom: 1px solid var(--primary);
+	background-color: var(--background);
+}
+
+.comment-tab {
+	background: transparent !important;
+	border: none !important;
+	padding: 0.6rem 1.2rem !important;
+	margin: 0 !important;
+	width: auto !important;
+	color: inherit !important;
+	opacity: 0.65;
+	font-size: 0.85rem !important;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	transition: opacity 0.15s ease, border-bottom 0.15s ease;
+}
+
+.comment-tab.active {
+	opacity: 1;
+	color: var(--primary) !important;
+	border-bottom: 2px solid var(--primary) !important;
+}
+
+.comment-textarea,
+.comment-preview-pane {
+	width: 100%;
+	padding: 1rem !important;
+	margin: 0 !important;
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	font-family: inherit;
+	font-size: 1rem;
+	color: inherit;
+	outline: none !important;
+}
+
+.comment-preview-pane {
+	min-height: 100px;
+	line-height: 1.5;
+}
+
+.comment-editor-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	padding: 0.6rem 1rem;
+	border-top: 1px solid var(--primary);
+	background-color: var(--background);
+}
+
+.comment-auth-status {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	min-width: 0;
+}
+
+.comment-editor-actions {
+	flex-shrink: 0;
+}
+
+.auth-user-avatar {
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	border: 1px solid var(--primary);
+	flex-shrink: 0;
+}
+
+.auth-pill {
+	font-size: 0.75rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 0.2rem 0.5rem;
+	border-radius: 4px;
+	border: 1px solid var(--primary);
+	background-color: var(--secondary);
+	color: var(--primary);
+	white-space: nowrap;
+}
+
+/* When .auth-pill is used on the "Sign in with GitHub" button rather than
+   the (non-interactive) username span, it needs pointer + hover feedback */
+button.auth-pill {
+	cursor: pointer;
+	transition: filter 0.15s ease;
+}
+
+button.auth-pill:hover {
+	filter: brightness(1.15);
+}
+
+.comment-btn-submit {
+	width: auto !important;
+	padding: 0.5rem 1.25rem !important;
+	margin: 0 !important;
+	font-size: 0.9rem !important;
+	font-weight: bold;
+	border-radius: 6px !important;
+	border: 1px solid var(--primary) !important;
+	background-color: var(--secondary) !important;
+	color: var(--primary) !important;
+	cursor: pointer;
+	transition: all 0.1s ease-in-out;
+}
+
+.comment-btn-submit:hover:not(:disabled) {
+	background-color: var(--primary) !important;
+	color: var(--secondary) !important;
+}
+
+/* --- Comment Cards --- */
+.comment-card {
+	background-color: rgb(from var(--background) r g b / 60%);
+	border: 1px solid var(--primary);
+	border-left: 5px solid var(--primary);
+	border-radius: 8px;
+	padding: 1.25rem;
+	margin-bottom: 1.25rem;
+	box-shadow: var(--card-shadow);
+}
+
+/*body.dark-mode .comment-card {
+	background-color: rgb(from var(--background) r g b / 60%);
+}*/
+
+.comment-card-header {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-bottom: 0.75rem;
+}
+
+.comment-avatar-slot {
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	background-color: var(--primary);
+	flex-shrink: 0;
+	opacity: 0.85;
+	margin: 0 !important;
+}
+
+.comment-user-info {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.comment-author {
+	font-size: 0.95rem;
+	color: var(--primary);
+}
+
+.provider-tag {
+	font-size: 0.65rem;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 0.15rem 0.4rem;
+	border-radius: 3px;
+	line-height: 1;
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+.provider-github { background-color: var(--provider-github); color: var(--badge-text); border: 1px solid var(--provider-github)}
+.provider-discord { background-color: var(--provider-discord); color: var(--badge-text); border: 1px solid var(--provider-discord)}
+.provider-instagram { background-color: var(--provider-instagram); color: var(--badge-text); border: 1px solid var(--provider-instagram)}
+
+/* Role badge for the comment author, reusing the provider-tag look
+   (same component as GITHUB/DISCORD/INSTAGRAM, just a different color) */
+.role-admin { background-color: var(--role-admin); color: var(--badge-text); }
+
+.comment-stars {
+	margin-left: auto;
+	color: #ffb300;
+	letter-spacing: 2px;
+	font-size: 0.9rem;
+	user-select: none;
+}
+
+.comment-content {
+	line-height: 1.5;
+	font-size: 0.95rem;
+}
+
+.comment-content p {
+	margin: 0.5em 0;
+}
+
+.comment-card-footer {
+	margin-top: 0.75rem;
+	padding-top: 0.5rem;
+	border-top: 1px solid var(--primary);
+}
+
+/* --- Badges --- */
+.twa-mod-badge {
+	display: inline-block;
+	font-size: 0.75rem;
+	font-weight: bold;
+	padding: 0.2rem 0.5rem;
+	border-radius: 4px;
+}
+
+.badge-wonderful {
+	background-color: rgba(46, 204, 113, 0.15);
+	color: #00a946;
+	border: 1px solid #2ecc71;
+}
+
+.badge-dishonor {
+	background-color: rgba(231, 76, 60, 0.15);
+	color: #9c1000;
+	border: 1px solid #f34936;
+}
+
+/* --- Sleek Delete Action Pill --- */
+.btn-delete-comment {
+	display: inline-flex !important;
+	align-items: center;
+	width: auto !important;
+	height: auto !important;
+	margin: 0 0 0 0.5rem !important;
+	padding: 0.2rem 0.5rem !important;
+	font-size: 0.7rem !important;
+	font-weight: bold;
+	line-height: 1;
+	color: #ff6b6b !important;
+	background: rgba(255, 107, 107, 0.1) !important;
+	border: 1px solid rgba(255, 107, 107, 0.3) !important;
+	border-radius: 4px !important;
+	cursor: pointer;
+	box-shadow: none !important;
+	transition: all 0.15s ease-in-out;
+	text-decoration: none !important;
+	flex-shrink: 0;
+}
+
+.btn-delete-comment:hover {
+	background: #ff6b6b !important;
+	color: #ffffff !important;
+	border-color: #ff6b6b !important;
+}
+
+/* --- Log Out Pill (same shape, themed like a[rel="tag"]: outline + hover-invert) --- */
+.btn-logout {
+	display: inline-flex !important;
+	align-items: center;
+	width: auto !important;
+	height: auto !important;
+	margin: 0 !important;
+	padding: 0.2rem 0.5rem !important;
+	font-size: 0.7rem !important;
+	font-weight: bold;
+	line-height: 1;
+	color: var(--primary) !important;
+	background-color: var(--secondary) !important;
+	border: 1px solid var(--primary) !important;
+	border-radius: 4px !important;
+	cursor: pointer;
+	box-shadow: none !important;
+	transition: all 0.1s ease-in-out;
+	text-decoration: none !important;
+	flex-shrink: 0;
+}
+
+.btn-logout:hover {
+	background-color: var(--primary) !important;
+	color: var(--secondary) !important;
+}
+
+/* --- Tombstone / Deleted Comment State --- */
+.comment-tombstone {
+	border: 1px solid var(--primary) !important;
+	border-left: 5px solid var(--primary) !important;
+	opacity: 0.65;
+	font-style: italic;
 }
 
 /* =========================================================================
