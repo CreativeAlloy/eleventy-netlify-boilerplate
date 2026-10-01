@@ -49,6 +49,8 @@
     --provider-discord: #5865F2;
     --provider-instagram: #E1306C;
     --role-admin: #b45309;
+    --role-author: #d4a017;
+    --role-author-text: #1a1200;
     --badge-text: #fff;
 
     /* Default Color Library */
@@ -1683,6 +1685,42 @@ button.auth-pill:hover {
 /* Role badge for the comment author, reusing the provider-tag look
    (same component as GITHUB/DISCORD/INSTAGRAM, just a different color) */
 .role-admin { background-color: var(--role-admin); color: var(--badge-text); }
+
+/* Author badge: gold = verified site owner */
+.role-author {
+	background: linear-gradient(135deg, #f5c542, var(--role-author));
+	color: var(--role-author-text);
+	border: 1px solid var(--role-author);
+	box-shadow: 0 0 6px rgb(212 160 23 / 45%);
+}
+
+/* Login button group */
+.auth-login-group {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.auth-btn-github:hover { border-color: var(--provider-github); }
+
+.auth-btn-instagram {
+	background: linear-gradient(45deg, #f09433, #e6683c 30%, #dc2743 55%, #cc2366 75%, #bc1888);
+	color: #fff;
+	border-color: transparent;
+}
+
+/* Instagram placeholder avatar (no photo available from the API) */
+.avatar-instagram {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(45deg, #f09433, #dc2743 55%, #bc1888);
+	color: #fff;
+	font-weight: bold;
+	font-size: 0.8rem;
+	opacity: 1;
+	border-color: transparent;
+}
 
 .comment-stars {
 	margin-left: auto;

@@ -102,6 +102,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const postSlug = document.getElementById('comments').getAttribute('data-slug');
 
+  const AUTHOR_IG_HANDLE = 'sufian.mbarki'; // public handle for the Author badge
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+
+  function avatarFor(provider, userId, name) {
+    if (provider === 'github' && userId && userId !== 'guest') {
+      return `<img src="https://avatars.githubusercontent.com/u/${encodeURIComponent(userId)}?v=4" alt="${esc(name)}" class="comment-avatar-slot" style="object-fit: cover; border: 1px solid var(--primary);">`;
+    }
+    if (provider === 'instagram') {
+      const initial = esc((name || '?').charAt(0).toUpperCase());
+      return `<div class="comment-avatar-slot avatar-instagram" aria-hidden="true">${initial}</div>`;
+    }
+    return '<div class="comment-avatar-slot"></div>';
+  }
+
   // Helper to render star strings
   function renderStars(rating) {
     const count = Math.max(1, Math.min(5, parseInt(rating, 10) || 5));
@@ -130,15 +144,16 @@ document.addEventListener('DOMContentLoaded', () => {
           const parsedContent = marked.parse(c.comment_body);
           const badgeHtml = c.mod_badge ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${c.mod_badge}">${c.mod_badge}</span></footer>` : '';
 
-          // Dynamically resolve avatar from GitHub without database bloat
-          let avatarHtml = '<div class="comment-avatar-slot"></div>';
-          if (c.provider === 'github' && c.provider_user_id && c.provider_user_id !== 'guest') {
-            avatarHtml = `<img src="https://avatars.githubusercontent.com/u/${c.provider_user_id}?v=4" alt="${c.author_name}" class="comment-avatar-slot" style="object-fit: cover; border: 1px solid var(--primary);">`;
-          }
+          const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name);
 
-          // Check if the current user can delete this comment (Mod or Author)
+          const isSiteAuthor = c.provider === 'instagram' &&
+            String(c.author_name).toLowerCase() === AUTHOR_IG_HANDLE;
+          const authorTag = isSiteAuthor ? '<span class="provider-tag role-author">Author</span>' : '';
+
+          // Check if the current user can delete this comment (Mod, Site Author, or Comment Owner)
           const canDelete = currentUser && (
             currentUser.role === 'moderator' ||
+            currentUser.role === 'author' ||
             (currentUser.provider === c.provider && String(currentUser.provider_user_id) === String(c.provider_user_id))
           );
 
@@ -150,8 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <header class="comment-card-header">
               ${avatarHtml}
               <div class="comment-user-info">
-                <strong class="comment-author">${c.author_name}</strong>
-                <span class="provider-tag provider-${c.provider}">${c.provider}</span>
+                <strong class="comment-author">${esc(c.author_name)}</strong>
+                <span class="provider-tag provider-${esc(c.provider)}">${esc(c.provider)}</span>
+                ${authorTag}
                 <time datetime="${c.created_at}"><small>${dateStr}</small></time>
                 ${deleteBtnHtml}
               </div>
@@ -185,7 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 comment_id: commentId,
                 provider: currentUser.provider,
                 provider_user_id: currentUser.provider_user_id,
-                username: currentUser.username
+                username: currentUser.username,
+                handle: currentUser.handle || currentUser.username
               })
             });
 
@@ -214,14 +231,21 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderAuthUI() {
     if (currentUser) {
       // User is logged in
-      const roleBadge = currentUser.role === 'moderator' ? '<span class="provider-tag role-admin">Admin</span>' : '';
+      const roleBadge =
+        currentUser.role === 'moderator' ? '<span class="provider-tag role-admin">Admin</span>' :
+        currentUser.role === 'author'    ? '<span class="provider-tag role-author">Author</span>' : '';
+
+      const avatar = currentUser.avatar_url
+        ? `<img src="${esc(currentUser.avatar_url)}" alt="Avatar" class="auth-user-avatar">`
+        : `<span class="auth-user-avatar avatar-instagram" aria-hidden="true">${esc((currentUser.username || '?').charAt(0).toUpperCase())}</span>`;
+
       authStatusContainer.innerHTML = `
-        <img src="${currentUser.avatar_url}" alt="Avatar" class="auth-user-avatar">
-        <span class="auth-pill provider-${currentUser.provider}">${currentUser.username}</span>
+        ${avatar}
+        <span class="auth-pill provider-${esc(currentUser.provider)}">${esc(currentUser.username)}</span>
         ${roleBadge}
         <button type="button" id="btn-logout" class="btn-logout">Log Out</button>
       `;
-      
+
       document.getElementById('btn-logout').addEventListener('click', () => {
         localStorage.removeItem('twa_user');
         currentUser = null;
@@ -232,16 +256,21 @@ document.addEventListener('DOMContentLoaded', () => {
       textarea.disabled = false;
       textarea.placeholder = "Write a comment...";
     } else {
-      // User is NOT logged in
+      // User is NOT logged in (Dual Login Buttons)
       authStatusContainer.innerHTML = `
-        <button type="button" id="btn-login-github" class="auth-pill">
-          Sign in with GitHub
-        </button>
+        <div class="auth-login-group">
+          <button type="button" id="btn-login-github" class="auth-pill auth-btn-github">Sign in with GitHub</button>
+          <button type="button" id="btn-login-instagram" class="auth-pill auth-btn-instagram">Sign in with Instagram</button>
+        </div>
       `;
-      
-      document.getElementById('btn-login-github').addEventListener('click', () => {
-        // Open the popup handshake
-        window.open('/.netlify/functions/auth?action=login', 'twaAuth', 'width=500,height=600');
+
+      ['github', 'instagram'].forEach(p => {
+        const btn = document.getElementById(`btn-login-${p}`);
+        if (btn) {
+          btn.addEventListener('click', () => {
+            window.open(`/.netlify/functions/auth?action=login&provider=${p}`, 'twaAuth', 'width=500,height=600');
+          });
+        }
       });
 
       submitBtn.disabled = true;

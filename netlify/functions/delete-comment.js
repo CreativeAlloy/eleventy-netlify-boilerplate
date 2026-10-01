@@ -28,13 +28,19 @@ export default async (req) => {
 
     const target = rows[0];
 
-    // 2. Check Permissions: Is this the Moderator OR the original Author?
-    const ADMIN_ID = process.env.ADMIN_GITHUB_ID; // "CreativeAlloy"
+    // 2. Check Permissions: Is this the Moderator OR the site Author?
+    const ADMIN_ID = process.env.ADMIN_GITHUB_ID;
+    const AUTHOR_IG = process.env.AUTHOR_INSTAGRAM_HANDLE;
     const userHandle = data.handle || username;
-    const isModerator = ADMIN_ID && provider === "github" && (
+
+    const isGithubMod = ADMIN_ID && provider === "github" && (
       String(userHandle).toLowerCase() === String(ADMIN_ID).toLowerCase() ||
       String(provider_user_id) === String(ADMIN_ID)
     );
+    const isInstagramAuthor = AUTHOR_IG && provider === "instagram" &&
+      String(userHandle).toLowerCase() === AUTHOR_IG.toLowerCase();
+
+    const isModerator = isGithubMod || isInstagramAuthor;
 
     const isAuthor = (
       String(target.provider) === String(provider) &&
