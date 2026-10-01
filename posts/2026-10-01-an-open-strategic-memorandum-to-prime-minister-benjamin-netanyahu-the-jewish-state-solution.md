@@ -17,7 +17,7 @@ tags:
   - hasbara
   - geopolitics
   - netanyahu
-  - foreign-policy
+  - foreignpolicy
 ---
 *Editorial Note: On October 1st, 2026, the following strategic policy memorandum was formally submitted to Prime Minister Benjamin Netanyahu, the Public Inquiries Department of the Prime Minister's Office in Jerusalem, the National Public Diplomacy Directorate, the Ministry of Diaspora Affairs and Combating Antisemitism, and copied to the Embassy of Israel in Sofia, Bulgaria. It is published below in full as an open public record and strategic framework for victory.*
 
