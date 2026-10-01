@@ -135,6 +135,27 @@ document.addEventListener('DOMContentLoaded', () => {
     return '★'.repeat(count) + '☆'.repeat(5 - count);
   }
 
+  // Helper function to retrieve GitHub username
+  async function getProfileUrl(userId) {
+    const endpoint = `https://api.github.com/user/${encodeURIComponent(userId)}`;
+    
+    const response = await fetch(endpoint, {
+      headers: {
+        "Accept": "application/vnd.github+json"
+        // "Authorization": "Bearer YOUR_GITHUB_TOKEN" // Recommended to avoid rate limits
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    // Directly access the html_url property from the parsed JSON object
+    return data.html_url; 
+  }
+
   // 1. Fetch & Render Comments on Page Load from Neon Database
   async function loadComments() {
     try {
@@ -146,7 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (countSpan) countSpan.textContent = data.comments.length;
 
-      data.comments.forEach(c => {
+      // Replace data.comments.forEach(c => {
+      for (const c of data.comments) {
         const card = document.createElement('article');
         card.className = c.is_deleted ? 'comment-card comment-tombstone' : 'comment-card';
 
@@ -162,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Resolve external profile link based on authentication provider
           let profileUrl = '';
           if (c.provider === 'github' && c.author_name) {
-            profileUrl = `https://github.com/${encodeURIComponent(c.author_name)}`;
+            profileUrl = await getProfileUrl(c.provider_user_id);
           } else if (c.provider === 'instagram' && c.author_name) {
             profileUrl = `https://instagram.com/${encodeURIComponent(c.author_name)}`;
           }
@@ -206,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
         }
         feed.appendChild(card);
-      });
+      }
 
       // Attach click listeners to all active [Delete] buttons
       document.querySelectorAll('.btn-delete-comment').forEach(btn => {
