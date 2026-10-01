@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const postSlug = document.getElementById('comments').getAttribute('data-slug');
 
-  const AUTHOR_IG_HANDLE = 'sufian.mbarki'; // public handle for the Author badge
+  const AUTHOR_IG_ID = '17841463559161115'; // public identifier, display-only
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const safeMd = (md) => DOMPurify.sanitize(marked.parse(md), { ADD_ATTR: ['target'] });
 
@@ -159,8 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name);
 
-          const isSiteAuthor = c.provider === 'instagram' &&
-            String(c.author_name).toLowerCase() === AUTHOR_IG_HANDLE;
+          const isSiteAuthor = c.provider === 'instagram' && String(c.provider_user_id) === AUTHOR_IG_ID;
           const authorTag = isSiteAuthor ? '<span class="provider-tag role-author">Author</span>' : '';
 
           // Check if the current user can delete this comment (Mod, Site Author, or Comment Owner)
@@ -253,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('twa_user');
     currentUser = null;
     renderAuthUI();
+    loadComments();
     alert('Your session expired. Please sign in again.');
   }
 
@@ -291,6 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('twa_user');
         currentUser = null;
         renderAuthUI();
+        loadComments();
       });
 
       submitBtn.disabled = false;
@@ -319,6 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentUser = event.data.data;
       localStorage.setItem('twa_user', JSON.stringify(currentUser));
       renderAuthUI();
+      loadComments();
     }
   });
 
@@ -328,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- REAL DATABASE SUBMISSION (Using verified identity) ---
   submitBtn.addEventListener('click', async () => {
     if (!currentUser) return; // Failsafe
-    
+
     const text = textarea.value.trim();
     if (!text) {
       alert('Please enter some text before posting.');
@@ -341,22 +343,20 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch('/.netlify/functions/post-comment', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders(),   // sends the signed token
         body: JSON.stringify({
           slug: postSlug,
-          author_name: currentUser.username,
-          provider: currentUser.provider,
-          provider_user_id: currentUser.provider_user_id,
           comment_body: text,
           stars: 5
-        })
+        })                        // identity is no longer sent; the server reads it from the token
       });
 
-      if (!res.ok) throw new Error('Submission failed');
+      if (res.status === 401) return handleExpired();
+      if (!res.ok) throw new Error(`Submission failed: ${res.status} ${await res.text()}`);
 
       textarea.value = '';
       tabWrite.click();
-      await loadComments(); // Reload fresh feed from PostgreSQL
+      await loadComments();
     } catch (err) {
       alert('Error posting comment. Check terminal/console.');
       console.error(err);
