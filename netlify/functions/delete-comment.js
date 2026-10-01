@@ -1,4 +1,5 @@
 import { neon } from "@netlify/neon";
+import { verifySession } from "../lib/session.js";
 
 const sql = neon(process.env.NETLIFY_DATABASE_URL);
 
@@ -7,56 +8,42 @@ export default async (req) => {
     return new Response("Method Not Allowed", { status: 405 });
   }
 
-  try {
-    const data = await req.json();
-    const { comment_id, provider, provider_user_id, username } = data;
+  const session = verifySession(req);
+  if (!session) {
+    return new Response("Unauthorized", { status: 401 });
+  }
 
-    if (!comment_id || !provider || !provider_user_id) {
+  try {
+    const { comment_id } = await req.json();
+    if (!comment_id) {
       return new Response("Missing required parameters", { status: 400 });
     }
 
-    // 1. Fetch the existing comment to verify ownership
     const rows = await sql`
       SELECT id, provider, provider_user_id, is_deleted
       FROM twa_comments
       WHERE id = ${comment_id};
     `;
-
     if (rows.length === 0) {
       return new Response("Comment not found", { status: 404 });
     }
-
     const target = rows[0];
 
-    // 2. Check Permissions: Is this the Moderator OR the site Author?
-    const ADMIN_ID = process.env.ADMIN_GITHUB_ID;
-    const AUTHOR_IG = process.env.AUTHOR_INSTAGRAM_HANDLE;
-    const userHandle = data.handle || username;
+    // Role was assigned server-side in auth.js and is covered by the signature.
+    const isModerator = session.role === "moderator" || session.role === "author";
+    const isOwner =
+      String(target.provider) === String(session.provider) &&
+      String(target.provider_user_id) === String(session.provider_user_id);
 
-    const isGithubMod = ADMIN_ID && provider === "github" && (
-      String(userHandle).toLowerCase() === String(ADMIN_ID).toLowerCase() ||
-      String(provider_user_id) === String(ADMIN_ID)
-    );
-    const isInstagramAuthor = AUTHOR_IG && provider === "instagram" &&
-      String(userHandle).toLowerCase() === AUTHOR_IG.toLowerCase();
-
-    const isModerator = isGithubMod || isInstagramAuthor;
-
-    const isAuthor = (
-      String(target.provider) === String(provider) &&
-      String(target.provider_user_id) === String(provider_user_id)
-    );
-
-    if (!isModerator && !isAuthor) {
+    if (!isModerator && !isOwner) {
       return new Response("Forbidden: You do not have permission to delete this comment", { status: 403 });
     }
 
-    // 3. Choose the appropriate tombstone text
-    const tombstoneText = isModerator
-      ? "[Comment removed by Moderator: Violation of site ethics.]"
-      : "[Comment deleted by author.]";
+    // Owners deleting their own comment get the neutral text, even if they're a mod.
+    const tombstoneText = isOwner
+      ? "[Comment deleted by author.]"
+      : "[Comment removed by Moderator: Violation of site ethics.]";
 
-    // 4. Overwrite comment_body and set is_deleted = TRUE
     await sql`
       UPDATE twa_comments
       SET comment_body = ${tombstoneText},

@@ -6,6 +6,8 @@
 // complete. A missing `state` falls back to "github" so any in-flight GitHub
 // logins from before this deploy still work.
 
+import { signSession } from "../lib/session.js";
+
 const SUPPORTED = ["github", "instagram"];
 
 // Instagram API with Instagram Login (the Basic Display API was shut down).
@@ -27,7 +29,7 @@ function successPage(payload) {
     <head><title>Authenticating...</title></head>
     <body style="background:#0b193b; color:#fff; font-family:sans-serif; text-align:center; padding:2rem;">
       <script>
-        const authPayload = ${JSON.stringify(payload).replace(/</g, "\\u003c")};
+        const authPayload = ${JSON.stringify({ ...payload, token: signSession(payload) }).replace(/</g, "\\u003c")};
         if (window.opener) {
           window.opener.postMessage({ type: 'TWA_AUTH_SUCCESS', data: authPayload }, window.location.origin);
           window.close();

@@ -5,6 +5,17 @@
     <small class="comments-subtext">Stateless Federated Authentication. Markdown supported. Zero tracking cookies.</small>
   </div>
 
+  {# --- Native HTML5 Login Modal Dialog --- #}
+  <dialog id="login-dialog" class="auth-dialog">
+    <h4>Sign in to comment</h4>
+    <p>Choose how you'd like to sign in.</p>
+    <div class="auth-dialog-options">
+      <button type="button" class="auth-pill auth-btn-github" data-provider="github">Sign in with GitHub</button>
+      <button type="button" class="auth-pill auth-btn-instagram" data-provider="instagram">Sign in with Instagram</button>
+    </div>
+    <button type="button" class="auth-dialog-cancel" id="login-dialog-cancel">Cancel</button>
+  </dialog>
+
   {# --- Comment Editor --- #}
   <div class="comment-editor-box">
     <div class="comment-editor-tabs">
@@ -39,8 +50,9 @@
   </div>
 </section>
 
-{# --- Phase 1: Client-Side Engine (Marked.js + Interactive Logic) --- #}
+{# --- Phase 1: Client-Side Engine (Marked.js + DOMPurify + Interactive Logic) --- #}
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -91,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const rawMarkdown = textarea.value.trim();
     if (rawMarkdown) {
-      previewPane.innerHTML = marked.parse(rawMarkdown);
+      previewPane.innerHTML = safeMd(rawMarkdown);
     } else {
       previewPane.innerHTML = '<p><em>Nothing to preview. Type something in the Write tab first!</em></p>';
     }
@@ -104,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const AUTHOR_IG_HANDLE = 'sufian.mbarki'; // public handle for the Author badge
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const safeMd = (md) => DOMPurify.sanitize(marked.parse(md), { ADD_ATTR: ['target'] });
 
   function avatarFor(provider, userId, name) {
     if (provider === 'github' && userId && userId !== 'guest') {
@@ -138,11 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
         card.className = c.is_deleted ? 'comment-card comment-tombstone' : 'comment-card';
 
         if (c.is_deleted) {
-          card.innerHTML = `<div class="comment-content"><em>${c.comment_body}</em></div>`;
+          card.innerHTML = `<div class="comment-content"><em>${esc(c.comment_body)}</em></div>`;
         } else {
           const dateStr = new Date(c.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-          const parsedContent = marked.parse(c.comment_body);
-          const badgeHtml = c.mod_badge ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${c.mod_badge}">${c.mod_badge}</span></footer>` : '';
+          const parsedContent = safeMd(c.comment_body);
+          const badgeHtml = c.mod_badge ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${esc(c.mod_badge)}">${esc(c.mod_badge)}</span></footer>` : '';
 
           const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name);
 
@@ -196,16 +209,13 @@ document.addEventListener('DOMContentLoaded', () => {
           try {
             const deleteRes = await fetch('/.netlify/functions/delete-comment', {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: authHeaders(),
               body: JSON.stringify({
-                comment_id: commentId,
-                provider: currentUser.provider,
-                provider_user_id: currentUser.provider_user_id,
-                username: currentUser.username,
-                handle: currentUser.handle || currentUser.username
+                comment_id: commentId
               })
             });
 
+            if (deleteRes.status === 401) return handleExpired();
             if (!deleteRes.ok) throw new Error('Deletion failed');
             await loadComments(); // Reload to render tombstone immediately
           } catch (err) {
@@ -227,6 +237,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- AUTHENTICATION STATE MANAGEMENT ---
   const authStatusContainer = document.getElementById('auth-status-container');
   let currentUser = JSON.parse(localStorage.getItem('twa_user') || 'null');
+
+  // Treat old or tampered sessions missing a cryptographic token as logged out
+  if (currentUser && !currentUser.token) {
+    localStorage.removeItem('twa_user');
+    currentUser = null;
+  }
+
+  const authHeaders = () => ({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${currentUser?.token || ''}`
+  });
+
+  function handleExpired() {
+    localStorage.removeItem('twa_user');
+    currentUser = null;
+    renderAuthUI();
+    alert('Your session expired. Please sign in again.');
+  }
+
+  // Wire the Login Dialog modal once
+  const loginDialog = document.getElementById('login-dialog');
+  if (loginDialog) {
+    loginDialog.querySelectorAll('[data-provider]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.open(`/.netlify/functions/auth?action=login&provider=${btn.dataset.provider}`, 'twaAuth', 'width=500,height=600');
+        loginDialog.close();
+      });
+    });
+    document.getElementById('login-dialog-cancel')?.addEventListener('click', () => loginDialog.close());
+    loginDialog.addEventListener('click', (e) => { if (e.target === loginDialog) loginDialog.close(); });
+  }
 
   function renderAuthUI() {
     if (currentUser) {
@@ -256,21 +297,13 @@ document.addEventListener('DOMContentLoaded', () => {
       textarea.disabled = false;
       textarea.placeholder = "Write a comment...";
     } else {
-      // User is NOT logged in (Dual Login Buttons)
+      // User is NOT logged in (Clean Single Sign In button triggering modal)
       authStatusContainer.innerHTML = `
-        <div class="auth-login-group">
-          <button type="button" id="btn-login-github" class="auth-pill auth-btn-github">Sign in with GitHub</button>
-          <button type="button" id="btn-login-instagram" class="auth-pill auth-btn-instagram">Sign in with Instagram</button>
-        </div>
+        <button type="button" id="btn-signin" class="auth-pill">Sign in</button>
       `;
 
-      ['github', 'instagram'].forEach(p => {
-        const btn = document.getElementById(`btn-login-${p}`);
-        if (btn) {
-          btn.addEventListener('click', () => {
-            window.open(`/.netlify/functions/auth?action=login&provider=${p}`, 'twaAuth', 'width=500,height=600');
-          });
-        }
+      document.getElementById('btn-signin')?.addEventListener('click', () => {
+        loginDialog?.showModal();
       });
 
       submitBtn.disabled = true;
