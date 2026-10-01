@@ -1357,7 +1357,8 @@ body.dark-mode #news-search-input:focus {
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background: rgba(0, 0, 0, 0.55);
+	background: rgba(0, 0, 0, 0.65);
+	backdrop-filter: blur(2px);
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.2s ease-in-out;
