@@ -159,6 +159,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
           const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name);
 
+          // Resolve external profile link based on authentication provider
+          let profileUrl = '';
+          if (c.provider === 'github' && c.author_name) {
+            profileUrl = `https://github.com/${encodeURIComponent(c.author_name)}`;
+          } else if (c.provider === 'instagram' && c.author_name) {
+            profileUrl = `https://instagram.com/${encodeURIComponent(c.author_name)}`;
+          }
+
+          const authorHtml = profileUrl
+            ? `<a href="${profileUrl}" target="_blank" rel="noopener noreferrer" class="comment-author-link"><strong class="comment-author">${esc(c.author_name)}</strong></a>`
+            : `<strong class="comment-author">${esc(c.author_name)}</strong>`;
+
           const isSiteAuthor = c.provider === 'instagram' && String(c.provider_user_id) === AUTHOR_IG_ID;
           const authorTag = isSiteAuthor ? '<span class="provider-tag role-author">Author</span>' : '';
 
@@ -177,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <header class="comment-card-header">
               ${avatarHtml}
               <div class="comment-user-info">
-                <strong class="comment-author">${esc(c.author_name)}</strong>
+                ${authorHtml}
                 <span class="provider-tag provider-${esc(c.provider)}">${esc(c.provider)}</span>
                 ${authorTag}
                 <time datetime="${c.created_at}"><small>${dateStr}</small></time>
