@@ -1,11 +1,10 @@
 // netlify/functions/auth.js
 // Stateless OAuth handshake for GitHub + Instagram (popup flow).
 //
-// The OAuth `state` parameter carries the provider name through the round trip,
-// so the callback (which has only ?code=...&state=...) knows which provider to
-// complete. A missing `state` falls back to "github" so any in-flight GitHub
-// logins from before this deploy still work.
+// The OAuth `state` parameter is "<provider>.<nonce>". The provider tells the callback
+// which exchange to run; the nonce is matched against a cookie set at login time.
 
+import { randomBytes } from "node:crypto";
 import { signSession } from "../lib/session.js";
 
 const SUPPORTED = ["github", "instagram"];
@@ -90,7 +89,7 @@ async function githubProfile(code, redirectUri) {
 async function instagramProfile(code, redirectUri) {
   const CLIENT_ID = process.env.INSTAGRAM_CLIENT_ID;
   const CLIENT_SECRET = process.env.INSTAGRAM_CLIENT_SECRET;
-  const AUTHOR_HANDLE = process.env.AUTHOR_INSTAGRAM_HANDLE;
+  const AUTHOR_ID = process.env.AUTHOR_INSTAGRAM_USER_ID;
 
   // Instagram appends "#_" to the code; make sure it never reaches the exchange.
   const cleanCode = code.replace(/#_$/, "");
@@ -124,12 +123,13 @@ async function instagramProfile(code, redirectUri) {
     throw new Error(userData.error?.message || "Failed to retrieve Instagram profile");
   }
 
-  // 3. Author detection
-  const isAuthor = AUTHOR_HANDLE && userData.username.toLowerCase() === AUTHOR_HANDLE.toLowerCase();
+  // 3. Author detection by STABLE numeric ID (handles can be renamed / re-claimed)
+  const igUserId = String(userData.user_id || userData.id || tokenData.user_id);
+  const isAuthor = AUTHOR_ID && igUserId === String(AUTHOR_ID);
 
   return {
     provider: "instagram",
-    provider_user_id: String(userData.user_id || userData.id || tokenData.user_id),
+    provider_user_id: igUserId,
     username: userData.username,
     handle: userData.username,
     avatar_url: "",
@@ -156,18 +156,26 @@ export default async (req) => {
       return new Response("Unsupported provider", { status: 400 });
     }
 
-    if (provider === "instagram") {
-      const igUrl =
-        `${IG.authorize}?client_id=${encodeURIComponent(process.env.INSTAGRAM_CLIENT_ID)}` +
-        `&redirect_uri=${encodeURIComponent(redirectUri)}` +
-        `&response_type=code&scope=${IG.scope}&state=instagram`;
-      return Response.redirect(igUrl, 302);
-    }
+    // Random value tied to THIS browser (cookie) and echoed back via `state`.
+    // Stops an attacker from tricking someone into finishing the attacker's login.
+    const nonce = randomBytes(16).toString("hex");
+    const state = `${provider}.${nonce}`;
 
-    const githubAuthUrl =
-      `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}` +
-      `&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user&state=github`;
-    return Response.redirect(githubAuthUrl, 302);
+    const providerAuthUrl = provider === "instagram"
+      ? `${IG.authorize}?client_id=${encodeURIComponent(process.env.INSTAGRAM_CLIENT_ID)}` +
+        `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+        `&response_type=code&scope=${IG.scope}&state=${state}`
+      : `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}` +
+        `&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user&state=${state}`;
+
+    const secure = url.protocol === "https:" ? "; Secure" : ""; // allows http://localhost testing
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: providerAuthUrl,
+        "Set-Cookie": `twa_oauth=${nonce}; HttpOnly; SameSite=Lax; Max-Age=600; Path=/.netlify/functions/auth${secure}`
+      }
+    });
   }
 
   // --- User denied access on the provider's consent screen ---
@@ -181,13 +189,22 @@ export default async (req) => {
 
   // --- Step B: provider redirected back with an authorization code ---
   if (code) {
-    const provider = url.searchParams.get("state") || "github";
+    const [provider, nonce] = (url.searchParams.get("state") || "").split(".");
+    const cookieNonce = /(?:^|;\s*)twa_oauth=([a-f0-9]+)/.exec(req.headers.get("cookie") || "")?.[1];
+
+    if (!SUPPORTED.includes(provider) || !nonce || nonce !== cookieNonce) {
+      return new Response("Invalid login state. Please close this window and try again.", { status: 400 });
+    }
+
     try {
-      if (!SUPPORTED.includes(provider)) throw new Error("Unsupported provider");
       const payload = provider === "instagram"
         ? await instagramProfile(code, redirectUri)
         : await githubProfile(code, redirectUri);
-      return successPage(payload);
+
+      const response = successPage(payload);
+      // Nonce is single-use: clear it
+      response.headers.append("Set-Cookie", "twa_oauth=; Max-Age=0; Path=/.netlify/functions/auth");
+      return response;
     } catch (err) {
       console.error(`OAuth Exchange Error (${provider}):`, err);
       return new Response(`Authentication Error: ${escapeHtml(err.message)}`, { status: 500 });
