@@ -1,0 +1,5 @@
+posts/
+_site/
+node_modules/
+*.md
+!README.md
