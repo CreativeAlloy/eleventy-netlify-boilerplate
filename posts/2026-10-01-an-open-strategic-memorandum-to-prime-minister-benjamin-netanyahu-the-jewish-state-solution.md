@@ -11,7 +11,6 @@ summary: "A formal strategic policy memorandum submitted to Prime Minister
   Solution: an unassailable sovereignty and clinical deradicalization doctrine
   for Judea, Samaria, and Azzah."
 tags:
-  - post
   - serious
   - israel
   - zionism
