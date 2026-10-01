@@ -12,6 +12,7 @@ summary: "A formal strategic policy memorandum submitted to Prime Minister
   for Judea, Samaria, and Azzah."
 tags:
   - post
+  - serious
   - israel
   - zionism
   - hasbara
