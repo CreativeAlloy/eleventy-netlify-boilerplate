@@ -49,7 +49,7 @@ Republic of Bulgaria
 
 ---
 
-### MR. PRIME MINISTER,
+**MR. PRIME MINISTER,**
 
 I submit this memorandum to your office not as a foreign spectator, but as an independent, secular ex-Muslim Arab Zionist from the European diaspora who has dedicated his intellect, public platform, and philosophical work to the defense of the Jewish State of Israel and the exposure of antisemitic totalitarianism.
 
