@@ -30,11 +30,11 @@
 
   {# --- IMAGE EMBED LOGIC --- #}
   {% set firstImagePath %}{% get_first_image layoutContent %}{% endset %}
-  
-  {% if firstImagePath %}
-    {% set absoluteImageUrl %}{{ metadata.url }}{{ firstImagePath }}{% endset %}
+  {% set cleanPath = firstImagePath | trim %}
+
+  {% if cleanPath != "" %}
+    {% set absoluteImageUrl %}{{ metadata.url }}{{ cleanPath }}{% endset %}
   {% else %}
-    {# Fallback image if no image is found in the post #}
     {% set absoluteImageUrl %}{{ metadata.url }}/static/img/default-embed-preview-img.png{% endset %}
   {% endif %}
 
