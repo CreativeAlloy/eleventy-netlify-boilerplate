@@ -33,7 +33,11 @@
   {% set cleanPath = firstImagePath | trim %}
 
   {% if cleanPath != "" %}
-    {% set absoluteImageUrl %}{{ metadata.url }}{{ cleanPath }}{% endset %}
+    {% if cleanPath.startsWith("http") %}
+      {% set absoluteImageUrl %}{{ cleanPath }}{% endset %}
+    {% else %}
+      {% set absoluteImageUrl %}{{ metadata.url }}{{ cleanPath }}{% endset %}
+    {% endif %}
   {% else %}
     {% set absoluteImageUrl %}{{ metadata.url }}/static/img/default-embed-preview-img.png{% endset %}
   {% endif %}

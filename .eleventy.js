@@ -193,14 +193,29 @@ module.exports = function (eleventyConfig) {
   // We additionally output a copy of our CSS for use in Decap CMS previews
   eleventyConfig.addPassthroughCopy("_includes/assets/css/inline.css");
 
-  eleventyConfig.addShortcode("get_first_image", (content) => {
+  eleventyConfig.addShortcode("get_first_image", function(content) {
     if (!content) return "";
-
-    // This regex looks for the 'src' inside an <img> tag
-    const m = content.match(/<img [^>]*src="([^"]+)"/);
-
-    if (m) return m[1];
-    return ""; // Default empty fallback
+    
+    // Find all <img> tags in the content
+    const matches = content.matchAll(/<img[^>]+src=["']([^"']+)["']/g);
+    
+    for (const match of matches) {
+      const src = match[1];
+      
+      // EXCEPTION: Ignore avatars, comment templates, or template literal placeholders
+      if (
+        src.includes("avatars.githubusercontent.com") || 
+        src.includes("${") || 
+        src.includes("avatar") ||
+        src.includes("comment")
+      ) {
+        continue; // Skip and check the next image
+      }
+      
+      return src; // Return the first actual article image!
+    }
+    
+    return ""; // No legitimate article image found -> trigger fallback!
   });
 
   /* Markdown Plugins */
