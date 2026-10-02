@@ -48,7 +48,9 @@
     --provider-github: #238636;
     --provider-discord: #5865F2;
     --provider-instagram: #E1306C;
-    --role-admin: #b45309;
+    --role-admin: #a855f7;
+    --role-admin-deep: #0a0014;
+    --role-admin-text: #f3e8ff;
     --role-author: #d4a017;
     --role-author-text: #1a1200;
     --badge-text: #fff;
@@ -1599,6 +1601,7 @@ body.dark-mode .comment-editor-box:focus-within {
 button.auth-pill {
 	cursor: pointer;
 	transition: all 0.1s ease-in-out;
+	margin: auto;
 }
 
 button.auth-pill:hover {
@@ -1685,7 +1688,15 @@ button.auth-pill:hover {
 
 /* Role badge for the comment author, reusing the provider-tag look
    (same component as GITHUB/DISCORD/INSTAGRAM, just a different color) */
-.role-admin { background-color: var(--role-admin); color: var(--badge-text); }
+
+/* Admin badge: neon black-and-purple = site moderator */
+.role-admin {
+	background: linear-gradient(135deg, var(--role-admin-deep) 0%, #3b0a6e 55%, #7c3aed 100%);
+	color: var(--role-admin-text);
+	border: 1px solid var(--role-admin);
+	text-shadow: 0 0 4px #c084fc;
+	box-shadow: 0 0 6px rgb(168 85 247 / 55%), 0 0 14px rgb(168 85 247 / 25%);
+}
 
 /* Author badge: gold = verified site owner */
 .role-author {
@@ -1804,13 +1815,101 @@ button.auth-pill:hover {
 	border-color: transparent;
 }
 
-.comment-stars {
+/* --- Comment ratings: half-star precision, fractional fill, golden glow --- */
+.comment-rating {
+	--star-on: #ffc107;
+	--star-empty: rgb(0 0 0 / 40%);
 	margin-left: auto;
-	color: #ffb300;
-	letter-spacing: 2px;
-	font-size: 0.9rem;
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
 	user-select: none;
 }
+
+.rating {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+}
+
+.rating-saving {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.rating-stars {
+	display: inline-flex;
+}
+
+/* Each star = an empty glyph + a gold overlay clipped to --fill (e.g. 80%) */
+.rating-star {
+	position: relative;
+	display: inline-block;
+	margin: 0 1px;
+	font-size: 1.3rem;
+	line-height: 1;
+	color: var(--star-empty);
+	-webkit-text-stroke: 1px rgb(255 193 7 / 25%); /* faint rim so empty stars show on dark themes; delete if unwanted */
+}
+
+.rating-star::after {
+	content: "★";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--fill, 0%);
+	overflow: hidden;
+	white-space: nowrap;
+	color: var(--star-on);
+	-webkit-text-stroke: 0;
+	filter: drop-shadow(0 0 3px rgb(255 193 7 / 70%));
+}
+
+/* Invisible half-star hit areas */
+.rating-hit {
+	position: absolute !important;
+	top: 0;
+	height: 100% !important;
+	width: 50% !important;
+	min-width: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	cursor: pointer;
+}
+.rating-hit-left { left: 0; }
+.rating-hit-right { left: 50%; }
+.rating-hit:focus-visible { outline: 2px solid var(--primary) !important; }
+
+/* Tiny "0" button for a deliberate 0.0 rating */
+.rating-zero {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	width: 1.1rem !important;
+	height: 1.1rem !important;
+	min-width: 0 !important;
+	margin: 0 0.15rem 0 0 !important;
+	padding: 0 !important;
+	font-size: 0.65rem !important;
+	font-weight: bold;
+	line-height: 1;
+	color: var(--star-on) !important;
+	background: transparent !important;
+	border: 1px solid rgb(255 193 7 / 35%) !important;
+	border-radius: 50% !important;
+	box-shadow: none !important;
+	opacity: 0.7;
+	cursor: pointer;
+}
+.rating-zero:hover { opacity: 1; background: rgb(255 193 7 / 15%) !important; }
+
+.rating-value { font-weight: bold; font-size: 0.85rem; color: var(--star-on); }
+.rating-count { margin-left: 0.2rem; font-size: 0.7rem; opacity: 0.7; }
+.rating-none { font-size: 0.7rem; opacity: 0.6; white-space: nowrap; }
 
 .comment-content {
 	line-height: 1.5;
@@ -1874,6 +1973,80 @@ button.auth-pill:hover {
 	background: #ff6b6b !important;
 	color: #ffffff !important;
 	border-color: #ff6b6b !important;
+}
+
+/* --- Moderator Badge picker (sits beside Delete) --- */
+.badge-picker {
+	position: relative;
+	display: inline-flex;
+}
+
+.btn-badge-comment {
+	display: inline-flex !important;
+	align-items: center;
+	width: auto !important;
+	height: auto !important;
+	margin: 0 0 0 0.5rem !important;
+	padding: 0.2rem 0.5rem !important;
+	font-size: 0.7rem !important;
+	font-weight: bold;
+	line-height: 1;
+	color: var(--primary) !important;
+	background: transparent !important;
+	border: 1px solid var(--primary) !important;
+	border-radius: 4px !important;
+	cursor: pointer;
+	box-shadow: none !important;
+	transition: all 0.15s ease-in-out;
+	flex-shrink: 0;
+}
+
+.btn-badge-comment:hover {
+	background: var(--primary) !important;
+	color: var(--background) !important;
+}
+
+.badge-menu {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0.5rem;
+	z-index: 20;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: max-content;
+	padding: 0.25rem;
+	background: var(--background);
+	border: 1px solid var(--primary);
+	border-radius: 6px;
+	box-shadow: 0 6px 18px rgb(0 0 0 / 45%);
+}
+
+.badge-menu button {
+	display: block !important;
+	width: 100% !important;
+	margin: 0 !important;
+	padding: 0.4rem 0.6rem !important;
+	font-size: 0.8rem !important;
+	font-weight: bold;
+	text-align: left;
+	white-space: nowrap;
+	color: var(--primary) !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 4px !important;
+	box-shadow: none !important;
+	cursor: pointer;
+}
+
+.badge-menu button:hover:not(:disabled) {
+	background: var(--primary) !important;
+	color: var(--background) !important;
+}
+
+.badge-menu .badge-menu-remove {
+	font-weight: normal;
+	opacity: 0.75;
 }
 
 /* --- Log Out Pill (same shape, themed like a[rel="tag"]: outline + hover-invert) --- */

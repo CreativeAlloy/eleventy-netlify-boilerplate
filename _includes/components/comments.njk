@@ -116,6 +116,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const postSlug = document.getElementById('comments').getAttribute('data-slug');
 
   const AUTHOR_IG_ID = '17841463559161115'; // public identifier, display-only
+
+  // Stored value -> display text. The database only ever holds the keys.
+  const BADGE_LABELS = {
+    wonderful: '❤️ Wonderful Take!',
+    dishonor: '💔 Badge of Dishonor.'
+  };
+
+  // Moderator badge picker: close any open menu on outside click or Escape.
+  function closeBadgeMenus() {
+    document.querySelectorAll('.badge-menu').forEach(m => {
+      m.previousElementSibling?.setAttribute('aria-expanded', 'false');
+      m.remove();
+    });
+  }
+  document.addEventListener('click', closeBadgeMenus);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBadgeMenus(); });
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const safeMd = (md) => DOMPurify.sanitize(marked.parse(md), { ADD_ATTR: ['target'] });
 
@@ -135,15 +151,110 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Helper to render star strings
-  function renderStars(rating) {
-    const count = Math.max(1, Math.min(5, parseInt(rating, 10) || 5));
-    return '★'.repeat(count) + '☆'.repeat(5 - count);
+  // --- Comment ratings: 0.0 to 5.0 in 0.5 steps, shown as the average of everyone's votes ---
+  const fmtAvg = (n) => (Math.round(n * 10) / 10).toFixed(1);
+
+  function ratingTitle(avg, count, mine) {
+    const base = count > 0
+      ? `${fmtAvg(avg)} average from ${count} rating${count === 1 ? '' : 's'}`
+      : 'No ratings yet';
+    return (mine === null || mine === undefined)
+      ? base
+      : `${base} · Your rating: ${Number(mine).toFixed(1)}`;
   }
+
+  function ratingSummaryHtml(avg, count) {
+    return count > 0
+      ? `<span class="rating-value">${fmtAvg(avg)}</span><span class="rating-count">(${count})</span>`
+      : '<span class="rating-none">No ratings yet</span>';
+  }
+
+  function ratingHtml(c) {
+    const avg = Number(c.rating_avg) || 0;
+    const count = Number(c.rating_count) || 0;
+    const mine = (c.my_rating === null || c.my_rating === undefined) ? null : Number(c.my_rating);
+
+    // You can't rate your own comment (the server enforces this too)
+    const isOwn = currentUser && currentUser.provider === c.provider &&
+      String(currentUser.provider_user_id) === String(c.provider_user_id);
+    const canRate = !isOwn;
+
+    let stars = '';
+    for (let i = 0; i < 5; i++) {
+      const fill = Math.max(0, Math.min(1, avg - i)) * 100; // 3.8 -> 100, 100, 100, 80, 0
+      const hits = canRate
+        ? `<button type="button" class="rating-hit rating-hit-left" data-value="${i + 0.5}" aria-label="Rate ${(i + 0.5).toFixed(1)} out of 5"></button>` +
+          `<button type="button" class="rating-hit rating-hit-right" data-value="${i + 1}" aria-label="Rate ${(i + 1).toFixed(1)} out of 5"></button>`
+        : '';
+      stars += `<span class="rating-star" style="--fill:${fill}%">★${hits}</span>`;
+    }
+    const zero = canRate
+      ? '<button type="button" class="rating-zero" data-value="0" aria-label="Rate 0.0 out of 5" title="Rate 0.0">0</button>'
+      : '';
+
+    return `
+      <div class="comment-rating" title="${esc(ratingTitle(avg, count, mine))}">
+        <div class="rating${canRate ? ' rating-interactive' : ''}" data-id="${esc(c.id)}" data-avg="${avg}" role="group" aria-label="Rating">
+          ${zero}<span class="rating-stars">${stars}</span>
+        </div>
+        <span class="rating-summary">${ratingSummaryHtml(avg, count)}</span>
+      </div>`;
+  }
+
+  function paintRating(box, value) {
+    box.querySelectorAll('.rating-star').forEach((star, i) => {
+      star.style.setProperty('--fill', `${Math.max(0, Math.min(1, value - i)) * 100}%`);
+    });
+  }
+
+  // Hover / keyboard-focus preview, then restore the real average on leave
+  ['mouseover', 'focusin'].forEach(evt => feed.addEventListener(evt, (e) => {
+    const hit = e.target.closest('.rating button[data-value]');
+    if (hit) paintRating(hit.closest('.rating'), Number(hit.dataset.value));
+  }));
+  ['mouseout', 'focusout'].forEach(evt => feed.addEventListener(evt, (e) => {
+    const box = e.target.closest('.rating-interactive');
+    if (box && !box.contains(e.relatedTarget)) paintRating(box, Number(box.dataset.avg) || 0);
+  }));
+
+  // Click a half or full star (or the 0 button) to rate
+  feed.addEventListener('click', async (e) => {
+    const hit = e.target.closest('.rating button[data-value]');
+    if (!hit) return;
+    if (!currentUser) { loginDialog?.showModal(); return; }
+
+    const box = hit.closest('.rating');
+    box.classList.add('rating-saving');
+    try {
+      const res = await fetch('/.netlify/functions/set-rating', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({ comment_id: box.dataset.id, rating: Number(hit.dataset.value) })
+      });
+      if (res.status === 401) return handleExpired();
+      if (res.status === 403) { alert("You can't rate your own comment."); return; }
+      if (!res.ok) throw new Error('Rating failed');
+      const data = await res.json();
+
+      box.dataset.avg = data.rating_avg;
+      paintRating(box, data.rating_avg);
+      const wrap = box.closest('.comment-rating');
+      wrap.querySelector('.rating-summary').innerHTML = ratingSummaryHtml(data.rating_avg, data.rating_count);
+      wrap.title = ratingTitle(data.rating_avg, data.rating_count, data.my_rating);
+    } catch (err) {
+      alert('Error saving rating.');
+      console.error(err);
+    } finally {
+      box.classList.remove('rating-saving');
+    }
+  });
 
   // 1. Fetch & Render Comments on Page Load from Neon Database
   async function loadComments() {
     try {
-      const res = await fetch(`/.netlify/functions/get-comments?slug=${encodeURIComponent(postSlug)}`);
+      const res = await fetch(`/.netlify/functions/get-comments?slug=${encodeURIComponent(postSlug)}`, {
+        headers: currentUser?.token ? { 'Authorization': `Bearer ${currentUser.token}` } : {}
+      });
       if (!res.ok) return;
       const data = await res.json();
       
@@ -161,7 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           const dateStr = new Date(c.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
           const parsedContent = safeMd(c.comment_body);
-          const badgeHtml = c.mod_badge ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${esc(c.mod_badge)}">${esc(c.mod_badge)}</span></footer>` : '';
+          const badgeLabel = BADGE_LABELS[c.mod_badge];
+          const badgeHtml = badgeLabel ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${esc(c.mod_badge)}">${esc(badgeLabel)}</span></footer>` : '';
 
           const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name, c.avatar_url);
 
@@ -173,7 +285,9 @@ document.addEventListener('DOMContentLoaded', () => {
             : `<strong class="comment-author">${esc(c.author_name)}</strong>`;
 
           const isSiteAuthor = c.provider === 'instagram' && String(c.provider_user_id) === AUTHOR_IG_ID;
-          const authorTag = isSiteAuthor ? '<span class="provider-tag role-author">Author</span>' : '';
+          const authorTag = isSiteAuthor
+            ? '<span class="provider-tag role-author">Author</span>'
+            : (c.is_admin ? '<span class="provider-tag role-admin">Admin</span>' : '');
 
           // Check if the current user can delete this comment (Mod, Site Author, or Comment Owner)
           const canDelete = currentUser && (
@@ -186,6 +300,12 @@ document.addEventListener('DOMContentLoaded', () => {
             ? `<button type="button" class="btn-delete-comment" data-id="${c.id}" aria-label="Delete comment">Delete</button>`
             : '';
 
+          // Badges are a moderator-only action (server re-checks the signed role)
+          const canBadge = currentUser && (currentUser.role === 'moderator' || currentUser.role === 'author');
+          const badgeBtnHtml = canBadge
+            ? `<span class="badge-picker"><button type="button" class="btn-badge-comment" data-id="${c.id}" aria-haspopup="true" aria-expanded="false">Badge</button></span>`
+            : '';
+
           card.innerHTML = `
             <header class="comment-card-header">
               ${avatarHtml}
@@ -195,10 +315,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${authorTag}
                 <time datetime="${c.created_at}"><small>${dateStr}</small></time>
                 ${deleteBtnHtml}
+                ${badgeBtnHtml}
               </div>
-              <div class="comment-stars" title="Rated ${c.stars} out of 5 stars">
-                ${renderStars(c.stars)}
-              </div>
+              ${ratingHtml(c)}
             </header>
             <div class="comment-content">
               ${parsedContent}
@@ -239,12 +358,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
+      // Attach click listeners to all [Badge] pickers (moderators only)
+      document.querySelectorAll('.btn-badge-comment').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const picker = btn.parentElement;
+          const wasOpen = !!picker.querySelector('.badge-menu');
+          closeBadgeMenus();
+          if (wasOpen) return;
+
+          const menu = document.createElement('div');
+          menu.className = 'badge-menu';
+          menu.setAttribute('role', 'menu');
+          menu.innerHTML = `
+            <button type="button" role="menuitem" data-badge="wonderful">${BADGE_LABELS.wonderful}</button>
+            <button type="button" role="menuitem" data-badge="dishonor">${BADGE_LABELS.dishonor}</button>
+            <button type="button" role="menuitem" data-badge="" class="badge-menu-remove">Remove badge</button>
+          `;
+          picker.appendChild(menu);
+          btn.setAttribute('aria-expanded', 'true');
+
+          menu.addEventListener('click', async (ev) => {
+            ev.stopPropagation();
+            const opt = ev.target.closest('button[data-badge]');
+            if (!opt) return;
+
+            menu.querySelectorAll('button').forEach(b => { b.disabled = true; });
+            opt.textContent = 'Saving...';
+
+            try {
+              const res = await fetch('/.netlify/functions/set-badge', {
+                method: 'POST',
+                headers: authHeaders(),
+                body: JSON.stringify({
+                  comment_id: btn.getAttribute('data-id'),
+                  badge: opt.getAttribute('data-badge') || null
+                })
+              });
+              if (res.status === 401) return handleExpired();
+              if (!res.ok) throw new Error('Badge update failed');
+              await loadComments(); // Re-render with the new footer
+            } catch (err) {
+              alert('Error updating badge.');
+              console.error(err);
+              closeBadgeMenus();
+            }
+          });
+        });
+      });
+
     } catch (err) {
       console.error("Failed to load comments:", err);
     }
   }
-
-  loadComments();
 
   // --- AUTHENTICATION STATE MANAGEMENT ---
   const authStatusContainer = document.getElementById('auth-status-container');
@@ -339,6 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize UI on load
   renderAuthUI();
+  loadComments();
 
   // --- REAL DATABASE SUBMISSION (Using verified identity) ---
   submitBtn.addEventListener('click', async () => {
@@ -359,8 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: authHeaders(),   // sends the signed token
         body: JSON.stringify({
           slug: postSlug,
-          comment_body: text,
-          stars: 5
+          comment_body: text
         })                        // identity is no longer sent; the server reads it from the token
       });
 

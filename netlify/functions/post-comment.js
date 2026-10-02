@@ -15,14 +15,13 @@ export default async (req) => {
   }
 
   try {
-    const { slug, comment_body, stars } = await req.json();
+    const { slug, comment_body } = await req.json();
 
     if (!slug || !comment_body || !comment_body.trim()) {
       return new Response("Invalid comment data", { status: 400 });
     }
 
     const cleanBody = comment_body.trim().slice(0, 5000);
-    const cleanStars = Number.isInteger(stars) && stars >= 1 && stars <= 5 ? stars : 5;
 
     // Resolve verified profile URL on the server side
     let authorUrl = null;
@@ -50,12 +49,19 @@ export default async (req) => {
       }
     }
 
-    const avatarUrl = session.avatar_url || null;
+    const AVATAR_HOSTS = ["cdn.discordapp.com", "avatars.githubusercontent.com"];
+    let avatarUrl = null;
+    try {
+      const u = new URL(session.avatar_url || "");
+      if (u.protocol === "https:" && AVATAR_HOSTS.includes(u.hostname)) avatarUrl = u.href;
+    } catch {
+      avatarUrl = null;
+    }
 
     const result = await sql`
-      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, stars, author_url, avatar_url)
-      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${cleanStars}, ${authorUrl}, ${avatarUrl})
-      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, stars, created_at, is_deleted, mod_badge, author_url, avatar_url;
+      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, author_url, avatar_url)
+      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${authorUrl}, ${avatarUrl})
+      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, created_at, is_deleted, mod_badge, author_url, avatar_url;
     `;
 
     return Response.json({ comment: result[0] });

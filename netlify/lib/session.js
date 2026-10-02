@@ -21,6 +21,7 @@ export function signSession(user) {
     provider_user_id: String(user.provider_user_id),
     username: user.username,
     handle: user.handle,
+    avatar_url: user.avatar_url || "",
     role: user.role,
     exp: Math.floor(Date.now() / 1000) + MAX_AGE_SECONDS
   };
