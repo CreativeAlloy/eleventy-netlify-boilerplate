@@ -1645,8 +1645,12 @@ button.auth-pill:hover {
 	border-left: 5px solid var(--primary);
 	border-radius: 8px;
 	padding: 1.25rem;
-	margin-bottom: 1.25rem;
+	margin: auto;
 	box-shadow: var(--card-shadow);
+}
+
+.comment-card:not(:last-child) {
+	margin-bottom: 2rem;
 }
 
 /*body.dark-mode .comment-card {
@@ -2341,8 +2345,9 @@ dialog.thread-dialog::backdrop {
 
 .thread-dialog-replies {
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  gap: 1rem;
+  /* gap: 1rem; */
   padding-left: 1rem;
   border-left: 2px dashed rgba(127, 127, 127, 0.3);
 }
