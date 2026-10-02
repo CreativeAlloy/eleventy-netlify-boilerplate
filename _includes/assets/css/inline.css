@@ -2049,6 +2049,89 @@ button.auth-pill:hover {
 	opacity: 0.75;
 }
 
+/* --- Comments on phones: stacked header, bigger tap targets --- */
+@media screen and (max-width: 600px) {
+	.comment-card {
+		padding: 1rem 0.9rem;
+	}
+
+	/* Row 1: avatar + name/labels/actions. Row 2: the rating, under the name. */
+	.comment-card-header {
+		flex-wrap: wrap;
+		align-items: flex-start;
+		row-gap: 0.5rem;
+	}
+
+	.comment-user-info {
+		flex: 1 1 0;
+		min-width: 0;
+		gap: 0.4rem 0.5rem;
+	}
+
+	.comment-author {
+		min-width: 0;
+		overflow-wrap: anywhere;
+	}
+
+	/* Delete + Badge: bigger tap targets; the flex gap already spaces them,
+	   so the desktop left margin would just indent them when they wrap */
+	.btn-delete-comment,
+	.btn-badge-comment {
+		margin: 0 !important;
+		padding: 0.4rem 0.7rem !important;
+		font-size: 0.75rem !important;
+	}
+
+	/* Badge menu becomes a bottom sheet so it can never run off-screen */
+	.badge-menu {
+		position: fixed;
+		top: auto;
+		left: 0.75rem;
+		right: 0.75rem;
+		bottom: 0.75rem;
+		z-index: 1000;
+		padding: 0.4rem;
+	}
+
+	.badge-menu button {
+		padding: 0.85rem 1rem !important;
+		font-size: 0.95rem !important;
+	}
+
+	/* Rating drops to its own row, lined up under the name */
+	.comment-rating {
+		flex: 1 1 100%;
+		box-sizing: border-box;
+		margin-left: 0;
+		padding-left: calc(34px + 0.75rem);
+	}
+
+	.rating-star {
+		font-size: 1.6rem;
+	}
+
+	/* Taller invisible hit areas so half-stars are tappable */
+	.rating-hit {
+		top: -0.4rem;
+		height: calc(100% + 0.8rem) !important;
+	}
+
+	.rating-zero {
+		width: 1.5rem !important;
+		height: 1.5rem !important;
+		font-size: 0.75rem !important;
+	}
+
+	.rating-value {
+		font-size: 0.95rem;
+	}
+
+	.rating-count,
+	.rating-none {
+		font-size: 0.8rem;
+	}
+}
+
 /* --- Log Out Pill (same shape, themed like a[rel="tag"]: outline + hover-invert) --- */
 .btn-logout {
 	display: inline-flex !important;
