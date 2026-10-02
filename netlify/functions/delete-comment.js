@@ -30,7 +30,7 @@ export default async (req) => {
     const target = rows[0];
 
     // Role was assigned server-side in auth.js and is covered by the signature.
-    const isModerator = session.role === "moderator" || session.role === "author";
+    const isModerator = session.role === "moderator"; // Only Admins can delete any comment!
     const isOwner =
       String(target.provider) === String(session.provider) &&
       String(target.provider_user_id) === String(session.provider_user_id);

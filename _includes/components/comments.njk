@@ -115,7 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const postSlug = document.getElementById('comments').getAttribute('data-slug');
 
-  const AUTHOR_IG_ID = '17841463559161115'; // public identifier, display-only
+  // List of verified Author Instagram IDs (expandable array)
+  const AUTHOR_IG_IDS = ['17841463559161115'];
 
   // Stored value -> display text. The database only ever holds the keys.
   const BADGE_LABELS = {
@@ -284,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ? `<a href="${profileUrl}" target="_blank" rel="noopener noreferrer" class="comment-author-link"><strong class="comment-author">${esc(c.author_name)}</strong></a>`
             : `<strong class="comment-author">${esc(c.author_name)}</strong>`;
 
-          const isSiteAuthor = c.provider === 'instagram' && String(c.provider_user_id) === AUTHOR_IG_ID;
+          const isSiteAuthor = c.provider === 'instagram' && AUTHOR_IG_IDS.includes(String(c.provider_user_id));
           const authorTag = isSiteAuthor
             ? '<span class="provider-tag role-author">Author</span>'
             : (c.is_admin ? '<span class="provider-tag role-admin">Admin</span>' : '');

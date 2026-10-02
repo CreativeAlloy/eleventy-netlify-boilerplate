@@ -39,17 +39,24 @@ export default async (req) => {
       ORDER BY c.created_at DESC;
     `;
 
-    // Admin status is resolved here so the admin IDs never ship to the browser.
-    const adminGithub = String(process.env.ADMIN_GITHUB_ID || "").trim().toLowerCase();
-    const adminDiscord = String(process.env.ADMIN_DISCORD_ID || "").trim();
+    // Helper to verify membership in comma-separated list
+    const isInList = (envString, target) => {
+      if (!envString || !target) return false;
+      const items = String(envString).split(",").map(s => s.trim().toLowerCase());
+      return items.includes(String(target).trim().toLowerCase());
+    };
+
+    // Admin lists (supports multiple IDs separated by commas)
+    const adminGithub = process.env.ADMIN_GITHUB_IDS || process.env.ADMIN_GITHUB_ID;
+    const adminDiscord = process.env.ADMIN_DISCORD_IDS || process.env.ADMIN_DISCORD_ID;
 
     const result = comments.map((c) => {
       let isAdmin = false;
       if (c.provider === "discord" && adminDiscord) {
-        isAdmin = String(c.provider_user_id) === adminDiscord;
+        isAdmin = isInList(adminDiscord, c.provider_user_id);
       } else if (c.provider === "github" && adminGithub) {
         const login = String(c.author_url || "").split("/").pop().toLowerCase();
-        isAdmin = String(c.provider_user_id) === adminGithub || login === adminGithub;
+        isAdmin = isInList(adminGithub, c.provider_user_id) || isInList(adminGithub, login);
       }
       return {
         ...c,

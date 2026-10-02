@@ -53,6 +53,13 @@ function successPage(payload) {
   return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
 }
 
+// Helper to check if a user belongs to a comma-separated list of IDs or handles
+const isInList = (envString, target) => {
+  if (!envString || !target) return false;
+  const items = String(envString).split(",").map(s => s.trim().toLowerCase());
+  return items.includes(String(target).trim().toLowerCase());
+};
+
 // ---------------------------------------------------------------------------
 // GitHub (unchanged logic)
 // ---------------------------------------------------------------------------
@@ -76,10 +83,9 @@ async function githubProfile(code, redirectUri) {
   });
   const userData = await userResponse.json();
 
-  const isModerator = ADMIN_ID && (
-    String(userData.login).toLowerCase() === String(ADMIN_ID).toLowerCase() ||
-    String(userData.id) === String(ADMIN_ID)
-  );
+  // Determine if this user is a Moderator (supports multiple GitHub IDs/logins)
+  const githubAdmins = process.env.ADMIN_GITHUB_IDS || process.env.ADMIN_GITHUB_ID;
+  const isModerator = isInList(githubAdmins, userData.login) || isInList(githubAdmins, userData.id);
   const displayName = userData.name && userData.name.trim() ? userData.name.trim() : userData.login;
 
   return {
@@ -132,9 +138,11 @@ async function instagramProfile(code, redirectUri) {
     throw new Error(userData.error?.message || "Failed to retrieve Instagram profile");
   }
 
-  // 3. Author detection by STABLE numeric ID (handles can be renamed / re-claimed)
+  // 3. Author detection by ID or Handle (supports multiple authors separated by commas)
+  const authorIds = process.env.AUTHOR_INSTAGRAM_USER_IDS || process.env.AUTHOR_INSTAGRAM_USER_ID;
+  const authorHandles = process.env.AUTHOR_INSTAGRAM_HANDLES || process.env.AUTHOR_INSTAGRAM_HANDLE;
   const igUserId = String(userData.user_id || userData.id || tokenData.user_id);
-  const isAuthor = AUTHOR_ID && igUserId === String(AUTHOR_ID);
+  const isAuthor = isInList(authorIds, igUserId) || isInList(authorHandles, userData.username);
 
   return {
     provider: "instagram",
@@ -180,8 +188,9 @@ async function discordProfile(code, redirectUri) {
     throw new Error(userData.message || "Failed to retrieve Discord profile");
   }
 
-  // 3. Moderator detection by STABLE numeric ID (usernames can be changed)
-  const isModerator = ADMIN_ID && String(userData.id) === String(ADMIN_ID);
+  // 3. Moderator detection by STABLE numeric ID (supports multiple Discord IDs separated by commas)
+  const discordAdmins = process.env.ADMIN_DISCORD_IDS || process.env.ADMIN_DISCORD_ID;
+  const isModerator = isInList(discordAdmins, userData.id);
 
   // global_name is the "display name" people actually see; username is the unique handle
   const displayName = userData.global_name && userData.global_name.trim()
