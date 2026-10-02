@@ -338,6 +338,11 @@ blockquote {
 	font-style: italic;
 }
 
+
+blockquote p {
+	margin: auto;
+}
+
 body.dark-mode blockquote {
 	background-color: rgb(from var(--background) r g b / 60%);
 }
