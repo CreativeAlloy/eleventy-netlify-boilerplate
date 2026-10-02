@@ -24,10 +24,33 @@ export default async (req) => {
     const cleanBody = comment_body.trim().slice(0, 5000);
     const cleanStars = Number.isInteger(stars) && stars >= 1 && stars <= 5 ? stars : 5;
 
+    // Resolve verified profile URL on the server side
+    let authorUrl = null;
+    const userHandle = session.handle || session.username;
+
+    if (session.provider === "instagram" && userHandle) {
+      authorUrl = `https://instagram.com/${encodeURIComponent(userHandle)}`;
+    } else if (session.provider === "github" && session.provider_user_id) {
+      try {
+        const ghRes = await fetch(`https://api.github.com/user/${encodeURIComponent(session.provider_user_id)}`, {
+          headers: {
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "TheWaspAlloy-App"
+          }
+        });
+        if (ghRes.ok) {
+          const ghData = await ghRes.json();
+          authorUrl = ghData.html_url || null;
+        }
+      } catch (err) {
+        console.error("Failed to resolve GitHub profile URL:", err);
+      }
+    }
+
     const result = await sql`
-      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, stars)
-      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${cleanStars})
-      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, stars, created_at, is_deleted, mod_badge;
+      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, stars, author_url)
+      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${cleanStars}, ${authorUrl})
+      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, stars, created_at, is_deleted, mod_badge, author_url;
     `;
 
     return Response.json({ comment: result[0] });
