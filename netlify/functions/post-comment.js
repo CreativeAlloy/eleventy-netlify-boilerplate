@@ -58,6 +58,17 @@ export default async (req) => {
       avatarUrl = null;
     }
 
+    // Check the timestamp of the user's most recent comment in Neon
+    const [lastPost] = await sql`
+      SELECT created_at FROM twa_comments
+      WHERE provider = ${session.provider} AND provider_user_id = ${session.provider_user_id}
+      ORDER BY created_at DESC LIMIT 1;
+    `;
+
+    if (lastPost && (Date.now() - new Date(lastPost.created_at).getTime()) < 30000) {
+      return new Response("Slow down! You can only post once every 30 seconds.", { status: 429 });
+    }
+
     const result = await sql`
       INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, author_url, avatar_url)
       VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${authorUrl}, ${avatarUrl})
