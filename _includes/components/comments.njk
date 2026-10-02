@@ -1,9 +1,68 @@
 {# --- The Wasp Alloy: Comments Section Component (Phase 1 Frontend) --- #}
 <section class="comments-container" id="comments" data-slug="{{ page.fileSlug }}">
   <div class="comments-header">
-    <h3>Comment Threads (<span id="comments-count">1</span>)</h3>
+    <h3>Comment Threads (<span id="comments-count">0</span>)</h3>
     <small class="comments-subtext">Stateless Federated Authentication. Markdown supported. Zero tracking cookies.</small>
   </div>
+
+  {# --- Comment Sorting Controls --- #}
+  <div class="comment-sort-controls" role="group" aria-label="Sort comments">
+    <button type="button" class="comment-sort-btn active" data-sort="latest">Latest</button>
+    <button type="button" class="comment-sort-btn" data-sort="oldest">Oldest</button>
+    <button type="button" class="comment-sort-btn" data-sort="rating">Top Rated</button>
+  </div>
+
+  {# --- Thread Modal Dialog --- #}
+  <dialog id="thread-dialog" class="thread-dialog" aria-labelledby="thread-dialog-title">
+    <div class="thread-dialog-inner">
+      <header class="thread-dialog-header">
+        <div>
+          <h4 id="thread-dialog-title" class="thread-dialog-heading">Comment Thread</h4>
+          <small class="thread-dialog-subheading">Thread Discussion</small>
+        </div>
+        <button type="button" id="thread-dialog-close" class="thread-dialog-close" aria-label="Close thread dialog">&times;</button>
+      </header>
+
+      <div id="thread-dialog-parent" class="thread-dialog-parent">
+        <!-- Pinned parent comment renders here -->
+      </div>
+
+      <div class="thread-dialog-replies-wrap">
+        <h5 class="thread-replies-title">Replies</h5>
+        <div id="thread-dialog-replies" class="thread-dialog-replies">
+          <!-- Nested replies render here -->
+        </div>
+      </div>
+
+      {# --- Thread Reply Editor --- #}
+      <div class="comment-editor-box thread-reply-editor-box">
+        <div class="comment-editor-tabs">
+          <button type="button" class="comment-tab active" id="thread-reply-tab-write">Write</button>
+          <button type="button" class="comment-tab" id="thread-reply-tab-preview">Preview</button>
+        </div>
+
+        <textarea 
+          id="thread-reply-input" 
+          class="comment-textarea" 
+          placeholder="Write a reply..." 
+          rows="3" 
+          style="resize: vertical; min-height: 80px; max-height: 300px;"></textarea>
+
+        <div id="thread-reply-preview-pane" class="comment-preview-pane" style="display: none;"></div>
+
+        <!-- THIS FOOTER MUST BE INSIDE .thread-reply-editor-box -->
+        <div class="comment-editor-footer">
+          <div class="comment-auth-status" id="thread-reply-auth-status">
+            <!-- Dynamically populated by renderAuthUI() -->
+          </div>
+
+          <div class="comment-editor-actions">
+            <button type="button" id="thread-reply-submit-btn" class="comment-btn-submit" disabled>Post Reply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
 
   {# --- Native HTML5 Login Modal Dialog --- #}
   <dialog id="login-dialog" class="auth-dialog">
@@ -66,6 +125,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const feed = document.getElementById('comments-feed');
   const countSpan = document.getElementById('comments-count');
 
+  // Thread dialog & sort elements
+  const sortButtons = document.querySelectorAll('.comment-sort-btn');
+  const threadDialog = document.getElementById('thread-dialog');
+  const threadDialogClose = document.getElementById('thread-dialog-close');
+  const threadDialogParent = document.getElementById('thread-dialog-parent');
+  const threadDialogReplies = document.getElementById('thread-dialog-replies');
+  const threadReplyTabWrite = document.getElementById('thread-reply-tab-write');
+  const threadReplyTabPreview = document.getElementById('thread-reply-tab-preview');
+  const threadReplyInput = document.getElementById('thread-reply-input');
+  const threadReplyPreview = document.getElementById('thread-reply-preview-pane');
+  const threadReplySubmitBtn = document.getElementById('thread-reply-submit-btn');
+  const threadReplyAuthStatus = document.getElementById('thread-reply-auth-status');
+
+  let currentSort = 'latest';
+  let activeThreadId = null;
+  let cachedComments = [];
+
   if (!textarea || !tabWrite || !tabPreview) return;
 
   // 1. Modern marked.js configuration with autolinks & custom anchor text
@@ -112,6 +188,29 @@ document.addEventListener('DOMContentLoaded', () => {
     textarea.style.display = 'none';
     previewPane.style.display = 'block';
   });
+
+  if (threadReplyTabWrite && threadReplyTabPreview && threadReplyInput && threadReplyPreview) {
+    threadReplyTabWrite.addEventListener('click', () => {
+      threadReplyTabWrite.classList.add('active');
+      threadReplyTabPreview.classList.remove('active');
+      threadReplyPreview.style.display = 'none';
+      threadReplyInput.style.display = 'block';
+      threadReplyInput.focus();
+    });
+
+    threadReplyTabPreview.addEventListener('click', () => {
+      threadReplyTabPreview.classList.add('active');
+      threadReplyTabWrite.classList.remove('active');
+      const rawMarkdown = threadReplyInput.value.trim();
+      if (rawMarkdown) {
+        threadReplyPreview.innerHTML = safeMd(rawMarkdown);
+      } else {
+        threadReplyPreview.innerHTML = '<p><em>Nothing to preview. Type something in the Write tab first!</em></p>';
+      }
+      threadReplyInput.style.display = 'none';
+      threadReplyPreview.style.display = 'block';
+    });
+  }
 
   const postSlug = document.getElementById('comments').getAttribute('data-slug');
 
@@ -208,18 +307,121 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Hover / keyboard-focus preview, then restore the real average on leave
-  ['mouseover', 'focusin'].forEach(evt => feed.addEventListener(evt, (e) => {
+  function buildCommentCard(c, isParentFeed = false) {
+    const card = document.createElement('article');
+    card.className = c.is_deleted ? 'comment-card comment-tombstone' : 'comment-card';
+    card.setAttribute('data-id', c.id);
+
+    if (c.is_deleted) {
+      let replyToggle = '';
+      if (isParentFeed) {
+        const count = Number(c.reply_count || 0);
+        replyToggle = `
+          <div class="comment-thread-actions">
+            <button type="button" class="comment-reply-toggle" data-id="${c.id}" aria-expanded="false" aria-controls="thread-dialog">
+              ${count} Replies ⬇
+            </button>
+          </div>
+        `;
+      }
+      card.innerHTML = `<div class="comment-content"><em>${esc(c.comment_body)}</em></div>${replyToggle}`;
+      return card;
+    }
+
+    const dateStr = new Date(c.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const parsedContent = safeMd(c.comment_body);
+    const badgeLabel = BADGE_LABELS[c.mod_badge];
+    const badgeHtml = badgeLabel ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${esc(c.mod_badge)}">${esc(badgeLabel)}</span></footer>` : '';
+    const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name, c.avatar_url);
+
+    const profileUrl = c.author_url || '';
+    const authorHtml = profileUrl
+      ? `<a href="${profileUrl}" target="_blank" rel="noopener noreferrer" class="comment-author-link"><strong class="comment-author">${esc(c.author_name)}</strong></a>`
+      : `<strong class="comment-author">${esc(c.author_name)}</strong>`;
+
+    const isSiteAuthor = c.provider === 'instagram' && AUTHOR_IG_IDS.includes(String(c.provider_user_id));
+    const authorTag = isSiteAuthor
+      ? '<span class="provider-tag role-author">Author</span>'
+      : (c.is_admin ? '<span class="provider-tag role-admin">Admin</span>' : '');
+
+    const canDelete = currentUser && (
+      currentUser.role === 'moderator' ||
+      currentUser.role === 'author' ||
+      (currentUser.provider === c.provider && String(currentUser.provider_user_id) === String(c.provider_user_id))
+    );
+
+    const deleteBtnHtml = canDelete
+      ? `<button type="button" class="btn-delete-comment" data-id="${c.id}" aria-label="Delete comment">Delete</button>`
+      : '';
+
+    const canBadge = currentUser && (currentUser.role === 'moderator' || currentUser.role === 'author');
+    const badgeBtnHtml = canBadge
+      ? `<span class="badge-picker"><button type="button" class="btn-badge-comment" data-id="${c.id}" aria-haspopup="true" aria-expanded="false">Badge</button></span>`
+      : '';
+
+    let replyToggleHtml = '';
+    if (isParentFeed) {
+      const count = Number(c.reply_count || 0);
+      replyToggleHtml = `
+        <div class="comment-thread-actions">
+          <button type="button" class="comment-reply-toggle" data-id="${c.id}" aria-expanded="false" aria-controls="thread-dialog">
+            ${count} Replies ⬇
+          </button>
+        </div>
+      `;
+    }
+
+    card.innerHTML = `
+      <header class="comment-card-header">
+        ${avatarHtml}
+        <div class="comment-user-info">
+          ${authorHtml}
+          <span class="provider-tag provider-${esc(c.provider)}">${esc(c.provider)}</span>
+          ${authorTag}
+          <time datetime="${c.created_at}"><small>${dateStr}</small></time>
+          ${deleteBtnHtml}
+          ${badgeBtnHtml}
+        </div>
+        ${ratingHtml(c)}
+      </header>
+      <div class="comment-content">
+        ${parsedContent}
+      </div>
+      ${badgeHtml}
+      ${replyToggleHtml}
+    `;
+    return card;
+  }
+
+  function renderThread(parent) {
+    if (!threadDialogParent || !threadDialogReplies) return;
+    threadDialogParent.innerHTML = '';
+    threadDialogParent.appendChild(buildCommentCard(parent, false));
+
+    const replies = cachedComments.filter(c => Number(c.parent_id) === Number(parent.id));
+    threadDialogReplies.innerHTML = '';
+
+    if (replies.length === 0) {
+      threadDialogReplies.innerHTML = '<p class="thread-no-replies"><em>No replies yet. Be the first to reply!</em></p>';
+    } else {
+      for (const r of replies) {
+        threadDialogReplies.appendChild(buildCommentCard(r, false));
+      }
+    }
+  }
+
+  // Hover / keyboard-focus preview (attached to document so modal and feed both respond)
+  ['mouseover', 'focusin'].forEach(evt => document.addEventListener(evt, (e) => {
     const hit = e.target.closest('.rating button[data-value]');
     if (hit) paintRating(hit.closest('.rating'), Number(hit.dataset.value));
   }));
-  ['mouseout', 'focusout'].forEach(evt => feed.addEventListener(evt, (e) => {
+  ['mouseout', 'focusout'].forEach(evt => document.addEventListener(evt, (e) => {
     const box = e.target.closest('.rating-interactive');
     if (box && !box.contains(e.relatedTarget)) paintRating(box, Number(box.dataset.avg) || 0);
   }));
 
-  // Click a half or full star (or the 0 button) to rate
-  feed.addEventListener('click', async (e) => {
+  // Click a half or full star (or the 0 button) to rate across feed and modal
+  document.addEventListener('click', async (e) => {
     const hit = e.target.closest('.rating button[data-value]');
     if (!hit) return;
     if (!currentUser) { loginDialog?.showModal(); return; }
@@ -242,6 +444,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const wrap = box.closest('.comment-rating');
       wrap.querySelector('.rating-summary').innerHTML = ratingSummaryHtml(data.rating_avg, data.rating_count);
       wrap.title = ratingTitle(data.rating_avg, data.rating_count, data.my_rating);
+
+      const cached = cachedComments.find(x => String(x.id) === String(box.dataset.id));
+      if (cached) {
+        cached.rating_avg = data.rating_avg;
+        cached.rating_count = data.rating_count;
+        cached.my_rating = data.my_rating;
+      }
     } catch (err) {
       alert('Error saving rating.');
       console.error(err);
@@ -250,84 +459,74 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Sort buttons listener
+  sortButtons.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      currentSort = btn.dataset.sort || 'latest';
+      sortButtons.forEach(b => b.classList.toggle('active', b === btn));
+      await loadComments();
+    });
+  });
+
+  // Thread dialog close listeners
+  threadDialogClose?.addEventListener('click', () => threadDialog?.close());
+  threadDialog?.addEventListener('click', (e) => {
+    if (e.target === threadDialog) threadDialog.close();
+  });
+  threadDialog?.addEventListener('close', () => {
+    activeThreadId = null;
+    document.querySelectorAll('.comment-reply-toggle').forEach(t => t.setAttribute('aria-expanded', 'false'));
+  });
+
   // 1. Fetch & Render Comments on Page Load from Neon Database
   async function loadComments() {
     try {
-      const res = await fetch(`/.netlify/functions/get-comments?slug=${encodeURIComponent(postSlug)}`, {
+      const res = await fetch(`/.netlify/functions/get-comments?slug=${encodeURIComponent(postSlug)}&sort=${encodeURIComponent(currentSort)}`, {
         headers: currentUser?.token ? { 'Authorization': `Bearer ${currentUser.token}` } : {}
       });
       if (!res.ok) return;
       const data = await res.json();
-      
+
+      cachedComments = data.comments || [];
       feed.innerHTML = ''; // Clear feed
 
-      if (countSpan) countSpan.textContent = data.comments.length;
+      // Only top-level comments in main feed
+      const parentComments = cachedComments.filter(c => c.parent_id === null || c.parent_id === undefined);
 
-      // Replace data.comments.forEach(c => {
-      for (const c of data.comments) {
-        const card = document.createElement('article');
-        card.className = c.is_deleted ? 'comment-card comment-tombstone' : 'comment-card';
+      if (countSpan) countSpan.textContent = parentComments.length;
 
-        if (c.is_deleted) {
-          card.innerHTML = `<div class="comment-content"><em>${esc(c.comment_body)}</em></div>`;
-        } else {
-          const dateStr = new Date(c.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-          const parsedContent = safeMd(c.comment_body);
-          const badgeLabel = BADGE_LABELS[c.mod_badge];
-          const badgeHtml = badgeLabel ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${esc(c.mod_badge)}">${esc(badgeLabel)}</span></footer>` : '';
-
-          const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name, c.avatar_url);
-
-          // Read verified profile link directly from Neon database (0 client-side API calls!)
-          const profileUrl = c.author_url || '';
-
-          const authorHtml = profileUrl
-            ? `<a href="${profileUrl}" target="_blank" rel="noopener noreferrer" class="comment-author-link"><strong class="comment-author">${esc(c.author_name)}</strong></a>`
-            : `<strong class="comment-author">${esc(c.author_name)}</strong>`;
-
-          const isSiteAuthor = c.provider === 'instagram' && AUTHOR_IG_IDS.includes(String(c.provider_user_id));
-          const authorTag = isSiteAuthor
-            ? '<span class="provider-tag role-author">Author</span>'
-            : (c.is_admin ? '<span class="provider-tag role-admin">Admin</span>' : '');
-
-          // Check if the current user can delete this comment (Mod, Site Author, or Comment Owner)
-          const canDelete = currentUser && (
-            currentUser.role === 'moderator' ||
-            currentUser.role === 'author' ||
-            (currentUser.provider === c.provider && String(currentUser.provider_user_id) === String(c.provider_user_id))
-          );
-
-          const deleteBtnHtml = canDelete
-            ? `<button type="button" class="btn-delete-comment" data-id="${c.id}" aria-label="Delete comment">Delete</button>`
-            : '';
-
-          // Badges are a moderator-only action (server re-checks the signed role)
-          const canBadge = currentUser && (currentUser.role === 'moderator' || currentUser.role === 'author');
-          const badgeBtnHtml = canBadge
-            ? `<span class="badge-picker"><button type="button" class="btn-badge-comment" data-id="${c.id}" aria-haspopup="true" aria-expanded="false">Badge</button></span>`
-            : '';
-
-          card.innerHTML = `
-            <header class="comment-card-header">
-              ${avatarHtml}
-              <div class="comment-user-info">
-                ${authorHtml}
-                <span class="provider-tag provider-${esc(c.provider)}">${esc(c.provider)}</span>
-                ${authorTag}
-                <time datetime="${c.created_at}"><small>${dateStr}</small></time>
-                ${deleteBtnHtml}
-                ${badgeBtnHtml}
-              </div>
-              ${ratingHtml(c)}
-            </header>
-            <div class="comment-content">
-              ${parsedContent}
-            </div>
-            ${badgeHtml}
-          `;
-        }
-        feed.appendChild(card);
+      for (const parent of parentComments) {
+        feed.appendChild(buildCommentCard(parent, true));
       }
+
+      // If thread modal is currently open, refresh its contents in-place
+      if (activeThreadId !== null && threadDialog?.open) {
+        const activeParent = cachedComments.find(c => Number(c.id) === Number(activeThreadId));
+        if (activeParent) {
+          renderThread(activeParent);
+        }
+      }
+
+      // Attach click listeners to all reply toggle buttons
+      document.querySelectorAll('.comment-reply-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const parentId = Number(btn.getAttribute('data-id'));
+          const parent = cachedComments.find(c => Number(c.id) === parentId);
+          if (!parent) return;
+
+          activeThreadId = parentId;
+          document.querySelectorAll('.comment-reply-toggle').forEach(t => {
+            t.setAttribute('aria-expanded', String(Number(t.dataset.id) === parentId));
+          });
+
+          renderThread(parent);
+          if (threadReplyInput) {
+            threadReplyInput.value = '';
+            threadReplyTabWrite?.click();
+          }
+          threadDialog?.showModal();
+        });
+      });
 
       // Attach click listeners to all active [Delete] buttons
       document.querySelectorAll('.btn-delete-comment').forEach(btn => {
@@ -477,19 +676,38 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = false;
       textarea.disabled = false;
       textarea.placeholder = "Write a comment...";
+
+      if (threadReplySubmitBtn && threadReplyInput && threadReplyAuthStatus) {
+        threadReplySubmitBtn.disabled = false;
+        threadReplyInput.disabled = false;
+        threadReplyInput.placeholder = "Write a reply...";
+        threadReplyAuthStatus.innerHTML = authStatusContainer.innerHTML;
+        threadReplyAuthStatus.querySelector('.btn-logout')?.addEventListener('click', () => {
+          localStorage.removeItem('twa_user');
+          currentUser = null;
+          renderAuthUI();
+          loadComments();
+        });
+      }
     } else {
       // User is NOT logged in (Clean Single Sign In button triggering modal)
-      authStatusContainer.innerHTML = `
-        <button type="button" id="btn-signin" class="auth-pill">Sign in</button>
-      `;
-
-      document.getElementById('btn-signin')?.addEventListener('click', () => {
-        loginDialog?.showModal();
+      const signinHtml = `<button type="button" class="auth-pill btn-trigger-signin">Sign in</button>`;
+      authStatusContainer.innerHTML = signinHtml;
+      document.querySelectorAll('.btn-trigger-signin').forEach(b => {
+        b.addEventListener('click', () => loginDialog?.showModal());
       });
 
       submitBtn.disabled = true;
       textarea.disabled = true;
       textarea.placeholder = "Please sign in to join the discussion...";
+
+      if (threadReplySubmitBtn && threadReplyInput && threadReplyAuthStatus) {
+        threadReplySubmitBtn.disabled = true;
+        threadReplyInput.disabled = true;
+        threadReplyInput.placeholder = "Please sign in to reply...";
+        threadReplyAuthStatus.innerHTML = signinHtml;
+        threadReplyAuthStatus.querySelector('.btn-trigger-signin')?.addEventListener('click', () => loginDialog?.showModal());
+      }
     }
   }
 
@@ -508,42 +726,59 @@ document.addEventListener('DOMContentLoaded', () => {
   renderAuthUI();
   loadComments();
 
-  // --- REAL DATABASE SUBMISSION (Using verified identity) ---
-  submitBtn.addEventListener('click', async () => {
-    if (!currentUser) return; // Failsafe
-
-    const text = textarea.value.trim();
+  // Helper to submit comment or reply
+  async function submitComment(bodyText, parentId, btn, inputElem, writeTab) {
+    if (!currentUser) return;
+    const text = bodyText.trim();
     if (!text) {
       alert('Please enter some text before posting.');
       return;
     }
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Posting...';
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = 'Posting...';
 
     try {
       const res = await fetch('/.netlify/functions/post-comment', {
         method: 'POST',
-        headers: authHeaders(),   // sends the signed token
+        headers: authHeaders(),
         body: JSON.stringify({
           slug: postSlug,
-          comment_body: text
-        })                        // identity is no longer sent; the server reads it from the token
+          comment_body: text,
+          parent_id: parentId
+        })
       });
 
       if (res.status === 401) return handleExpired();
+      if (res.status === 429) {
+        const msg = await res.text();
+        alert(msg);
+        return;
+      }
       if (!res.ok) throw new Error(`Submission failed: ${res.status} ${await res.text()}`);
 
-      textarea.value = '';
-      tabWrite.click();
+      inputElem.value = '';
+      writeTab?.click();
       await loadComments();
     } catch (err) {
-      alert('Error posting comment. Check terminal/console.');
+      alert(err.message || 'Error posting comment.');
       console.error(err);
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Post Comment';
+      btn.disabled = false;
+      btn.textContent = originalText;
     }
+  }
+
+  // --- Main Top-Level Comment Submission ---
+  submitBtn.addEventListener('click', () => {
+    submitComment(textarea.value, null, submitBtn, textarea, tabWrite);
+  });
+
+  // --- Dedicated Thread Modal Reply Submission ---
+  threadReplySubmitBtn?.addEventListener('click', () => {
+    if (!activeThreadId) return;
+    submitComment(threadReplyInput.value, activeThreadId, threadReplySubmitBtn, threadReplyInput, threadReplyTabWrite);
   });
 });
 </script>

@@ -15,13 +15,37 @@ export default async (req) => {
   }
 
   try {
-    const { slug, comment_body } = await req.json();
+    const { slug, comment_body, parent_id } = await req.json();
 
     if (!slug || !comment_body || !comment_body.trim()) {
       return new Response("Invalid comment data", { status: 400 });
     }
 
     const cleanBody = comment_body.trim().slice(0, 5000);
+
+    let parentId = null;
+    if (parent_id !== null && parent_id !== undefined && parent_id !== "") {
+      parentId = Number(parent_id);
+      if (!Number.isInteger(parentId) || parentId <= 0) {
+        return new Response("Invalid parent_id", { status: 400 });
+      }
+
+      // Verify referenced parent comment exists, belongs to same slug, and is not deleted
+      const parentRows = await sql`
+        SELECT id, is_deleted, parent_id
+        FROM twa_comments
+        WHERE id = ${parentId} AND post_slug = ${slug};
+      `;
+
+      if (parentRows.length === 0 || parentRows[0].is_deleted) {
+        return new Response("Parent comment not found or deleted", { status: 404 });
+      }
+
+      // Enforce single-depth flat threading (replies cannot have replies)
+      if (parentRows[0].parent_id !== null) {
+        return new Response("Nested replies are not allowed", { status: 400 });
+      }
+    }
 
     // Resolve verified profile URL on the server side
     let authorUrl = null;
@@ -61,18 +85,31 @@ export default async (req) => {
     // Check the timestamp of the user's most recent comment in Neon
     const [lastPost] = await sql`
       SELECT created_at FROM twa_comments
-      WHERE provider = ${session.provider} AND provider_user_id = ${session.provider_user_id}
+      WHERE provider = ${session.provider} AND provider_user_id = ${String(session.provider_user_id)}
       ORDER BY created_at DESC LIMIT 1;
     `;
 
-    if (lastPost && (Date.now() - new Date(lastPost.created_at).getTime()) < 30000) {
-      return new Response("Slow down! You can only post once every 30 seconds.", { status: 429 });
+    if (lastPost) {
+      const elapsedMs = Date.now() - new Date(lastPost.created_at).getTime();
+      if (elapsedMs < 30000) {
+        const secondsRemaining = Math.max(1, Math.ceil((30000 - elapsedMs) / 1000));
+        return new Response(
+          `Slow down! Please wait ${secondsRemaining} second${secondsRemaining === 1 ? "" : "s"} before posting again.`,
+          {
+            status: 429,
+            headers: {
+              "Content-Type": "text/plain; charset=utf-8",
+              "Retry-After": String(secondsRemaining)
+            }
+          }
+        );
+      }
     }
 
     const result = await sql`
-      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, author_url, avatar_url)
-      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${authorUrl}, ${avatarUrl})
-      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, created_at, is_deleted, mod_badge, author_url, avatar_url;
+      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, author_url, avatar_url, parent_id)
+      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${authorUrl}, ${avatarUrl}, ${parentId})
+      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, created_at, is_deleted, mod_badge, author_url, avatar_url, parent_id;
     `;
 
     return Response.json({ comment: result[0] });

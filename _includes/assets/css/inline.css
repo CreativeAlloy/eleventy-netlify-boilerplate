@@ -1360,7 +1360,7 @@ body.dark-mode #news-search-input:focus {
 	width: 100vw;
 	height: 100vh;
 	background: rgba(0, 0, 0, 0.55);
-	/* backdrop-filter: blur(2px); */
+	backdrop-filter: blur(1px);
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.2s ease-in-out;
@@ -1428,6 +1428,10 @@ body.dark-mode #news-search-input:focus {
 	margin: 0 !important;
 	width: auto !important;
 	box-shadow: none !important;
+}
+
+.lexicon-popover-header button:hover {
+	opacity: 0.6;
 }
 
 .lexicon-popover p {
@@ -1572,7 +1576,9 @@ body.dark-mode .comment-editor-box:focus-within {
 }
 
 .comment-editor-actions {
-	flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .auth-user-avatar {
@@ -1614,12 +1620,17 @@ button.auth-pill:hover {
 	margin: 0 !important;
 	font-size: 0.9rem !important;
 	font-weight: bold;
-	border-radius: 6px !important;
 	border: 1px solid var(--primary) !important;
+	border-radius: 4px !important;
 	background-color: var(--secondary) !important;
 	color: var(--primary) !important;
 	cursor: pointer;
 	transition: all 0.1s ease-in-out;
+}
+
+.comment-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .comment-btn-submit:hover:not(:disabled) {
@@ -1720,7 +1731,7 @@ button.auth-pill:hover {
 
 .auth-dialog::backdrop {
 	background: rgba(0, 0, 0, 0.55);
-	/* backdrop-filter: blur(2px); */
+	backdrop-filter: blur(1px);
 }
 
 .auth-dialog h4 {
@@ -1981,6 +1992,7 @@ button.auth-pill:hover {
 	display: inline-flex;
 }
 
+/* --- Sleek Badge Action Pill --- */
 .btn-badge-comment {
 	display: inline-flex !important;
 	align-items: center;
@@ -1991,19 +2003,21 @@ button.auth-pill:hover {
 	font-size: 0.7rem !important;
 	font-weight: bold;
 	line-height: 1;
-	color: var(--primary) !important;
-	background: transparent !important;
-	border: 1px solid var(--primary) !important;
+	color: #6bc4ff !important;
+	background: rgba(107, 196, 255, 0.1) !important;
+	border: 1px solid rgba(107, 188, 255, 0.3) !important;
 	border-radius: 4px !important;
 	cursor: pointer;
 	box-shadow: none !important;
 	transition: all 0.15s ease-in-out;
+	text-decoration: none !important;
 	flex-shrink: 0;
 }
 
 .btn-badge-comment:hover {
-	background: var(--primary) !important;
-	color: var(--background) !important;
+	background: #6bc4ff !important;
+	color: #ffffff !important;
+	border-color: #6bc4ff !important;
 }
 
 .badge-menu {
@@ -2165,6 +2179,185 @@ button.auth-pill:hover {
 	border-left: 5px solid var(--primary) !important;
 	opacity: 0.65;
 	font-style: italic;
+}
+
+/* =========================================================
+   Comment Thread Replies & Sorting Controls
+   ========================================================= */
+
+/* Sort Controls */
+.comment-sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  margin: 1rem 0 1.25rem 0;
+  flex-wrap: wrap;
+}
+
+.comment-sort-btn {
+  background: transparent;
+  color: inherit;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.comment-sort-btn:hover {
+  opacity: 0.85;
+}
+
+.comment-sort-btn.active {
+  background-color: var(--primary);
+  color: var(--background);
+}
+
+/* Reply Toggle Button on Parent Cards */
+.comment-thread-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-reply-toggle {
+  background: transparent;
+  color: inherit;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.comment-reply-toggle:hover {
+  background-color: var(--primary);
+  color: var(--background);
+}
+
+/* Thread Dialog Modal */
+dialog.thread-dialog {
+  border: 1px solid var(--primary);
+  border-radius: 12px;
+  background: var(--background);
+  color: inherit;
+  box-shadow: var(--card-shadow);
+  width: min(850px, 92vw);
+  max-height: 88vh;
+  padding: 0;
+  margin: auto;
+  overflow: hidden;
+}
+
+dialog.thread-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+/* Block display guarantees full intrinsic height so elements never compress */
+.thread-dialog-inner {
+  display: block;
+  max-height: 88vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.25rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.thread-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.25);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.thread-dialog-heading {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.thread-dialog-subheading {
+  opacity: 0.75;
+}
+
+.thread-dialog-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem !important;
+  height: 2rem !important;
+  min-width: 2rem !important;
+  max-width: 2rem !important;
+  flex: 0 0 2rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.thread-dialog-close:hover {
+  opacity: 0.6;
+  /* background: rgba(127, 127, 127, 0.15); */
+}
+
+/* Pinned Parent Comment Container */
+.thread-dialog-parent {
+  margin-bottom: 1.25rem;
+}
+
+.thread-dialog-parent .comment-card {
+  border-left: 4px solid var(--primary);
+  background: rgba(127, 127, 127, 0.06);
+}
+
+/* Replies List */
+.thread-dialog-replies-wrap {
+  border-top: 1px solid rgba(127, 127, 127, 0.2);
+  padding-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.thread-replies-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.thread-dialog-replies {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 1rem;
+  border-left: 2px dashed rgba(127, 127, 127, 0.3);
+}
+
+.thread-no-replies {
+  margin: 0.5rem !important;
+  opacity: 0.75;
+  font-size: 0.9rem;
+}
+
+/* Reply Editor: padding-top: 0 keeps tabs flush against the top edge */
+.thread-reply-editor-box {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-top: 0;
 }
 
 /* =========================================================================

@@ -8,6 +8,9 @@ const round1 = (n) => Math.round(Number(n) * 10) / 10;
 export default async (req) => {
   const params = new URL(req.url).searchParams;
   const slug = params.get("slug");
+  const sortParam = params.get("sort") || "latest";
+  const allowedSorts = ["latest", "oldest", "rating"];
+  const sort = allowedSorts.includes(sortParam) ? sortParam : "latest";
 
   if (!slug) {
     return new Response("Missing slug parameter", { status: 400 });
@@ -21,8 +24,9 @@ export default async (req) => {
   try {
     const comments = await sql`
       SELECT c.id, c.post_slug, c.author_name, c.provider, c.provider_user_id, c.comment_body,
-             c.created_at, c.is_deleted, c.mod_badge, c.author_url, c.avatar_url,
+             c.created_at, c.is_deleted, c.mod_badge, c.author_url, c.avatar_url, c.parent_id,
              r.rating_avg, COALESCE(r.rating_count, 0) AS rating_count,
+             COALESCE(rep.reply_count, 0) AS reply_count,
              m.rating AS my_rating
       FROM twa_comments c
       LEFT JOIN (
@@ -31,12 +35,21 @@ export default async (req) => {
         WHERE comment_id IN (SELECT id FROM twa_comments WHERE post_slug = ${slug})
         GROUP BY comment_id
       ) r ON r.comment_id = c.id
+      LEFT JOIN (
+        SELECT parent_id, COUNT(*) AS reply_count
+        FROM twa_comments
+        WHERE post_slug = ${slug} AND parent_id IS NOT NULL
+        GROUP BY parent_id
+      ) rep ON rep.parent_id = c.id
       LEFT JOIN twa_comment_ratings m
         ON m.comment_id = c.id
        AND m.provider = ${viewerProvider}
        AND m.provider_user_id = ${viewerId}
       WHERE c.post_slug = ${slug}
-      ORDER BY c.created_at DESC;
+      ORDER BY
+        CASE WHEN ${sort} = 'oldest' THEN c.created_at END ASC,
+        CASE WHEN ${sort} = 'rating' THEN r.rating_avg END DESC NULLS LAST,
+        c.created_at DESC;
     `;
 
     // Helper to verify membership in comma-separated list
@@ -61,6 +74,8 @@ export default async (req) => {
       return {
         ...c,
         is_admin: isAdmin,
+        parent_id: c.parent_id === null ? null : Number(c.parent_id),
+        reply_count: Number(c.reply_count || 0),
         // NUMERIC/COUNT come back as strings; normalise to one decimal (3.8, 4.2)
         rating_avg: c.rating_avg === null ? 0 : round1(c.rating_avg),
         rating_count: Number(c.rating_count),
