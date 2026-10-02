@@ -12,7 +12,7 @@ export default async (req) => {
 
   try {
     const comments = await sql`
-      SELECT id, post_slug, author_name, provider, provider_user_id, comment_body, stars, created_at, is_deleted, mod_badge, author_url
+      SELECT id, post_slug, author_name, provider, provider_user_id, comment_body, stars, created_at, is_deleted, mod_badge, author_url, avatar_url
       FROM twa_comments
       WHERE post_slug = ${slug}
       ORDER BY created_at DESC;

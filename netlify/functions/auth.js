@@ -1,5 +1,5 @@
 // netlify/functions/auth.js
-// Stateless OAuth handshake for GitHub + Instagram (popup flow).
+// Stateless OAuth handshake for GitHub + Instagram + Discord (popup flow).
 //
 // The OAuth `state` parameter is "<provider>.<nonce>". The provider tells the callback
 // which exchange to run; the nonce is matched against a cookie set at login time.
@@ -7,7 +7,7 @@
 import { randomBytes } from "node:crypto";
 import { signSession } from "../lib/session.js";
 
-const SUPPORTED = ["github", "instagram"];
+const SUPPORTED = ["github", "instagram", "discord"];
 
 // Instagram API with Instagram Login (the Basic Display API was shut down).
 // If Meta changes endpoints again, this is the only block to touch.
@@ -16,6 +16,15 @@ const IG = {
   token: "https://api.instagram.com/oauth/access_token",
   me: "https://graph.instagram.com/me",
   scope: "instagram_business_basic"
+};
+
+// Discord OAuth2. We only request the "identify" scope (id, username, global_name,
+// avatar), so no email address is ever requested or stored.
+const DISCORD = {
+  authorize: "https://discord.com/oauth2/authorize",
+  token: "https://discord.com/api/oauth2/token",
+  me: "https://discord.com/api/users/@me",
+  scope: "identify"
 };
 
 const escapeHtml = (s) =>
@@ -138,6 +147,86 @@ async function instagramProfile(code, redirectUri) {
 }
 
 // ---------------------------------------------------------------------------
+// Discord
+// ---------------------------------------------------------------------------
+async function discordProfile(code, redirectUri) {
+  const CLIENT_ID = process.env.DISCORD_CLIENT_ID;
+  const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
+  const ADMIN_ID = process.env.ADMIN_DISCORD_ID;
+
+  // 1. Exchange code for access token (form-encoded POST; Discord rejects JSON bodies here)
+  const tokenResponse = await fetch(DISCORD.token, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded", "Accept": "application/json" },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: redirectUri
+    })
+  });
+  const tokenData = await tokenResponse.json();
+  if (!tokenResponse.ok || !tokenData.access_token) {
+    throw new Error(tokenData.error_description || tokenData.error || "Failed to retrieve Discord access token");
+  }
+
+  // 2. Fetch the profile
+  const userResponse = await fetch(DISCORD.me, {
+    headers: { "Authorization": `Bearer ${tokenData.access_token}`, "User-Agent": "TheWaspAlloy-Auth" }
+  });
+  const userData = await userResponse.json();
+  if (!userResponse.ok || !userData.id) {
+    throw new Error(userData.message || "Failed to retrieve Discord profile");
+  }
+
+  // 3. Moderator detection by STABLE numeric ID (usernames can be changed)
+  const isModerator = ADMIN_ID && String(userData.id) === String(ADMIN_ID);
+
+  // global_name is the "display name" people actually see; username is the unique handle
+  const displayName = userData.global_name && userData.global_name.trim()
+    ? userData.global_name.trim()
+    : userData.username;
+
+  // Custom avatar if they have one, otherwise Discord's default avatar for this ID
+  const avatarUrl = userData.avatar
+    ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png?size=64`
+    : `https://cdn.discordapp.com/embed/avatars/${Number((BigInt(userData.id) >> BigInt(22)) % BigInt(6))}.png`;
+
+  return {
+    provider: "discord",
+    provider_user_id: String(userData.id),
+    username: displayName,
+    handle: userData.username,
+    avatar_url: avatarUrl,
+    role: isModerator ? "moderator" : "user"
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Provider tables: adding a future provider means one entry in each
+// ---------------------------------------------------------------------------
+const AUTH_URL = {
+  github: (redirectUri, state) =>
+    `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}` +
+    `&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user&state=${state}`,
+  instagram: (redirectUri, state) =>
+    `${IG.authorize}?client_id=${encodeURIComponent(process.env.INSTAGRAM_CLIENT_ID)}` +
+    `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+    `&response_type=code&scope=${IG.scope}&state=${state}`,
+  discord: (redirectUri, state) =>
+    `${DISCORD.authorize}?client_id=${encodeURIComponent(process.env.DISCORD_CLIENT_ID)}` +
+    `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+    `&response_type=code&scope=${DISCORD.scope}&state=${state}`
+};
+
+const PROFILE = {
+  github: githubProfile,
+  instagram: instagramProfile,
+  discord: discordProfile
+};
+
+// ---------------------------------------------------------------------------
 // Handler
 // ---------------------------------------------------------------------------
 export default async (req) => {
@@ -161,12 +250,7 @@ export default async (req) => {
     const nonce = randomBytes(16).toString("hex");
     const state = `${provider}.${nonce}`;
 
-    const providerAuthUrl = provider === "instagram"
-      ? `${IG.authorize}?client_id=${encodeURIComponent(process.env.INSTAGRAM_CLIENT_ID)}` +
-        `&redirect_uri=${encodeURIComponent(redirectUri)}` +
-        `&response_type=code&scope=${IG.scope}&state=${state}`
-      : `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}` +
-        `&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user&state=${state}`;
+    const providerAuthUrl = AUTH_URL[provider](redirectUri, state);
 
     const secure = url.protocol === "https:" ? "; Secure" : ""; // allows http://localhost testing
     return new Response(null, {
@@ -197,9 +281,7 @@ export default async (req) => {
     }
 
     try {
-      const payload = provider === "instagram"
-        ? await instagramProfile(code, redirectUri)
-        : await githubProfile(code, redirectUri);
+      const payload = await PROFILE[provider](code, redirectUri);
 
       const response = successPage(payload);
       // Nonce is single-use: clear it

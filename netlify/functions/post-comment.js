@@ -30,6 +30,9 @@ export default async (req) => {
 
     if (session.provider === "instagram" && userHandle) {
       authorUrl = `https://instagram.com/${encodeURIComponent(userHandle)}`;
+    } else if (session.provider === "discord" && session.provider_user_id) {
+      // Discord profile links are keyed by the numeric user ID (handles can change)
+      authorUrl = `https://discord.com/users/${encodeURIComponent(session.provider_user_id)}`;
     } else if (session.provider === "github" && session.provider_user_id) {
       try {
         const ghRes = await fetch(`https://api.github.com/user/${encodeURIComponent(session.provider_user_id)}`, {
@@ -47,10 +50,12 @@ export default async (req) => {
       }
     }
 
+    const avatarUrl = session.avatar_url || null;
+
     const result = await sql`
-      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, stars, author_url)
-      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${cleanStars}, ${authorUrl})
-      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, stars, created_at, is_deleted, mod_badge, author_url;
+      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, stars, author_url, avatar_url)
+      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${cleanStars}, ${authorUrl}, ${avatarUrl})
+      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, stars, created_at, is_deleted, mod_badge, author_url, avatar_url;
     `;
 
     return Response.json({ comment: result[0] });

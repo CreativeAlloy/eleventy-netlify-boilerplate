@@ -12,6 +12,7 @@
     <div class="auth-dialog-options">
       <button type="button" class="auth-pill auth-btn-github" data-provider="github">Sign in with GitHub</button>
       <button type="button" class="auth-pill auth-btn-instagram" data-provider="instagram">Sign in with Instagram</button>
+      <button type="button" class="auth-pill auth-btn-discord" data-provider="discord">Sign in with Discord</button>
     </div>
     <button type="button" class="auth-dialog-cancel" id="login-dialog-cancel">Cancel</button>
   </dialog>
@@ -118,15 +119,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const safeMd = (md) => DOMPurify.sanitize(marked.parse(md), { ADD_ATTR: ['target'] });
 
-  function avatarFor(provider, userId, name) {
+  function avatarFor(provider, userId, name, avatarUrl) {
+    // 1. If a real avatar URL is stored in the database (Discord CDN, Google, etc.), render it directly!
+    if (avatarUrl) {
+      return `<img src="${esc(avatarUrl)}" alt="${esc(name)}" class="comment-avatar-slot" style="object-fit: cover; border: 1px solid var(--primary);">`;
+    }
+    // 2. GitHub fallback using predictable public CDN
     if (provider === 'github' && userId && userId !== 'guest') {
       return `<img src="https://avatars.githubusercontent.com/u/${encodeURIComponent(userId)}?v=4" alt="${esc(name)}" class="comment-avatar-slot" style="object-fit: cover; border: 1px solid var(--primary);">`;
     }
-    if (provider === 'instagram') {
-      const initial = esc((name || '?').charAt(0).toUpperCase());
-      return `<div class="comment-avatar-slot avatar-instagram" aria-hidden="true">${initial}</div>`;
-    }
-    return '<div class="comment-avatar-slot"></div>';
+    // 3. Fallback initials with provider-specific gradient styling (Instagram, or Discord without avatar)
+    const initial = esc((name || '?').charAt(0).toUpperCase());
+    const providerClass = provider === 'discord' ? 'avatar-discord' : provider === 'instagram' ? 'avatar-instagram' : '';
+    return `<div class="comment-avatar-slot ${providerClass}" aria-hidden="true">${initial}</div>`;
   }
 
   // Helper to render star strings
@@ -158,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const parsedContent = safeMd(c.comment_body);
           const badgeHtml = c.mod_badge ? `<footer class="comment-card-footer"><span class="twa-mod-badge badge-${esc(c.mod_badge)}">${esc(c.mod_badge)}</span></footer>` : '';
 
-          const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name);
+          const avatarHtml = avatarFor(c.provider, c.provider_user_id, c.author_name, c.avatar_url);
 
           // Read verified profile link directly from Neon database (0 client-side API calls!)
           const profileUrl = c.author_url || '';
@@ -286,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const avatar = currentUser.avatar_url
         ? `<img src="${esc(currentUser.avatar_url)}" alt="Avatar" class="auth-user-avatar">`
-        : `<span class="auth-user-avatar avatar-instagram" aria-hidden="true">${esc((currentUser.username || '?').charAt(0).toUpperCase())}</span>`;
+        : `<span class="auth-user-avatar avatar-${esc(currentUser.provider)}" aria-hidden="true">${esc((currentUser.username || '?').charAt(0).toUpperCase())}</span>`;
 
       authStatusContainer.innerHTML = `
         ${avatar}

@@ -1785,6 +1785,25 @@ button.auth-pill:hover {
 	border-color: transparent;
 }
 
+.auth-btn-discord {
+	background: linear-gradient(45deg, #4752c4, #5865F2 55%, #7983f5);
+	color: #fff;
+	border-color: transparent;
+}
+
+/* Discord placeholder avatar (comments don't store avatar hashes) */
+.avatar-discord {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(45deg, #4752c4, #5865F2 55%, #7983f5);
+	color: #fff;
+	font-weight: bold;
+	font-size: 0.8rem;
+	opacity: 1;
+	border-color: transparent;
+}
+
 .comment-stars {
 	margin-left: auto;
 	color: #ffb300;
