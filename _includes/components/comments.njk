@@ -29,6 +29,15 @@
 
       <div class="thread-dialog-replies-wrap">
         <h5 class="thread-replies-title">Replies</h5>
+
+        {# --- Comment Sorting Controls inside Replies --- #}
+        {# NOTE! THIS IS A TEMPORARY UTILITY FIX; THESE CURRENTLY ALSO AFFECT PARENT COMMENTS OUTSIDE OF ANY THREADS! #}
+        <div class="comment-sort-controls" role="group" aria-label="Sort comments">
+          <button type="button" class="comment-sort-btn active" data-sort="latest">Latest</button>
+          <button type="button" class="comment-sort-btn" data-sort="oldest">Oldest</button>
+          <button type="button" class="comment-sort-btn" data-sort="rating">Top Rated</button>
+        </div>
+
         <div id="thread-dialog-replies" class="thread-dialog-replies">
           <!-- Nested replies render here -->
         </div>
