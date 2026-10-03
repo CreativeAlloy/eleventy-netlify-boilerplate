@@ -2197,6 +2197,25 @@ button.auth-pill:hover {
 	font-style: italic;
 }
 
+/* --- Mention Tags --- */
+.mention-tag {
+	font-weight: bold;
+	color: var(--primary) !important;
+	background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+	padding: 0.1rem 0.35rem;
+	border-radius: 4px;
+	text-decoration: none !important;
+	transition: opacity 0.15s ease, background-color 0.15s ease;
+	display: inline-block;
+	line-height: 1.2;
+}
+
+a.mention-tag:hover {
+	opacity: 0.85;
+	text-decoration: underline !important;
+	background-color: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
 /* =========================================================
    Comment Thread Replies & Sorting Controls
    ========================================================= */

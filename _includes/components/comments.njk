@@ -176,9 +176,35 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!textarea || !tabWrite || !tabPreview) return;
 
   // 1. Modern marked.js configuration with autolinks & custom anchor text
+  const mentionExtension = {
+    name: 'mention',
+    level: 'inline',
+    start(src) { return src.match(/\[@/)?.index; },
+    tokenizer(src) {
+      const rule = /^\[@([^\]]+)\]/;
+      const match = rule.exec(src);
+      if (match) {
+        return {
+          type: 'mention',
+          raw: match[0],
+          name: match[1]
+        };
+      }
+    },
+    renderer(token) {
+      const name = token.name;
+      const user = cachedComments.find(c => c.author_name.toLowerCase() === name.toLowerCase() && c.author_url);
+      if (user) {
+        return `<a href="${esc(user.author_url)}" target="_blank" rel="noopener noreferrer" class="mention-tag">@${esc(name)}</a>`;
+      }
+      return `<span class="mention-tag">@${esc(name)}</span>`;
+    }
+  };
+
   marked.use({
     gfm: true,
     breaks: true,
+    extensions: [mentionExtension],
     renderer: {
       link(token) {
         // Modern marked passes an object: { href, title, text }
@@ -264,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', closeBadgeMenus);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBadgeMenus(); });
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  const safeMd = (md) => DOMPurify.sanitize(marked.parse(md), { ADD_ATTR: ['target'] });
+  const safeMd = (md) => DOMPurify.sanitize(marked.parse(md), { ADD_ATTR: ['target', 'class'] });
 
   function avatarFor(provider, userId, name, avatarUrl) {
     // 1. If a real avatar URL is stored in the database (Discord CDN, Google, etc.), render it directly!
