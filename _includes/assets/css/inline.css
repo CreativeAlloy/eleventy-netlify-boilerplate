@@ -1425,21 +1425,40 @@ body.dark-mode #news-search-input:focus {
 	font-size: 0.95rem;
 }
 
-.lexicon-popover-header button {
-	background: none !important;
-	border: none !important;
-	font-size: 1.4rem;
-	line-height: 1;
-	color: inherit;
-	cursor: pointer;
-	padding: 0 !important;
-	margin: 0 !important;
-	width: auto !important;
-	box-shadow: none !important;
+/* Shared SVG cross used by all close buttons */
+.close-icon {
+	display: block;
+	width: 1.1rem;
+	height: 1.1rem;
+	pointer-events: none;
 }
 
-.lexicon-popover-header button:hover {
+.lexicon-popover-close {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 1.75rem;
+	width: 1.75rem !important;
+	height: 1.75rem !important;
+	min-width: 1.75rem !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	background: none !important;
+	border: none !important;
+	border-radius: 6px;
+	box-shadow: none !important;
+	color: inherit;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+}
+
+.lexicon-popover-close:hover {
 	opacity: 0.6;
+}
+
+.lexicon-popover-close:focus-visible {
+	outline: 2px solid var(--primary);
+	outline-offset: 2px;
 }
 
 .lexicon-popover p {
@@ -2425,8 +2444,6 @@ dialog.thread-dialog::backdrop {
   padding: 0 !important;
   background: transparent;
   border: none;
-  font-size: 1.4rem;
-  line-height: 1;
   color: inherit;
   cursor: pointer;
   border-radius: 6px;
@@ -2673,7 +2690,7 @@ mjx-container[display="true"],
 .notif-mark-all:hover:not(:disabled) { background: var(--primary); color: var(--secondary); }
 .notif-mark-all:disabled { opacity: 0.45; cursor: default; }
 
-/* Plain "×", same as .thread-dialog-close and the lexicon close button */
+/* SVG cross, same as .thread-dialog-close and .lexicon-popover-close */
 .notif-close {
 	display: inline-flex;
 	align-items: center;
@@ -2686,8 +2703,6 @@ mjx-container[display="true"],
 	background: transparent;
 	border: none;
 	border-radius: 6px;
-	font-size: 1.4rem;
-	line-height: 1;
 	color: inherit;
 	cursor: pointer;
 	transition: opacity 0.2s ease;
