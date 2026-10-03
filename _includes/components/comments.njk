@@ -27,21 +27,6 @@
         <!-- Pinned parent comment renders here -->
       </div>
 
-      <div class="thread-dialog-replies-wrap">
-        <h5 class="thread-replies-title">Replies</h5>
-
-        {# --- Reply Sorting Controls (independent of the main feed sort) --- #}
-        <div class="comment-sort-controls" id="thread-sort-replies" role="group" aria-label="Sort replies">
-          <button type="button" class="comment-sort-btn active" data-sort="latest">Latest</button>
-          <button type="button" class="comment-sort-btn" data-sort="oldest">Oldest</button>
-          <button type="button" class="comment-sort-btn" data-sort="rating">Top Rated</button>
-        </div>
-
-        <div id="thread-dialog-replies" class="thread-dialog-replies">
-          <!-- Nested replies render here -->
-        </div>
-      </div>
-
       {# --- Thread Reply Editor --- #}
       <div class="comment-editor-box thread-reply-editor-box">
         <div class="comment-editor-tabs">
@@ -76,6 +61,21 @@
           <div class="comment-editor-actions">
             <button type="button" id="thread-reply-submit-btn" class="comment-btn-submit" disabled>Post Reply</button>
           </div>
+        </div>
+      </div>
+
+      <div class="thread-dialog-replies-wrap">
+        <h5 class="thread-replies-title">Replies</h5>
+
+        {# --- Reply Sorting Controls (independent of the main feed sort) --- #}
+        <div class="comment-sort-controls" id="thread-sort-replies" role="group" aria-label="Sort replies">
+          <button type="button" class="comment-sort-btn active" data-sort="latest">Latest</button>
+          <button type="button" class="comment-sort-btn" data-sort="oldest">Oldest</button>
+          <button type="button" class="comment-sort-btn" data-sort="rating">Top Rated</button>
+        </div>
+
+        <div id="thread-dialog-replies" class="thread-dialog-replies">
+          <!-- Nested replies render here -->
         </div>
       </div>
     </div>
