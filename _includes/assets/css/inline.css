@@ -1883,6 +1883,10 @@ button.auth-pill:hover {
 	color: var(--star-on);
 	-webkit-text-stroke: 0;
 	filter: drop-shadow(0 0 3px rgb(255 193 7 / 70%));
+	/* The fill overlay sits above the invisible .rating-hit buttons. Without this it
+	   swallows every hover/click over the filled part of a star, so ratings could only
+	   be raised (moving right) and clicks never reached the buttons. */
+	pointer-events: none;
 }
 
 /* Invisible half-star hit areas */

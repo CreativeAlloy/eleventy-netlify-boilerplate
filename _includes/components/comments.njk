@@ -5,8 +5,8 @@
     <small class="comments-subtext">Stateless Federated Authentication. Markdown supported. Zero tracking cookies.</small>
   </div>
 
-  {# --- Comment Sorting Controls --- #}
-  <div class="comment-sort-controls" role="group" aria-label="Sort comments">
+  {# --- Comment Sorting Controls (top-level comments only) --- #}
+  <div class="comment-sort-controls" id="comment-sort-main" role="group" aria-label="Sort comments">
     <button type="button" class="comment-sort-btn active" data-sort="latest">Latest</button>
     <button type="button" class="comment-sort-btn" data-sort="oldest">Oldest</button>
     <button type="button" class="comment-sort-btn" data-sort="rating">Top Rated</button>
@@ -30,9 +30,8 @@
       <div class="thread-dialog-replies-wrap">
         <h5 class="thread-replies-title">Replies</h5>
 
-        {# --- Comment Sorting Controls inside Replies --- #}
-        {# NOTE! THIS IS A TEMPORARY UTILITY FIX; THESE CURRENTLY ALSO AFFECT PARENT COMMENTS OUTSIDE OF ANY THREADS! #}
-        <div class="comment-sort-controls" role="group" aria-label="Sort comments">
+        {# --- Reply Sorting Controls (independent of the main feed sort) --- #}
+        <div class="comment-sort-controls" id="thread-sort-replies" role="group" aria-label="Sort replies">
           <button type="button" class="comment-sort-btn active" data-sort="latest">Latest</button>
           <button type="button" class="comment-sort-btn" data-sort="oldest">Oldest</button>
           <button type="button" class="comment-sort-btn" data-sort="rating">Top Rated</button>
@@ -135,7 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const countSpan = document.getElementById('comments-count');
 
   // Thread dialog & sort elements
-  const sortButtons = document.querySelectorAll('.comment-sort-btn');
+  const mainSortButtons = document.querySelectorAll('#comment-sort-main .comment-sort-btn');
+  const replySortButtons = document.querySelectorAll('#thread-sort-replies .comment-sort-btn');
   const threadDialog = document.getElementById('thread-dialog');
   const threadDialogClose = document.getElementById('thread-dialog-close');
   const threadDialogParent = document.getElementById('thread-dialog-parent');
@@ -147,7 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const threadReplySubmitBtn = document.getElementById('thread-reply-submit-btn');
   const threadReplyAuthStatus = document.getElementById('thread-reply-auth-status');
 
-  let currentSort = 'latest';
+  let currentSort = 'latest';   // top-level comments (sorted server-side)
+  let replySort = 'latest';     // replies inside the thread dialog (sorted client-side)
   let activeThreadId = null;
   let cachedComments = [];
 
@@ -402,12 +403,40 @@ document.addEventListener('DOMContentLoaded', () => {
     return card;
   }
 
+  // --- Sorting helpers ---
+  const setActiveSort = (buttons, value) =>
+    buttons.forEach(b => b.classList.toggle('active', (b.dataset.sort || 'latest') === value));
+
+  // Mirrors get-comments.js: unrated comments rank last for "rating", ties fall back to newest first.
+  function sortReplies(list, mode) {
+    const time = (c) => new Date(c.created_at).getTime();
+    const score = (c) => (Number(c.rating_count) > 0 ? Number(c.rating_avg) : -1);
+    return [...list].sort((a, b) => {
+      if (mode === 'oldest') return time(a) - time(b);
+      if (mode === 'rating') {
+        const d = score(b) - score(a);
+        if (d !== 0) return d;
+      }
+      return time(b) - time(a);
+    });
+  }
+
+  function resetSorts() {
+    currentSort = 'latest';
+    replySort = 'latest';
+    setActiveSort(mainSortButtons, 'latest');
+    setActiveSort(replySortButtons, 'latest');
+  }
+
   function renderThread(parent) {
     if (!threadDialogParent || !threadDialogReplies) return;
     threadDialogParent.innerHTML = '';
     threadDialogParent.appendChild(buildCommentCard(parent, false));
 
-    const replies = cachedComments.filter(c => Number(c.parent_id) === Number(parent.id));
+    const replies = sortReplies(
+      cachedComments.filter(c => Number(c.parent_id) === Number(parent.id)),
+      replySort
+    );
     threadDialogReplies.innerHTML = '';
 
     if (replies.length === 0) {
@@ -448,11 +477,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error('Rating failed');
       const data = await res.json();
 
-      box.dataset.avg = data.rating_avg;
-      paintRating(box, data.rating_avg);
-      const wrap = box.closest('.comment-rating');
-      wrap.querySelector('.rating-summary').innerHTML = ratingSummaryHtml(data.rating_avg, data.rating_count);
-      wrap.title = ratingTitle(data.rating_avg, data.rating_count, data.my_rating);
+      // The same comment can be on screen twice (feed card + pinned parent in the thread dialog)
+      document.querySelectorAll(`.rating[data-id="${CSS.escape(String(box.dataset.id))}"]`).forEach(b => {
+        b.dataset.avg = data.rating_avg;
+        paintRating(b, data.rating_avg);
+        const wrap = b.closest('.comment-rating');
+        wrap.querySelector('.rating-summary').innerHTML = ratingSummaryHtml(data.rating_avg, data.rating_count);
+        wrap.title = ratingTitle(data.rating_avg, data.rating_count, data.my_rating);
+      });
 
       const cached = cachedComments.find(x => String(x.id) === String(box.dataset.id));
       if (cached) {
@@ -468,13 +500,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Sort buttons listener
-  sortButtons.forEach(btn => {
+  // Main feed sort: re-fetches top-level comments; never touches the reply sort
+  mainSortButtons.forEach(btn => {
     btn.addEventListener('click', async () => {
       currentSort = btn.dataset.sort || 'latest';
-      sortButtons.forEach(b => b.classList.toggle('active', b === btn));
+      setActiveSort(mainSortButtons, currentSort);
       await loadComments();
     });
+  });
+
+  // Reply sort: re-sorts the open thread only; never touches the main feed
+  replySortButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      replySort = btn.dataset.sort || 'latest';
+      setActiveSort(replySortButtons, replySort);
+      const parent = cachedComments.find(c => Number(c.id) === Number(activeThreadId));
+      if (parent) renderThread(parent);
+    });
+  });
+
+  // Leaving the page resets both sorts. A fresh load already starts at Latest; this also
+  // covers the browser back/forward cache, which would otherwise restore the old state.
+  window.addEventListener('pagehide', resetSorts);
+  window.addEventListener('pageshow', (e) => {
+    if (!e.persisted) return;
+    resetSorts();
+    if (threadDialog?.open) threadDialog.close();
+    loadComments();
   });
 
   // Thread dialog close listeners
@@ -484,6 +536,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   threadDialog?.addEventListener('close', () => {
     activeThreadId = null;
+    replySort = 'latest';
+    setActiveSort(replySortButtons, 'latest');
     document.querySelectorAll('.comment-reply-toggle').forEach(t => t.setAttribute('aria-expanded', 'false'));
   });
 
@@ -524,6 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!parent) return;
 
           activeThreadId = parentId;
+          replySort = 'latest';
+          setActiveSort(replySortButtons, 'latest');
           document.querySelectorAll('.comment-reply-toggle').forEach(t => {
             t.setAttribute('aria-expanded', String(Number(t.dataset.id) === parentId));
           });
