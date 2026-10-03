@@ -478,9 +478,12 @@ main > section {
 }
 
 article {
-	margin-bottom: 1.5em;
 	padding-bottom: 1.5em;
 	border-bottom: 1px solid var(--border-color);
+}
+
+article:not(.comment-card) {
+	margin-bottom: 1.5em;
 }
 
 main > section > article > * {
@@ -1650,7 +1653,7 @@ button.auth-pill:hover {
 	border-left: 5px solid var(--primary);
 	border-radius: 8px;
 	padding: 1.25rem;
-	margin: auto;
+	/* margin: auto; */
 	box-shadow: var(--card-shadow);
 }
 
