@@ -2216,6 +2216,59 @@ a.mention-tag:hover {
 	background-color: color-mix(in srgb, var(--primary) 25%, transparent);
 }
 
+/* --- Mention Autocomplete Menu --- */
+.mention-autocomplete-menu {
+	position: absolute;
+	z-index: 100000;
+	background-color: var(--secondary);
+	border: 1px solid var(--primary);
+	border-radius: 8px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+	max-height: 220px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+}
+.mention-autocomplete-item {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.6rem 0.8rem;
+	cursor: pointer;
+	transition: background-color 0.1s ease;
+	color: inherit;
+	border-bottom: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+}
+.mention-autocomplete-item:last-child {
+	border-bottom: none;
+}
+.mention-autocomplete-item:hover,
+.mention-autocomplete-item.active {
+	background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+}
+.mention-autocomplete-avatar {
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	border: 1px solid var(--primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.7rem;
+	font-weight: bold;
+	flex-shrink: 0;
+	object-fit: cover;
+}
+.mention-autocomplete-name {
+	font-size: 0.9rem;
+	font-weight: bold;
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--primary);
+}
+
 /* =========================================================
    Comment Thread Replies & Sorting Controls
    ========================================================= */

@@ -1180,5 +1180,182 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!activeThreadId) return;
     submitComment(threadReplyInput.value, activeThreadId, threadReplySubmitBtn, threadReplyInput, threadReplyTabWrite);
   });
+
+  // =========================================================================
+  // LIVE AUTOCOMPLETE MENTION POPOVER
+  // =========================================================================
+  let mentionPopup = document.createElement('div');
+  mentionPopup.className = 'mention-autocomplete-menu';
+  mentionPopup.style.display = 'none';
+  mentionPopup.setAttribute('role', 'listbox');
+  document.body.appendChild(mentionPopup);
+
+  let activeMentionTarget = null;
+  let mentionOptions = [];
+  let mentionSelectedIndex = 0;
+  let mentionDebounceTimer = null;
+
+  function closeMentionMenu() {
+    mentionPopup.style.display = 'none';
+    activeMentionTarget = null;
+    mentionOptions = [];
+    mentionSelectedIndex = 0;
+  }
+
+  function renderMentionMenu() {
+    if (mentionOptions.length === 0) {
+      closeMentionMenu();
+      return;
+    }
+
+    const targetContainer = activeMentionTarget ? (activeMentionTarget.closest('dialog') || document.body) : document.body;
+    if (mentionPopup.parentElement !== targetContainer) {
+      targetContainer.appendChild(mentionPopup);
+    }
+
+    mentionPopup.innerHTML = '';
+    mentionOptions.forEach((author, idx) => {
+      const item = document.createElement('div');
+      item.className = 'mention-autocomplete-item' + (idx === mentionSelectedIndex ? ' active' : '');
+      item.onclick = (e) => {
+        e.preventDefault();
+        insertMention(author.author_name);
+      };
+      item.onmouseenter = () => {
+        mentionSelectedIndex = idx;
+        renderMentionMenu();
+      };
+
+      let avatarHtml = avatarFor(author.provider, author.provider_user_id || '', author.author_name, author.avatar_url);
+      avatarHtml = avatarHtml.replace('comment-avatar-slot', 'mention-autocomplete-avatar');
+      const providerClass = 'provider-' + esc(author.provider);
+      
+      item.innerHTML = `
+        ${avatarHtml}
+        <span class="mention-autocomplete-name">${esc(author.author_name)}</span>
+        <span class="provider-tag ${providerClass}">${esc(author.provider)}</span>
+      `;
+      mentionPopup.appendChild(item);
+    });
+    
+    mentionPopup.style.display = 'flex';
+
+    if (activeMentionTarget) {
+      const rect = activeMentionTarget.getBoundingClientRect();
+      const inDialog = targetContainer !== document.body;
+
+      if (inDialog) {
+        // Modal dialog: calculate position relative to the dialog bounds
+        const dialogRect = targetContainer.getBoundingClientRect();
+        let topPos = (rect.top - dialogRect.top) - mentionPopup.offsetHeight - 8;
+        if (topPos < 10) {
+          topPos = (rect.bottom - dialogRect.top) + 8;
+        }
+        mentionPopup.style.left = (rect.left - dialogRect.left) + 'px';
+        mentionPopup.style.top = topPos + 'px';
+      } else {
+        // Main document: calculate position relative to whole document page
+        let topPos = rect.top + window.scrollY - mentionPopup.offsetHeight - 8;
+        if (rect.top - mentionPopup.offsetHeight - 8 < 10) {
+          topPos = rect.bottom + window.scrollY + 8;
+        }
+        mentionPopup.style.left = (rect.left + window.scrollX) + 'px';
+        mentionPopup.style.top = topPos + 'px';
+      }
+
+      mentionPopup.style.width = rect.width + 'px';
+    }
+  }
+
+  async function fetchAuthors(query) {
+    try {
+      const res = await fetch(`/.netlify/functions/search-authors?q=${encodeURIComponent(query)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      mentionOptions = data.authors || [];
+      mentionSelectedIndex = 0;
+      renderMentionMenu();
+    } catch (err) {
+      console.error('Error fetching authors:', err);
+    }
+  }
+
+  function insertMention(name) {
+    if (!activeMentionTarget) return;
+    const targetArea = activeMentionTarget;
+    const text = targetArea.value;
+    const cursor = targetArea.selectionStart;
+
+    const textBefore = text.slice(0, cursor).replace(/\[@([^\]]*)$/, `[@${name}] `);
+    const textAfter = text.slice(cursor);
+
+    targetArea.value = textBefore + textAfter;
+    targetArea.selectionStart = targetArea.selectionEnd = textBefore.length;
+    targetArea.focus();
+    closeMentionMenu();
+
+    // Trigger an input event so the markdown preview reflects changes instantly
+    targetArea.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  function handleMentionInput(e) {
+    const targetArea = e.target;
+    const text = targetArea.value;
+    const cursor = targetArea.selectionStart;
+    const textBeforeCursor = text.slice(0, cursor);
+
+    // Look for [@ followed by characters right up to the cursor position
+    const match = textBeforeCursor.match(/\[@([^\]]*)$/);
+
+    if (match) {
+      activeMentionTarget = targetArea;
+      const query = match[1];
+      clearTimeout(mentionDebounceTimer);
+      mentionDebounceTimer = setTimeout(() => fetchAuthors(query), 200);
+    } else {
+      closeMentionMenu();
+    }
+  }
+
+  function handleMentionKeydown(e) {
+    if (mentionPopup.style.display === 'none') return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      mentionSelectedIndex = (mentionSelectedIndex + 1) % mentionOptions.length;
+      renderMentionMenu();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      mentionSelectedIndex = (mentionSelectedIndex - 1 + mentionOptions.length) % mentionOptions.length;
+      renderMentionMenu();
+    } else if (e.key === 'Enter' || e.key === 'Tab') {
+      e.preventDefault();
+      if (mentionOptions[mentionSelectedIndex]) {
+        insertMention(mentionOptions[mentionSelectedIndex].author_name);
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMentionMenu();
+    }
+  }
+
+  // Attach the interactive triggers to the main and reply textareas
+  [textarea, threadReplyInput].forEach(t => {
+    if (t) {
+      t.addEventListener('input', handleMentionInput);
+      t.addEventListener('keydown', handleMentionKeydown);
+      t.addEventListener('click', handleMentionInput); 
+    }
+  });
+
+  // Soft dismiss when clicking away from the input or the popup
+  document.addEventListener('click', (e) => {
+    if (activeMentionTarget && e.target !== activeMentionTarget && !mentionPopup.contains(e.target)) {
+      closeMentionMenu();
+    }
+  });
+
+  // Close when modal closes
+  threadDialog?.addEventListener('close', closeMentionMenu);
 });
 </script>

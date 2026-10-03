@@ -115,17 +115,39 @@ export default async (req) => {
     const newComment = result[0];
     const posterId = String(session.provider_user_id);
 
+    // Extract mentions from comment body using regex [@Name]
+    const mentionsMatch = Array.from(cleanBody.matchAll(/\[@([^\]]+)\]/g)).map(m => m[1]);
+    const mentions = [...new Set(mentionsMatch)];
+    // Fallback array to avoid PostgreSQL syntax errors if mentions array is empty
+    const safeMentions = mentions.length > 0 ? mentions : ['__NO_MATCH__'];
+
     // Subscriptions + notifications. The comment is already saved at this point, so a
     // failure here (e.g. migration not run yet) is logged but never fails the post.
     try {
       if (parentId === null) {
         // New thread: the author follows their own thread by default.
-        await sql`
-          INSERT INTO twa_thread_subscriptions (parent_id, provider, provider_user_id, is_active)
-          VALUES (${newComment.id}, ${session.provider}, ${posterId}, TRUE)
-          ON CONFLICT (parent_id, provider, provider_user_id)
-          DO UPDATE SET is_active = TRUE;
-        `;
+        const rootPromises = [
+          sql`
+            INSERT INTO twa_thread_subscriptions (parent_id, provider, provider_user_id, is_active)
+            VALUES (${newComment.id}, ${session.provider}, ${posterId}, TRUE)
+            ON CONFLICT (parent_id, provider, provider_user_id)
+            DO UPDATE SET is_active = TRUE;
+          `
+        ];
+
+        // Global check: notify tagged users even on a root comment
+        if (mentions.length > 0) {
+          rootPromises.push(
+            sql`
+              INSERT INTO twa_notifications (recipient_provider, recipient_user_id, post_slug, parent_id, reply_id)
+              SELECT DISTINCT provider, provider_user_id, ${slug}::varchar, ${newComment.id}::integer, ${newComment.id}::integer
+              FROM twa_comments
+              WHERE author_name ILIKE ANY(${safeMentions}::text[])
+                AND NOT (provider = ${session.provider} AND provider_user_id = ${posterId});
+            `
+          );
+        }
+        await Promise.all(rootPromises);
       } else {
         await Promise.all([
           // Replying subscribes (or re-activates) the replier on this thread.
@@ -135,14 +157,21 @@ export default async (req) => {
             ON CONFLICT (parent_id, provider, provider_user_id)
             DO UPDATE SET is_active = TRUE;
           `,
-          // One notification per ACTIVE subscriber, excluding the person who just replied.
+          // Deduplicated notifications: thread subscribers + directly tagged global users via UNION
           sql`
             INSERT INTO twa_notifications (recipient_provider, recipient_user_id, post_slug, parent_id, reply_id)
-            SELECT s.provider, s.provider_user_id, ${slug}::varchar, ${parentId}::integer, ${newComment.id}::integer
-            FROM twa_thread_subscriptions s
-            WHERE s.parent_id = ${parentId}::integer
-              AND s.is_active = TRUE
-              AND NOT (s.provider = ${session.provider} AND s.provider_user_id = ${posterId});
+            SELECT provider, provider_user_id, ${slug}::varchar, ${parentId}::integer, ${newComment.id}::integer
+            FROM (
+              SELECT provider, provider_user_id
+              FROM twa_thread_subscriptions
+              WHERE parent_id = ${parentId}::integer
+                AND is_active = TRUE
+              UNION
+              SELECT provider, provider_user_id
+              FROM twa_comments
+              WHERE author_name ILIKE ANY(${safeMentions}::text[])
+            ) AS combined_recipients
+            WHERE NOT (provider = ${session.provider} AND provider_user_id = ${posterId});
           `
         ]);
       }
