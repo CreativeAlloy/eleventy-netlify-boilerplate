@@ -500,69 +500,69 @@ main > section > article > * {
 
 /* SATIRE */
 .posts-list article[data-mode="SATIRE" i] { /* Satire Post Card */
-	border: 1px solid var(--mode-satire-primary);
-	border-left: 5px solid var(--mode-satire-primary);
-	background-color: var(--mode-satire-bg);
+    border: 1px solid var(--mode-satire-primary);
+    border-left: 5px solid var(--mode-satire-primary);
+    background-color: oklch(from var(--mode-satire-bg) calc(l + 0.05) c h);
 }
 
 .posts-list article[data-mode="SATIRE" i] a[href] { /* Satire Title & Author */
-	color: var(--mode-satire-primary);
+    color: var(--mode-satire-primary);
 }
 
 .posts-list article[data-mode="SATIRE" i] a[rel="tag"] { /* Satire Post Tags */
-	color: var(--mode-satire-primary);
-	border-color: var(--mode-satire-primary);
-	background-color: var(--mode-satire-secondary);
+    color: var(--mode-satire-primary);
+    border-color: var(--mode-satire-primary);
+    background-color: oklch(from var(--mode-satire-secondary) calc(l + 0.05) c h);
 }
 
 .posts-list article[data-mode="SATIRE" i] a[rel="tag"]:hover { /* Satire Post Tags Hover */
-	color: var(--mode-satire-secondary);
-	background-color: var(--mode-satire-primary);
+    color: var(--mode-satire-secondary);
+    background-color: var(--mode-satire-primary);
 }
 
 /* SERIOUS */
 .posts-list article[data-mode="SERIOUS" i] { /* Serious Post Card */
-	border: 1px solid var(--mode-serious-primary);
-	border-left: 5px solid var(--mode-serious-primary);
-	background-color: var(--mode-serious-bg);
+    border: 1px solid var(--mode-serious-primary);
+    border-left: 5px solid var(--mode-serious-primary);
+    background-color: oklch(from var(--mode-serious-bg) calc(l + 0.05) c h);
 }
 
 .posts-list article[data-mode="SERIOUS" i] a[href] { /* Serious Title & Author */
-	color: var(--mode-serious-primary);
+    color: var(--mode-serious-primary);
 }
 
 .posts-list article[data-mode="SERIOUS" i] a[rel="tag"] { /* Serious Post Tags */
-	color: var(--mode-serious-primary);
-	border-color: var(--mode-serious-primary);
-	background-color: var(--mode-serious-secondary);
+    color: var(--mode-serious-primary);
+    border-color: var(--mode-serious-primary);
+    background-color: oklch(from var(--mode-serious-secondary) calc(l + 0.05) c h);
 }
 
 .posts-list article[data-mode="SERIOUS" i] a[rel="tag"]:hover { /* Serious Post Tags Hover */
-	color: var(--mode-serious-secondary);
-	background-color: var(--mode-serious-primary);
+    color: var(--mode-serious-secondary);
+    background-color: var(--mode-serious-primary);
 }
 
 
 /* LECTURE */
 .posts-list article[data-mode="LECTURE" i] { /* Lecture Post Card */
-	border: 1px solid var(--mode-lecture-primary);
-	border-left: 5px solid var(--mode-lecture-primary);
-	background-color: var(--mode-lecture-bg);
+    border: 1px solid var(--mode-lecture-primary);
+    border-left: 5px solid var(--mode-lecture-primary);
+    background-color: oklch(from var(--mode-lecture-bg) calc(l + 0.05) c h);
 }
 
 .posts-list article[data-mode="LECTURE" i] a[href] { /* Lecture Title & Author */
-	color: var(--mode-lecture-primary);
+    color: var(--mode-lecture-primary);
 }
 
 .posts-list article[data-mode="LECTURE" i] a[rel="tag"] { /* Lecture Post Tags */
-	color: var(--mode-lecture-primary);
-	border-color: var(--mode-lecture-primary);
-	background-color: var(--mode-lecture-secondary);
+    color: var(--mode-lecture-primary);
+    border-color: var(--mode-lecture-primary);
+    background-color: oklch(from var(--mode-lecture-secondary) calc(l + 0.05) c h);
 }
 
 .posts-list article[data-mode="LECTURE" i] a[rel="tag"]:hover { /* Lecture Post Tags Hover */
-	color: var(--mode-lecture-secondary);
-	background-color: var(--mode-lecture-primary);
+    color: var(--mode-lecture-secondary);
+    background-color: var(--mode-lecture-primary);
 }
 
 /* =========================================================================
