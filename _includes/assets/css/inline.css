@@ -2233,6 +2233,8 @@ button.auth-pill:hover {
   margin-top: 0.75rem;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .comment-reply-toggle {
@@ -2245,6 +2247,7 @@ button.auth-pill:hover {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
+  margin: auto;
 }
 
 .comment-reply-toggle:hover {
@@ -2434,4 +2437,276 @@ mjx-container[display="true"],
 	pointer-events: none;
 	border-radius: 10px;
 	opacity: 0.5; /* subtle tint; set to 1 for full monochrome duotone */
+}
+
+/* =========================================================================
+   NOTIFICATIONS: thread bell, floating bell, right-side drawer, mini cards
+   ========================================================================= */
+
+/* --- Bell on each parent comment --- */
+.thread-bell-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: auto;
+	margin: 0;
+	padding: 0.3rem 0.5rem;
+	line-height: 1;
+	background: transparent;
+	color: inherit;
+	border: 1px solid var(--primary);
+	border-radius: 4px;
+	opacity: 0.55;
+	cursor: pointer;
+}
+
+.thread-bell-btn svg {
+	width: 1.05rem;
+	height: 1.05rem;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linejoin: round;
+}
+
+.thread-bell-btn:hover:not(:disabled) { opacity: 1; }
+.thread-bell-btn:disabled { cursor: progress; }
+.thread-bell-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* Subscribed: filled gold bell with a soft glow */
+.thread-bell-btn.active {
+	opacity: 1;
+	color: #ffb300;
+	background: color-mix(in srgb, #ffc107 16%, transparent);
+	border-color: #ffb300;
+}
+
+.thread-bell-btn.active svg {
+	fill: currentColor;
+	filter: drop-shadow(0 0 4px rgb(255 193 7 / 80%));
+}
+
+/* --- Floating bell (right edge; Ko-fi lives bottom-left) --- */
+.notif-bell {
+	position: fixed;
+	right: 1rem;
+	bottom: 1.25rem;
+	z-index: 9000;
+	display: grid;
+	place-items: center;
+	width: 3rem;
+	height: 3rem;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border-radius: 50%;
+	background-color: var(--primary);
+	color: var(--secondary);
+	border: 1px solid var(--primary);
+	box-shadow: 0 4px 14px rgb(0 0 0 / 30%);
+	cursor: pointer;
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.notif-bell:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgb(0 0 0 / 35%); }
+.notif-bell:focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; }
+.notif-bell svg { width: 1.4rem; height: 1.4rem; fill: currentColor; }
+.notif-bell[hidden], .notif-badge[hidden] { display: none; }
+
+.notif-badge {
+	position: absolute;
+	top: -0.2rem;
+	right: -0.2rem;
+	min-width: 1.25rem;
+	height: 1.25rem;
+	padding: 0 0.3rem;
+	box-sizing: border-box;
+	display: grid;
+	place-items: center;
+	border-radius: 999px;
+	background: #e5484d;
+	color: #fff;
+	font-size: 0.7rem;
+	font-weight: bold;
+	line-height: 1;
+	border: 2px solid var(--background);
+}
+
+/* --- Backdrop + drawer --- */
+.notif-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 100001;
+	background: rgb(0 0 0 / 45%);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.25s ease;
+}
+
+.notif-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.notif-drawer {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100002;
+	display: flex;
+	flex-direction: column;
+	width: min(420px, 100vw);
+	box-sizing: border-box;
+	background: var(--background);
+	color: inherit;
+	border-left: 1px solid var(--primary);
+	box-shadow: -8px 0 30px rgb(0 0 0 / 35%);
+	transform: translateX(100%);
+	visibility: hidden;
+	transition: transform 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.notif-drawer.open {
+	transform: none;
+	visibility: visible;
+	transition: transform 0.25s ease, visibility 0s;
+}
+
+.notif-drawer-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	padding: 1rem 1.1rem;
+	border-bottom: 1px solid var(--primary);
+}
+
+.notif-drawer-header h4 { margin: 0; }
+
+.notif-drawer-actions { display: flex; align-items: center; gap: 0.5rem; }
+
+.notif-mark-all {
+	width: auto;
+	margin: 0;
+	padding: 0.35rem 0.7rem;
+	font-size: 0.8rem;
+	border-radius: 4px;
+	background: transparent;
+	color: inherit;
+	border: 1px solid var(--primary);
+	white-space: nowrap;
+}
+
+.notif-mark-all:hover:not(:disabled) { background: var(--primary); color: var(--secondary); }
+.notif-mark-all:disabled { opacity: 0.45; cursor: default; }
+
+/* Plain "×", same as .thread-dialog-close and the lexicon close button */
+.notif-close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 2rem;
+	width: 2rem;
+	height: 2rem;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: none;
+	border-radius: 6px;
+	font-size: 1.4rem;
+	line-height: 1;
+	color: inherit;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+}
+
+.notif-close:hover { opacity: 0.6; }
+.notif-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+.notif-list {
+	flex: 1;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	padding: 1rem 1.1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.notif-empty { margin: 2rem 0; text-align: center; opacity: 0.7; }
+
+/* --- Mini comment cards --- */
+.notif-card {
+	position: relative;
+	padding: 0.7rem 0.8rem;
+	border: 1px solid var(--primary);
+	border-left-width: 5px;
+	border-radius: 8px;
+	background: color-mix(in srgb, var(--primary) 6%, var(--background));
+	cursor: pointer;
+	opacity: 0.8;
+	transition: opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+.notif-card:hover { opacity: 1; }
+
+.notif-card.unread {
+	opacity: 1;
+	box-shadow: 0 0 0 1px var(--primary), 0 0 14px color-mix(in srgb, var(--primary) 55%, transparent);
+}
+
+.notif-card-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+
+.notif-card-meta {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.3rem 0.45rem;
+	min-width: 0;
+	flex: 1;
+}
+
+.notif-card-meta .comment-author { overflow-wrap: anywhere; }
+
+.notif-dot {
+	flex-shrink: 0;
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius: 50%;
+	background: var(--primary);
+	box-shadow: 0 0 8px var(--primary);
+}
+
+.notif-card-open {
+	display: block;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	color: inherit;
+	border: 0;
+	border-radius: 4px;
+	font-weight: normal;
+	font-size: 0.9rem;
+	text-align: left;
+	cursor: pointer;
+}
+
+.notif-card-open:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* Long replies never break the layout: clamp to two lines with an ellipsis */
+.notif-snippet {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	overflow-wrap: anywhere;
+	line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.notif-drawer, .notif-drawer.open, .notif-backdrop, .notif-bell, .notif-card { transition: none; }
 }

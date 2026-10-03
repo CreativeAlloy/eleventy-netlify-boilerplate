@@ -27,7 +27,8 @@ export default async (req) => {
              c.created_at, c.is_deleted, c.mod_badge, c.author_url, c.avatar_url, c.parent_id,
              r.rating_avg, COALESCE(r.rating_count, 0) AS rating_count,
              COALESCE(rep.reply_count, 0) AS reply_count,
-             m.rating AS my_rating
+             m.rating AS my_rating,
+             (sub.id IS NOT NULL) AS is_subscribed
       FROM twa_comments c
       LEFT JOIN (
         SELECT comment_id, AVG(rating) AS rating_avg, COUNT(*) AS rating_count
@@ -45,6 +46,11 @@ export default async (req) => {
         ON m.comment_id = c.id
        AND m.provider = ${viewerProvider}
        AND m.provider_user_id = ${viewerId}
+      LEFT JOIN twa_thread_subscriptions sub
+        ON sub.parent_id = c.id
+       AND sub.provider = ${viewerProvider}
+       AND sub.provider_user_id = ${viewerId}
+       AND sub.is_active = TRUE
       WHERE c.post_slug = ${slug}
       ORDER BY
         CASE WHEN ${sort} = 'oldest' THEN c.created_at END ASC,
@@ -79,7 +85,8 @@ export default async (req) => {
         // NUMERIC/COUNT come back as strings; normalise to one decimal (3.8, 4.2)
         rating_avg: c.rating_avg === null ? 0 : round1(c.rating_avg),
         rating_count: Number(c.rating_count),
-        my_rating: c.my_rating === null ? null : Number(c.my_rating)
+        my_rating: c.my_rating === null ? null : Number(c.my_rating),
+        is_subscribed: c.is_subscribed === true
       };
     });
 

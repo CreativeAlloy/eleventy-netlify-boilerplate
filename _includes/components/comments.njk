@@ -118,6 +118,27 @@
   </div>
 </section>
 
+{# --- Notifications: floating bell + right-side drawer (the script moves these to <body>) --- #}
+<button type="button" id="notif-bell" class="notif-bell" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false" aria-controls="notifications-drawer" hidden>
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a6 6 0 0 0-6 6v3.6c0 .5-.2 1-.5 1.4L4 14.8c-.7.9-.1 2.2 1 2.2h14c1.1 0 1.7-1.3 1-2.2l-1.5-1.8c-.3-.4-.5-.9-.5-1.4V8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg>
+  <span class="notif-badge" id="notif-badge" hidden>0</span>
+</button>
+
+<div id="notif-backdrop" class="notif-backdrop"></div>
+
+<aside id="notifications-drawer" class="notif-drawer" role="dialog" aria-modal="true" aria-labelledby="notif-title" inert>
+  <header class="notif-drawer-header">
+    <h4 id="notif-title">Notifications</h4>
+    <div class="notif-drawer-actions">
+      <button type="button" id="notif-mark-all" class="notif-mark-all" disabled>Mark all as read</button>
+      <button type="button" id="notif-close" class="notif-close" aria-label="Close notifications">&times;</button>
+    </div>
+  </header>
+  <div id="notif-list" class="notif-list" aria-live="polite">
+    <!-- Mini comment cards render here -->
+  </div>
+</aside>
+
 {# --- Phase 1: Client-Side Engine (Marked.js + DOMPurify + Interactive Logic) --- #}
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
@@ -317,6 +338,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Thread bell (subscribe / mute) ---
+  // One outline path: stroke-only when muted, filled + glowing when subscribed (see CSS).
+  const BELL_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a6 6 0 0 0-6 6v3.6c0 .5-.2 1-.5 1.4L4 14.8c-.7.9-.1 2.2 1 2.2h14c1.1 0 1.7-1.3 1-2.2l-1.5-1.8c-.3-.4-.5-.9-.5-1.4V8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg>';
+
+  const bellLabel = (on) => on
+    ? 'Subscribed to thread replies (Click to mute)'
+    : 'Subscribe to thread replies';
+
+  function bellButtonHtml(c) {
+    const on = c.is_subscribed === true;
+    return `<button type="button" class="thread-bell-btn${on ? ' active' : ''}" data-id="${esc(c.id)}" aria-pressed="${on}" title="${bellLabel(on)}" aria-label="${bellLabel(on)}">${BELL_SVG}</button>`;
+  }
+
+  function setBellState(btn, on) {
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-pressed', String(on));
+    btn.title = bellLabel(on);
+    btn.setAttribute('aria-label', bellLabel(on));
+  }
+
   function buildCommentCard(c, isParentFeed = false) {
     const card = document.createElement('article');
     card.className = c.is_deleted ? 'comment-card comment-tombstone' : 'comment-card';
@@ -374,6 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const count = Number(c.reply_count || 0);
       replyToggleHtml = `
         <div class="comment-thread-actions">
+          ${bellButtonHtml(c)}
           <button type="button" class="comment-reply-toggle" data-id="${c.id}" aria-expanded="false" aria-controls="thread-dialog">
             ${count} Replies ⬇
           </button>
@@ -572,25 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Attach click listeners to all reply toggle buttons
       document.querySelectorAll('.comment-reply-toggle').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const parentId = Number(btn.getAttribute('data-id'));
-          const parent = cachedComments.find(c => Number(c.id) === parentId);
-          if (!parent) return;
-
-          activeThreadId = parentId;
-          replySort = 'latest';
-          setActiveSort(replySortButtons, 'latest');
-          document.querySelectorAll('.comment-reply-toggle').forEach(t => {
-            t.setAttribute('aria-expanded', String(Number(t.dataset.id) === parentId));
-          });
-
-          renderThread(parent);
-          if (threadReplyInput) {
-            threadReplyInput.value = '';
-            threadReplyTabWrite?.click();
-          }
-          threadDialog?.showModal();
-        });
+        btn.addEventListener('click', () => openThread(Number(btn.getAttribute('data-id'))));
       });
 
       // Attach click listeners to all active [Delete] buttons
@@ -672,6 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
+      consumePendingThread();
     } catch (err) {
       console.error("Failed to load comments:", err);
     }
@@ -774,6 +799,8 @@ document.addEventListener('DOMContentLoaded', () => {
         threadReplyAuthStatus.querySelector('.btn-trigger-signin')?.addEventListener('click', () => loginDialog?.showModal());
       }
     }
+
+    syncNotifUI();
   }
 
   // Listen for the secure payload from the popup window
@@ -786,6 +813,288 @@ document.addEventListener('DOMContentLoaded', () => {
       loadComments();
     }
   });
+
+  // =========================================================================
+  // THREAD OPENING, BELL SUBSCRIPTIONS & NOTIFICATIONS DRAWER
+  // (must stay ABOVE the "Initialize UI on load" calls: it declares consts that
+  //  renderAuthUI() -> syncNotifUI() touches on first run)
+  // =========================================================================
+  const POST_URL = (slug) => `/posts/${encodeURIComponent(slug)}/`; // adjust if posts use custom permalinks
+
+  const notifBell = document.getElementById('notif-bell');
+  const notifBadge = document.getElementById('notif-badge');
+  const notifBackdrop = document.getElementById('notif-backdrop');
+  const notifDrawer = document.getElementById('notifications-drawer');
+  const notifList = document.getElementById('notif-list');
+  const notifMarkAll = document.getElementById('notif-mark-all');
+  const notifClose = document.getElementById('notif-close');
+  const notifReady = !!(notifBell && notifBackdrop && notifDrawer && notifList && notifMarkAll && notifClose);
+
+  // Re-parent to <body> so no ancestor transform/filter can break position: fixed
+  if (notifReady) [notifBell, notifBackdrop, notifDrawer].forEach(el => document.body.appendChild(el));
+
+  let notifications = [];
+  let notifUnread = 0;
+
+  // ?thread=ID in the URL = "open this thread once comments have loaded"
+  let pendingThreadId = (() => {
+    const n = Number(new URLSearchParams(window.location.search).get('thread'));
+    return Number.isInteger(n) && n > 0 ? n : null;
+  })();
+
+  // Shared by the "N Replies" buttons, notification clicks and ?thread= deep-links
+  function openThread(parentId) {
+    const parent = cachedComments.find(c => Number(c.id) === Number(parentId));
+    if (!parent) return false;
+
+    activeThreadId = Number(parentId);
+    replySort = 'latest';
+    setActiveSort(replySortButtons, 'latest');
+    document.querySelectorAll('.comment-reply-toggle').forEach(t => {
+      t.setAttribute('aria-expanded', String(Number(t.dataset.id) === activeThreadId));
+    });
+
+    renderThread(parent);
+    if (threadReplyInput) {
+      threadReplyInput.value = '';
+      threadReplyTabWrite?.click();
+    }
+    if (threadDialog && !threadDialog.open) threadDialog.showModal();
+    return true;
+  }
+
+  function consumePendingThread() {
+    if (pendingThreadId === null) return;
+    const id = pendingThreadId;
+    pendingThreadId = null;
+    openThread(id);
+
+    // Drop ?thread= so a refresh doesn't re-open the dialog
+    const url = new URL(window.location.href);
+    url.searchParams.delete('thread');
+    history.replaceState(null, '', url.pathname + url.search + url.hash);
+  }
+
+  // --- Bell on parent comments (delegated: survives every loadComments() re-render) ---
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.thread-bell-btn');
+    if (!btn) return;
+    if (!currentUser) { loginDialog?.showModal(); return; }
+    if (btn.disabled) return;
+
+    btn.disabled = true;
+    try {
+      const res = await fetch('/.netlify/functions/toggle-subscription', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({ parent_id: Number(btn.dataset.id) })
+      });
+      if (res.status === 401) return handleExpired();
+      if (!res.ok) throw new Error('Subscription toggle failed');
+      const data = await res.json();
+
+      setBellState(btn, data.is_subscribed === true);
+      const cached = cachedComments.find(x => Number(x.id) === Number(btn.dataset.id));
+      if (cached) cached.is_subscribed = data.is_subscribed === true;
+    } catch (err) {
+      alert('Error updating thread subscription.');
+      console.error(err);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // --- Notifications drawer ---
+  const relTime = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+  function timeAgo(iso) {
+    const secs = Math.round((new Date(iso).getTime() - Date.now()) / 1000);
+    const units = [['year', 31536000], ['month', 2592000], ['week', 604800], ['day', 86400], ['hour', 3600], ['minute', 60]];
+    for (const [unit, size] of units) {
+      if (Math.abs(secs) >= size) return relTime.format(Math.round(secs / size), unit);
+    }
+    return 'just now';
+  }
+
+  // Markdown -> sanitized HTML -> plain text (parsed inertly, so no images/scripts load)
+  function notifSnippet(md) {
+    const html = safeMd(md || '');
+    const text = new DOMParser().parseFromString(html, 'text/html').body.textContent || '';
+    return text.replace(/\s+/g, ' ').trim();
+  }
+
+  function updateBadge() {
+    if (!notifBadge || !notifBell) return;
+    notifBadge.textContent = notifUnread > 99 ? '99+' : String(notifUnread);
+    notifBadge.hidden = notifUnread <= 0;
+    notifBell.setAttribute('aria-label', notifUnread > 0 ? `Notifications (${notifUnread} unread)` : 'Notifications');
+  }
+
+  function buildNotifCard(n) {
+    const card = document.createElement('article');
+    card.className = 'notif-card' + (n.is_read ? '' : ' unread');
+    card.setAttribute('data-id', n.id);
+
+    const authorHtml = n.author_url
+      ? `<a href="${esc(n.author_url)}" target="_blank" rel="noopener noreferrer" class="comment-author-link"><strong class="comment-author">${esc(n.author_name)}</strong></a>`
+      : `<strong class="comment-author">${esc(n.author_name)}</strong>`;
+
+    card.innerHTML = `
+      <header class="notif-card-header">
+        ${avatarFor(n.provider, n.provider_user_id, n.author_name, n.avatar_url)}
+        <div class="notif-card-meta">
+          ${authorHtml}
+          <span class="provider-tag provider-${esc(n.provider)}">${esc(n.provider)}</span>
+          <time datetime="${esc(n.created_at)}"><small>${esc(timeAgo(n.created_at))}</small></time>
+        </div>
+        ${n.is_read ? '' : '<span class="notif-dot" role="img" aria-label="Unread"></span>'}
+      </header>
+      <button type="button" class="notif-card-open" title="Open thread">
+        <span class="notif-snippet">${esc(notifSnippet(n.comment_body))}</span>
+      </button>
+    `;
+    return card;
+  }
+
+  function renderNotifications() {
+    if (!notifReady) return;
+    notifList.innerHTML = '';
+    if (notifications.length === 0) {
+      notifList.innerHTML = '<p class="notif-empty"><em>No notifications yet.</em></p>';
+    } else {
+      notifications.forEach(n => notifList.appendChild(buildNotifCard(n)));
+    }
+    notifMarkAll.disabled = notifUnread === 0;
+    updateBadge();
+  }
+
+  async function fetchNotifications() {
+    if (!notifReady || !currentUser) return;
+    try {
+      const res = await fetch('/.netlify/functions/get-notifications', { headers: authHeaders() });
+      if (res.status === 401) {
+        // Expired session: sign out quietly (no alert on page load)
+        localStorage.removeItem('twa_user');
+        currentUser = null;
+        renderAuthUI();
+        loadComments();
+        return;
+      }
+      if (!res.ok) return;
+      const data = await res.json();
+      notifications = data.notifications || [];
+      notifUnread = Number(data.unread_count) || 0;
+      renderNotifications();
+    } catch (err) {
+      console.error('Failed to load notifications:', err);
+    }
+  }
+
+  // Keep-alive so a mark-read still completes when we navigate away right after
+  async function markNotificationsRead(payload) {
+    try {
+      const res = await fetch('/.netlify/functions/mark-notifications-read', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify(payload),
+        keepalive: true
+      });
+      if (res.status === 401) { handleExpired(); return false; }
+      return res.ok;
+    } catch (err) {
+      console.error('Failed to mark notifications read:', err);
+      return false;
+    }
+  }
+
+  function openNotifDrawer() {
+    if (!notifReady) return;
+    notifDrawer.removeAttribute('inert');
+    notifDrawer.classList.add('open');
+    notifBackdrop.classList.add('open');
+    notifBell.setAttribute('aria-expanded', 'true');
+    requestAnimationFrame(() => notifClose.focus());
+    fetchNotifications();
+  }
+
+  function closeNotifDrawer() {
+    if (!notifReady) return;
+    const wasOpen = notifDrawer.classList.contains('open');
+    notifDrawer.classList.remove('open');
+    notifBackdrop.classList.remove('open');
+    notifDrawer.setAttribute('inert', '');
+    notifBell.setAttribute('aria-expanded', 'false');
+    if (wasOpen) notifBell.focus();
+  }
+
+  // Show/hide the bell and load the count; called from renderAuthUI()
+  function syncNotifUI() {
+    if (!notifReady) return;
+    if (currentUser) {
+      notifBell.hidden = false;
+      fetchNotifications();
+    } else {
+      closeNotifDrawer();
+      notifBell.hidden = true;
+      notifications = [];
+      notifUnread = 0;
+      renderNotifications();
+    }
+  }
+
+  function openNotification(n) {
+    if (!n.is_read) {
+      n.is_read = true;
+      notifUnread = Math.max(0, notifUnread - 1);
+      markNotificationsRead({ notification_id: n.id });
+    }
+
+    if (n.post_slug === postSlug) {
+      // Same post: refresh first so a brand-new reply is in the thread, then open it
+      closeNotifDrawer();
+      renderNotifications();
+      loadComments().then(() => openThread(n.parent_id));
+    } else {
+      window.location.href = `${POST_URL(n.post_slug)}?thread=${encodeURIComponent(n.parent_id)}`;
+    }
+  }
+
+  if (notifReady) {
+    notifBell.addEventListener('click', () => {
+      if (notifDrawer.classList.contains('open')) closeNotifDrawer(); else openNotifDrawer();
+    });
+    notifClose.addEventListener('click', closeNotifDrawer);
+    notifBackdrop.addEventListener('click', closeNotifDrawer);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && notifDrawer.classList.contains('open')) closeNotifDrawer();
+    });
+
+    notifMarkAll.addEventListener('click', async () => {
+      if (notifUnread === 0) return;
+      notifMarkAll.disabled = true;
+      const ok = await markNotificationsRead({ all: true });
+      if (ok) {
+        notifications.forEach(n => { n.is_read = true; });
+        notifUnread = 0;
+        renderNotifications();
+      } else {
+        notifMarkAll.disabled = false;
+      }
+    });
+
+    // Whole card is clickable (profile links keep working); the inner button covers the keyboard
+    notifList.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      const card = e.target.closest('.notif-card');
+      if (!card) return;
+      const n = notifications.find(x => Number(x.id) === Number(card.dataset.id));
+      if (n) openNotification(n);
+    });
+
+    // Pick up replies that arrived while the tab was in the background
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && currentUser) fetchNotifications();
+    });
+  }
 
   // Initialize UI on load
   renderAuthUI();

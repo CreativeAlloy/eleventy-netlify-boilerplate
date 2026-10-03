@@ -112,7 +112,45 @@ export default async (req) => {
       RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, created_at, is_deleted, mod_badge, author_url, avatar_url, parent_id;
     `;
 
-    return Response.json({ comment: result[0] });
+    const newComment = result[0];
+    const posterId = String(session.provider_user_id);
+
+    // Subscriptions + notifications. The comment is already saved at this point, so a
+    // failure here (e.g. migration not run yet) is logged but never fails the post.
+    try {
+      if (parentId === null) {
+        // New thread: the author follows their own thread by default.
+        await sql`
+          INSERT INTO twa_thread_subscriptions (parent_id, provider, provider_user_id, is_active)
+          VALUES (${newComment.id}, ${session.provider}, ${posterId}, TRUE)
+          ON CONFLICT (parent_id, provider, provider_user_id)
+          DO UPDATE SET is_active = TRUE;
+        `;
+      } else {
+        await Promise.all([
+          // Replying subscribes (or re-activates) the replier on this thread.
+          sql`
+            INSERT INTO twa_thread_subscriptions (parent_id, provider, provider_user_id, is_active)
+            VALUES (${parentId}, ${session.provider}, ${posterId}, TRUE)
+            ON CONFLICT (parent_id, provider, provider_user_id)
+            DO UPDATE SET is_active = TRUE;
+          `,
+          // One notification per ACTIVE subscriber, excluding the person who just replied.
+          sql`
+            INSERT INTO twa_notifications (recipient_provider, recipient_user_id, post_slug, parent_id, reply_id)
+            SELECT s.provider, s.provider_user_id, ${slug}::varchar, ${parentId}::integer, ${newComment.id}::integer
+            FROM twa_thread_subscriptions s
+            WHERE s.parent_id = ${parentId}::integer
+              AND s.is_active = TRUE
+              AND NOT (s.provider = ${session.provider} AND s.provider_user_id = ${posterId});
+          `
+        ]);
+      }
+    } catch (err) {
+      console.error("Subscription/notification error:", err);
+    }
+
+    return Response.json({ comment: newComment });
   } catch (error) {
     console.error("Database insertion error:", error);
     return new Response("Internal Server Error", { status: 500 });
