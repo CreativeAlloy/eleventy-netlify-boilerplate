@@ -1680,6 +1680,8 @@ button.auth-pill:hover {
 	flex-shrink: 0;
 	opacity: 0.85;
 	margin: 0 !important;
+	border: 1px solid var(--primary);
+	object-fit: cover;
 }
 
 .comment-user-info {
@@ -2217,49 +2219,80 @@ a.mention-tag:hover {
 }
 
 /* --- Mention Autocomplete Menu --- */
+.mention-autocomplete-container {
+	position: relative;
+}
+
+.comment-editor-box:has(.mention-autocomplete-menu:not([hidden])) {
+	overflow: visible;
+}
+
 .mention-autocomplete-menu {
 	position: absolute;
+	inset-inline: 0;
+	bottom: calc(100% + 0.5rem);
 	z-index: 100000;
-	background-color: var(--secondary);
-	border: 1px solid var(--primary);
-	border-radius: 8px;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-	max-height: 220px;
-	overflow-y: auto;
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
+	max-height: min(220px, 40vh);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	margin: 0.25rem;
+	width: 70%;
+	background-color: var(--secondary);
+	color: inherit;
+	border: 1px solid var(--primary);
+	border-left: 5px solid var(--primary);
+	border-radius: 8px;
+	box-shadow: var(--card-shadow);
+	font-family: inherit;
 }
+
+.mention-autocomplete-menu[hidden] {
+	display: none;
+}
+
 .mention-autocomplete-item {
 	display: flex;
 	align-items: center;
 	gap: 0.6rem;
+	width: 100%;
+	box-sizing: border-box;
 	padding: 0.6rem 0.8rem;
 	cursor: pointer;
 	transition: background-color 0.1s ease;
 	color: inherit;
 	border-bottom: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
 }
+
 .mention-autocomplete-item:last-child {
 	border-bottom: none;
 }
+
 .mention-autocomplete-item:hover,
 .mention-autocomplete-item.active {
 	background-color: color-mix(in srgb, var(--primary) 15%, transparent);
 }
+
 .mention-autocomplete-avatar {
 	width: 24px;
 	height: 24px;
+	margin: 0 !important;
 	border-radius: 50%;
 	border: 1px solid var(--primary);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 0.7rem;
-	font-weight: bold;
 	flex-shrink: 0;
 	object-fit: cover;
+	font-family: inherit;
+	font-size: 0.7rem;
+	font-weight: bold;
 }
+
 .mention-autocomplete-name {
+	min-width: 0;
 	font-size: 0.9rem;
 	font-weight: bold;
 	flex: 1;
@@ -2476,42 +2509,6 @@ mjx-container[display="true"],
 		/* clamp keeps short formulas like "C -> ¬N" from shrinking below 0.85em */
 		font-size: clamp(0.85em, 3.8cqw, 1em) !important;
 	}
-}
-
-/* =========================================================================
-   RAINBOW THEME DUOTONE BANNER TINT
-   ========================================================================= */
-
-/* Target the wrapper <p> on Nest and About pages */
-.rainbow-theme p:has(> img[src*="default-embed-preview-img"]) {
-	position: relative;
-	display: block;
-	width: fit-content;
-	max-width: 100%;
-	margin: 0 auto 1.5em auto;
-	border-radius: 10px;
-	overflow: hidden;
-}
-
-/* 1. Grayscale the banner */
-.rainbow-theme p:has(> img[src*="default-embed-preview-img"]) img {
-	display: block;
-	width: 100%;
-	height: auto;
-	filter: grayscale(100%) contrast(100%);
-	border-radius: 10px;
-}
-
-/* 2. Tint with the live shifting rainbow theme color */
-.rainbow-theme p:has(> img[src*="default-embed-preview-img"])::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background-color: var(--primary);
-	mix-blend-mode: color;
-	pointer-events: none;
-	border-radius: 10px;
-	opacity: 0.5; /* subtle tint; set to 1 for full monochrome duotone */
 }
 
 /* =========================================================================
@@ -2784,4 +2781,40 @@ mjx-container[display="true"],
 
 @media (prefers-reduced-motion: reduce) {
 	.notif-drawer, .notif-drawer.open, .notif-backdrop, .notif-bell, .notif-card { transition: none; }
+}
+
+/* =========================================================================
+   RAINBOW THEME DUOTONE BANNER TINT
+   ========================================================================= */
+
+/* Target the wrapper <p> on Nest and About pages */
+.rainbow-theme p:has(> img[src*="default-embed-preview-img"]) {
+	position: relative;
+	display: block;
+	width: fit-content;
+	max-width: 100%;
+	margin: 0 auto 1.5em auto;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+/* 1. Grayscale the banner */
+.rainbow-theme p:has(> img[src*="default-embed-preview-img"]) img {
+	display: block;
+	width: 100%;
+	height: auto;
+	filter: grayscale(100%) contrast(100%);
+	border-radius: 10px;
+}
+
+/* 2. Tint with the live shifting rainbow theme color */
+.rainbow-theme p:has(> img[src*="default-embed-preview-img"])::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-color: var(--primary);
+	mix-blend-mode: color;
+	pointer-events: none;
+	border-radius: 10px;
+	opacity: 0.5; /* subtle tint; set to 1 for full monochrome duotone */
 }

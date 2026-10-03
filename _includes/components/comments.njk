@@ -49,12 +49,21 @@
           <button type="button" class="comment-tab" id="thread-reply-tab-preview">Preview</button>
         </div>
 
-        <textarea 
-          id="thread-reply-input" 
-          class="comment-textarea" 
-          placeholder="Write a reply..." 
-          rows="3" 
-          style="resize: vertical; min-height: 80px; max-height: 300px;"></textarea>
+        <div class="mention-autocomplete-container">
+          <textarea 
+            id="thread-reply-input" 
+            class="comment-textarea" 
+            placeholder="Write a reply..." 
+            rows="3" 
+            style="resize: vertical; min-height: 80px; max-height: 300px;"></textarea>
+
+          <div
+            class="mention-autocomplete-menu"
+            role="listbox"
+            aria-label="Mention suggestions"
+            hidden
+          ></div>
+        </div>
 
         <div id="thread-reply-preview-pane" class="comment-preview-pane" style="display: none;"></div>
 
@@ -91,12 +100,21 @@
       <button type="button" class="comment-tab" id="comment-tab-preview">Preview</button>
     </div>
 
-    <textarea 
-      id="comment-input" 
-      class="comment-textarea" 
-      placeholder="Write a comment..." 
-      rows="4" 
-      style="resize: vertical; min-height: 100px; max-height: 500px;"></textarea>
+    <div class="mention-autocomplete-container">
+      <textarea 
+        id="comment-input" 
+        class="comment-textarea" 
+        placeholder="Write a comment..." 
+        rows="4" 
+        style="resize: vertical; min-height: 100px; max-height: 500px;"></textarea>
+
+      <div
+        class="mention-autocomplete-menu"
+        role="listbox"
+        aria-label="Mention suggestions"
+        hidden
+      ></div>
+    </div>
 
     {# --- Live Markdown Preview Pane --- #}
     <div id="comment-preview-pane" class="comment-preview-pane" style="display: none;"></div>
@@ -293,17 +311,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const safeMd = (md) => DOMPurify.sanitize(marked.parse(md), { ADD_ATTR: ['target', 'class'] });
 
   function avatarFor(provider, userId, name, avatarUrl) {
-    // 1. If a real avatar URL is stored in the database (Discord CDN, Google, etc.), render it directly!
+    // 1. If a real avatar URL is stored in the database, render it directly.
     if (avatarUrl) {
-      return `<img src="${esc(avatarUrl)}" alt="${esc(name)}" class="comment-avatar-slot" style="object-fit: cover; border: 1px solid var(--primary);">`;
+      return `<img src="${esc(avatarUrl)}" alt="${esc(name)}" class="comment-avatar-slot">`;
     }
-    // 2. GitHub fallback using predictable public CDN
+
+    // 2. GitHub fallback using predictable public CDN.
     if (provider === 'github' && userId && userId !== 'guest') {
-      return `<img src="https://avatars.githubusercontent.com/u/${encodeURIComponent(userId)}?v=4" alt="${esc(name)}" class="comment-avatar-slot" style="object-fit: cover; border: 1px solid var(--primary);">`;
+      return `<img src="https://avatars.githubusercontent.com/u/${encodeURIComponent(userId)}?v=4" alt="${esc(name)}" class="comment-avatar-slot">`;
     }
-    // 3. Fallback initials with provider-specific gradient styling (Instagram, or Discord without avatar)
+
+    // 3. Fallback initials with provider-specific styling.
     const initial = esc((name || '?').charAt(0).toUpperCase());
-    const providerClass = provider === 'discord' ? 'avatar-discord' : provider === 'instagram' ? 'avatar-instagram' : '';
+    const providerClass = provider === 'discord'
+      ? 'avatar-discord'
+      : provider === 'instagram'
+        ? 'avatar-instagram'
+        : '';
+
     return `<div class="comment-avatar-slot ${providerClass}" aria-hidden="true">${initial}</div>`;
   }
 
@@ -1184,154 +1209,254 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // LIVE AUTOCOMPLETE MENTION POPOVER
   // =========================================================================
-  let mentionPopup = document.createElement('div');
-  mentionPopup.className = 'mention-autocomplete-menu';
-  mentionPopup.style.display = 'none';
-  mentionPopup.setAttribute('role', 'listbox');
-  document.body.appendChild(mentionPopup);
+  const mentionTargets = [textarea, threadReplyInput].filter(Boolean);
+  const mentionPopups = new Map();
+
+  mentionTargets.forEach((targetArea) => {
+    const container = targetArea.closest('.mention-autocomplete-container');
+    const popup = container?.querySelector('.mention-autocomplete-menu');
+
+    if (popup) {
+      mentionPopups.set(targetArea, popup);
+      targetArea.setAttribute('aria-haspopup', 'listbox');
+      targetArea.setAttribute('aria-expanded', 'false');
+    }
+  });
 
   let activeMentionTarget = null;
+  let activeMentionPopup = null;
   let mentionOptions = [];
   let mentionSelectedIndex = 0;
   let mentionDebounceTimer = null;
+  let mentionRequestToken = 0;
 
   function closeMentionMenu() {
-    mentionPopup.style.display = 'none';
+    clearTimeout(mentionDebounceTimer);
+    mentionDebounceTimer = null;
+    mentionRequestToken++;
+
+    if (activeMentionTarget) {
+      activeMentionTarget.setAttribute('aria-expanded', 'false');
+    }
+
+    mentionPopups.forEach((popup) => {
+      popup.hidden = true;
+      popup.innerHTML = '';
+    });
+
     activeMentionTarget = null;
+    activeMentionPopup = null;
     mentionOptions = [];
     mentionSelectedIndex = 0;
   }
 
   function renderMentionMenu() {
-    if (mentionOptions.length === 0) {
-      closeMentionMenu();
+    if (!activeMentionPopup || mentionOptions.length === 0) {
+      if (activeMentionPopup) {
+        activeMentionPopup.hidden = true;
+      }
       return;
     }
 
-    const targetContainer = activeMentionTarget ? (activeMentionTarget.closest('dialog') || document.body) : document.body;
-    if (mentionPopup.parentElement !== targetContainer) {
-      targetContainer.appendChild(mentionPopup);
-    }
+    const popup = activeMentionPopup;
+    popup.innerHTML = '';
 
-    mentionPopup.innerHTML = '';
     mentionOptions.forEach((author, idx) => {
       const item = document.createElement('div');
-      item.className = 'mention-autocomplete-item' + (idx === mentionSelectedIndex ? ' active' : '');
-      item.onclick = (e) => {
+      const isActive = idx === mentionSelectedIndex;
+
+      item.className = `mention-autocomplete-item${isActive ? ' active' : ''}`;
+      item.setAttribute('role', 'option');
+      item.setAttribute('aria-selected', String(isActive));
+
+      item.addEventListener('mousedown', (e) => {
         e.preventDefault();
         insertMention(author.author_name);
-      };
-      item.onmouseenter = () => {
-        mentionSelectedIndex = idx;
-        renderMentionMenu();
-      };
+      });
 
-      let avatarHtml = avatarFor(author.provider, author.provider_user_id || '', author.author_name, author.avatar_url);
+      item.addEventListener('mouseenter', () => {
+        mentionSelectedIndex = idx;
+
+        popup.querySelectorAll('.mention-autocomplete-item').forEach((candidate, candidateIndex) => {
+          const candidateActive = candidateIndex === mentionSelectedIndex;
+          candidate.classList.toggle('active', candidateActive);
+          candidate.setAttribute('aria-selected', String(candidateActive));
+        });
+      });
+
+      let avatarHtml = avatarFor(
+        author.provider,
+        author.provider_user_id || '',
+        author.author_name,
+        author.avatar_url
+      );
+
       avatarHtml = avatarHtml.replace('comment-avatar-slot', 'mention-autocomplete-avatar');
-      const providerClass = 'provider-' + esc(author.provider);
-      
+
+      const provider = ['github', 'discord', 'instagram'].includes(String(author.provider).toLowerCase())
+        ? String(author.provider).toLowerCase()
+        : '';
+
+      const providerClass = provider ? `provider-${provider}` : '';
+
       item.innerHTML = `
         ${avatarHtml}
         <span class="mention-autocomplete-name">${esc(author.author_name)}</span>
-        <span class="provider-tag ${providerClass}">${esc(author.provider)}</span>
+        ${providerClass ? `<span class="provider-tag ${providerClass}">${esc(provider)}</span>` : ''}
       `;
-      mentionPopup.appendChild(item);
+
+      popup.appendChild(item);
     });
-    
-    mentionPopup.style.display = 'flex';
 
-    if (activeMentionTarget) {
-      const rect = activeMentionTarget.getBoundingClientRect();
-      const inDialog = targetContainer !== document.body;
-
-      if (inDialog) {
-        // Modal dialog: calculate position relative to the dialog bounds
-        const dialogRect = targetContainer.getBoundingClientRect();
-        let topPos = (rect.top - dialogRect.top) - mentionPopup.offsetHeight - 8;
-        if (topPos < 10) {
-          topPos = (rect.bottom - dialogRect.top) + 8;
-        }
-        mentionPopup.style.left = (rect.left - dialogRect.left) + 'px';
-        mentionPopup.style.top = topPos + 'px';
-      } else {
-        // Main document: calculate position relative to whole document page
-        let topPos = rect.top + window.scrollY - mentionPopup.offsetHeight - 8;
-        if (rect.top - mentionPopup.offsetHeight - 8 < 10) {
-          topPos = rect.bottom + window.scrollY + 8;
-        }
-        mentionPopup.style.left = (rect.left + window.scrollX) + 'px';
-        mentionPopup.style.top = topPos + 'px';
-      }
-
-      mentionPopup.style.width = rect.width + 'px';
-    }
+    popup.hidden = false;
+    activeMentionTarget?.setAttribute('aria-expanded', 'true');
   }
 
-  async function fetchAuthors(query) {
+  async function fetchAuthors(targetArea, query, requestToken) {
     try {
-      const res = await fetch(`/.netlify/functions/search-authors?q=${encodeURIComponent(query)}`);
-      if (!res.ok) return;
+      const res = await fetch(
+        `/.netlify/functions/search-authors?q=${encodeURIComponent(query)}`
+      );
+
+      if (
+        requestToken !== mentionRequestToken ||
+        activeMentionTarget !== targetArea
+      ) {
+        return;
+      }
+
+      if (!res.ok) {
+        closeMentionMenu();
+        return;
+      }
+
       const data = await res.json();
-      mentionOptions = data.authors || [];
+
+      if (
+        requestToken !== mentionRequestToken ||
+        activeMentionTarget !== targetArea
+      ) {
+        return;
+      }
+
+      mentionOptions = Array.isArray(data.authors) ? data.authors : [];
       mentionSelectedIndex = 0;
       renderMentionMenu();
     } catch (err) {
-      console.error('Error fetching authors:', err);
+      if (
+        requestToken === mentionRequestToken &&
+        activeMentionTarget === targetArea
+      ) {
+        console.error('Error fetching authors:', err);
+        closeMentionMenu();
+      }
     }
   }
 
   function insertMention(name) {
     if (!activeMentionTarget) return;
+
     const targetArea = activeMentionTarget;
-    const text = targetArea.value;
-    const cursor = targetArea.selectionStart;
-
-    const textBefore = text.slice(0, cursor).replace(/\[@([^\]]*)$/, `[@${name}] `);
-    const textAfter = text.slice(cursor);
-
-    targetArea.value = textBefore + textAfter;
-    targetArea.selectionStart = targetArea.selectionEnd = textBefore.length;
-    targetArea.focus();
-    closeMentionMenu();
-
-    // Trigger an input event so the markdown preview reflects changes instantly
-    targetArea.dispatchEvent(new Event('input', { bubbles: true }));
-  }
-
-  function handleMentionInput(e) {
-    const targetArea = e.target;
     const text = targetArea.value;
     const cursor = targetArea.selectionStart;
     const textBeforeCursor = text.slice(0, cursor);
 
-    // Look for [@ followed by characters right up to the cursor position
-    const match = textBeforeCursor.match(/\[@([^\]]*)$/);
-
-    if (match) {
-      activeMentionTarget = targetArea;
-      const query = match[1];
-      clearTimeout(mentionDebounceTimer);
-      mentionDebounceTimer = setTimeout(() => fetchAuthors(query), 200);
-    } else {
+    const match = textBeforeCursor.match(/\[@([^\]\r\n]*)$/);
+    if (!match) {
       closeMentionMenu();
+      return;
     }
+
+    const mentionStart = cursor - match[0].length;
+    const beforeMention = text.slice(0, mentionStart);
+    const afterCursor = text.slice(cursor);
+    const insertion = `[@${name}] `;
+    const newCursor = beforeMention.length + insertion.length;
+
+    targetArea.value = beforeMention + insertion + afterCursor;
+    targetArea.selectionStart = newCursor;
+    targetArea.selectionEnd = newCursor;
+    targetArea.focus();
+
+    closeMentionMenu();
+
+    // Trigger an input event so the markdown preview reflects changes instantly.
+    targetArea.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  function handleMentionInput(e) {
+    const targetArea = e.currentTarget;
+
+    if (!mentionPopups.has(targetArea)) {
+      return;
+    }
+
+    const text = targetArea.value;
+    const cursor = targetArea.selectionStart;
+    const textBeforeCursor = text.slice(0, cursor);
+
+    // Look for [@ followed by characters right up to the cursor position.
+    const match = textBeforeCursor.match(/\[@([^\]\r\n]*)$/);
+
+    if (!match) {
+      closeMentionMenu();
+      return;
+    }
+
+    if (activeMentionTarget !== targetArea) {
+      closeMentionMenu();
+      activeMentionTarget = targetArea;
+      activeMentionPopup = mentionPopups.get(targetArea);
+    }
+
+    if (!activeMentionPopup) {
+      return;
+    }
+
+    activeMentionPopup.hidden = true;
+    targetArea.setAttribute('aria-expanded', 'false');
+    mentionOptions = [];
+    mentionSelectedIndex = 0;
+
+    clearTimeout(mentionDebounceTimer);
+
+    const query = match[1];
+    const requestToken = ++mentionRequestToken;
+
+    mentionDebounceTimer = setTimeout(() => {
+      fetchAuthors(targetArea, query, requestToken);
+    }, 200);
   }
 
   function handleMentionKeydown(e) {
-    if (mentionPopup.style.display === 'none') return;
+    const targetArea = e.currentTarget;
+
+    if (
+      !activeMentionTarget ||
+      targetArea !== activeMentionTarget ||
+      !activeMentionPopup ||
+      activeMentionPopup.hidden ||
+      mentionOptions.length === 0
+    ) {
+      return;
+    }
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      mentionSelectedIndex = (mentionSelectedIndex + 1) % mentionOptions.length;
+      mentionSelectedIndex =
+        (mentionSelectedIndex + 1) % mentionOptions.length;
       renderMentionMenu();
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      mentionSelectedIndex = (mentionSelectedIndex - 1 + mentionOptions.length) % mentionOptions.length;
+      mentionSelectedIndex =
+        (mentionSelectedIndex - 1 + mentionOptions.length) % mentionOptions.length;
       renderMentionMenu();
     } else if (e.key === 'Enter' || e.key === 'Tab') {
       e.preventDefault();
-      if (mentionOptions[mentionSelectedIndex]) {
-        insertMention(mentionOptions[mentionSelectedIndex].author_name);
+
+      const selected = mentionOptions[mentionSelectedIndex];
+      if (selected) {
+        insertMention(selected.author_name);
       }
     } else if (e.key === 'Escape') {
       e.preventDefault();
@@ -1339,23 +1464,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Attach the interactive triggers to the main and reply textareas
-  [textarea, threadReplyInput].forEach(t => {
-    if (t) {
-      t.addEventListener('input', handleMentionInput);
-      t.addEventListener('keydown', handleMentionKeydown);
-      t.addEventListener('click', handleMentionInput); 
-    }
+  // Attach the interactive triggers to the main and reply textareas.
+  mentionTargets.forEach((targetArea) => {
+    targetArea.addEventListener('input', handleMentionInput);
+    targetArea.addEventListener('keydown', handleMentionKeydown);
+    targetArea.addEventListener('click', handleMentionInput);
   });
 
-  // Soft dismiss when clicking away from the input or the popup
+  // Soft dismiss when clicking away from the input or its active popup.
   document.addEventListener('click', (e) => {
-    if (activeMentionTarget && e.target !== activeMentionTarget && !mentionPopup.contains(e.target)) {
+    if (!activeMentionTarget) {
+      return;
+    }
+
+    if (
+      e.target !== activeMentionTarget &&
+      !activeMentionPopup?.contains(e.target)
+    ) {
       closeMentionMenu();
     }
   });
 
-  // Close when modal closes
+  // Close when the thread modal closes.
   threadDialog?.addEventListener('close', closeMentionMenu);
 });
 </script>
