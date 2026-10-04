@@ -1710,6 +1710,51 @@ button.auth-pill:hover {
 	flex-wrap: wrap;
 }
 
+/* --- Comment card header, two-row layout ---
+   Row 1: name + provider tag + role tag.  Row 2: date + Delete + Badge + flag.
+   The header's children are flat siblings, so an empty ::after (full width, order 1)
+   forces the line break, and `order: 2` pushes the row-2 items below it.
+   Scoped to .comment-card-header so the notifications drawer is untouched. */
+.comment-card-header .comment-avatar-slot {
+	width: 48px;
+	height: 48px;
+}
+
+.comment-card-header .comment-user-info {
+	flex: 1 1 0;
+	min-width: 0;
+	gap: 0 0.5rem;
+	align-items: center;
+}
+
+.comment-card-header .comment-user-info::after {
+	content: "";
+	order: 1;
+	flex: 0 0 100%;
+	height: 0.4rem; /* replaces the row gap, which would otherwise be applied twice */
+}
+
+.comment-card-header .comment-user-info > time,
+.comment-card-header .comment-user-info > .btn-delete-comment,
+.comment-card-header .comment-user-info > .badge-picker,
+.comment-card-header .comment-user-info > .report-picker {
+	order: 2;
+}
+
+/* Row-2 spacing comes from the flex gap; drop the old per-button left margins */
+.comment-card-header .comment-user-info > .btn-delete-comment,
+.comment-card-header .comment-user-info .btn-badge-comment,
+.comment-card-header .comment-user-info .btn-report-comment {
+	margin: 0 !important;
+}
+
+@media screen and (max-width: 600px) {
+	/* The rating still drops to its own row on phones: re-align it under the bigger avatar */
+	.comment-card-header .comment-rating {
+		padding-left: calc(48px + 0.75rem);
+	}
+}
+
 .comment-author {
 	font-size: 0.95rem;
 	color: var(--primary);
