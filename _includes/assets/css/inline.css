@@ -1880,7 +1880,7 @@ button.auth-pill:hover {
 	background: linear-gradient(45deg, #f09433, #dc2743 55%, #bc1888);
 	color: #fff;
 	font-weight: bold;
-	font-size: 0.8rem;
+	font-size: 1.2rem;
 	opacity: 1;
 	border-color: transparent;
 }
