@@ -22,6 +22,7 @@ export default async (req) => {
     const [rows, countRows] = await Promise.all([
       sql`
         SELECT n.id, n.post_slug, n.parent_id, n.reply_id, n.is_read, n.created_at,
+               n.kind, n.report_reason, n.reporter_name,
                r.author_name, r.provider, r.provider_user_id, r.avatar_url, r.author_url,
                LEFT(r.comment_body, 400) AS comment_body
         FROM twa_notifications n

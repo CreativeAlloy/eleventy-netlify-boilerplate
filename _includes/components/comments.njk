@@ -305,7 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
       m.remove();
     });
   }
-  document.addEventListener('click', closeBadgeMenus);
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.badge-picker')) closeBadgeMenus();
+  });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBadgeMenus(); });
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const safeMd = (md) => DOMPurify.sanitize(marked.parse(md), { ADD_ATTR: ['target', 'class'] });
@@ -409,6 +411,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.setAttribute('aria-label', bellLabel(on));
   }
 
+  // --- Comment reporting ---
+  const REPORT_REASONS = ['Hate Speech', 'Incitement of Terrorism', 'Spam/Virus', 'Other Illegal Content'];
+  const FLAG_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 21V3M5 4h12l-2.5 4L17 12H5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const reportedIds = new Set(); // comments this visitor reported in this page session (survives feed re-renders)
+
   function buildCommentCard(c, isParentFeed = false) {
     const card = document.createElement('article');
     card.className = c.is_deleted ? 'comment-card comment-tombstone' : 'comment-card';
@@ -461,6 +468,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ? `<span class="badge-picker"><button type="button" class="btn-badge-comment" data-id="${c.id}" aria-haspopup="true" aria-expanded="false">Badge</button></span>`
       : '';
 
+    const isOwnComment = currentUser && currentUser.provider === c.provider &&
+      String(currentUser.provider_user_id) === String(c.provider_user_id);
+    const alreadyReported = reportedIds.has(Number(c.id));
+    const flagBtnHtml = isOwnComment ? '' : `<span class="report-picker"><button type="button" class="btn-report-comment${alreadyReported ? ' reported' : ''}" data-id="${c.id}" aria-haspopup="true" aria-expanded="false" title="${alreadyReported ? 'You reported this comment' : 'Mark as Inappropriate'}" aria-label="${alreadyReported ? 'You reported this comment' : 'Mark as Inappropriate'}"${alreadyReported ? ' disabled' : ''}>${FLAG_SVG}</button></span>`;
+
     let replyToggleHtml = '';
     if (isParentFeed) {
       const count = Number(c.reply_count || 0);
@@ -484,6 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <time datetime="${c.created_at}"><small>${dateStr}</small></time>
           ${deleteBtnHtml}
           ${badgeBtnHtml}
+          ${flagBtnHtml}
         </div>
         ${ratingHtml(c)}
       </header>
@@ -668,85 +681,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => openThread(Number(btn.getAttribute('data-id'))));
       });
 
-      // Attach click listeners to all active [Delete] buttons
-      document.querySelectorAll('.btn-delete-comment').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-          const commentId = e.target.getAttribute('data-id');
-          if (!confirm('Are you sure you want to delete this comment?')) return;
-
-          e.target.disabled = true;
-          e.target.textContent = '[Deleting...]';
-
-          try {
-            const deleteRes = await fetch('/.netlify/functions/delete-comment', {
-              method: 'POST',
-              headers: authHeaders(),
-              body: JSON.stringify({
-                comment_id: commentId
-              })
-            });
-
-            if (deleteRes.status === 401) return handleExpired();
-            if (!deleteRes.ok) throw new Error('Deletion failed');
-            await loadComments(); // Reload to render tombstone immediately
-          } catch (err) {
-            alert('Error deleting comment.');
-            console.error(err);
-            e.target.disabled = false;
-            e.target.textContent = '[Delete]';
-          }
-        });
-      });
-
-      // Attach click listeners to all [Badge] pickers (moderators only)
-      document.querySelectorAll('.btn-badge-comment').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const picker = btn.parentElement;
-          const wasOpen = !!picker.querySelector('.badge-menu');
-          closeBadgeMenus();
-          if (wasOpen) return;
-
-          const menu = document.createElement('div');
-          menu.className = 'badge-menu';
-          menu.setAttribute('role', 'menu');
-          menu.innerHTML = `
-            <button type="button" role="menuitem" data-badge="wonderful">${BADGE_LABELS.wonderful}</button>
-            <button type="button" role="menuitem" data-badge="dishonor">${BADGE_LABELS.dishonor}</button>
-            <button type="button" role="menuitem" data-badge="" class="badge-menu-remove">Remove badge</button>
-          `;
-          picker.appendChild(menu);
-          btn.setAttribute('aria-expanded', 'true');
-
-          menu.addEventListener('click', async (ev) => {
-            ev.stopPropagation();
-            const opt = ev.target.closest('button[data-badge]');
-            if (!opt) return;
-
-            menu.querySelectorAll('button').forEach(b => { b.disabled = true; });
-            opt.textContent = 'Saving...';
-
-            try {
-              const res = await fetch('/.netlify/functions/set-badge', {
-                method: 'POST',
-                headers: authHeaders(),
-                body: JSON.stringify({
-                  comment_id: btn.getAttribute('data-id'),
-                  badge: opt.getAttribute('data-badge') || null
-                })
-              });
-              if (res.status === 401) return handleExpired();
-              if (!res.ok) throw new Error('Badge update failed');
-              await loadComments(); // Re-render with the new footer
-            } catch (err) {
-              alert('Error updating badge.');
-              console.error(err);
-              closeBadgeMenus();
-            }
-          });
-        });
-      });
-
       consumePendingThread();
     } catch (err) {
       console.error("Failed to load comments:", err);
@@ -914,15 +848,52 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
-  function consumePendingThread() {
-    if (pendingThreadId === null) return;
-    const id = pendingThreadId;
-    pendingThreadId = null;
-    openThread(id);
+  // ?target_comment=ID&parent=ID = "open its thread if it's a reply, scroll to it, red-glow it"
+  let pendingTarget = (() => {
+    const n = Number(new URLSearchParams(window.location.search).get('target_comment'));
+    return Number.isInteger(n) && n > 0 ? n : null;
+  })();
 
-    // Drop ?thread= so a refresh doesn't re-open the dialog
+  const REPORT_HIGHLIGHT_MS = 4000;
+
+  function focusComment(commentId) {
+    const target = cachedComments.find(c => Number(c.id) === Number(commentId));
+    if (!target) return false;
+
+    const isReply = target.parent_id !== null && target.parent_id !== undefined;
+    if (isReply) {
+      if (!openThread(Number(target.parent_id))) return false;
+    } else if (threadDialog?.open) {
+      threadDialog.close(); // a top-level comment lives in the feed, behind the modal
+    }
+
+    // Give the dialog a moment to lay out before scrolling
+    setTimeout(() => {
+      const scope = isReply ? threadDialogReplies : feed;
+      const el = scope?.querySelector(`.comment-card[data-id="${CSS.escape(String(commentId))}"]`);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.remove('reported-comment-highlight');
+      void el.offsetWidth; // restart the animation if it was already running
+      el.classList.add('reported-comment-highlight');
+      setTimeout(() => el.classList.remove('reported-comment-highlight'), REPORT_HIGHLIGHT_MS);
+    }, 80);
+    return true;
+  }
+
+  function consumePendingThread() {
+    if (pendingThreadId === null && pendingTarget === null) return;
+    const threadId = pendingThreadId;
+    const targetId = pendingTarget;
+    pendingThreadId = null;
+    pendingTarget = null;
+
+    if (targetId !== null) focusComment(targetId);
+    else openThread(threadId);
+
+    // Drop the params so a refresh doesn't re-open / re-highlight
     const url = new URL(window.location.href);
-    url.searchParams.delete('thread');
+    ['thread', 'target_comment', 'parent'].forEach(k => url.searchParams.delete(k));
     history.replaceState(null, '', url.pathname + url.search + url.hash);
   }
 
@@ -984,6 +955,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.createElement('article');
     card.className = 'notif-card' + (n.is_read ? '' : ' unread');
     card.setAttribute('data-id', n.id);
+
+    if (n.kind === 'report') {
+      card.classList.add('notif-report');
+      const reviewHref = `${POST_URL(n.post_slug)}?target_comment=${encodeURIComponent(n.reply_id)}&parent=${encodeURIComponent(n.parent_id)}`;
+      card.innerHTML = `
+        <header class="notif-card-header">
+          <span class="notif-report-icon" aria-hidden="true">${FLAG_SVG}</span>
+          <div class="notif-card-meta">
+            <strong class="comment-author">${esc(n.reporter_name || 'A reader')}</strong>
+            <span class="notif-report-badge">[REPORT: ${esc(n.report_reason)}]</span>
+            <time datetime="${esc(n.created_at)}"><small>${esc(timeAgo(n.created_at))}</small></time>
+          </div>
+          ${n.is_read ? '' : '<span class="notif-dot" role="img" aria-label="Unread"></span>'}
+        </header>
+        <p class="notif-snippet">Comment by ${esc(n.author_name)}: ${esc(notifSnippet(n.comment_body))}</p>
+        <a class="notif-report-link" href="${esc(reviewHref)}">[Review Reported Comment]</a>
+      `;
+      return card;
+    }
 
     const authorHtml = n.author_url
       ? `<a href="${esc(n.author_url)}" target="_blank" rel="noopener noreferrer" class="comment-author-link"><strong class="comment-author">${esc(n.author_name)}</strong></a>`
@@ -1099,6 +1089,17 @@ document.addEventListener('DOMContentLoaded', () => {
       markNotificationsRead({ notification_id: n.id });
     }
 
+    if (n.kind === 'report') {
+      if (n.post_slug === postSlug) {
+        closeNotifDrawer();
+        renderNotifications();
+        loadComments().then(() => focusComment(n.reply_id));
+      } else {
+        window.location.href = `${POST_URL(n.post_slug)}?target_comment=${encodeURIComponent(n.reply_id)}&parent=${encodeURIComponent(n.parent_id)}`;
+      }
+      return;
+    }
+
     if (n.post_slug === postSlug) {
       // Same post: refresh first so a brand-new reply is in the thread, then open it
       closeNotifDrawer();
@@ -1134,7 +1135,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Whole card is clickable (profile links keep working); the inner button covers the keyboard
     notifList.addEventListener('click', (e) => {
-      if (e.target.closest('a')) return;
+      const link = e.target.closest('a');
+      if (link && (!link.classList.contains('notif-report-link') || e.metaKey || e.ctrlKey || e.shiftKey)) return;
+      if (link) e.preventDefault();
       const card = e.target.closest('.notif-card');
       if (!card) return;
       const n = notifications.find(x => Number(x.id) === Number(card.dataset.id));
@@ -1146,6 +1149,180 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!document.hidden && currentUser) fetchNotifications();
     });
   }
+
+  // =========================================================================
+  // COMMENT REPORTING: flag button -> reason popover -> POST /report-comment
+  // =========================================================================
+  function closeReportMenus(restoreFocus = false) {
+    document.querySelectorAll('.report-popover-menu').forEach(m => {
+      const trigger = m.previousElementSibling;
+      trigger?.setAttribute('aria-expanded', 'false');
+      m.remove();
+      if (restoreFocus) trigger?.focus();
+    });
+  }
+
+  // 'idle' | 'confirm' (brief "Reported ✓") | 'done' (disabled flag)
+  function setReportBtnState(btn, state) {
+    const label = state === 'idle' ? 'Mark as Inappropriate'
+      : state === 'confirm' ? 'Reported' : 'You reported this comment';
+    btn.classList.toggle('reported', state !== 'idle');
+    btn.disabled = state !== 'idle';
+    btn.title = label;
+    btn.setAttribute('aria-label', label);
+    btn.innerHTML = FLAG_SVG + (state === 'confirm' ? '<span class="report-confirm">Reported ✓</span>' : '');
+  }
+
+  function markReported(commentId) {
+    reportedIds.add(Number(commentId));
+    // The same comment can be on screen twice (feed card + pinned parent in the thread dialog)
+    document.querySelectorAll(`.btn-report-comment[data-id="${CSS.escape(String(commentId))}"]`).forEach(btn => {
+      setReportBtnState(btn, 'confirm');
+      setTimeout(() => { if (btn.isConnected) setReportBtnState(btn, 'done'); }, 3000);
+    });
+  }
+
+  document.addEventListener('click', async (e) => {
+    const reasonBtn = e.target.closest('.report-popover-menu button[data-reason]');
+    const flagBtn = e.target.closest('.btn-report-comment');
+
+    // 3. A reason was chosen -> submit
+    if (reasonBtn) {
+      const menu = reasonBtn.closest('.report-popover-menu');
+      const commentId = Number(menu.dataset.id);
+      menu.querySelectorAll('button').forEach(b => { b.disabled = true; });
+      reasonBtn.textContent = 'Sending...';
+
+      try {
+        const res = await fetch('/.netlify/functions/report-comment', {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify({ comment_id: commentId, reason: reasonBtn.dataset.reason })
+        });
+        if (res.status === 401) { closeReportMenus(); return handleExpired(); }
+        if (!res.ok) throw new Error((await res.text().catch(() => '')) || 'Report failed');
+        closeReportMenus();
+        markReported(commentId);
+      } catch (err) {
+        closeReportMenus();
+        alert(err.message && err.message.length < 120 ? err.message : 'Error submitting report.');
+        console.error(err);
+      }
+      return;
+    }
+
+    // 1/2. Flag clicked -> auth gate, then toggle the popover
+    if (flagBtn) {
+      if (!currentUser) { closeReportMenus(); loginDialog?.showModal(); return; }
+      if (flagBtn.disabled) return;
+
+      const wasOpen = flagBtn.getAttribute('aria-expanded') === 'true';
+      closeReportMenus();
+      if (wasOpen) return;
+
+      const menu = document.createElement('div');
+      menu.className = 'report-popover-menu';
+      menu.setAttribute('role', 'menu');
+      menu.setAttribute('aria-label', 'Report reason');
+      menu.dataset.id = flagBtn.dataset.id;
+      menu.innerHTML = REPORT_REASONS
+        .map(r => `<button type="button" role="menuitem" data-reason="${esc(r)}">${esc(r)}</button>`)
+        .join('');
+      flagBtn.insertAdjacentElement('afterend', menu);
+      flagBtn.setAttribute('aria-expanded', 'true');
+      menu.querySelector('button')?.focus();
+      return;
+    }
+
+    // Click anywhere else closes an open popover
+    closeReportMenus();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !document.querySelector('.report-popover-menu')) return;
+    e.preventDefault(); // close only the popover, not the thread dialog underneath
+    closeReportMenus(true);
+  });
+
+  // --- Moderator [Badge] picker (delegated: works in the feed AND the thread dialog,
+  //     whose cards are rendered after loadComments() has already run) ---
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-badge-comment');
+    if (!btn) return;
+
+    const picker = btn.parentElement;
+    const wasOpen = !!picker.querySelector('.badge-menu');
+    closeBadgeMenus();
+    if (wasOpen) return;
+
+    const menu = document.createElement('div');
+    menu.className = 'badge-menu';
+    menu.setAttribute('role', 'menu');
+    menu.innerHTML = `
+      <button type="button" role="menuitem" data-badge="wonderful">${BADGE_LABELS.wonderful}</button>
+      <button type="button" role="menuitem" data-badge="dishonor">${BADGE_LABELS.dishonor}</button>
+      <button type="button" role="menuitem" data-badge="" class="badge-menu-remove">Remove badge</button>
+    `;
+    picker.appendChild(menu);
+    btn.setAttribute('aria-expanded', 'true');
+
+    menu.addEventListener('click', async (ev) => {
+      ev.stopPropagation();
+      const opt = ev.target.closest('button[data-badge]');
+      if (!opt) return;
+
+      menu.querySelectorAll('button').forEach(b => { b.disabled = true; });
+      opt.textContent = 'Saving...';
+
+      try {
+        const res = await fetch('/.netlify/functions/set-badge', {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify({
+            comment_id: btn.getAttribute('data-id'),
+            badge: opt.getAttribute('data-badge') || null
+          })
+        });
+        if (res.status === 401) return handleExpired();
+        if (!res.ok) throw new Error('Badge update failed');
+        await loadComments(); // Re-renders the feed and, if open, the thread dialog
+      } catch (err) {
+        alert('Error updating badge.');
+        console.error(err);
+        closeBadgeMenus();
+      }
+    });
+  });
+
+  // --- [Delete] button (delegated: works in the feed AND the thread dialog,
+  //     whose cards are rendered after loadComments() has already run) ---
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.btn-delete-comment');
+    if (!btn || btn.disabled) return;
+
+    const commentId = btn.getAttribute('data-id');
+    if (!confirm('Are you sure you want to delete this comment?')) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Deleting...';
+
+    try {
+      const deleteRes = await fetch('/.netlify/functions/delete-comment', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({ comment_id: commentId })
+      });
+
+      if (deleteRes.status === 401) return handleExpired();
+      if (!deleteRes.ok) throw new Error('Deletion failed');
+      await loadComments(); // Re-renders the feed and, if open, the thread dialog (tombstone shows immediately)
+    } catch (err) {
+      alert('Error deleting comment.');
+      console.error(err);
+      btn.disabled = false;
+      btn.textContent = 'Delete';
+    }
+  });
 
   // Initialize UI on load
   renderAuthUI();

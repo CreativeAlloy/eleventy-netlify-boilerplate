@@ -2100,6 +2100,181 @@ button.auth-pill:hover {
 	opacity: 0.75;
 }
 
+/* --- Comment reporting: flag button + reason popover --- */
+.report-picker {
+	position: relative;
+	display: inline-flex;
+}
+
+.btn-report-comment {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 0.25rem;
+	width: auto !important;
+	height: auto !important;
+	margin: 0 0 0 0.5rem !important;
+	padding: 0.2rem 0.35rem !important;
+	font-size: 0.7rem !important;
+	font-weight: bold;
+	line-height: 1;
+	color: var(--primary) !important;
+	opacity: 0.55;
+	background: transparent !important;
+	border: 1px solid transparent !important;
+	border-radius: 4px !important;
+	box-shadow: none !important;
+	cursor: pointer;
+	flex-shrink: 0;
+	text-decoration: none !important;
+	transition: all 0.15s ease-in-out;
+}
+
+.btn-report-comment svg {
+	width: 0.95rem;
+	height: 0.95rem;
+	flex-shrink: 0;
+}
+
+.btn-report-comment:hover:not(:disabled),
+.btn-report-comment:focus-visible,
+.btn-report-comment[aria-expanded="true"] {
+	opacity: 1;
+	color: #ff4d4d !important;
+	background: rgba(255, 77, 77, 0.1) !important;
+	border-color: rgba(255, 77, 77, 0.35) !important;
+}
+
+.btn-report-comment.reported {
+	opacity: 1;
+	color: #3fb37f !important;
+	cursor: default;
+}
+
+.btn-report-comment.reported svg path {
+	fill: currentColor;
+}
+
+.report-confirm {
+	white-space: nowrap;
+}
+
+.report-popover-menu {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0.5rem;
+	z-index: 20;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: max-content;
+	padding: 0.25rem;
+	background: var(--secondary);
+	border: 1px solid var(--primary);
+	border-left: 5px solid var(--primary);
+	border-radius: 6px;
+	box-shadow: 0 6px 18px rgb(0 0 0 / 45%);
+}
+
+.report-popover-menu button {
+	display: block !important;
+	width: 100% !important;
+	margin: 0 !important;
+	padding: 0.4rem 0.6rem !important;
+	font-size: 0.8rem !important;
+	font-weight: bold;
+	text-align: left;
+	white-space: nowrap;
+	color: var(--primary) !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 4px !important;
+	box-shadow: none !important;
+	cursor: pointer;
+}
+
+.report-popover-menu button:hover:not(:disabled),
+.report-popover-menu button:focus-visible {
+	background: var(--primary) !important;
+	color: var(--secondary) !important;
+}
+
+.report-popover-menu button:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+/* Popover becomes a bottom sheet on phones so it can never run off-screen */
+@media screen and (max-width: 600px) {
+	.btn-report-comment {
+		margin: 0 !important;
+		padding: 0.4rem 0.6rem !important;
+	}
+
+	.report-popover-menu {
+		position: fixed;
+		top: auto;
+		left: 0.75rem;
+		right: 0.75rem;
+		bottom: 0.75rem;
+		z-index: 1000;
+		padding: 0.4rem;
+	}
+
+	.report-popover-menu button {
+		padding: 0.85rem 1rem !important;
+		font-size: 0.95rem !important;
+	}
+}
+
+/* --- Admin: red glow + pulse on the reported comment (removed by JS after 4s) --- */
+.reported-comment-highlight {
+	border-color: #ff4d4d !important;
+	box-shadow: 0 0 18px rgba(255, 77, 77, 0.85);
+	animation: reported-comment-pulse 1s ease-in-out infinite;
+}
+
+@keyframes reported-comment-pulse {
+	0%, 100% { box-shadow: 0 0 10px rgba(255, 77, 77, 0.55); }
+	50%      { box-shadow: 0 0 28px rgba(255, 77, 77, 0.95), 0 0 0 3px rgba(255, 77, 77, 0.35); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.reported-comment-highlight { animation: none; }
+}
+
+/* --- Admin: report card in the notifications drawer --- */
+.notif-card.notif-report {
+	border-color: #ff4d4d;
+}
+
+.notif-report-icon {
+	display: inline-flex;
+	flex-shrink: 0;
+	color: #ff4d4d;
+}
+
+.notif-report-icon svg {
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.notif-report-badge {
+	padding: 0.1rem 0.4rem;
+	font-size: 0.7rem;
+	font-weight: bold;
+	color: #ff4d4d;
+	background: rgba(255, 77, 77, 0.12);
+	border: 1px solid rgba(255, 77, 77, 0.4);
+	border-radius: 4px;
+}
+
+.notif-report-link {
+	display: inline-block;
+	margin-top: 0.4rem;
+	font-size: 0.85rem;
+	font-weight: bold;
+}
+
 /* --- Comments on phones: stacked header, bigger tap targets --- */
 @media screen and (max-width: 600px) {
 	.comment-card {
