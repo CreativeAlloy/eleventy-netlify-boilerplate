@@ -81,17 +81,7 @@
     </div>
   </dialog>
 
-  {# --- Native HTML5 Login Modal Dialog --- #}
-  <dialog id="login-dialog" class="auth-dialog">
-    <h4>Sign in to comment</h4>
-    <p>Choose how you'd like to sign in.</p>
-    <div class="auth-dialog-options">
-      <button type="button" class="auth-pill auth-btn-github" data-provider="github">Sign in with GitHub</button>
-      <button type="button" class="auth-pill auth-btn-instagram" data-provider="instagram">Sign in with Instagram</button>
-      <button type="button" class="auth-pill auth-btn-discord" data-provider="discord">Sign in with Discord</button>
-    </div>
-    <button type="button" class="auth-dialog-cancel" id="login-dialog-cancel">Cancel</button>
-  </dialog>
+  {# Login modal now lives globally in layouts/base.njk (#login-dialog) #}
 
   {# --- Comment Editor --- #}
   <div class="comment-editor-box">
@@ -136,26 +126,7 @@
   </div>
 </section>
 
-{# --- Notifications: floating bell + right-side drawer (the script moves these to <body>) --- #}
-<button type="button" id="notif-bell" class="notif-bell" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false" aria-controls="notifications-drawer" hidden>
-  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a6 6 0 0 0-6 6v3.6c0 .5-.2 1-.5 1.4L4 14.8c-.7.9-.1 2.2 1 2.2h14c1.1 0 1.7-1.3 1-2.2l-1.5-1.8c-.3-.4-.5-.9-.5-1.4V8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg>
-  <span class="notif-badge" id="notif-badge" hidden>0</span>
-</button>
-
-<div id="notif-backdrop" class="notif-backdrop"></div>
-
-<aside id="notifications-drawer" class="notif-drawer" role="dialog" aria-modal="true" aria-labelledby="notif-title" inert>
-  <header class="notif-drawer-header">
-    <h4 id="notif-title">Notifications</h4>
-    <div class="notif-drawer-actions">
-      <button type="button" id="notif-mark-all" class="notif-mark-all" disabled>Mark all as read</button>
-      <button type="button" id="notif-close" class="notif-close" aria-label="Close notifications"><svg class="close-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5L19 19M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-    </div>
-  </header>
-  <div id="notif-list" class="notif-list" aria-live="polite">
-    <!-- Mini comment cards render here -->
-  </div>
-</aside>
+{# Notification bell + drawer now live globally in layouts/base.njk #}
 
 {# --- Phase 1: Client-Side Engine (Marked.js + DOMPurify + Interactive Logic) --- #}
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -689,39 +660,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- AUTHENTICATION STATE MANAGEMENT ---
   const authStatusContainer = document.getElementById('auth-status-container');
-  let currentUser = JSON.parse(localStorage.getItem('twa_user') || 'null');
+  const loginDialog = document.getElementById('login-dialog'); // lives in base.njk now
 
-  // Treat old or tampered sessions missing a cryptographic token as logged out
-  if (currentUser && !currentUser.token) {
-    localStorage.removeItem('twa_user');
-    currentUser = null;
-  }
+  // Session is owned by the global engine in base.njk (window.TWA)
+  let currentUser = window.TWA.getUser();
 
-  const authHeaders = () => ({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${currentUser?.token || ''}`
-  });
-
-  function handleExpired() {
-    localStorage.removeItem('twa_user');
-    currentUser = null;
-    renderAuthUI();
-    loadComments();
-    alert('Your session expired. Please sign in again.');
-  }
-
-  // Wire the Login Dialog modal once
-  const loginDialog = document.getElementById('login-dialog');
-  if (loginDialog) {
-    loginDialog.querySelectorAll('[data-provider]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        window.open(`/.netlify/functions/auth?action=login&provider=${btn.dataset.provider}`, 'twaAuth', 'width=500,height=600');
-        loginDialog.close();
-      });
-    });
-    document.getElementById('login-dialog-cancel')?.addEventListener('click', () => loginDialog.close());
-    loginDialog.addEventListener('click', (e) => { if (e.target === loginDialog) loginDialog.close(); });
-  }
+  const authHeaders = () => window.TWA.authHeaders();
+  const handleExpired = () => window.TWA.handleExpired();
 
   function renderAuthUI() {
     if (currentUser) {
@@ -738,15 +683,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ${avatar}
         <span class="auth-pill provider-${esc(currentUser.provider)}">${esc(currentUser.username)}</span>
         ${roleBadge}
-        <button type="button" id="btn-logout" class="btn-logout">Log Out</button>
+        <button type="button" class="btn-logout" data-twa-action="logout">Log Out</button>
       `;
-
-      document.getElementById('btn-logout').addEventListener('click', () => {
-        localStorage.removeItem('twa_user');
-        currentUser = null;
-        renderAuthUI();
-        loadComments();
-      });
 
       submitBtn.disabled = false;
       textarea.disabled = false;
@@ -756,21 +694,12 @@ document.addEventListener('DOMContentLoaded', () => {
         threadReplySubmitBtn.disabled = false;
         threadReplyInput.disabled = false;
         threadReplyInput.placeholder = "Write a reply...";
-        threadReplyAuthStatus.innerHTML = authStatusContainer.innerHTML;
-        threadReplyAuthStatus.querySelector('.btn-logout')?.addEventListener('click', () => {
-          localStorage.removeItem('twa_user');
-          currentUser = null;
-          renderAuthUI();
-          loadComments();
-        });
+        threadReplyAuthStatus.innerHTML = authStatusContainer.innerHTML; // logout is handled globally
       }
     } else {
       // User is NOT logged in (Clean Single Sign In button triggering modal)
-      const signinHtml = `<button type="button" class="auth-pill btn-trigger-signin">Sign in</button>`;
+      const signinHtml = `<button type="button" class="auth-pill btn-trigger-signin" data-twa-action="login">Sign in</button>`;
       authStatusContainer.innerHTML = signinHtml;
-      document.querySelectorAll('.btn-trigger-signin').forEach(b => {
-        b.addEventListener('click', () => loginDialog?.showModal());
-      });
 
       submitBtn.disabled = true;
       textarea.disabled = true;
@@ -781,45 +710,22 @@ document.addEventListener('DOMContentLoaded', () => {
         threadReplyInput.disabled = true;
         threadReplyInput.placeholder = "Please sign in to reply...";
         threadReplyAuthStatus.innerHTML = signinHtml;
-        threadReplyAuthStatus.querySelector('.btn-trigger-signin')?.addEventListener('click', () => loginDialog?.showModal());
+        // threadReplyAuthStatus.querySelector('.btn-trigger-signin')?.addEventListener('click', () => loginDialog?.showModal());
       }
     }
-
-    syncNotifUI();
   }
 
-  // Listen for the secure payload from the popup window
-  window.addEventListener('message', (event) => {
-    if (event.origin !== window.location.origin) return;
-    if (event.data && event.data.type === 'TWA_AUTH_SUCCESS') {
-      currentUser = event.data.data;
-      localStorage.setItem('twa_user', JSON.stringify(currentUser));
-      renderAuthUI();
-      loadComments();
-    }
+  // Sign in, sign out, expiry and other-tab changes all arrive here from the global engine
+  window.TWA.onAuthChange((user) => {
+    currentUser = user;
+    renderAuthUI();
+    loadComments();
   });
 
   // =========================================================================
-  // THREAD OPENING, BELL SUBSCRIPTIONS & NOTIFICATIONS DRAWER
-  // (must stay ABOVE the "Initialize UI on load" calls: it declares consts that
-  //  renderAuthUI() -> syncNotifUI() touches on first run)
+  // THREAD OPENING & BELL SUBSCRIPTIONS
+  // (the notifications drawer itself is global: see layouts/base.njk)
   // =========================================================================
-  const POST_URL = (slug) => `/posts/${encodeURIComponent(slug)}/`; // adjust if posts use custom permalinks
-
-  const notifBell = document.getElementById('notif-bell');
-  const notifBadge = document.getElementById('notif-badge');
-  const notifBackdrop = document.getElementById('notif-backdrop');
-  const notifDrawer = document.getElementById('notifications-drawer');
-  const notifList = document.getElementById('notif-list');
-  const notifMarkAll = document.getElementById('notif-mark-all');
-  const notifClose = document.getElementById('notif-close');
-  const notifReady = !!(notifBell && notifBackdrop && notifDrawer && notifList && notifMarkAll && notifClose);
-
-  // Re-parent to <body> so no ancestor transform/filter can break position: fixed
-  if (notifReady) [notifBell, notifBackdrop, notifDrawer].forEach(el => document.body.appendChild(el));
-
-  let notifications = [];
-  let notifUnread = 0;
 
   // ?thread=ID in the URL = "open this thread once comments have loaded"
   let pendingThreadId = (() => {
@@ -888,8 +794,12 @@ document.addEventListener('DOMContentLoaded', () => {
     pendingThreadId = null;
     pendingTarget = null;
 
-    if (targetId !== null) focusComment(targetId);
-    else openThread(threadId);
+    if (targetId !== null) {
+      // Highlight the exact comment; if it can't be found, at least open its thread
+      if (!focusComment(targetId) && threadId !== null) openThread(threadId);
+    } else {
+      openThread(threadId);
+    }
 
     // Drop the params so a refresh doesn't re-open / re-highlight
     const url = new URL(window.location.href);
@@ -925,230 +835,6 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = false;
     }
   });
-
-  // --- Notifications drawer ---
-  const relTime = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-  function timeAgo(iso) {
-    const secs = Math.round((new Date(iso).getTime() - Date.now()) / 1000);
-    const units = [['year', 31536000], ['month', 2592000], ['week', 604800], ['day', 86400], ['hour', 3600], ['minute', 60]];
-    for (const [unit, size] of units) {
-      if (Math.abs(secs) >= size) return relTime.format(Math.round(secs / size), unit);
-    }
-    return 'just now';
-  }
-
-  // Markdown -> sanitized HTML -> plain text (parsed inertly, so no images/scripts load)
-  function notifSnippet(md) {
-    const html = safeMd(md || '');
-    const text = new DOMParser().parseFromString(html, 'text/html').body.textContent || '';
-    return text.replace(/\s+/g, ' ').trim();
-  }
-
-  function updateBadge() {
-    if (!notifBadge || !notifBell) return;
-    notifBadge.textContent = notifUnread > 99 ? '99+' : String(notifUnread);
-    notifBadge.hidden = notifUnread <= 0;
-    notifBell.setAttribute('aria-label', notifUnread > 0 ? `Notifications (${notifUnread} unread)` : 'Notifications');
-  }
-
-  function buildNotifCard(n) {
-    const card = document.createElement('article');
-    card.className = 'notif-card' + (n.is_read ? '' : ' unread');
-    card.setAttribute('data-id', n.id);
-
-    if (n.kind === 'report') {
-      card.classList.add('notif-report');
-      const reviewHref = `${POST_URL(n.post_slug)}?target_comment=${encodeURIComponent(n.reply_id)}&parent=${encodeURIComponent(n.parent_id)}`;
-      card.innerHTML = `
-        <header class="notif-card-header">
-          <span class="notif-report-icon" aria-hidden="true">${FLAG_SVG}</span>
-          <div class="notif-card-meta">
-            <strong class="comment-author">${esc(n.reporter_name || 'A reader')}</strong>
-            <span class="notif-report-badge">[REPORT: ${esc(n.report_reason)}]</span>
-            <time datetime="${esc(n.created_at)}"><small>${esc(timeAgo(n.created_at))}</small></time>
-          </div>
-          ${n.is_read ? '' : '<span class="notif-dot" role="img" aria-label="Unread"></span>'}
-        </header>
-        <p class="notif-snippet">Comment by ${esc(n.author_name)}: ${esc(notifSnippet(n.comment_body))}</p>
-        <a class="notif-report-link" href="${esc(reviewHref)}">[Review Reported Comment]</a>
-      `;
-      return card;
-    }
-
-    const authorHtml = n.author_url
-      ? `<a href="${esc(n.author_url)}" target="_blank" rel="noopener noreferrer" class="comment-author-link"><strong class="comment-author">${esc(n.author_name)}</strong></a>`
-      : `<strong class="comment-author">${esc(n.author_name)}</strong>`;
-
-    card.innerHTML = `
-      <header class="notif-card-header">
-        ${avatarFor(n.provider, n.provider_user_id, n.author_name, n.avatar_url)}
-        <div class="notif-card-meta">
-          ${authorHtml}
-          <span class="provider-tag provider-${esc(n.provider)}">${esc(n.provider)}</span>
-          <time datetime="${esc(n.created_at)}"><small>${esc(timeAgo(n.created_at))}</small></time>
-        </div>
-        ${n.is_read ? '' : '<span class="notif-dot" role="img" aria-label="Unread"></span>'}
-      </header>
-      <button type="button" class="notif-card-open" title="Open thread">
-        <span class="notif-snippet">${esc(notifSnippet(n.comment_body))}</span>
-      </button>
-    `;
-    return card;
-  }
-
-  function renderNotifications() {
-    if (!notifReady) return;
-    notifList.innerHTML = '';
-    if (notifications.length === 0) {
-      notifList.innerHTML = '<p class="notif-empty"><em>No notifications yet.</em></p>';
-    } else {
-      notifications.forEach(n => notifList.appendChild(buildNotifCard(n)));
-    }
-    notifMarkAll.disabled = notifUnread === 0;
-    updateBadge();
-  }
-
-  async function fetchNotifications() {
-    if (!notifReady || !currentUser) return;
-    try {
-      const res = await fetch('/.netlify/functions/get-notifications', { headers: authHeaders() });
-      if (res.status === 401) {
-        // Expired session: sign out quietly (no alert on page load)
-        localStorage.removeItem('twa_user');
-        currentUser = null;
-        renderAuthUI();
-        loadComments();
-        return;
-      }
-      if (!res.ok) return;
-      const data = await res.json();
-      notifications = data.notifications || [];
-      notifUnread = Number(data.unread_count) || 0;
-      renderNotifications();
-    } catch (err) {
-      console.error('Failed to load notifications:', err);
-    }
-  }
-
-  // Keep-alive so a mark-read still completes when we navigate away right after
-  async function markNotificationsRead(payload) {
-    try {
-      const res = await fetch('/.netlify/functions/mark-notifications-read', {
-        method: 'POST',
-        headers: authHeaders(),
-        body: JSON.stringify(payload),
-        keepalive: true
-      });
-      if (res.status === 401) { handleExpired(); return false; }
-      return res.ok;
-    } catch (err) {
-      console.error('Failed to mark notifications read:', err);
-      return false;
-    }
-  }
-
-  function openNotifDrawer() {
-    if (!notifReady) return;
-    notifDrawer.removeAttribute('inert');
-    notifDrawer.classList.add('open');
-    notifBackdrop.classList.add('open');
-    notifBell.setAttribute('aria-expanded', 'true');
-    requestAnimationFrame(() => notifClose.focus());
-    fetchNotifications();
-  }
-
-  function closeNotifDrawer() {
-    if (!notifReady) return;
-    const wasOpen = notifDrawer.classList.contains('open');
-    notifDrawer.classList.remove('open');
-    notifBackdrop.classList.remove('open');
-    notifDrawer.setAttribute('inert', '');
-    notifBell.setAttribute('aria-expanded', 'false');
-    if (wasOpen) notifBell.focus();
-  }
-
-  // Show/hide the bell and load the count; called from renderAuthUI()
-  function syncNotifUI() {
-    if (!notifReady) return;
-    if (currentUser) {
-      notifBell.hidden = false;
-      fetchNotifications();
-    } else {
-      closeNotifDrawer();
-      notifBell.hidden = true;
-      notifications = [];
-      notifUnread = 0;
-      renderNotifications();
-    }
-  }
-
-  function openNotification(n) {
-    if (!n.is_read) {
-      n.is_read = true;
-      notifUnread = Math.max(0, notifUnread - 1);
-      markNotificationsRead({ notification_id: n.id });
-    }
-
-    if (n.kind === 'report') {
-      if (n.post_slug === postSlug) {
-        closeNotifDrawer();
-        renderNotifications();
-        loadComments().then(() => focusComment(n.reply_id));
-      } else {
-        window.location.href = `${POST_URL(n.post_slug)}?target_comment=${encodeURIComponent(n.reply_id)}&parent=${encodeURIComponent(n.parent_id)}`;
-      }
-      return;
-    }
-
-    if (n.post_slug === postSlug) {
-      // Same post: refresh first so a brand-new reply is in the thread, then open it
-      closeNotifDrawer();
-      renderNotifications();
-      loadComments().then(() => openThread(n.parent_id));
-    } else {
-      window.location.href = `${POST_URL(n.post_slug)}?thread=${encodeURIComponent(n.parent_id)}`;
-    }
-  }
-
-  if (notifReady) {
-    notifBell.addEventListener('click', () => {
-      if (notifDrawer.classList.contains('open')) closeNotifDrawer(); else openNotifDrawer();
-    });
-    notifClose.addEventListener('click', closeNotifDrawer);
-    notifBackdrop.addEventListener('click', closeNotifDrawer);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && notifDrawer.classList.contains('open')) closeNotifDrawer();
-    });
-
-    notifMarkAll.addEventListener('click', async () => {
-      if (notifUnread === 0) return;
-      notifMarkAll.disabled = true;
-      const ok = await markNotificationsRead({ all: true });
-      if (ok) {
-        notifications.forEach(n => { n.is_read = true; });
-        notifUnread = 0;
-        renderNotifications();
-      } else {
-        notifMarkAll.disabled = false;
-      }
-    });
-
-    // Whole card is clickable (profile links keep working); the inner button covers the keyboard
-    notifList.addEventListener('click', (e) => {
-      const link = e.target.closest('a');
-      if (link && (!link.classList.contains('notif-report-link') || e.metaKey || e.ctrlKey || e.shiftKey)) return;
-      if (link) e.preventDefault();
-      const card = e.target.closest('.notif-card');
-      if (!card) return;
-      const n = notifications.find(x => Number(x.id) === Number(card.dataset.id));
-      if (n) openNotification(n);
-    });
-
-    // Pick up replies that arrived while the tab was in the background
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && currentUser) fetchNotifications();
-    });
-  }
 
   // =========================================================================
   // COMMENT REPORTING: flag button -> reason popover -> POST /report-comment
@@ -1322,6 +1008,15 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = false;
       btn.textContent = 'Delete';
     }
+  });
+
+  // Tell the global notifications drawer which article this is, so clicking one of
+  // this article's notifications opens the thread in place instead of reloading
+  window.TWA.registerPage({
+    slug: postSlug,
+    reload: loadComments,
+    openThread,
+    focusComment
   });
 
   // Initialize UI on load

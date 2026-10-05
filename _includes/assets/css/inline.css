@@ -2818,7 +2818,7 @@ mjx-container[display="true"],
 	transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.notif-bell:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgb(0 0 0 / 35%); }
+.notif-bell:hover { /* transform: translateY(-2px); */ box-shadow: 0 6px 18px rgb(0 0 0 / 35%); }
 .notif-bell:focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; }
 .notif-bell svg { width: 1.4rem; height: 1.4rem; fill: currentColor; }
 .notif-bell[hidden], .notif-badge[hidden] { display: none; }
@@ -3016,6 +3016,156 @@ mjx-container[display="true"],
 
 @media (prefers-reduced-motion: reduce) {
 	.notif-drawer, .notif-drawer.open, .notif-backdrop, .notif-bell, .notif-card { transition: none; }
+}
+
+/* =========================================================================
+   GLOBAL FLOATING ACTION BAR: Sign In / Account chip + Notifications bell
+   Lives in base.njk, so it appears on every page. Anchored bottom-right;
+   the Ko-fi floating chat is bottom-left, so the two never overlap.
+   ========================================================================= */
+.twa-fab-cluster {
+	position: fixed;
+	right: max(1rem, env(safe-area-inset-right));
+	bottom: max(1.25rem, env(safe-area-inset-bottom));
+	z-index: 9000;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	max-width: calc(100vw - 8.5rem); /* always leaves room for Ko-fi on the left */
+	pointer-events: none; /* the empty strip never blocks clicks on the page */
+}
+
+.twa-fab-cluster > * { pointer-events: auto; }
+
+/* The bell used to be fixed on its own; inside the cluster it flows with it */
+.twa-fab-cluster .notif-bell {
+	position: relative;
+	right: auto;
+	bottom: auto;
+	flex-shrink: 0;
+}
+
+.twa-account { display: flex; align-items: center; min-width: 0; }
+.twa-account:empty { display: none; }
+
+/* Shared pill look for the Sign In button and the logged-in chip (matches the bell) */
+.twa-account-btn,
+.twa-account-chip {
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	width: auto;
+	max-width: 100%;
+	height: 3rem;
+	margin: 0;
+	border: 1px solid var(--primary);
+	border-radius: 999px;
+	background-color: var(--primary);
+	color: var(--secondary);
+	font-size: 0.8rem;
+	font-weight: bold;
+	line-height: 1;
+	white-space: nowrap;
+	box-shadow: 0 4px 14px rgb(0 0 0 / 30%);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.twa-account-btn {
+	padding: 0 1rem 0 0.85rem;
+	cursor: pointer;
+}
+
+.twa-account-chip { padding: 0 0.5rem 0 0.4rem; }
+
+.twa-account-btn:hover,
+.twa-account-chip:hover {
+	/* transform: translateY(-2px); */
+	box-shadow: 0 6px 18px rgb(0 0 0 / 35%);
+}
+
+.twa-account-btn:focus-visible,
+.twa-account-open:focus-visible {
+	outline: 3px solid var(--primary);
+	outline-offset: 2px;
+}
+
+.twa-account-btn svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+/* Avatar + handle + role badge: one button that opens the drawer */
+.twa-account-open {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	width: auto;
+	min-width: 0;
+	margin: 0;
+	padding: 0 0.25rem;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.twa-account-name {
+	max-width: 9rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* The shared avatar/logout classes get floating-bar sizing here only */
+.twa-account .auth-user-avatar,
+.notif-account .auth-user-avatar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.75rem;
+	height: 1.75rem;
+	margin: 0;
+	padding: 0;
+	object-fit: cover;
+	font-size: 0.8rem;
+	font-weight: bold;
+}
+
+.twa-account .auth-user-avatar { border-color: var(--secondary); }
+
+/* Account row at the top of the notifications drawer (Log Out is always reachable here) */
+.notif-account {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-shrink: 0;
+	gap: 0.6rem;
+	padding: 0.7rem 1.1rem;
+	border-bottom: 1px solid var(--primary);
+}
+
+.notif-account:empty { display: none; }
+.notif-account .btn-logout { margin-left: auto !important; }
+
+@media screen and (max-width: 600px) {
+	/* Phones: collapse the chip to a round avatar; handle, role and Log Out live in the drawer */
+	.twa-fab-cluster { right: max(0.75rem, env(safe-area-inset-right)); }
+	.twa-account-chip { width: 3rem; padding: 0; justify-content: center; }
+	.twa-account-open { padding: 0; }
+	.twa-account-name,
+	.twa-account-chip .provider-tag { display: none; }
+	.twa-account-chip .btn-logout { display: none !important; }
+}
+
+@media screen and (max-width: 380px) {
+	/* Very narrow phones: Sign In becomes an icon-only round button */
+	.twa-account-btn { width: 3rem; padding: 0; justify-content: center; }
+	.twa-account-label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.twa-account-btn, .twa-account-chip { transition: none; }
 }
 
 /* =========================================================================
