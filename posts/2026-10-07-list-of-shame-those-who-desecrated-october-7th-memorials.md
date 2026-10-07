@@ -34,11 +34,17 @@ I, Sufian M'Barki, Founder of The Wasp Alloy, Philosopher, Arab Zionist Activist
 When preparing your case, you may link directly to this list for reference. Given its archival nature, I believe there is no need to burden yourselves with creating brand new tables.
 
 {% twatable %}
-Platform,Handle,Profile Link,Post/Comment,Post Link,Wasp Stinger
-instagram,@nicholastorres15,https://www.instagram.com/nicholastorres15,Never ever forget the Hannibal directive and how Bibi was warned about this attack 10 days in advance and also how the Israeli military that receives billions in aid and covers a territory the size of New Jersey let an attack go one for 6+ hours,https://www.instagram.com/p/DeKs2kEDqDv/c/18096045113448439/,Learn what that Directive is before spouting nonsense.
-instagram,@lulutasvu,https://www.instagram.com/lulutasvu/,Bruh Benjamin knew it and let it go💀,https://www.instagram.com/p/DeKs2kEDqDv/c/18117964900767914/,He didn’t. Don’t use a memorial to spread your blood libels.
-instagram,@erjonpromotionsnyc,https://www.instagram.com/erjonpromotionsnyc/,LMFAOOOO Isreali propaganda,https://www.instagram.com/p/DeKs2kEDqDv/c/18103006835126147/,Learn how to spell Israeli
-instagram,@jjjj10_07,https://www.instagram.com/jjjj10_07/,October 7 was a great day,https://www.instagram.com/p/DeKs2kEDqDv/c/18126063043666804/,Only if you’re a genocidal antisemite.
-instagram,@ronnnymlt,https://www.instagram.com/ronnnymlt/,we wish for it to happen again,https://www.instagram.com/p/DeKs2kEDqDv/c/17915108904462968/,This is the “Free Balestine” crowd btw.
-instagram,@randomobs7,https://www.instagram.com/randomobs7/,October 7 was the top 5 days of my life,https://www.instagram.com/p/DeKs2kEDqDv/c/18213080869362344/,Looks like a bot profile.
+Platform,Handle,Profile Link,Post/Comment,Post Link,Wasp Stinger,Date of Entry
+instagram,@nicholastorres15,https://www.instagram.com/nicholastorres15,Never ever forget the Hannibal directive and how Bibi was warned about this attack 10 days in advance and also how the Israeli military that receives billions in aid and covers a territory the size of New Jersey let an attack go one for 6+ hours,https://www.instagram.com/p/DeKs2kEDqDv/c/18096045113448439/,Learn what that Directive is before spouting nonsense.,07-Oct-26
+instagram,@lulutasvu,https://www.instagram.com/lulutasvu/,Bruh Benjamin knew it and let it go💀,https://www.instagram.com/p/DeKs2kEDqDv/c/18117964900767914/,He didn’t. Don’t use a memorial to spread your blood libels, 07-Oct-26
+instagram,@erjonpromotionsnyc,https://www.instagram.com/erjonpromotionsnyc/,LMFAOOOO Isreali propaganda,https://www.instagram.com/p/DeKs2kEDqDv/c/18103006835126147/,Learn how to spell Israeli,07-Oct-26
+instagram,@jjjj10_07,https://www.instagram.com/jjjj10_07/,October 7 was a great day,https://www.instagram.com/p/DeKs2kEDqDv/c/18126063043666804/,Only if you’re a genocidal antisemite.,07-Oct-26
+instagram,@ronnnymlt,https://www.instagram.com/ronnnymlt/,we wish for it to happen again,https://www.instagram.com/p/DeKs2kEDqDv/c/17915108904462968/,This is the “Free Balestine” crowd btw.,07-Oct-26
+instagram,@randomobs7,https://www.instagram.com/randomobs7/,October 7 was the top 5 days of my life,https://www.instagram.com/p/DeKs2kEDqDv/c/18213080869362344/,Looks like a bot profile.,07-Oct-26
+instagram,@prodbytaryn,https://www.instagram.com/prodbytaryn/,Didn’t israel do this?,https://www.instagram.com/p/DeNNrp1knSV/c/18086523980302947/,"No. Even if Israel had done anything similar, that would never have justified desecrating an Oct 7th memorial.",08-Oct-26
+instagram,@prodbytaryn,https://www.instagram.com/prodbytaryn/,"@xantoniojordan take that cross out of your name bud 🤦‍♂️ Jesus would not stand for this nonsense not only was Hamas originally funded by Israel , Israel at the time was going through protest during an election because the citizens realized how corrupt there government had become, so the government staged a terror attack so not only could they kill citizens who don’t agree with them, they can start a war and don’t have to elect a new leader. U may be the slow one here buddy.",https://www.instagram.com/p/DeNNrp1knSV/c/18021145397940496/,"The protests that tool spoke of were led by leftists - anti-Bibi protests. Not to mention the 2022 elections had already taken place by 2023... I also think that an October 7th memorial is NOT an appropriate place to try to spread antisemitic conspiracies. On the list you go.",08-Oct-26
 {% endtwatable %}
+
+What a sight to behold.
+
+***Sufian M'Barki***
