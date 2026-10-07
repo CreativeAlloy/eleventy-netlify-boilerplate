@@ -42,13 +42,13 @@
 	--neutral-bg-dark: #0d0519;
 	--neutral-input-border-dark: #743d9e;
 
-	/* Archive Color Library (Slate / Blue-Gray) */
-    --archive-prim-light: #334e68;
-    --archive-bg-light: #d9e2ec;
-    --archive-prim-dark: #9fb3c8;
-    --archive-sec-dark: #102a43;
-    --archive-bg-dark: #0b1520;
-    --archive-input-border-dark: #243b53;
+	/* Archive Color Library (Cool Blue-Gray) */
+    --archive-prim-light: #3a4b59;
+    --archive-bg-light: #d8e0e6;
+    --archive-prim-dark: #99abbb;
+    --archive-sec-dark: #172129;
+    --archive-bg-dark: #0f151a;
+    --archive-input-border-dark: #293845;
 
     /* Permanent Provider & Role Badge Library
        Brand/role colors — fixed regardless of site theme or light/dark mode,
