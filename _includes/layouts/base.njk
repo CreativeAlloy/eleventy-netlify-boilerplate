@@ -5,7 +5,10 @@
 
 	{% set themeClass = "rainbow-theme" %}
 
-	{% if serious or '/tags/serious/' in page.url %}
+	{% if archive or '/tags/archive/' in page.url or '/archives/' in page.url or (tags and "archive" in tags) %}
+		{% set themeClass = "archive-theme" %}
+
+	{% elif serious or '/tags/serious/' in page.url %}
 		{% set themeClass = "serious-theme" %}
 
 	{% elif lecture or '/tags/lecture/' in page.url %}
@@ -843,6 +846,240 @@
 						}
 					});
 				}
+			});
+		});
+		</script>
+
+		{# --- Interactive TWA Table Controller --- #}
+		<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			document.querySelectorAll('.twatable-wrapper').forEach(wrapper => {
+				const searchInput = wrapper.querySelector('.twatable-search');
+				const colSelect = wrapper.querySelector('.twatable-filter-col');
+				const valSelect = wrapper.querySelector('.twatable-filter-val');
+				const resetBtn = wrapper.querySelector('.twatable-reset-btn');
+				const table = wrapper.querySelector('table.twatable');
+				const thead = table ? table.querySelector('thead') : null;
+				const tbody = table ? table.querySelector('tbody') : null;
+				const prevBtn = wrapper.querySelector('.twatable-prev');
+				const nextBtn = wrapper.querySelector('.twatable-next');
+				const pageDisplay = wrapper.querySelector('.twatable-page-display');
+				const infoDisplay = wrapper.querySelector('.twatable-info');
+
+				if (!table || !tbody) return;
+
+				const PAGE_SIZE = 30;
+				let currentPage = 1;
+				let sortColumnIndex = null;
+				let sortDirection = 'asc';
+
+				// Cache all row elements and pre-extract their text contents
+				const allRows = Array.from(tbody.querySelectorAll('tr')).map(row => {
+					const cells = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
+					return {
+						element: row,
+						cells: cells,
+						allText: cells.join(' ').toLowerCase()
+					};
+				});
+
+				// Extract unique values for each column to populate precise filter dropdown
+				const columnValuesMap = new Map();
+				if (allRows.length > 0) {
+					const colCount = allRows[0].cells.length;
+					for (let c = 0; c < colCount; c++) {
+						const uniqueVals = Array.from(new Set(allRows.map(r => r.cells[c]).filter(Boolean))).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+						columnValuesMap.set(c, uniqueVals);
+					}
+				}
+
+				function populateValueDropdown() {
+					if (!valSelect) return;
+					const selectedCol = colSelect ? colSelect.value : "";
+					valSelect.innerHTML = '<option value="">All Values</option>';
+
+					if (selectedCol === "") {
+						valSelect.disabled = true;
+						return;
+					}
+
+					const colIdx = parseInt(selectedCol, 10);
+					const values = columnValuesMap.get(colIdx) || [];
+					values.forEach(v => {
+						const opt = document.createElement('option');
+						opt.value = v;
+						opt.textContent = v;
+						valSelect.appendChild(opt);
+					});
+					valSelect.disabled = false;
+				}
+
+				function getFilteredRows() {
+					const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
+					const filterColIdx = colSelect && colSelect.value !== "" ? parseInt(colSelect.value, 10) : null;
+					const filterVal = valSelect ? valSelect.value : "";
+
+					return allRows.filter(rowItem => {
+						// 1. Precise Column Filtering
+						if (filterColIdx !== null && filterVal !== "") {
+							if (rowItem.cells[filterColIdx] !== filterVal) {
+								return false;
+							}
+						}
+
+						// 2. Real-Time Search Query
+						if (searchTerm) {
+							if (filterColIdx !== null) {
+								if (!rowItem.cells[filterColIdx].toLowerCase().includes(searchTerm)) {
+									return false;
+								}
+							} else {
+								if (!rowItem.allText.includes(searchTerm)) {
+									return false;
+								}
+							}
+						}
+
+						return true;
+					});
+				}
+
+				function sortRows(rows) {
+					if (sortColumnIndex === null) return rows;
+
+					return rows.slice().sort((a, b) => {
+						const valA = a.cells[sortColumnIndex] || "";
+						const valB = b.cells[sortColumnIndex] || "";
+
+						const numA = parseFloat(valA.replace(/[$,]/g, ''));
+						const numB = parseFloat(valB.replace(/[$,]/g, ''));
+
+						let cmp = 0;
+						if (!isNaN(numA) && !isNaN(numB) && isFinite(numA) && isFinite(numB)) {
+							cmp = numA - numB;
+						} else {
+							cmp = valA.localeCompare(valB, undefined, { numeric: true, sensitivity: 'base' });
+						}
+
+						return sortDirection === 'asc' ? cmp : -cmp;
+					});
+				}
+
+				function updateView() {
+					const filtered = getFilteredRows();
+					const sorted = sortRows(filtered);
+					const total = sorted.length;
+					const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
+					if (currentPage > totalPages) currentPage = totalPages;
+					if (currentPage < 1) currentPage = 1;
+
+					const startIdx = (currentPage - 1) * PAGE_SIZE;
+					const endIdx = Math.min(startIdx + PAGE_SIZE, total);
+
+					// Detach and re-append in sorted order, showing only active page
+					allRows.forEach(item => {
+						item.element.classList.add('twatable-row-hidden');
+					});
+
+					for (let i = startIdx; i < endIdx; i++) {
+						const item = sorted[i];
+						item.element.classList.remove('twatable-row-hidden');
+						tbody.appendChild(item.element);
+					}
+
+					// Update pagination range labels (1–30, 31–60, etc.)
+					const rangeLabel = total > 0 ? `${startIdx + 1}–${endIdx}` : '0–0';
+					if (pageDisplay) pageDisplay.textContent = rangeLabel;
+					if (infoDisplay) infoDisplay.textContent = `Showing ${rangeLabel} of ${total} entries`;
+
+					if (prevBtn) prevBtn.disabled = currentPage <= 1;
+					if (nextBtn) nextBtn.disabled = currentPage >= totalPages || total === 0;
+				}
+
+				// Event Listeners
+				if (searchInput) {
+					searchInput.addEventListener('input', () => {
+						currentPage = 1;
+						updateView();
+					});
+				}
+
+				if (colSelect) {
+					colSelect.addEventListener('change', () => {
+						populateValueDropdown();
+						currentPage = 1;
+						updateView();
+					});
+				}
+
+				if (valSelect) {
+					valSelect.addEventListener('change', () => {
+						currentPage = 1;
+						updateView();
+					});
+				}
+
+				if (resetBtn) {
+					resetBtn.addEventListener('click', () => {
+						if (searchInput) searchInput.value = '';
+						if (colSelect) colSelect.value = '';
+						if (valSelect) {
+							valSelect.value = '';
+							valSelect.disabled = true;
+						}
+						sortColumnIndex = null;
+						sortDirection = 'asc';
+						if (thead) {
+							thead.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+						}
+						currentPage = 1;
+						updateView();
+					});
+				}
+
+				if (prevBtn) {
+					prevBtn.addEventListener('click', () => {
+						if (currentPage > 1) {
+							currentPage--;
+							updateView();
+						}
+					});
+				}
+
+				if (nextBtn) {
+					nextBtn.addEventListener('click', () => {
+						const filtered = getFilteredRows();
+						const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+						if (currentPage < totalPages) {
+							currentPage++;
+							updateView();
+						}
+					});
+				}
+
+				if (thead) {
+					thead.querySelectorAll('th').forEach(th => {
+						th.addEventListener('click', () => {
+							const colIdx = parseInt(th.getAttribute('data-col'), 10);
+							if (sortColumnIndex === colIdx) {
+								sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+							} else {
+								sortColumnIndex = colIdx;
+								sortDirection = 'asc';
+							}
+
+							thead.querySelectorAll('th').forEach(t => t.classList.remove('sort-asc', 'sort-desc'));
+							th.classList.add(sortDirection === 'asc' ? 'sort-asc' : 'sort-desc');
+
+							updateView();
+						});
+					});
+				}
+
+				// Initial View Render
+				populateValueDropdown();
+				updateView();
 			});
 		});
 		</script>

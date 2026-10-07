@@ -1,10 +1,28 @@
 <nav>
   {% set navPages = collections.all | eleventyNavigation %}
+  {% set archiveEntry = null %}
+  {% for entry in navPages %}
+    {% if entry.key == "Archives" or entry.title == "Archives" %}
+      {% set archiveEntry = entry %}
+    {% endif %}
+  {% endfor %}
   <ul>
     {%- for entry in navPages %}
-      <li>
-        <a href="{{ entry.url | url }}"{% if entry.url == page.url %} data-current="current item"{% endif %}>{{ entry.title }}</a>
-      </li>
+      {%- if entry.key != "Archives" and entry.title != "Archives" %}
+        <li>
+          <a href="{{ entry.url | url }}"{% if entry.url == page.url %} data-current="current item"{% endif %}>{{ entry.title }}</a>
+        </li>
+        {%- if entry.key == "News" or entry.title == "News" %}
+          <li>
+            <a href="{{ (archiveEntry.url if archiveEntry else '/archives/') | url }}"{% if page.url == '/archives/' or '/archives/' in page.url %} data-current="current item"{% endif %}>Archives</a>
+          </li>
+        {%- endif %}
+      {%- endif %}
     {%- endfor %}
+    {%- if not (navPages | selectattr("key", "equalto", "News") | list | length) and not (navPages | selectattr("title", "equalto", "News") | list | length) %}
+      <li>
+        <a href="{{ (archiveEntry.url if archiveEntry else '/archives/') | url }}"{% if page.url == '/archives/' or '/archives/' in page.url %} data-current="current item"{% endif %}>Archives</a>
+      </li>
+    {%- endif %}
   </ul>
 </nav>

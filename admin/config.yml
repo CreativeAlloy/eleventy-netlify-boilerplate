@@ -1,6 +1,8 @@
 # Decap CMS Configuration File
 
 # The backend option specifies how to access the content for your site
+local_backend: true
+
 backend:
   name: git-gateway
   branch: master # The branch to update (optional; defaults to master)
@@ -31,6 +33,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Serious Post?", name: "serious", widget: "boolean", default: false, required: false }
       - { label: "Lecture Post?", name: "lecture", widget: "boolean", default: false, required: false }
+      - { label: "Archive Post?", name: "archive", widget: "boolean", default: false, required: false }
       - label: "Publish Date"
         name: "date"
         widget: "datetime"

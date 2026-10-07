@@ -1,0 +1,23 @@
+---
+title: Archives
+metaDescription: Complete archive of watchdog lists, lexicon entries, legal cases, etc.
+layout: layouts/base.njk
+permalink: /archives/index.html
+archive: true
+eleventyNavigation:
+  key: Archives
+  order: 2
+---
+
+<h1>{{ title }}</h1>
+
+<p>A repository of watchdog lists, lexicon entries, legal cases, etc.</p>
+
+{% include "components/searchbar.njk" %}
+
+{% set postslist = collections.all | onlyArchive %}
+{% include "components/postslist.njk" %}
+
+<nav class="index-nav index-nav-bottom">
+  <a href="{{ '/news/' | url }}">← News index</a>
+</nav>

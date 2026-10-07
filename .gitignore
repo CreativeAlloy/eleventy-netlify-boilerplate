@@ -7,6 +7,8 @@ TheWaspAloyFavicon.png
 TWA-Netlify-Image.txt
 .env
 clear-test-comments.mjs
+*.csv
+*.csv#
 
 # Local Netlify folder
 .netlify

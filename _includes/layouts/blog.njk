@@ -16,5 +16,5 @@ permalink: /blog/index.html
 
 {% include "components/searchbar.njk" %}
 
-{% set postslist = collections.post %}
+{% set postslist = collections.post | excludeArchive %}
 {% include "components/postslist.njk" %}

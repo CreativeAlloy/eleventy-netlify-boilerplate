@@ -4,7 +4,11 @@ section: post
 ---
 
 <nav class="index-nav index-nav-top index-nav-top-articles">
-  <a href="{{ '/news/' | url }}">← News Index</a>
+  {% if archive or (tags and "archive" in tags) %}
+    <a href="{{ '/archives/' | url }}">← Archives Index</a>
+  {% else %}
+    <a href="{{ '/news/' | url }}">← News Index</a>
+  {% endif %}
 </nav>
 
 {# --- Layout wrapper: TOC on the left, article on the right --- #}
@@ -76,7 +80,11 @@ section: post
 </div>
 
 <nav class="index-nav index-nav-bottom">
-  <a href="{{ '/news/' | url }}">← News Index</a>
+  {% if archive or (tags and "archive" in tags) %}
+    <a href="{{ '/archives/' | url }}">← Archives Index</a>
+  {% else %}
+    <a href="{{ '/news/' | url }}">← News Index</a>
+  {% endif %}
 </nav>
 
 {# --- View Counter Script --- #}

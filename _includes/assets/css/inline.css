@@ -10,7 +10,7 @@
    Permanent Color Library: This will allow significantly easier referencing
    ========================================================================== */
 
-    /* Satire Color Library */
+    /* Satire Color Library (Forest Green) */
     --satire-prim-light: #2e6319;
     --satire-bg-light: #c9ffcf;
     --satire-prim-dark: #8fd37a;
@@ -18,7 +18,7 @@
     --satire-bg-dark: #0d120b;
 	--satire-input-border-dark: #2c4222;
 
-    /* Serious Color Library */
+    /* Serious Color Library (Navy Blue) */
     --serious-prim-light: #004466;
     --serious-bg-light: #b5e5ff;
     --serious-prim-dark: #58a6ff;
@@ -26,7 +26,7 @@
 	--serious-bg-dark: #060e1f;
 	--serious-input-border-dark: #142d66;
 
-    /* Lecture Color Library */
+    /* Lecture Color Library (Bordeaux) */
     --lecture-prim-light: #8b002e;
     --lecture-bg-light: #ffd7e1;
 	--lecture-prim-dark: #ff7d9b;
@@ -34,13 +34,21 @@
 	--lecture-bg-dark: #140508;
 	--lecture-input-border-dark: #4d0d1b;
 
-    /* Neutral Color Library */
+    /* Neutral Color Library (Purple) */
     --neutral-prim-light: #5b1fa6;
     --neutral-bg-light: #e2caff;
 	--neutral-prim-dark: #c084fc;
 	--neutral-sec-dark: #1f1035;
 	--neutral-bg-dark: #0d0519;
 	--neutral-input-border-dark: #743d9e;
+
+	/* Archive Color Library (Slate / Blue-Gray) */
+    --archive-prim-light: #334e68;
+    --archive-bg-light: #d9e2ec;
+    --archive-prim-dark: #9fb3c8;
+    --archive-sec-dark: #102a43;
+    --archive-bg-dark: #0b1520;
+    --archive-input-border-dark: #243b53;
 
     /* Permanent Provider & Role Badge Library
        Brand/role colors — fixed regardless of site theme or light/dark mode,
@@ -139,6 +147,12 @@
 	--card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+.archive-theme {
+	--primary: var(--archive-prim-light);
+	--background: var(--archive-bg-light);
+	--card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* Rainbow Theme — Mathematical Hue Wheel */
 @property --hue {
 	syntax: '<number>';
@@ -198,6 +212,13 @@ body.dark-mode.neutral-theme {
 	--input-border: var(--neutral-input-border-dark);
 }
 
+body.dark-mode.archive-theme {
+	--primary: var(--archive-prim-dark);
+	--secondary: var(--archive-sec-dark);
+	--background: var(--archive-bg-dark);
+	--input-border: var(--archive-input-border-dark);
+}
+
 body.dark-mode.rainbow-theme {
 	--primary: hsl(var(--hue), 50%, 65%);
 	--secondary: hsl(var(--hue), 40%, 13%);
@@ -224,6 +245,10 @@ body.dark-mode.rainbow-theme {
 	--mode-lecture-primary: var(--lecture-prim-light);
 	--mode-lecture-secondary: white;
 	--mode-lecture-bg: var(--lecture-bg-light);
+
+	--mode-archive-primary: var(--archive-prim-light);
+	--mode-archive-secondary: white;
+	--mode-archive-bg: var(--archive-bg-light);
 }
 
 body.dark-mode {
@@ -243,6 +268,10 @@ body.dark-mode {
 	--mode-lecture-primary: var(--lecture-prim-dark);
 	--mode-lecture-secondary: var(--lecture-sec-dark);
 	--mode-lecture-bg: var(--lecture-sec-dark);
+
+	--mode-archive-primary: var(--archive-prim-dark);
+	--mode-archive-secondary: var(--archive-sec-dark);
+	--mode-archive-bg: var(--archive-sec-dark);
 }
 
 /* =========================================================================
@@ -563,6 +592,28 @@ main > section > article > * {
 .posts-list article[data-mode="LECTURE" i] a[rel="tag"]:hover { /* Lecture Post Tags Hover */
     color: var(--mode-lecture-secondary);
     background-color: var(--mode-lecture-primary);
+}
+
+/* ARCHIVE */
+.posts-list article[data-mode="ARCHIVE" i] { /* Archive Post Card */
+    border: 1px solid var(--mode-archive-primary);
+    border-left: 5px solid var(--mode-archive-primary);
+    background-color: oklch(from var(--mode-archive-bg) calc(l + 0.05) c h);
+}
+
+.posts-list article[data-mode="ARCHIVE" i] a[href] { /* Archive Title & Author */
+    color: var(--mode-archive-primary);
+}
+
+.posts-list article[data-mode="ARCHIVE" i] a[rel="tag"] { /* Archive Post Tags */
+    color: var(--mode-archive-primary);
+    border-color: var(--mode-archive-primary);
+    background-color: oklch(from var(--mode-archive-secondary) calc(l + 0.05) c h);
+}
+
+.posts-list article[data-mode="ARCHIVE" i] a[rel="tag"]:hover { /* Archive Post Tags Hover */
+    color: var(--mode-archive-secondary);
+    background-color: var(--mode-archive-primary);
 }
 
 /* =========================================================================
@@ -3166,6 +3217,240 @@ mjx-container[display="true"],
 
 @media (prefers-reduced-motion: reduce) {
 	.twa-account-btn, .twa-account-chip { transition: none; }
+}
+
+/* =========================================================================
+   CUSTOM INTERACTIVE DATA TABLE (TWA TABLE)
+   ========================================================================= */
+
+.twatable-wrapper {
+	margin: 2rem 0;
+	background-color: var(--secondary);
+	border: 1px solid var(--primary);
+	border-left: 5px solid var(--primary);
+	border-radius: 8px;
+	box-shadow: var(--card-shadow);
+	overflow: hidden;
+}
+
+.twatable-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	padding: 1rem;
+	background-color: var(--background);
+	border-bottom: 1px solid var(--primary);
+	align-items: center;
+	justify-content: space-between;
+}
+
+.twatable-search-box {
+	flex: 1 1 220px;
+}
+
+.twatable-search-box input.twatable-search {
+	width: 100%;
+	margin-bottom: 0 !important;
+	padding: 0.6rem 0.85rem;
+	font-size: 0.9rem;
+	border: 1px solid var(--primary);
+	border-radius: 6px;
+	background-color: var(--secondary);
+	color: inherit;
+	outline: none;
+}
+
+.twatable-filter-box {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.twatable-filter-box select {
+	padding: 0.55rem 0.75rem;
+	font-size: 0.85rem;
+	font-family: inherit;
+	border: 1px solid var(--primary);
+	border-radius: 6px;
+	background-color: var(--secondary);
+	color: inherit;
+	outline: none;
+	cursor: pointer;
+}
+
+.twatable-filter-box button.twatable-reset-btn {
+	width: auto !important;
+	margin: 0 !important;
+	padding: 0.55rem 0.9rem !important;
+	font-size: 0.85rem !important;
+	font-weight: bold;
+	border: 1px solid var(--primary) !important;
+	border-radius: 6px !important;
+	background-color: var(--secondary) !important;
+	color: var(--primary) !important;
+	cursor: pointer;
+	transition: all 0.15s ease-in-out;
+}
+
+.twatable-filter-box button.twatable-reset-btn:hover {
+	background-color: var(--primary) !important;
+	color: var(--secondary) !important;
+}
+
+.twatable-table-scroll {
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+table.twatable {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+	font-size: 0.9rem;
+}
+
+table.twatable th,
+table.twatable td {
+	padding: 0.75rem 1rem;
+	border-bottom: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+	vertical-align: middle;
+}
+
+table.twatable th {
+	background-color: color-mix(in srgb, var(--primary) 12%, var(--background));
+	color: var(--primary);
+	font-weight: bold;
+	cursor: pointer;
+	user-select: none;
+	white-space: nowrap;
+	transition: background-color 0.15s ease;
+}
+
+table.twatable th:hover {
+	background-color: color-mix(in srgb, var(--primary) 22%, var(--background));
+}
+
+table.twatable th .twatable-header-label {
+	display: inline;
+}
+
+table.twatable th .twatable-sort-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1rem;
+	height: 1rem;
+	margin-left: 0.35rem;
+	vertical-align: middle;
+	opacity: 0.55;
+}
+
+table.twatable th .twatable-sort-icon svg {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+table.twatable th .twatable-sort-icon .sort-up,
+table.twatable th .twatable-sort-icon .sort-down {
+	transition: opacity 0.15s ease;
+}
+
+table.twatable th:not(.sort-asc):not(.sort-desc) .twatable-sort-icon .sort-up,
+table.twatable th:not(.sort-asc):not(.sort-desc) .twatable-sort-icon .sort-down {
+	opacity: 0.8;
+}
+
+table.twatable th.sort-asc .twatable-sort-icon .sort-up {
+	opacity: 1;
+}
+
+table.twatable th.sort-asc .twatable-sort-icon .sort-down {
+	opacity: 0.2;
+}
+
+table.twatable th.sort-desc .twatable-sort-icon .sort-up {
+	opacity: 0.2;
+}
+
+table.twatable th.sort-desc .twatable-sort-icon .sort-down {
+	opacity: 1;
+}
+
+table.twatable tbody tr:hover {
+	background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+table.twatable tbody tr.twatable-row-hidden {
+	display: none !important;
+}
+
+.twatable-footer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.75rem 1rem;
+	background-color: var(--background);
+	border-top: 1px solid var(--primary);
+	font-size: 0.85rem;
+}
+
+.twatable-info {
+	opacity: 0.85;
+	font-weight: 600;
+}
+
+.twatable-pagination {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.twatable-page-btn {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	width: auto !important;
+	min-width: 2rem !important;
+	height: 2rem !important;
+	margin: 0 !important;
+	padding: 0 0.6rem !important;
+	font-size: 0.85rem !important;
+	font-weight: bold;
+	line-height: 1;
+	border: 1px solid var(--primary) !important;
+	border-radius: 4px !important;
+	background-color: var(--secondary) !important;
+	color: var(--primary) !important;
+	cursor: pointer;
+	transition: all 0.15s ease-in-out;
+}
+
+.twatable-page-btn:hover:not(:disabled) {
+	background-color: var(--primary) !important;
+	color: var(--secondary) !important;
+}
+
+.twatable-page-btn:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.twatable-page-btn svg {
+	display: block;
+	width: 1rem;
+	height: 1rem;
+}
+
+.twatable-page-display {
+	font-weight: bold;
+	padding: 0 0.35rem;
+	color: var(--primary);
+	user-select: none;
 }
 
 /* =========================================================================

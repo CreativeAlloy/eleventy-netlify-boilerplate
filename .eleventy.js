@@ -78,6 +78,145 @@ module.exports = function (eleventyConfig) {
     }, {});
   });
 
+  // Filter to completely exclude Archive posts from News
+  eleventyConfig.addFilter("excludeArchive", posts => {
+    if (!posts || !Array.isArray(posts)) return [];
+    return posts.filter(item => {
+      const tags = (item.data && item.data.tags) || item.tags || [];
+      return !tags.includes("archive");
+    });
+  });
+
+  // Filter to extract exclusively Archive posts
+  eleventyConfig.addFilter("onlyArchive", posts => {
+    if (!posts || !Array.isArray(posts)) return [];
+    return posts.filter(item => {
+      const tags = (item.data && item.data.tags) || item.tags || [];
+      return tags.includes("archive");
+    });
+  });
+
+  // Collection for news articles (excluding archive entries)
+  eleventyConfig.addCollection("news", collection => {
+    return collection.getFilteredByTag("post").filter(item => {
+      const tags = item.data.tags || [];
+      return !tags.includes("archive");
+    });
+  });
+
+  // Collection for archive articles
+  eleventyConfig.addCollection("archives", collection => {
+    return collection.getAll().filter(item => {
+      const tags = item.data.tags || [];
+      return tags.includes("archive");
+    });
+  });
+
+  // --- Custom Table Component ({% twatable %}) ---
+  let twatableCounter = 0;
+  eleventyConfig.addPairedShortcode("twatable", function (csvContent) {
+    if (!csvContent || !csvContent.trim()) return "";
+
+    // Robust RFC-4180 CSV Parser
+    function parseCSV(text) {
+      const lines = [];
+      let row = [];
+      let inQuotes = false;
+      let curVal = "";
+      const str = text.trim();
+
+      for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        const nextChar = str[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && nextChar === '"') {
+            curVal += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          row.push(curVal.trim());
+          curVal = "";
+        } else if ((char === '\r' || char === '\n') && !inQuotes) {
+          if (char === '\r' && nextChar === '\n') {
+            i++;
+          }
+          row.push(curVal.trim());
+          if (row.some(cell => cell.length > 0)) {
+            lines.push(row);
+          }
+          row = [];
+          curVal = "";
+        } else {
+          curVal += char;
+        }
+      }
+      if (curVal.length > 0 || row.length > 0) {
+        row.push(curVal.trim());
+        if (row.some(cell => cell.length > 0)) {
+          lines.push(row);
+        }
+      }
+      return lines;
+    }
+
+    function esc(s) {
+      return String(s ?? '').replace(/[&<>"']/g, ch => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[ch]));
+    }
+
+    const parsed = parseCSV(csvContent);
+    if (parsed.length === 0) return "";
+
+    const headers = parsed[0];
+    const dataRows = parsed.slice(1);
+    const tableId = `twatable-${++twatableCounter}`;
+
+    const headersHtml = headers.map((h, idx) =>
+      `<th scope="col" data-col="${idx}" tabindex="0" role="button" aria-label="Sort by ${esc(h)}"><span class="twatable-header-label">${esc(h)}</span><span class="twatable-sort-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path class="sort-up" d="M7 10l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path class="sort-down" d="M7 14l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></th>`
+    ).join("");
+
+    const rowsHtml = dataRows.map(row =>
+      `<tr>${row.map(cell => `<td>${esc(cell)}</td>`).join("")}</tr>`
+    ).join("");
+
+    const colOptions = headers.map((h, idx) => `<option value="${idx}">${esc(h)}</option>`).join("");
+
+    return `
+      <div class="twatable-wrapper" id="${tableId}">
+        <div class="twatable-toolbar">
+          <div class="twatable-search-box">
+            <input type="text" class="twatable-search" placeholder="Search table..." aria-label="Search table">
+          </div>
+          <div class="twatable-filter-box">
+            <select class="twatable-filter-col" aria-label="Filter by column">
+              <option value="">All Columns</option>
+              ${colOptions}
+            </select>
+            <select class="twatable-filter-val" aria-label="Filter by value" disabled>
+              <option value="">All Values</option>
+            </select>
+            <button type="button" class="twatable-reset-btn" title="Reset table search and filters">Reset</button>
+          </div>
+        </div><div class="twatable-table-scroll"><table class="twatable"><thead><tr>${headersHtml}</tr></thead><tbody>${rowsHtml}</tbody></table></div><div class="twatable-footer">
+          <div class="twatable-info"></div>
+          <div class="twatable-pagination">
+            <button type="button" class="twatable-page-btn twatable-prev" aria-label="Previous page"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <span class="twatable-page-display">1–30</span>
+            <button type="button" class="twatable-page-btn twatable-next" aria-label="Next page"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+      </div>
+    `.trim();
+  });
+
   // Date formatting (human readable)
   eleventyConfig.addFilter("readableDate", dateObj => {
     return DateTime.fromJSDate(dateObj).toFormat("dd LLL yyyy");
