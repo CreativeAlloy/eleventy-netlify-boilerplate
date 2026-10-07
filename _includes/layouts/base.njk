@@ -868,7 +868,7 @@
 
 				if (!table || !tbody) return;
 
-				const PAGE_SIZE = 30;
+				const PAGE_SIZE = 10; // Potentially make this customizable per table by passing a parameter? {% twatable | 10 %} or something similar
 				let currentPage = 1;
 				let sortColumnIndex = null;
 				let sortDirection = 'asc';
