@@ -3225,6 +3225,9 @@ mjx-container[display="true"],
 
 .twatable-wrapper {
 	margin: 2rem 0;
+	/* Breathing room above the table when scrollIntoView() aligns it to the top of the
+	   viewport, so the search/filter toolbar is never clipped (also clears device notches). */
+	scroll-margin-top: max(1rem, env(safe-area-inset-top));
 	background-color: var(--secondary);
 	border: 1px solid var(--primary);
 	border-left: 5px solid var(--primary);

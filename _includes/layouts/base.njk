@@ -873,6 +873,26 @@
 				let sortColumnIndex = null;
 				let sortDirection = 'asc';
 
+				// Scrolls the viewport back to the top of this table. Called ONLY from the
+				// Previous / Next pagination handlers (never on init, search, filter, reset or sort).
+				// Runs after the layout has updated so the measurement reflects the new page height.
+				function scrollToTableTop() {
+					requestAnimationFrame(() => {
+						const rect = wrapper.getBoundingClientRect();
+						// Table top is already on screen (e.g. short table or user is near the top): don't jump.
+						if (rect.top >= 0) return;
+
+						const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+						// scroll-margin-top on .twatable-wrapper (see inline.css) keeps the search/filter
+						// toolbar fully visible and respects notches/safe areas on mobile.
+						wrapper.scrollIntoView({
+							behavior: prefersReducedMotion ? 'auto' : 'smooth',
+							block: 'start',
+							inline: 'nearest'
+						});
+					});
+				}
+
 				// Cache all row elements and pre-extract their text contents
 				const allRows = Array.from(tbody.querySelectorAll('tr')).map(row => {
 					const cells = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
@@ -1043,6 +1063,7 @@
 						if (currentPage > 1) {
 							currentPage--;
 							updateView();
+							scrollToTableTop();
 						}
 					});
 				}
@@ -1054,6 +1075,7 @@
 						if (currentPage < totalPages) {
 							currentPage++;
 							updateView();
+							scrollToTableTop();
 						}
 					});
 				}
