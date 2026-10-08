@@ -3268,9 +3268,20 @@ mjx-container[display="true"],
 	flex-wrap: wrap;
 	gap: 0.5rem;
 	align-items: center;
+	min-width: 0;
+	max-width: 100%;
 }
 
 .twatable-filter-box select {
+	/* Fixed width: a <select> otherwise grows to fit its longest <option> */
+	box-sizing: border-box;
+	flex: 0 1 9rem;
+	width: 9rem;
+	min-width: 0;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	padding: 0.55rem 0.75rem;
 	font-size: 0.85rem;
 	font-family: inherit;
@@ -3283,6 +3294,8 @@ mjx-container[display="true"],
 }
 
 .twatable-filter-box button.twatable-reset-btn {
+	flex: 0 0 auto; /* never grows or shrinks with its neighbours */
+	white-space: nowrap;
 	width: auto !important;
 	margin: 0 !important;
 	padding: 0.55rem 0.9rem !important;
