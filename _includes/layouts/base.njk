@@ -929,10 +929,20 @@
 
 					const colIdx = parseInt(selectedCol, 10);
 					const values = columnValuesMap.get(colIdx) || [];
+					const MAX_OPTION_CHARS = 20;
+
 					values.forEach(v => {
+						// Collapse whitespace/newlines, then show only the first 20 characters as the label.
+						// Array.from() counts real characters, so emoji aren't split in half.
+						const chars = Array.from(v.replace(/\s+/g, ' ').trim());
+						const label = chars.length > MAX_OPTION_CHARS
+							? chars.slice(0, MAX_OPTION_CHARS).join('').trimEnd() + '…'
+							: chars.join('');
+
 						const opt = document.createElement('option');
-						opt.value = v;
-						opt.textContent = v;
+						opt.value = v;          // full value is still what the filter compares against
+						opt.textContent = label; // truncated preview shown in the dropdown
+						opt.title = v;          // full text on hover (desktop)
 						valSelect.appendChild(opt);
 					});
 					valSelect.disabled = false;
