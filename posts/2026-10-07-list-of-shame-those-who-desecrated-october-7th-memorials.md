@@ -50,6 +50,6 @@ When preparing your case, you may link directly to this list for reference. Give
 "instagram","@alli_gator2277","https://www.instagram.com/alli_gator2277/","@sufian.mbarki 🤢🤢🤢🤢","https://www.instagram.com/p/DeNqXxRuEkj?comment_id=18099581273063788","That entry is not duplicated, they actually replied with these emojis twice. Incitement of hatred based on my support of Israel and homosexuality. Very illegal if you ask me.","08-Oct-26"
 {% endtwatable %}
 
-What a sight to behold.
+What a sight to behold. And it's only going to become increasingly impressive.
 
 ***Sufian M'Barki***
