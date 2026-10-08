@@ -865,11 +865,15 @@
 				const nextBtn = wrapper.querySelector('.twatable-next');
 				const pageDisplay = wrapper.querySelector('.twatable-page-display');
 				const infoDisplay = wrapper.querySelector('.twatable-info');
+				const pageInput = wrapper.querySelector('.twatable-page-input');
+				const pageTotal = wrapper.querySelector('.twatable-page-total');
+				const goBtn = wrapper.querySelector('.twatable-go-btn');
 
 				if (!table || !tbody) return;
 
 				const PAGE_SIZE = 10; // Potentially make this customizable per table by passing a parameter? twatable 10 or something similar
 				let currentPage = 1;
+				let totalPagesCache = 1; // kept in sync by updateView(); used by the page-jump input
 				let sortColumnIndex = null;
 				let sortDirection = 'asc';
 
@@ -1015,6 +1019,16 @@
 
 					if (prevBtn) prevBtn.disabled = currentPage <= 1;
 					if (nextBtn) nextBtn.disabled = currentPage >= totalPages || total === 0;
+
+					// Keep the page-jump field in sync (display only, never scrolls)
+					totalPagesCache = totalPages;
+					if (pageInput) {
+						pageInput.value = currentPage;
+						pageInput.max = totalPages;
+						pageInput.disabled = totalPages <= 1;
+					}
+					if (pageTotal) pageTotal.textContent = `of ${totalPages}`;
+					if (goBtn) goBtn.disabled = totalPages <= 1;
 				}
 
 				// Event Listeners
@@ -1078,6 +1092,45 @@
 							scrollToTableTop();
 						}
 					});
+				}
+
+				// Manual page entry: confirmed with Enter or the "Go" button
+				function goToPage() {
+					if (!pageInput) return;
+
+					const requested = parseInt(pageInput.value, 10);
+					if (isNaN(requested)) {
+						pageInput.value = currentPage; // empty/invalid: restore the current page
+						return;
+					}
+
+					// Clamp out-of-range entries (0, 99 on a 30-page table, etc.) to the valid range
+					const target = Math.min(Math.max(requested, 1), totalPagesCache);
+
+					if (target === currentPage) {
+						pageInput.value = currentPage; // same page: normalise the field, no scroll
+						return;
+					}
+
+					currentPage = target;
+					updateView();
+					scrollToTableTop();
+				}
+
+				if (pageInput) {
+					pageInput.addEventListener('keydown', (e) => {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							goToPage();
+						}
+					});
+
+					// Select the contents on focus so typing replaces the number straight away
+					pageInput.addEventListener('focus', () => pageInput.select());
+				}
+
+				if (goBtn) {
+					goBtn.addEventListener('click', goToPage);
 				}
 
 				if (thead) {

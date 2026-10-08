@@ -211,6 +211,12 @@ module.exports = function (eleventyConfig) {
             <button type="button" class="twatable-page-btn twatable-prev" aria-label="Previous page"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <span class="twatable-page-display">1–30</span>
             <button type="button" class="twatable-page-btn twatable-next" aria-label="Next page"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="twatable-goto">
+              <label class="twatable-goto-label" for="${tableId}-page">Page</label>
+              <input type="number" id="${tableId}-page" class="twatable-page-input" min="1" step="1" value="1" inputmode="numeric" enterkeyhint="go">
+              <span class="twatable-page-total">of 1</span>
+              <button type="button" class="twatable-page-btn twatable-go-btn" aria-label="Go to entered page">Go</button>
+            </div>
           </div>
         </div>
       </div>
