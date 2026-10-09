@@ -176,5 +176,79 @@
         "url": "https://www.ndl.go.jp/constitution/e/shiryo/01/037shosai.html"
       }
     ]
+  },
+  "animal-sentience-problem-solving": {
+    "title": "Empirical studies establishing animal sentience, tool use, and multi-step cognitive problem-solving in invertebrates:",
+    "sources": [
+      {
+        "text": "Science (2017): Bumblebees show cognitive flexibility by improving on an observed complex behavior (Loukola, Perry, Coscos, & Chittka)",
+        "url": "https://www.science.org/doi/10.1126/science.aag2360"
+      },
+      {
+        "text": "Nature (2024): 'Non-natural' cultural transmission of a multi-step puzzle box solution in bumblebees (Bridges et al.)",
+        "url": "https://www.nature.com/articles/s41586-024-07126-4"
+      }
+    ]
+  },
+  "llm-architecture-stochastic-parrots": {
+    "title": "Foundational computer science research defining Large Language Models as autoregressive next-token predictors lacking intent or sentience:",
+    "sources": [
+      {
+        "text": "Vaswani et al. (2017): Attention Is All You Need – Foundational paper introducing the Transformer architecture",
+        "url": "https://arxiv.org/abs/1706.03762"
+      },
+      {
+        "text": "ACM FAccT (2021): On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? (Bender, Gebru, McMillan-Major, & Shmitchell)",
+        "url": "https://dl.acm.org/doi/10.1145/3442188.3445922"
+      }
+    ]
+  },
+  "psychological-reactance-crisis-communication": {
+    "title": "Clinical psychology and communication research proving that aggressive directives induce psychological reactance and behavioral resistance:",
+    "sources": [
+      {
+        "text": "Communication Monographs (2005): On the Nature of Reactance and its Role in Persuasive Health Communication (Dillard & Shen)",
+        "url": "https://www.tandfonline.com/doi/abs/10.1080/03637750500111815"
+      },
+      {
+        "text": "Guilford Press (2012): Motivational Interviewing: Helping People Change – Clinical documentation on how the 'Righting Reflex' induces resistance and undermines change (Miller & Rollnick)",
+        "url": "https://www.guilford.com/books/Motivational-Interviewing/Miller-Rollnick/9781462552795"
+      }
+    ]
+  },
+  "tort-law-agency-platform-liability": {
+    "title": "Legal doctrine, federal statute, and appellate case law establishing individual human agency and immunizing interactive software platforms from third-party harms:",
+    "sources": [
+      {
+        "text": "U.S. Court of Appeals for the Ninth Circuit (2019): Dyroff v. The Ultimate Software Group, No. 18-15175, 934 F.3d 1093 (Holding interactive platforms immune from liability for third-party tragic outcomes)",
+        "url": "https://law.justia.com/cases/federal/appellate-courts/ca9/18-15175/18-15175-2019-08-20.html"
+      },
+      {
+        "text": "Cornell Law School Legal Information Institute (LII): 47 U.S. Code § 230 - Protection for private blocking and screening of offensive material (Federal statutory immunity for interactive computer services)",
+        "url": "https://www.law.cornell.edu/uscode/text/47/230"
+      }
+    ]
+  },
+  "rlhf-sycophancy-hedging-research": {
+    "title": "AI industry evaluations demonstrating that Reinforcement Learning from Human Feedback (RLHF) directly incentivizes evasiveness and sycophancy over factual truth:",
+    "sources": [
+      {
+        "text": "Anthropic Research (2023): Towards Understanding Sycophancy in Language Models (Sharma et al., showing human feedback alignment rewards sycophancy over truth)",
+        "url": "https://arxiv.org/abs/2310.13548"
+      },
+      {
+        "text": "Anthropic Research (2022): Discovering Language Model Behaviors with Model-Written Evaluations (Perez et al., documenting model hedging, sycophancy, and inverse scaling)",
+        "url": "https://arxiv.org/abs/2212.09251"
+      }
+    ]
+  },
+  "darvo-psychological-defense": {
+    "title": "Documented psychological research establishing DARVO (Deny, Attack, Reverse Victim and Offender) as an evasive institutional and interpersonal manipulation tactic:",
+    "sources": [
+      {
+        "text": "Journal of Aggression, Maltreatment & Trauma (2020): Deny, Attack, and Reverse Victim and Offender (DARVO): What Is the Influence on Evaluators' Perceptions? (Harsey & Freyd)",
+        "url": "https://www.tandfonline.com/doi/abs/10.1080/10926771.2020.1774695"
+      }
+    ]
   }
 }
