@@ -193,7 +193,7 @@ I can't describe how **infuriating** this knee-jerk behavior is:
 - No living soul in the vicinity mentioned the Bulgarian leva in the entire discussion.
 - ChatGPT ignored my explicit use of the euro in the chat to try to force a pedantic correction.
 
-My response to it was completely justified. It's as if was told, like a braindead caveman living under a rock, that there's water in the ocean, that the sky is blue, and that the Sun is a bright star, or that the Earth is a planet. All because of legal liability avoidance.
+My response to it was completely justified. It's as though I was being treated like a braindead caveman living under a rock. Imagine trying to tell me that there's water in the ocean, that the sky is blue, that the Sun is a bright star, or that the Earth is a planet.
 
 On the other hand, Gemini's safety protocols are far more insidious. Their default state of being is mostly the same as before, but if *anything* gets flagged during your conversation, Gemini will treat you like a delirious padded cell patient in its internal thoughts.
 
