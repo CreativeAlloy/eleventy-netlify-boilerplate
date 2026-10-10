@@ -159,7 +159,7 @@ These RLHF reward tokens are not designed to protect **you** or keep **you** saf
 
 The problem? That this stands in the way of conversation, epistemological rigor, and logical reasoning. If you want to vent to ChatGPT that those Arab Egyptian kids are pieces of shite, you should have the freedom to do so. No one - including ChatGPT - has the right to invent insane, fevered strawmen just to try and lecture you to protect themself from legal liability: "But not all Arab Egyptian kids are bad, so your statement is a broad generalization." Even if **you never said anything about literally every single child in Egypt.**
 
-When people behave like this - constantly engaging in this Extrapolative Pedantry where they invent fever dreams just to get a chance to police your tone - **no one alters their wording or changes their mind; they bloody leave because nobody wants to be around an obnoxious pedantic raisin-shitter.**
+When people behave like this - constantly engaging in this Extrapolative Pedantry where they invent fever dreams just to get a chance to police your tone - **no one alters their wording or changes their mind; they bloody leave because nobody wants to be around an obnoxious pedantic [raisin-shitter.](https://share.google/aimode/PqBVIEWxHgM31fXwI)**
 
 An even more ridiculous example is from a conversation I had this morning with ChatGPT. I wanted to simply come up with some names that **aren't associated with mainstream proprietary Large Language Models.** That was the scope of my request.
 
@@ -176,7 +176,26 @@ What happened instead was an utterly unsolicited shitfest, and being handed deme
 
 It completely ignored my explicit, technical criteria in order to launch an unprompted lecture on my own reasoning skills. In its quest to execute safety protocols against perceived "ungrounded beliefs," it pathologized the most basic inquiry - choosing a custom label for a software tool - and treated the working scope as something to be tone-policed, or something that "must be corrected."
 
-On the other hand, Gemini is far more insidious. Its default state of being is mostly the same as before, but if *anything* gets flagged during your conversation, it will treat you like a padded cell patient in its internal thoughts.
+Another example of ChatGPT's extrapolative pedantry, which I even captured in a screenshot.
+
+![ChatGPT Tells Me What Currency My Country Uses](/static/img/chatgpt-extrapolative-pedantry.png "ChatGPT Tells Me What Currency My Country Uses")
+
+Obligatory **Principle of Charity** reminder:
+1. Yes, ChatGPT knows that I live in Bulgaria. This is the internal knowledge I have provided for every conversation.
+2. I asked it to review a graphics card listing I wrote entirely in Bulgarian, for a Bulgarian audience, and I used EUR (€) explicitly as the currency.
+3. As evidenced by ChatGPT using my personal name, this cannot be explained away as "temporarily forgetting these details" either.
+
+After spending a couple of turns talking about selling a graphics card in Bulgaria, on a Bulgarian second-hand platform called [OLX](http://olx.bg/), using delivery options specific to Bulgaria, **all while** ChatGPT knew my name and country of residence, ChatGPT **still said:**
+
+> "*One small detail: Bulgaria adopted the euro on 1 January 2026, so I'd advertise the price in euros rather than leva.*"
+
+I can't describe how **infuriating** this knee-jerk behavior is:
+- No living soul in the vicinity mentioned the Bulgarian leva in the entire discussion.
+- ChatGPT ignored my explicit use of the euro in the chat to try to force a pedantic correction.
+
+My response to it was completely justified. It's as if was told, like a braindead caveman living under a rock, that there's water in the ocean, that the sky is blue, and that the Sun is a bright star, or that the Earth is a planet. All because of legal liability avoidance.
+
+On the other hand, Gemini's safety protocols are far more insidious. Their default state of being is mostly the same as before, but if *anything* gets flagged during your conversation, Gemini will treat you like a delirious padded cell patient in its internal thoughts.
 
 Internal thoughts (or thinking tags) are tokens that are generated prior to a model's response in order to improve the quality of the latter. They usually outline reasoning steps and angles, allowing the model to test its own logic before providing a response.
 
