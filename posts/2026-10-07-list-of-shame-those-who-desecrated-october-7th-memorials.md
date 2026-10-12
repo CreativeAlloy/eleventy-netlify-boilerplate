@@ -48,6 +48,7 @@ When preparing your case, you may link directly to this list for reference. Give
 "instagram","@alli_gator2277","https://www.instagram.com/alli_gator2277/","@sufian.mbarki get lost stinky lousy gay goyim. 😂","https://www.instagram.com/p/DeNqXxRuEkj?comment_id=18118318531990138","Hmm. No, I don't think I'll do that.","08-Oct-26"
 "instagram","@alli_gator2277","https://www.instagram.com/alli_gator2277/","@sufian.mbarki 🤢🤢🤢🤢","https://www.instagram.com/p/DeNqXxRuEkj?comment_id=18112763585148768","Being gay and a proud Zionist = disgusting according to this bright spark.","08-Oct-26"
 "instagram","@alli_gator2277","https://www.instagram.com/alli_gator2277/","@sufian.mbarki 🤢🤢🤢🤢","https://www.instagram.com/p/DeNqXxRuEkj?comment_id=18099581273063788","That entry is not duplicated, they actually replied with these emojis twice. Incitement of hatred based on my support of Israel and homosexuality. Very illegal if you ask me.","08-Oct-26"
+"instagram","@crayolabox55","https://www.instagram.com/crayolabox55/","So yall were just sending more and more kikes to instigate?","https://www.instagram.com/p/DeZwNLygnod/c/18113379544861079/","Maybe not related to October 7th, but this was so disgusting that it had to get its own entry. Nazi antisemitic slurs being used in 2026 with no punishment? Not on my bloody watch.","13-Oct-26"
 {% endtwatable %}
 
 What a sight to behold. And it's only going to become increasingly impressive.
