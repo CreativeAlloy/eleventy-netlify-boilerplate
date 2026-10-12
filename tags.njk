@@ -23,7 +23,7 @@ eleventyComputed:
 
 {% include "components/searchbar.njk" %}
 
-{% set postslist = collections[tag] %}
+{% set postslist = collections[tag] | excludeArchive %}
 {% include "components/postslist.njk" %}
 
 <nav class="index-nav index-nav-bottom index-nav-bottom-tags">
