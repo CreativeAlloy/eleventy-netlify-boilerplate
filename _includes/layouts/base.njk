@@ -376,7 +376,7 @@
 				${userAvatarHtml()}
 				<span class="auth-pill provider-${esc(user.provider)}">${esc(user.username || 'Account')}</span>
 				${roleBadgeHtml()}
-				<button type="button" class="btn-logout" data-twa-action="logout">Log Out</button>` : '';
+				${user.role === 'moderator' ? '<a class="provider-tag role-admin" href="/moderation/">Review Queue</a>' : ''}<button type="button" class="btn-logout" data-twa-action="logout">Log Out</button>` : '';
 		}
 	}
 

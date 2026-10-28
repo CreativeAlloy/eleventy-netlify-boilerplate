@@ -1,5 +1,8 @@
 import { neon } from "@netlify/neon";
 import { verifySession } from "../lib/session.js";
+import { moderateComment } from "../lib/moderation/pipeline.js";
+import { STATUS, HELD_NOTICE } from "../lib/moderation/constants.js";
+import { runCommentSideEffects } from "../lib/moderation/side-effects.js";
 
 const sql = neon(process.env.NETLIFY_DATABASE_URL);
 
@@ -34,7 +37,8 @@ export default async (req) => {
       const parentRows = await sql`
         SELECT id, is_deleted, parent_id
         FROM twa_comments
-        WHERE id = ${parentId} AND post_slug = ${slug};
+        WHERE id = ${parentId} AND post_slug = ${slug}
+          AND moderation_status IN ('published', 'approved');
       `;
 
       if (parentRows.length === 0 || parentRows[0].is_deleted) {
@@ -106,78 +110,56 @@ export default async (req) => {
       }
     }
 
+    // Moderation pipeline (keyword filter today; an LLM evaluator can be added in pipeline.js
+    // later). Fail closed: if the pipeline itself blows up, hold the comment, never publish it.
+    let verdict;
+    try {
+      verdict = await moderateComment({
+        text: cleanBody,
+        slug,
+        parentId,
+        author: {
+          provider: session.provider,
+          providerUserId: String(session.provider_user_id),
+          handle: session.handle || session.username
+        }
+      });
+    } catch (err) {
+      console.error("Moderation pipeline error:", err);
+      verdict = {
+        flagged: true,
+        status: STATUS.PENDING_REVIEW,
+        reasons: [{ source: "pipeline", type: "pipeline_error", rule: String(err?.message || err), matched: "" }]
+      };
+    }
+    const flagsJson = verdict.flagged ? JSON.stringify(verdict.reasons) : null;
+
     const result = await sql`
-      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, author_url, avatar_url, parent_id)
-      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${authorUrl}, ${avatarUrl}, ${parentId})
-      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, created_at, is_deleted, mod_badge, author_url, avatar_url, parent_id;
+      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, author_url, avatar_url, parent_id, moderation_status, moderation_flags)
+      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${authorUrl}, ${avatarUrl}, ${parentId}, ${verdict.status}, ${flagsJson}::jsonb)
+      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, created_at, is_deleted, mod_badge, author_url, avatar_url, parent_id, moderation_status;
     `;
 
     const newComment = result[0];
-    const posterId = String(session.provider_user_id);
 
-    // Extract mentions from comment body using regex [@Name]
-    const mentionsMatch = Array.from(cleanBody.matchAll(/\[@([^\]]+)\]/g)).map(m => m[1]);
-    const mentions = [...new Set(mentionsMatch)];
-    // Fallback array to avoid PostgreSQL syntax errors if mentions array is empty
-    const safeMentions = mentions.length > 0 ? mentions : ['__NO_MATCH__'];
-
-    // Subscriptions + notifications. The comment is already saved at this point, so a
-    // failure here (e.g. migration not run yet) is logged but never fails the post.
-    try {
-      if (parentId === null) {
-        // New thread: the author follows their own thread by default.
-        const rootPromises = [
-          sql`
-            INSERT INTO twa_thread_subscriptions (parent_id, provider, provider_user_id, is_active)
-            VALUES (${newComment.id}, ${session.provider}, ${posterId}, TRUE)
-            ON CONFLICT (parent_id, provider, provider_user_id)
-            DO UPDATE SET is_active = TRUE;
-          `
-        ];
-
-        // Global check: notify tagged users even on a root comment
-        if (mentions.length > 0) {
-          rootPromises.push(
-            sql`
-              INSERT INTO twa_notifications (recipient_provider, recipient_user_id, post_slug, parent_id, reply_id)
-              SELECT DISTINCT provider, provider_user_id, ${slug}::varchar, ${newComment.id}::integer, ${newComment.id}::integer
-              FROM twa_comments
-              WHERE author_name ILIKE ANY(${safeMentions}::text[])
-                AND NOT (provider = ${session.provider} AND provider_user_id = ${posterId});
-            `
-          );
-        }
-        await Promise.all(rootPromises);
-      } else {
-        await Promise.all([
-          // Replying subscribes (or re-activates) the replier on this thread.
-          sql`
-            INSERT INTO twa_thread_subscriptions (parent_id, provider, provider_user_id, is_active)
-            VALUES (${parentId}, ${session.provider}, ${posterId}, TRUE)
-            ON CONFLICT (parent_id, provider, provider_user_id)
-            DO UPDATE SET is_active = TRUE;
-          `,
-          // Deduplicated notifications: thread subscribers + directly tagged global users via UNION
-          sql`
-            INSERT INTO twa_notifications (recipient_provider, recipient_user_id, post_slug, parent_id, reply_id)
-            SELECT provider, provider_user_id, ${slug}::varchar, ${parentId}::integer, ${newComment.id}::integer
-            FROM (
-              SELECT provider, provider_user_id
-              FROM twa_thread_subscriptions
-              WHERE parent_id = ${parentId}::integer
-                AND is_active = TRUE
-              UNION
-              SELECT provider, provider_user_id
-              FROM twa_comments
-              WHERE author_name ILIKE ANY(${safeMentions}::text[])
-            ) AS combined_recipients
-            WHERE NOT (provider = ${session.provider} AND provider_user_id = ${posterId});
-          `
-        ]);
-      }
-    } catch (err) {
-      console.error("Subscription/notification error:", err);
+    // Held comments stay invisible: no subscriptions and no notifications are created
+    // until a moderator approves them (see review-comment.js).
+    if (verdict.flagged) {
+      return Response.json(
+        { held: true, status: verdict.status, message: HELD_NOTICE, comment: newComment },
+        { status: 202 }
+      );
     }
+
+    // Clean comment: standard publication workflow. Failures inside are logged, never thrown.
+    await runCommentSideEffects(sql, {
+      commentId: newComment.id,
+      slug,
+      parentId,
+      body: cleanBody,
+      provider: session.provider,
+      providerUserId: session.provider_user_id
+    });
 
     return Response.json({ comment: newComment });
   } catch (error) {

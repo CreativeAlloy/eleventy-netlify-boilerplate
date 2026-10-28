@@ -1,5 +1,6 @@
 import { neon } from "@netlify/neon";
 import { verifySession } from "../lib/session.js";
+import { PUBLIC_STATUSES } from "../lib/moderation/constants.js";
 
 const sql = neon(process.env.NETLIFY_DATABASE_URL);
 
@@ -29,7 +30,7 @@ export default async (req) => {
     }
 
     const rows = await sql`
-      SELECT id, provider, provider_user_id, is_deleted
+      SELECT id, provider, provider_user_id, is_deleted, moderation_status
       FROM twa_comments
       WHERE id = ${comment_id};
     `;
@@ -37,6 +38,11 @@ export default async (req) => {
       return new Response("Comment not found", { status: 404 });
     }
     const target = rows[0];
+
+    // Held comments are invisible to the public, so they can't be rated either.
+    if (!PUBLIC_STATUSES.includes(target.moderation_status)) {
+      return new Response("Comment not found", { status: 404 });
+    }
 
     if (target.is_deleted) {
       return new Response("Cannot rate a deleted comment", { status: 409 });

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /moderation/
 
 Sitemap: https://thewaspalloy.org/sitemap.xml

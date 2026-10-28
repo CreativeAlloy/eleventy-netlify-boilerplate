@@ -1,0 +1,178 @@
+---
+title: Moderation Queue
+metaDescription: Moderator-only review queue for held comments.
+layout: layouts/base.njk
+permalink: /moderation/index.html
+noindex: true
+eleventyExcludeFromCollections: true
+sitemap:
+  ignore: true
+---
+
+<h1>{{ title }}</h1>
+
+<div id="mod-queue-root">
+  <p id="mod-queue-status" class="mod-queue-status" role="status" aria-live="polite">Loading…</p>
+  <div class="mod-queue-toolbar" id="mod-queue-toolbar" hidden>
+    <strong id="mod-queue-count"></strong>
+    <button type="button" id="mod-queue-refresh">Refresh</button>
+  </div>
+  <div id="mod-queue-list"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
+  /* window.TWA is created by the global auth script at the end of <body>, which has
+     already run by the time DOMContentLoaded fires. */
+  var TWA = window.TWA;
+  var statusEl = document.getElementById('mod-queue-status');
+  var toolbarEl = document.getElementById('mod-queue-toolbar');
+  var countEl = document.getElementById('mod-queue-count');
+  var listEl = document.getElementById('mod-queue-list');
+  var refreshBtn = document.getElementById('mod-queue-refresh');
+
+  function setStatus(msg) { statusEl.textContent = msg; statusEl.hidden = !msg; }
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function safeHttpUrl(value) {
+    try {
+      var u = new URL(value);
+      return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : null;
+    } catch (err) { return null; }
+  }
+
+  function updateCount() {
+    var n = listEl.children.length;
+    countEl.textContent = n === 0 ? 'Queue is empty' : n + ' comment' + (n === 1 ? '' : 's') + ' awaiting review';
+    if (n === 0) setStatus('Nothing is waiting for review.');
+  }
+
+  /* Every comment field is written with textContent, never innerHTML. */
+  function buildCard(c) {
+    var card = el('article', 'mod-card');
+    card.dataset.id = c.id;
+
+    var meta = el('div', 'mod-card-meta');
+    var authorUrl = c.author_url ? safeHttpUrl(c.author_url) : null;
+    if (authorUrl) {
+      var a = el('a', null, c.author_name);
+      a.href = authorUrl; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      var strong = el('strong'); strong.appendChild(a); meta.appendChild(strong);
+    } else {
+      meta.appendChild(el('strong', null, c.author_name));
+    }
+    meta.appendChild(el('span', null, c.provider));
+    meta.appendChild(el('time', null, new Date(c.created_at).toLocaleString()));
+    var post = el('a', null, 'Article: ' + c.post_slug);
+    post.href = '/posts/' + encodeURIComponent(c.post_slug) + '/';
+    post.target = '_blank'; post.rel = 'noopener noreferrer';
+    meta.appendChild(post);
+    if (c.parent_id) meta.appendChild(el('span', null, 'Reply to comment #' + c.parent_id));
+    card.appendChild(meta);
+
+    card.appendChild(el('div', 'mod-card-body', c.comment_body));
+
+    if (c.moderation_flags && c.moderation_flags.length) {
+      var flags = el('ul', 'mod-card-flags');
+      c.moderation_flags.forEach(function (f) {
+        var text = (f.source || 'filter') + ' / ' + (f.type || 'rule') + ': ' + (f.rule || '');
+        if (f.matched) text += '  (matched "' + f.matched + '")';
+        flags.appendChild(el('li', null, text));
+      });
+      card.appendChild(flags);
+    }
+
+    var actions = el('div', 'mod-card-actions');
+    var approve = el('button', null, 'Approve');
+    approve.type = 'button';
+    approve.addEventListener('click', function () { review(card, c.id, 'approve'); });
+    var del = el('button', 'mod-btn-delete', 'Delete');
+    del.type = 'button';
+    del.addEventListener('click', function () {
+      if (confirm('Permanently delete this comment? This cannot be undone.')) review(card, c.id, 'delete');
+    });
+    actions.appendChild(approve);
+    actions.appendChild(del);
+    card.appendChild(actions);
+    return card;
+  }
+
+  function showCardError(card, msg) {
+    var old = card.querySelector('.mod-card-error');
+    if (old) old.remove();
+    card.appendChild(el('p', 'mod-card-error', msg));
+  }
+
+  function review(card, id, action) {
+    card.dataset.busy = 'true';
+    fetch('/.netlify/functions/review-comment', {
+      method: 'POST',
+      headers: TWA.authHeaders(),
+      body: JSON.stringify({ comment_id: id, action: action })
+    }).then(function (res) {
+      if (res.status === 401) { TWA.handleExpired(); return; }
+      if (res.status === 409) {
+        /* Someone else already handled it: just drop it from this view. */
+        card.remove(); updateCount(); return;
+      }
+      if (!res.ok) {
+        return res.text().then(function (t) {
+          card.dataset.busy = 'false';
+          showCardError(card, t || 'Something went wrong.');
+        });
+      }
+      card.remove(); updateCount();
+    }).catch(function () {
+      card.dataset.busy = 'false';
+      showCardError(card, 'Network error. Please try again.');
+    });
+  }
+
+  function load() {
+    var user = TWA.getUser();
+    listEl.textContent = '';
+    toolbarEl.hidden = true;
+
+    if (!user) {
+      setStatus('Sign in with a moderator account to review held comments.');
+      return;
+    }
+    if (user.role !== 'moderator') {
+      setStatus('This page is for moderators only.');
+      return;
+    }
+
+    setStatus('Loading…');
+    fetch('/.netlify/functions/get-held-comments', { headers: TWA.authHeaders(), cache: 'no-store' })
+      .then(function (res) {
+        if (res.status === 401) { TWA.handleExpired(true); setStatus('Your session expired. Please sign in again.'); return null; }
+        if (res.status === 403) { setStatus('This page is for moderators only.'); return null; }
+        if (!res.ok) { setStatus('Could not load the queue. Please try again.'); return null; }
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data) return;
+        setStatus('');
+        toolbarEl.hidden = false;
+        data.comments.forEach(function (c) { listEl.appendChild(buildCard(c)); });
+        updateCount();
+        if (data.total > data.comments.length) {
+          setStatus('Showing the oldest ' + data.comments.length + ' of ' + data.total + '. Refresh after reviewing to see more.');
+        }
+      })
+      .catch(function () { setStatus('Network error. Please try again.'); });
+  }
+
+  refreshBtn.addEventListener('click', load);
+  TWA.onAuthChange(load);
+  load();
+});
+</script>

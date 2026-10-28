@@ -30,6 +30,7 @@ export default async (req) => {
         WHERE n.recipient_provider = ${provider}
           AND n.recipient_user_id = ${userId}
           AND r.is_deleted IS NOT TRUE
+        AND r.moderation_status IN ('published', 'approved')
         ORDER BY n.created_at DESC
         LIMIT 50;
       `,
@@ -40,7 +41,8 @@ export default async (req) => {
         WHERE n.recipient_provider = ${provider}
           AND n.recipient_user_id = ${userId}
           AND n.is_read = FALSE
-          AND r.is_deleted IS NOT TRUE;
+          AND r.is_deleted IS NOT TRUE
+          AND r.moderation_status IN ('published', 'approved');
       `
     ]);
 

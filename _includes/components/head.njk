@@ -11,6 +11,8 @@
   {# Improved Title Branding #}
   <title>{% if title %}{{ title }} | {{ metadata.title }}{% else %}{{ metadata.title }}{% endif %}</title>
 
+  {% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+
   {# Canonical URL to prevent duplicate content issues #}
   <link rel="canonical" href="{{ metadata.url }}{{ page.url }}">
 

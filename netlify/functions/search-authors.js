@@ -26,6 +26,7 @@ export default async (req) => {
         WHERE author_name ILIKE ${'%' + cleanQuery + '%'}
           AND author_name NOT IN ('Anonymous', 'LocalTester')
           AND is_deleted = FALSE
+          AND moderation_status IN ('published', 'approved')
         ORDER BY
           LOWER(author_name),
           provider,

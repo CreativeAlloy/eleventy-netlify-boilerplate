@@ -40,6 +40,7 @@ export default async (req) => {
         SELECT parent_id, COUNT(*) AS reply_count
         FROM twa_comments
         WHERE post_slug = ${slug} AND parent_id IS NOT NULL
+          AND moderation_status IN ('published', 'approved')
         GROUP BY parent_id
       ) rep ON rep.parent_id = c.id
       LEFT JOIN twa_comment_ratings m
@@ -52,6 +53,7 @@ export default async (req) => {
        AND sub.provider_user_id = ${viewerId}
        AND sub.is_active = TRUE
       WHERE c.post_slug = ${slug}
+        AND c.moderation_status IN ('published', 'approved')
       ORDER BY
         CASE WHEN ${sort} = 'oldest' THEN c.created_at END ASC,
         CASE WHEN ${sort} = 'rating' THEN r.rating_avg END DESC NULLS LAST,

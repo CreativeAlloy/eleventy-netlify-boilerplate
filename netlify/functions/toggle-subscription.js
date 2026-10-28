@@ -1,5 +1,6 @@
 import { neon } from "@netlify/neon";
 import { verifySession } from "../lib/session.js";
+import { PUBLIC_STATUSES } from "../lib/moderation/constants.js";
 
 const sql = neon(process.env.NETLIFY_DATABASE_URL);
 
@@ -23,11 +24,11 @@ export default async (req) => {
 
     // Subscriptions only ever track a root (top-level) thread.
     const rows = await sql`
-      SELECT id, is_deleted, parent_id
+      SELECT id, is_deleted, parent_id, moderation_status
       FROM twa_comments
       WHERE id = ${parentId};
     `;
-    if (rows.length === 0 || rows[0].is_deleted) {
+    if (rows.length === 0 || rows[0].is_deleted || !PUBLIC_STATUSES.includes(rows[0].moderation_status)) {
       return new Response("Comment not found or deleted", { status: 404 });
     }
     if (rows[0].parent_id !== null) {

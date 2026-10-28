@@ -749,6 +749,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (threadReplyInput) {
       threadReplyInput.value = '';
       threadReplyTabWrite?.click();
+      threadDialog?.querySelectorAll('.comment-held-notice').forEach(n => n.remove());
     }
     if (threadDialog && !threadDialog.open) threadDialog.showModal();
     return true;
@@ -1023,6 +1024,25 @@ document.addEventListener('DOMContentLoaded', () => {
   renderAuthUI();
   loadComments();
 
+  // --- Held-for-review notice: post-comment returns 202 when the keyword filter holds a comment ---
+  const DEFAULT_HELD_MESSAGE = 'Your comment has been submitted and is awaiting moderator review. It will appear once approved.';
+
+  function showHeldNotice(inputElem, message) {
+    const box = inputElem.closest('.comment-editor-box');
+    if (!box) return;
+    box.querySelector('.comment-held-notice')?.remove();
+    if (!message) return;
+
+    const notice = document.createElement('div');
+    notice.className = 'comment-held-notice';
+    notice.setAttribute('role', 'status');
+    notice.textContent = message;
+    box.querySelector('.comment-editor-footer')?.before(notice);
+
+    // Disappears as soon as the author starts writing again
+    inputElem.addEventListener('input', () => notice.remove(), { once: true });
+  }
+
   // Helper to submit comment or reply
   async function submitComment(bodyText, parentId, btn, inputElem, writeTab) {
     if (!currentUser) return;
@@ -1055,7 +1075,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (!res.ok) throw new Error(`Submission failed: ${res.status} ${await res.text()}`);
 
+      // 202 = held for moderator review. It is not public yet, so it won't be in the feed.
+      const heldData = res.status === 202 ? await res.json().catch(() => ({})) : null;
+
       inputElem.value = '';
+      showHeldNotice(inputElem, heldData && heldData.held ? (heldData.message || DEFAULT_HELD_MESSAGE) : null);
       writeTab?.click();
       await loadComments();
     } catch (err) {

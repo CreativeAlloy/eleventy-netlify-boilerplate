@@ -1565,6 +1565,97 @@ body.dark-mode .lexicon-popover {
 	opacity: 0.8;
 }
 
+/* --- Held-comment notice (shown inside the editor after a comment is held for review) --- */
+.comment-held-notice {
+	padding: 0.6rem 1rem;
+	border-top: 1px solid var(--primary);
+	background-color: color-mix(in srgb, var(--primary) 10%, var(--secondary));
+	font-size: 0.9rem;
+	line-height: 1.4;
+}
+
+/* --- Moderation queue page (/moderation/) --- */
+.mod-queue-status {
+	margin: 1rem 0;
+}
+
+.mod-queue-toolbar {
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 1rem 0;
+}
+
+/* Undo the global full-width button rule for the queue's compact controls */
+.mod-queue-toolbar button,
+.mod-card-actions button {
+	width: auto;
+	margin: 0;
+	padding: 0.5rem 1.1rem;
+	font-size: 0.9rem;
+}
+
+.mod-card {
+	background-color: var(--secondary);
+	border: 1px solid var(--primary);
+	border-left: 5px solid var(--primary);
+	border-radius: 8px;
+	box-shadow: var(--card-shadow);
+	padding: 1rem;
+	margin: 1rem 0;
+}
+
+.mod-card[data-busy="true"] {
+	opacity: 0.55;
+	pointer-events: none;
+}
+
+.mod-card-meta {
+	display: flex;
+	gap: 0.5rem 1rem;
+	flex-wrap: wrap;
+	font-size: 0.9rem;
+}
+
+.mod-card-body {
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	margin: 0.75rem 0;
+	padding: 0.75rem;
+	background-color: var(--background);
+	border-radius: 6px;
+}
+
+.mod-card-flags {
+	margin: 0.5rem 0;
+	padding-left: 1.25rem;
+	font-size: 0.9rem;
+}
+
+.mod-card-actions {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.mod-card-actions .mod-btn-delete {
+	background-color: transparent;
+	color: #ff4d4d;
+	border-color: #ff4d4d;
+}
+
+.mod-card-actions .mod-btn-delete:hover,
+.mod-card-actions .mod-btn-delete:focus-visible {
+	background-color: rgba(255, 77, 77, 0.12);
+}
+
+.mod-card-error {
+	margin-top: 0.5rem;
+	font-size: 0.9rem;
+	color: #ff4d4d;
+}
+
 /* --- Editor Box (Container uses --primary) --- */
 .comment-editor-box {
 	background-color: var(--secondary);
