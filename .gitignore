@@ -9,6 +9,8 @@ TWA-Netlify-Image.txt
 clear-test-comments.mjs
 *.csv
 *.csv#
+repomix-*.xml
+repomix.xml
 
 # Local Netlify folder
 .netlify

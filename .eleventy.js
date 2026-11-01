@@ -225,12 +225,14 @@ module.exports = function (eleventyConfig) {
 
   // Date formatting (human readable)
   eleventyConfig.addFilter("readableDate", dateObj => {
-    return DateTime.fromJSDate(dateObj).toFormat("dd LLL yyyy");
+    const d = dateObj instanceof Date ? dateObj : new Date(dateObj);
+    return DateTime.fromJSDate(d).toFormat("dd LLL yyyy");
   });
 
   // Date formatting (machine readable)
   eleventyConfig.addFilter("machineDate", dateObj => {
-    return DateTime.fromJSDate(dateObj).toFormat("yyyy-MM-dd");
+    const d = dateObj instanceof Date ? dateObj : new Date(dateObj);
+    return DateTime.fromJSDate(d).toFormat("yyyy-MM-dd");
   });
 
   // Minify CSS

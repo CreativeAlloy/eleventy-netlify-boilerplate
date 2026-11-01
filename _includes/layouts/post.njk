@@ -32,6 +32,17 @@ section: post
     <p>
       <small>
         <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/authors/{{ author | slug }}/">{{ author }}</a>
+        {% if updated %}
+          <br>
+          Updated on <time datetime="{{ updated | machineDate }}">{{ updated | readableDate }}</time>
+          {%- if updatedauthor %} by
+            {% if updatedauthor == author -%}
+              <a href="/authors/{{ updatedauthor | slug }}/">{{ updatedauthor }}</a>
+            {%- else -%}
+              {{ updatedauthor }}
+            {%- endif %}
+          {%- endif %}
+        {% endif %}
       </small>
     </p>
 

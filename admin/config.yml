@@ -42,7 +42,14 @@ collections:
         # You can optionally add display formats if you want to override the locale default:
         # date_format: "DD-MMM-YYYY"  # e.g., "03-Jun-2025" (might need "dd-MMM-yyyy" for date-fns)
         # time_format: "hh:mm A"      # e.g., "10:27 AM"
-      - { label: "Author", name: "author", widget: "string", default: "Anonymous" }
+      - { label: "Author", name: "author", widget: "string", default: "Sufian M′Barki" }
+      - label: "Last Updated (leave empty if never edited)"
+        name: "updated"
+        widget: "datetime"
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+        picker_utc: true
+        required: false
+      - { label: "Updated By", name: "updatedauthor", widget: "string", required: false }
       - { label: "Summary", name: "summary", widget: "text" }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
         # --- Dedicated Audio Upload ---
