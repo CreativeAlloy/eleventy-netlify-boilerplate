@@ -5,6 +5,8 @@ lecture: false
 archive: true
 date: 2026-10-07T16:53:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: The List of Shame is a table containing all social media profiles who
   have engaged in the disgusting act of desecrating October 7th Memorial Posts
   online. They have been compiled due to incitement of hatred, violence, hate

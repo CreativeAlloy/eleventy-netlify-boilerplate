@@ -3,6 +3,8 @@ title: Bulgaria Is an Embarrassment
 serious: true
 date: 2026-03-14T10:32:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: A people without a self-preservation instinct and without a droplet of
   morality in that rotten blood of theirs.
 tags:

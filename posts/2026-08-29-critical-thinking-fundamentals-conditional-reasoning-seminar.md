@@ -4,6 +4,8 @@ serious: false
 lecture: true
 date: 2026-08-29T11:08:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Let us take a look into detailed examples of applied conditional
   reasoning in the realm of Hasbara activism.
 tags:

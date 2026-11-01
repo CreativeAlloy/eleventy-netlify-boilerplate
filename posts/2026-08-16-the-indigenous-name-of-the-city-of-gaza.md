@@ -4,6 +4,8 @@ serious: true
 lecture: false
 date: 2026-08-16T21:09:00.000Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Historical data paints a very clear picture as to who called the city
   "Gaza" - and who didn't.
 tags:

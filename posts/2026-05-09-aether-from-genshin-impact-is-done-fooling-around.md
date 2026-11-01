@@ -4,6 +4,8 @@ serious: false
 lecture: false
 date: 2026-05-09T00:23:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Unless you want a Descender Rifle in your neck, you'd better stop
   provoking Him.
 tags:

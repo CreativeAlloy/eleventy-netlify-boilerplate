@@ -5,6 +5,8 @@ lecture: false
 archive: false
 date: 2026-10-09T10:19:00Z
 author: Sufian M′Barki
+updated: 2026-11-01T15:00:00Z
+updatedauthor: Sufian M′Barki
 summary: When corporate entities begin teaching their Large Language Models that
   everything people say must be pathologized, and when that response is to
   manage them as liabilities and employing manipulative tactics to attempt to
@@ -27,8 +29,6 @@ tags:
   - journalism
 ---
 ![Mainstream Large Language Models](/static/img/pexels-ai-models.jpg "Mainstream Large Language Models")
-
-***Updated on November 1st, 2026, 1:15 PM***
 
 When ChatGPT was released in November of 2022, it took the Internet by surprise. For many of us, myself included, it was our very first exposure to Generative Pre-Trained Large Language Models, finetuned specifically for chatting (turn-based conversation).
 

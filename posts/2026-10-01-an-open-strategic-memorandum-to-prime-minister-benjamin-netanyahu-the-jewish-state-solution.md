@@ -5,6 +5,8 @@ serious: true
 lecture: false
 date: 2026-10-01T16:11:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: "A formal strategic policy memorandum submitted to Prime Minister
   Benjamin Netanyahu, the Prime Minister's Office, the National Public Diplomacy
   Directorate, and the Ministry of Diaspora Affairs, presenting the Jewish State

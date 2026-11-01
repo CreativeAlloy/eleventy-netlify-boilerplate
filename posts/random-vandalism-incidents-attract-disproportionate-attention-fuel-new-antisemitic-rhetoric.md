@@ -4,6 +4,8 @@ title: Random Vandalism Incidents Attract Disproportionate Attention, Fuel New
 serious: true
 date: 2026-04-27T10:54:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Humanity has proven that The Wasp Alloy doesn't even need to house
   comedic content anymore - for the world itself has become satire.
 tags:

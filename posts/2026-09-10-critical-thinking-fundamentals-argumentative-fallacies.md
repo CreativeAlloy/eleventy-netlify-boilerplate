@@ -4,6 +4,8 @@ serious: false
 lecture: true
 date: 2026-09-10T16:05:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: It is time to take a closer look at Argumentative
   Logical Fallacies in logical discourse.
 tags:

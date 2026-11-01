@@ -4,6 +4,8 @@ serious: true
 lecture: false
 date: 2026-05-12T07:17:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Community Guidelines mean nothing if they are applied selectively.
 tags:
   - serious

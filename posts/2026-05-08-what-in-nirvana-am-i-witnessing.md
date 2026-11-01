@@ -4,6 +4,8 @@ serious: true
 lecture: false
 date: 2026-05-08T03:06:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: People have ridiculously skewed priorities if their highlight of
   'Jewish wrongdoings' is a guy giving a cigarette to a piece of marble.
 tags:

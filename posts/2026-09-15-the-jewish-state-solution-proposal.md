@@ -4,6 +4,8 @@ serious: true
 lecture: false
 date: 2026-09-15T16:30:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: In what I believe to be my most ambitious published work yet, we are
   going to take a look at my proposal for a solution that is most likely to
   ensure lasting peace in the Middle East.

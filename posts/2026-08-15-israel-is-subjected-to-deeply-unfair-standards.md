@@ -4,6 +4,8 @@ serious: true
 lecture: false
 date: 2026-08-15T17:06:00.000Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Attempting to smear media coverage misconduct as "impartial, honest
   reporting" does not absolve it from being Nirvana, nor does it hide the
   disproportionate public focus.

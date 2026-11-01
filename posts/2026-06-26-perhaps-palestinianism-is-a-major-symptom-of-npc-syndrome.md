@@ -4,6 +4,8 @@ serious: true
 lecture: false
 date: 2026-06-26T12:49:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: You quite literally always witness the exact same talking points with
   their lot.
 tags:

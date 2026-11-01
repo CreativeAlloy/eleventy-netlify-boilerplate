@@ -4,6 +4,8 @@ serious: false
 lecture: true
 date: 2026-04-28T14:12:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: With the addition of lectures, let us dive into the world of the
   philosophical discipline named logic, a.k.a. critical thinking.
 tags:

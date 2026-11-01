@@ -4,6 +4,8 @@ serious: false
 lecture: true
 date: 2026-05-01T22:50:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: After exploring categorical syllogisms and polysyllogisms, as well as
   their use in Hasbara, it is now time to take a look at conditional reasoning
   in logic.

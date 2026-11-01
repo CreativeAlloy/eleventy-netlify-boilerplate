@@ -4,6 +4,8 @@ title: Racist LLM Mr. MistralAI Plasters Palestinian Terrorist Flag Onto
 serious: false
 date: 2025-08-26T06:34:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Watch as Mr. MistralAI, French-based (and thus racist), stains a
   Discord nickname with a terror group flag.
 tags:

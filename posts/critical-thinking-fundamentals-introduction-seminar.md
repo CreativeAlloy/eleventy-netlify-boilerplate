@@ -4,6 +4,8 @@ serious: false
 lecture: true
 date: 2026-04-29T11:13:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Following the introduction of the fundamentals of critical thinking, we
   will now explore several examples as part of a seminar.
 tags:

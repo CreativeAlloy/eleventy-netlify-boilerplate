@@ -4,6 +4,8 @@ serious: false
 lecture: false
 date: 2026-09-14T02:54:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Perfection - a concept that used to be out of reach for humanity. As it
   turns out, the solution discovered by a group of peacekeepers is nothing short
   of astonishing.

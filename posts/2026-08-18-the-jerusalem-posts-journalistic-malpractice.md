@@ -4,6 +4,8 @@ serious: true
 lecture: false
 date: 2026-08-18T14:43:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: The Jerusalem Post's recent articles have been written in bad faith,
   planting implications of alleged IDF misconduct and "settler" violence.
 tags:

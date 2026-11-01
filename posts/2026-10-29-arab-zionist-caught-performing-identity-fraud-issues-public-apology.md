@@ -5,6 +5,8 @@ lecture: false
 archive: false
 date: 2026-10-29T22:14:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: World-renown Arab Zionist "Sufian M'Barki" has just been caught
   performing identity fraud! Despite the controversy, he has decided to publish
   an apology on The Wasp Alloy.

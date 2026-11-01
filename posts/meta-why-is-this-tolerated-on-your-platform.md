@@ -3,6 +3,8 @@ title: Meta, Why Is This Tolerated on Your Platform?
 serious: true
 date: 2026-04-10T22:18:00Z
 author: Sufian M′Barki
+updated:
+updatedauthor:
 summary: Facebook, Instagram, Threads - all are a complete embarrassment.
 tags:
   - serious
