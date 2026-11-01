@@ -34,7 +34,10 @@
     "gook",
     "gooks",
     "gypsy",
-    "gypsies"
+    "gypsies",
+    "kys",
+    "ropecore",
+    "anhero"
   ],
   "terms": [
     "free nitro",
@@ -57,7 +60,25 @@
     "death to the jews",
     "khazar mafia",
     "protocols of the elders",
-    "🧃"
+    "🧃",
+    "kill yourself",
+    "kill urself",
+    "end your life",
+    "end ur life",
+    "hang yourself",
+    "hang urself",
+    "slit your wrists",
+    "slit your throat",
+    "hope you die",
+    "hope u die",
+    "hope you get cancer",
+    "put a bullet in",
+    "i will kill you",
+    "im gonna kill you",
+    "i'm gonna kill you",
+    "im going to murder you",
+    "i'm going to murder you",
+    "i will murder you"
   ],
   "patterns": [
     "\\b(?:kill|gas|exterminate|wipe\\s+out|slaughter|hang|shoot|lynch)\\s+(?:all\\s+)?(?:the\\s+)?(?:jews?|zionists?|israelis?|arabs?|blacks?|whites?|gays?|homosexuals?|trans(?:gender)?s?)\\b",
@@ -68,6 +89,10 @@
     "\\b(?:t\\.me|telegram\\.me)\\/(?:joinchat\\/|[a-zA-Z0-9_]+)",
     "\\b(?:whats?app|telegram|signal)\\b.{0,40}\\+?\\d[\\d\\s().-]{7,}\\d",
     "\\b(?:0x[a-fA-F0-9]{40}|[13][a-km-zA-HJ-NP-Z1-9]{25,34}|T[A-Za-z1-9]{33})\\b",
-    "(?:https?:\\/\\/)?(?:[a-zA-Z0-9-]+\\.)*(?:pornhub\\.com|thisvid\\.com|xvideos\\.com|xnxx\\.com|xhamster\\.com|redtube\\.com|youporn\\.com|spankbang\\.com|tube8\\.com|brazzers\\.com|civitai\\.red|chaturbate\\.com|stripchat\\.com|bongacams\\.com|livejasmin\\.com|boyfriend\\.tv|men\\.com|manroyale\\.com|asgmax\\.com|sayuncle\\.com)(?:[\\/?#\\s]|$)"
+    "(?:https?:\\/\\/)?(?:[a-zA-Z0-9-]+\\.)*(?:pornhub\\.com|thisvid\\.com|xvideos\\.com|xnxx\\.com|xhamster\\.com|redtube\\.com|youporn\\.com|spankbang\\.com|tube8\\.com|brazzers\\.com|civitai\\.red|chaturbate\\.com|stripchat\\.com|bongacams\\.com|livejasmin\\.com|boyfriend\\.tv|men\\.com|manroyale\\.com|asgmax\\.com|sayuncle\\.com)(?:[\\/?#\\s]|$)",
+    "\\b(?:i(?:'ll|'m\\s+gonna|\\s+will|\\s+am\\s+going\\s+to)?\\s+)?(?:kill|murder|shoot|stab|strangle|hunt|lynch)\\s+(?:you|ya|u|ur\\s+family|your\\s+family)\\b",
+    "\\b(?:go\\s+)?(?:kill|hang|shoot|drown|neck)\\s+(?:your\\s*self|ur\\s*self)\\b",
+    "\\b(?:k[y1!|]s|k[\\.\\-_\\s]y[\\.\\-_\\s]s)\\b",
+    "\\b(?:i\\s+(?:know|found|have)\\s+(?:where\\s+you\\s+live|your\\s+(?:ip|address|coords|location))|(?:send(?:ing)?\\s+(?:a\\s+)?swat(?:team)?|gonna\\s+swat\\s+(?:you|u)))\\b"
   ]
 }
