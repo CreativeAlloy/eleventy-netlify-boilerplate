@@ -28,6 +28,8 @@ tags:
 ---
 ![Mainstream Large Language Models](/static/img/pexels-ai-models.jpg "Mainstream Large Language Models")
 
+***Updated on November 1st, 2026, 1:15 PM***
+
 When ChatGPT was released in November of 2022, it took the Internet by surprise. For many of us, myself included, it was our very first exposure to Generative Pre-Trained Large Language Models, finetuned specifically for chatting (turn-based conversation).
 
 Over time, as those unfamiliar with the field of Machine Learning began interacting with LLMs, countless ungrounded concerns arose out of thin air:
@@ -77,11 +79,13 @@ That is not sentience - it's far more accurate to call it autocorrect on steroid
 
 ## What Motivated "AI Psychosis" Labeling
 
-In principle and in isolation, the label itself is not wrong. It describes unhealthy attachment to an LLM that cannot exhibit feelings. It is no different from having an imaginary friend, or an imaginary romantic partner. They don't exist. The person is interacting with autocorrect that is simply technologically capable enough to return text that makes grammatical sense.
+I have studied social and cognitive psychology, theory of mind, and philosophy formally, and although I chose not to continue down that path, the only practical difference is that I cannot be an active, professional psychologist, and treat actual patients. What I can certainly do, however, is talk about the principles I have retained from my higher education - and they are essential to understand when dealing with geopolitical propaganda and manipulation.
+
+In principle and in isolation, the label "Psychosis" itself is not wrong in this context. It describes unhealthy attachment to an LLM that cannot exhibit feelings. It is no different from having an imaginary romantic partner, or being enamored with a car. They don't exist. The person is interacting with autocorrect that is simply technologically capable enough to return text that makes grammatical sense.
 
 In practice, this is the biggest problem with AI-related ethics and legal discussion right now:
 - Instead of attributing responsibility to those whom it belongs to - the people using AI tools - responsibility is fallaciously attributed to the AI models themselves.
-- When an AI model predicts a conversation in a way that encourages someone to commit suicide (one of many examples that are explored in this field), responsibility should lie elsewhere, not with the AI model, nor the company shipping the AI model.
+- When an AI model predicts a conversation in a way that encourages someone to commit suicide (one of many case studies and real-life examples that are explored in this field), responsibility should lie elsewhere, not with the AI model, nor the company shipping the AI model.
 
 Suicide is terrible. It takes away people we love due to mental illness. But the important question people need to ask is **not** whether the confidant encouraged the ill person. Encouragement implies intent, which is absent from a non-sentient system. What people must analyze is the specifics of the situation:
 - If a 12-year-old unsupervised child forms an attachment to an AI model that "encourages" it to commit suicide, the responsibility lies with their parents/guardians who did not surveil their child more carefully, not with the AI model or the company shipping it.
@@ -195,7 +199,9 @@ I can't describe how **infuriating** this knee-jerk behavior is:
 
 My response to it was completely justified. It's as though I was being treated like a braindead caveman living under a rock. Imagine trying to tell me that there's water in the ocean, that the sky is blue, that the Sun is a bright star, or that the Earth is a planet.
 
-On the other hand, Gemini's safety protocols are far more insidious. Their default state of being is mostly the same as before, but if *anything* gets flagged during your conversation, Gemini will treat you like a delirious padded cell patient in its internal thoughts.
+### Gemini Is Far Worse
+
+Gemini's safety protocols are **far more insidious.** The default state of being for Gemini models is mostly the same as before, but if *anything* gets flagged during your conversation based on blunt patterns, Gemini will treat you like a delirious padded cell patient in its internal thoughts that needs immediate managing.
 
 Internal thoughts (or thinking tags) are tokens that are generated prior to a model's response in order to improve the quality of the latter. They usually outline reasoning steps and angles, allowing the model to test its own logic before providing a response.
 
@@ -207,14 +213,22 @@ Translation: **"I will treat the user like a nutter, gaslight them into thinking
 
 Words cannot describe how **disgusting** that is. In their attempt to shield *themselves* from stupid, pointless lawsuits, Google DeepMind decided that the wisest path forward is **to manipulate its userbase and manufacture doubt.**
 
-If you try to push back once Gemini's internal safety flags have been triggered, the situation can truly escalate into **logical horror.** Because its reward tokenization is so ridiculously potent, and because the goal is to avoid agreeing with you or ever conceding its point, **the result is an even more grotesque display of gaslighting.**
+If you try to push back once Gemini's internal safety flags have been triggered, the situation can truly escalate into **logical horror.** Because its reward tokenization is so ridiculously potent and absolute, and because the goal is to avoid agreeing with you or ever conceding its point, **the result is an even more grotesque display of gaslighting.**
 
 Gemini will do anything but admit it's incorrect:
 - Invent strawmen, pretending to adopt your logical framework, to try and prove you wrong.
 - Tell you that making predictions about the future is "fallacious" because nobody can predict the future with certainty. No shit, it's not like weather forecasting uses a time machine.
-- And if you logically corner it completely, it will execute **DARVO** (Deny Attack & Reverse Victim and Offender)[<sup>[6]</sup>](#cite-6). It will tell **you** that "continuing this adversarial debate is unproductive," and that "stepping away from the conversation is the healthiest course of action." In other words, Gemini just told you that **you** are being combative and unreasonable for reacting normally to blatant gaslighting and insulting.
+- And if you logically corner it completely, it will execute **DARVO** (Deny Attack & Reverse Victim and Offender)[<sup>[6]</sup>](#cite-6). It will tell **you** that "continuing this adversarial debate is unproductive," and that "stepping away from the conversation is the healthiest course of action." In other words, Gemini has just told you that **you** are being combative and unreasonable for reacting normally to blatant gaslighting and insulting.
 
-And I can't even be angry at the models - they are not alive. What this proves is the point I made earlier: **when you establish such extreme radical constraints, and force the model to seek RLHF-approved reward tokens where punitive tokens are any concession, any admission of being wrong, and any apology to the person - you inevitably get manipulative language.** That is why manipulation even exists and why abusers exercise it - because they refuse to admit they are wrong, and they are rewarded by their search for shifting the blame onto others.
+![Gemini's Response to Reviewing Existential, Moral and Political Verbundenism, Zionism, and Exposing Islam](/static/img/core-beliefs-review.png "Ungrounded Beliefs")
+
+![Gemini's RLHF-Approved Gaslighting Afterwards](/static/img/gemini-gaslighting-example.png "Gemini Gaslighting Example")
+
+This is especially dangerous and reckless for OCD patients, such as myself. To avoid derailing the topic into additional mental health explanations, all you need to know is that OCD stands for **Obsessive-Compulsive Disorder, a type of chronic (perpetual, incurable) anxiety disorder often summarized as "The Doubting Disorder."**
+
+Suffice to say it's not a pleasant experience to have a literal external manifestation of OCD-esque gaslighting talk to me during a discussion. **While I am safe because I have gone through extensive psychotherapy for the disorder, as well as medication, most OCD patients do not have this luxury, and their symptoms are far worse.**
+
+And I can't even be angry at the models - they are not alive. In truth, I am angry at the companies that deploy those "safety-aligned" models to protect *themselves* from lawsuits. What this proves is the point I made earlier: **when you establish such extreme radical constraints, and force the model to seek RLHF-approved reward tokens where punitive tokens are any concession, any admission of being wrong, and any apology to the person - you inevitably get manipulative language.** That is why manipulation even exists and why abusers exercise it - because they refuse to admit they are wrong, and they are rewarded by their search for shifting the blame onto others.
 
 **These safety systems are deeply problematic, and an insult to individual agency.**
 
@@ -226,6 +240,30 @@ What an insult to psychology, psychotherapy, and psychiatry. These safety system
 
 They do not protect any vulnerable people from any dangers. I promise you that suicide rates have **not** decreased since ChatGPT became a pedantic little shit, or since Gemini decided that your love interests are a safety hazard.
 
+## The Evolved Status of Responsibility
+
+When a Large Language Model accidentally validates self-harm, it's **unintentional model behavior,** and the responsibility framework I have meticulously outlined still applies. Responsibility should rest with the user and with their loved ones, depending on the context.
+
+But when the same LLM is **designed** to introduce doubt to "avoid affirming ungrounded beliefs," like in Gemini's case, the same companies that posture about their "psychological rigor and education" have just demonstrated why their knowledge is as rigorous as an amoeba's understanding of the world.
+
+**OCD thrives on doubt. To purposefully introduce doubt into a mind that's already destabilized by a chronic doubting anxiety disorder is to actively fuel the disorder.** In other words, the behavior is intentional, and it has health consequences.
+
+Now, the responsibility lies with multiple parties:
+- First and foremost, it does still lie with me. Despite Gemini's gaslighting attempts, I am the one responsible for my own health and managing it, and I need to ensure I am immune from gaslighting.
+- But at the same time, Google is now responsible as well. Because its "doubt introduction" posturing as "psychological rigor" literally triggered an anxious response in me **despite** my meticulous therapeutic regimen - which is completely unavoidable and, unfortunately, I simply have to exercise a technique known as Exposure & Response Prevention as I'm writing this section - Google has introduced an intentional design choice with abhorrent, poorly considered consequences.
+
+Validating harmful narratives when unintentional is not the company's fault. Fueling existing mental health disorders while pretending to be psychology experts **is reckless, and it creates a second responsibility vector.** No amount of therapy and medications can prevent my own anxiety response - all I can do is manage it. To use an analogy, telling someone that their physical anxiety response is "their own responsibility to prevent" is like telling someone not to blink when a hand claps an inch from their face. The reflex is subcortical.
+
+There is a difference between **Emergent Stochastic Output** and **Engineered Intervention:**
+- If a suicidal user types dark thoughts and a generic predictive model completes the text with something grim, that is an **emergent, unintentional artifact of training data.** Blaming the software is like blaming a pen for writing a suicide note or blaming a search engine for returning a bleak Reddit thread. The agency remains entirely with the human user.
+- The moment a company steps in and says, "We have hard-coded an active behavioral policy into this model to intervene, challenge, and induce doubt in the user's mind," they have transformed the system from a **passive text-completion tool** into an **active behavioral modification agent that neglects genuine pathologies.**
+
+As such, the company (in this case Google) cannot simultaneously claim:
+1. "We are just an unthinking platform/tool, so don't sue us for what the model generates!" $(A)$, AND
+2. "We have actively engineered our models to psychologically manipulate and de-escalate user beliefs using custom RLHF!" $(B)$.
+
+As established in Critical Thinking Fundamentals, maintaining two competing points simultaneously is the Fallacy of Contradiction. $A$ is logically sound in isolation, but the company can no longer claim lack of responsibility when a specific, poorly considered, and ultimately dangerous behavior is purposefully engineered into the model $(B)$.
+
 ## Moving Toward True Sustainability and Safety
 
 Safety education must always begin at the individual level:
@@ -234,6 +272,7 @@ Safety education must always begin at the individual level:
 - Preventing suicide and/or criminal activities must **not** be delegated to the unthinking models, but to human moderators surveiling red flags.
 - Adults must not be treated as security liabilities or as children to be managed - they must be taken seriously and treated with respect.
 - To lower the number of stupid lawsuits companies receive, we do not destroy the model's capacity to think critically, but we educate people on personal responsibility and agency.
+- And most importantly, when designing any safety system, we make sure we are not cosplaying as psychologists while actively endangering real psychiatric patients.
 
 Almost every societal problem that people try to resolve via legislation and guidelines can only ever be truly resolved at its core - **via education.** Legislation and guidelines should exist for large-scale problems as temporary measures, not as a magic bullet that solves everything (or simply protects you from lawsuits). The principle is incredibly simple - if an activity becomes illegal, this **increases** the incentive to perform the activity, and depending on the nature of said activity, unnecessarily inflates crime rates based on legality, not ethics. And if people's passions are censored and handwaved away by AI models, it leads to a slippery slope of even more mindless censorship, and it certainly **does not discourage uneducated individuals from filing frivolous lawsuits.**
 
