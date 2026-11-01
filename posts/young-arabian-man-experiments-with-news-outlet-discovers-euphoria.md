@@ -2,6 +2,7 @@
 title: Young Arabian Man Experiments With News Outlet, Discovers Euphoria
 date: 2025-06-03T07:42:00.000Z
 author: Sufian M′Barki
+minuteread: 1
 updated:
 updatedauthor:
 summary: Why toying around with technology can bring not just satisfaction - but

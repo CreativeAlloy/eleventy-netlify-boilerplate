@@ -4,6 +4,7 @@ title: Abusive Dog Owner Disciplines Canine Companion with Electrocution, Faces
 serious: false
 date: 2025-12-28T05:09:00Z
 author: Sufian M′Barki
+minuteread: 2
 updated:
 updatedauthor:
 summary: Training our pets has never been easier than using the power of

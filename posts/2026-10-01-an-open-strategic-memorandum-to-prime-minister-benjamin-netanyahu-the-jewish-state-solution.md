@@ -5,6 +5,7 @@ serious: true
 lecture: false
 date: 2026-10-01T16:11:00Z
 author: Sufian M′Barki
+minuteread: 7
 updated:
 updatedauthor:
 summary: "A formal strategic policy memorandum submitted to Prime Minister

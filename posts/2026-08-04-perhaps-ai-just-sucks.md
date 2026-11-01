@@ -4,6 +4,7 @@ serious: true
 lecture: false
 date: 2026-08-04T09:25:00Z
 author: Sufian M′Barki
+minuteread: 8
 updated:
 updatedauthor:
 summary: Maybe AI just sucks - and not for the reason any of the Luddites in the

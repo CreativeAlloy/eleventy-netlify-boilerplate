@@ -8,13 +8,27 @@ const sitemapPlugin = require("@quasibit/eleventy-plugin-sitemap");
 const pluginTOC = require('eleventy-plugin-toc');
 const fs = require("fs");
 
-// Safely load the lexicon data so the build doesn't crash if the file is missing
-let lexicon = {};
-if (fs.existsSync("./_data/lexicon.json")) {
-  lexicon = require("./_data/lexicon.json");
+// Safely load a JSON data file (missing or invalid file => {}), cached per build.
+const jsonCache = new Map();
+function loadJson(file) {
+  if (jsonCache.has(file)) return jsonCache.get(file);
+  let data = {};
+  try {
+    if (fs.existsSync(file)) data = JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch (e) {
+    console.warn(`Could not parse ${file}: ${e.message}`);
+  }
+  jsonCache.set(file, data);
+  return data;
 }
 
+// Escape a string for literal use inside a RegExp
+const escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 module.exports = function (eleventyConfig) {
+
+  // Reset cached JSON data at the start of every (re)build
+  eleventyConfig.on("eleventy.before", () => jsonCache.clear());
 
   // Register Plugins
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
@@ -41,7 +55,7 @@ module.exports = function (eleventyConfig) {
     try {
       const date = (dateObj instanceof Date) ? dateObj : new Date(dateObj);
       if (isNaN(date.getTime())) return "";
-      return DateTime.fromJSDate(date).toISO();
+      return DateTime.fromJSDate(date, { zone: "utc" }).toISO();
     } catch (e) {
       return "";
     }
@@ -223,16 +237,22 @@ module.exports = function (eleventyConfig) {
     `.trim();
   });
 
+  // Tags for list cards: hide the internal "post" tag and cap how many are shown
+  eleventyConfig.addFilter("cardTags", (tags, max = 6) => {
+    const visible = (tags || []).filter(t => t !== "post");
+    return { shown: visible.slice(0, max), hidden: Math.max(0, visible.length - max) };
+  });
+
   // Date formatting (human readable)
   eleventyConfig.addFilter("readableDate", dateObj => {
     const d = dateObj instanceof Date ? dateObj : new Date(dateObj);
-    return DateTime.fromJSDate(d).toFormat("dd LLL yyyy");
+    return DateTime.fromJSDate(d, { zone: "utc" }).toFormat("dd LLL yyyy");
   });
 
   // Date formatting (machine readable)
   eleventyConfig.addFilter("machineDate", dateObj => {
     const d = dateObj instanceof Date ? dateObj : new Date(dateObj);
-    return DateTime.fromJSDate(d).toFormat("yyyy-MM-dd");
+    return DateTime.fromJSDate(d, { zone: "utc" }).toFormat("yyyy-MM-dd");
   });
 
   // Minify CSS
@@ -268,14 +288,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addTransform("autoLexicon", function (content, outputPath) {
     if (outputPath && outputPath.endsWith(".html") && content.includes("post-main-content")) {
 
-      let currentLexicon = {};
-      if (fs.existsSync("./_data/lexicon.json")) {
-        try {
-          currentLexicon = JSON.parse(fs.readFileSync("./_data/lexicon.json", "utf8"));
-        } catch (e) {
-          currentLexicon = {};
-        }
-      }
+      const currentLexicon = loadJson("./_data/lexicon.json");
 
       return content.replace(/(<article class="post-main-content">)([\s\S]*?)(<\/article>)/, (match, openTag, body, closeTag) => {
         let updatedBody = body;
@@ -287,7 +300,7 @@ module.exports = function (eleventyConfig) {
           const safeDef = definition.replace(/"/g, '&quot;');
 
           // 2. Protect existing <a>, <h1-6>, <pre>, <code>, and ALREADY WRAPPED .lexicon-term spans
-          const regex = new RegExp(`(<a\\b[^>]*>[\\s\\S]*?<\\/a>|<span\\b[^>]*class="[^"]*lexicon-term[^"]*"[^>]*>[\\s\\S]*?<\\/span>|<h[1-6]\\b[^>]*>[\\s\\S]*?<\\/h[1-6]>|<pre\\b[^>]*>[\\s\\S]*?<\\/pre>|<code\\b[^>]*>[\\s\\S]*?<\\/code>|<[^>]+>)|\\b(${term})\\b`, "gi");
+          const regex = new RegExp(`(<a\\b[^>]*>[\\s\\S]*?<\\/a>|<span\\b[^>]*class="[^"]*lexicon-term[^"]*"[^>]*>[\\s\\S]*?<\\/span>|<h[1-6]\\b[^>]*>[\\s\\S]*?<\\/h[1-6]>|<pre\\b[^>]*>[\\s\\S]*?<\\/pre>|<code\\b[^>]*>[\\s\\S]*?<\\/code>|<script\\b[^>]*>[\\s\\S]*?<\\/script>|<style\\b[^>]*>[\\s\\S]*?<\\/style>|<textarea\\b[^>]*>[\\s\\S]*?<\\/textarea>|<[^>]+>)|\\b(${escapeRe(term)})\\b`, "gi");
 
           updatedBody = updatedBody.replace(regex, (m, tag, word) => {
             // If it matched any protected tag or an already-wrapped span, leave it untouched
@@ -304,14 +317,7 @@ module.exports = function (eleventyConfig) {
 
 // --- Reusable Citation Shortcode (With Blockquote Support) ---
   eleventyConfig.addShortcode("citation", function(key, number, customAnchor) {
-    let citations = {};
-    if (fs.existsSync("./_data/citations.json")) {
-      try {
-        citations = JSON.parse(fs.readFileSync("./_data/citations.json", "utf8"));
-      } catch (e) {
-        citations = {};
-      }
-    }
+    const citations = loadJson("./_data/citations.json");
 
     const item = citations[key];
     const anchorId = customAnchor || `cite-${number}`;

@@ -3,6 +3,7 @@ title: The US Violated What Law Now?
 serious: true
 date: 2026-01-04T20:53:00.000Z
 author: Sufian M′Barki
+minuteread: 3
 updated:
 updatedauthor:
 summary: People throwing words around for the aesthetic, without knowing what

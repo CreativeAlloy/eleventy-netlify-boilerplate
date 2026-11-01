@@ -4,6 +4,7 @@ serious: true
 lecture: false
 date: 2026-05-08T03:06:00Z
 author: Sufian M′Barki
+minuteread: 4
 updated:
 updatedauthor:
 summary: People have ridiculously skewed priorities if their highlight of

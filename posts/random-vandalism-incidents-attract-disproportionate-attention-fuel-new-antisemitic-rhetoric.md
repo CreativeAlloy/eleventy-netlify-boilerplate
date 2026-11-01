@@ -4,6 +4,7 @@ title: Random Vandalism Incidents Attract Disproportionate Attention, Fuel New
 serious: true
 date: 2026-04-27T10:54:00Z
 author: Sufian M′Barki
+minuteread: 9
 updated:
 updatedauthor:
 summary: Humanity has proven that The Wasp Alloy doesn't even need to house

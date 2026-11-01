@@ -3,6 +3,7 @@ title: News Outlets Have Already Begun Inverting Israeli Bill Narrative
 serious: true
 date: 2026-03-30T20:11:00.000Z
 author: Sufian M′Barki
+minuteread: 5
 updated:
 updatedauthor:
 summary: Find a better hobby.

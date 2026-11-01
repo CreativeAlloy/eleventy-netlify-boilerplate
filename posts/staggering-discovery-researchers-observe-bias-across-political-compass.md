@@ -2,6 +2,7 @@
 title: Staggering Discovery - Researchers Observe Bias Across Political Compass
 date: 2025-06-09T22:32:00.000Z
 author: Sufian M′Barki
+minuteread: 4
 updated:
 updatedauthor:
 summary: How modern politics and journalism have become a safe haven for bias.

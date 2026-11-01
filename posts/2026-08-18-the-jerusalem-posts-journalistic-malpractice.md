@@ -4,6 +4,7 @@ serious: true
 lecture: false
 date: 2026-08-18T14:43:00Z
 author: Sufian M′Barki
+minuteread: 5
 updated:
 updatedauthor:
 summary: The Jerusalem Post's recent articles have been written in bad faith,

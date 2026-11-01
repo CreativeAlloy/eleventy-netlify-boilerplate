@@ -4,6 +4,7 @@ serious: false
 lecture: true
 date: 2026-04-29T11:13:00Z
 author: Sufian M′Barki
+minuteread: 7
 updated:
 updatedauthor:
 summary: Following the introduction of the fundamentals of critical thinking, we

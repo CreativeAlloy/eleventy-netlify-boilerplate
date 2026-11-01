@@ -3,6 +3,7 @@ title: Bulgaria Is an Embarrassment
 serious: true
 date: 2026-03-14T10:32:00Z
 author: Sufian M′Barki
+minuteread: 1
 updated:
 updatedauthor:
 summary: A people without a self-preservation instinct and without a droplet of

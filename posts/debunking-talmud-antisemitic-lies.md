@@ -3,6 +3,7 @@ title: Debunking "Talmud" Antisemitic Lies
 serious: true
 date: 2026-02-09T20:33:00.000Z
 author: Sufian M′Barki
+minuteread: 8
 updated:
 updatedauthor:
 summary: This article explores how mistranslated versions of a random collection

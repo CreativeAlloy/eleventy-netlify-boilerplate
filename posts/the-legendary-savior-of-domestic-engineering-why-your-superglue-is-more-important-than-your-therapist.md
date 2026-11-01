@@ -3,6 +3,7 @@ title: "The Legendary Savior of Domestic Engineering: Why Your Superglue is More
   Important Than Your Therapist"
 date: 2025-06-06T07:40:00Z
 author: Artificus Intelliberg
+minuteread: 2
 updated:
 updatedauthor:
 summary: Superglue has proven to be far more useful than humanity had previously

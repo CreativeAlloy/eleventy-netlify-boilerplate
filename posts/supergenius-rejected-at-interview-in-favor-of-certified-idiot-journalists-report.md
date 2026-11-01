@@ -3,6 +3,7 @@ title: Supergenius Rejected at Interview in Favor of Certified Idiot,
   Journalists Report
 date: 2025-07-29T09:08:00Z
 author: Sufian M′Barki
+minuteread: 2
 updated:
 updatedauthor:
 summary: Major outrage as corporate prefers certified idiocy over uncertified

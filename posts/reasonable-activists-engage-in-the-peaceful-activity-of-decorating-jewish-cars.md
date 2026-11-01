@@ -3,6 +3,7 @@ title: Reasonable Activists Engage in the Peaceful Activity of Decorating Jewish
 serious: false
 date: 2025-08-20T21:56:00.000Z
 author: Sufian M′Barki
+minuteread: 2
 updated:
 updatedauthor:
 summary: Witness the modern, progressive incarnation of political activism - one

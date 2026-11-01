@@ -4,6 +4,7 @@ serious: true
 lecture: false
 date: 2026-09-15T16:30:00Z
 author: Sufian M′Barki
+minuteread: 22
 updated:
 updatedauthor:
 summary: In what I believe to be my most ambitious published work yet, we are

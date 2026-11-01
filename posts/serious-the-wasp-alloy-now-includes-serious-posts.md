@@ -3,6 +3,7 @@ title: "The Wasp Alloy Now Includes Serious Posts"
 serious: true
 date: 2025-08-11T16:28:00Z
 author: Sufian M′Barki
+minuteread: 1
 updated:
 updatedauthor:
 summary: The Wasp Alloy has a visual and internal differentiator between serious

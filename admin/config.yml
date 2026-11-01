@@ -50,6 +50,7 @@ collections:
         picker_utc: true
         required: false
       - { label: "Updated By", name: "updatedauthor", widget: "string", required: false }
+      - { label: "Minute Read", name: "minuteread", widget: "number", value_type: "int", min: 1, required: false }
       - { label: "Summary", name: "summary", widget: "text" }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
         # --- Dedicated Audio Upload ---

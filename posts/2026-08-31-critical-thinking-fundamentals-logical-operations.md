@@ -4,6 +4,7 @@ serious: false
 lecture: true
 date: 2026-08-31T09:46:00Z
 author: Sufian M′Barki
+minuteread: 6
 updated:
 updatedauthor:
 summary: With the introduction of Conjunctions and Disjunctions, it is time to

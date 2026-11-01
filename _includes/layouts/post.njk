@@ -31,7 +31,7 @@ section: post
     <h1>{{ title }}</h1>
     <p>
       <small>
-        <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/authors/{{ author | slug }}/">{{ author }}</a>
+        <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/authors/{{ author | slug }}/">{{ author }}</a>{% if minuteread %} · ~{{ minuteread }}-minute read{% endif %}
         {% if updated %}
           <br>
           Updated on <time datetime="{{ updated | machineDate }}">{{ updated | readableDate }}</time>

@@ -680,6 +680,31 @@ a[rel="tag"]:hover {
 	color: var(--secondary);
 }
 
+/* "+N more" overflow label after the capped tag pills (news index cards).
+   Same box as a pill; colour comes from the card's mode via currentColor. */
+.posts-list a.tag-more {
+	display: inline-block;
+	vertical-align: text-top;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	font-size: .625em;
+	padding: 0 .5em;
+	line-height: 2em;
+	height: 2em;
+	margin: 0 0 .5em 0;
+	border: 1px dotted currentColor;
+	border-radius: .25em;
+	background: transparent;
+	text-decoration: none;
+	opacity: .7;
+	transition: opacity 0.1s ease-in-out;
+}
+
+.posts-list a.tag-more:hover,
+.posts-list a.tag-more:focus-visible {
+	opacity: 1;
+}
+
 a[rel="tag"]:last-child {
 	margin-right: 0;
 }

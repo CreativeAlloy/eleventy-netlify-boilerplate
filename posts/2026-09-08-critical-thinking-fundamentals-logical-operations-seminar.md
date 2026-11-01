@@ -4,6 +4,7 @@ serious: false
 lecture: true
 date: 2026-09-08T14:30:00Z
 author: Sufian M′Barki
+minuteread: 6
 updated:
 updatedauthor:
 summary: After taking a closer look at the basics of logical operations in

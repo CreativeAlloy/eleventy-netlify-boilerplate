@@ -1,0 +1,71 @@
+##### posts directory data
+### posts/posts.json
+{
+  "layout": "layouts/post.njk",
+  "permalink": "/posts/{{ page.fileSlug }}/index.html",
+  "author": "Anonymous",
+  "tags": [
+    "post"
+  ]
+}##### archive post front matter
+### posts/2026-10-07-list-of-shame-those-who-desecrated-october-7th-memorials.md
+---
+title: List of Shame - Those Who Desecrated October 7th Memorials
+serious: false
+lecture: false
+archive: true
+date: 2026-10-07T16:53:00Z
+author: Sufian M′Barki
+minuteread: 2
+updated:
+updatedauthor:
+summary: The List of Shame is a table containing all social media profiles who
+  have engaged in the disgusting act of desecrating October 7th Memorial Posts
+  online. They have been compiled due to incitement of hatred, violence, hate
+  speech, blood libels, antisemitic conspiracies, and more. Because this is an
+  archive of illegal activity, all readers are urged to file a legal complaint
+  against these actors. It is time to teach vile mobsters that actions have
+  consequences.
+tags:
+  - archive
+  - antisemitism
+  - israel
+  - zionism
+  - watchdog
+##### how functions identify a post
+netlify/functions/get-and-increment-views.js:7:  const path = params.get("path");
+netlify/functions/get-and-increment-views.js:10:  if (!path) {
+netlify/functions/get-and-increment-views.js:20:        INSERT INTO views (path, count)
+netlify/functions/get-and-increment-views.js:21:        VALUES (${path}, 1)
+netlify/functions/get-and-increment-views.js:22:        ON CONFLICT (path)
+netlify/functions/get-and-increment-views.js:30:        SELECT count FROM views WHERE path = ${path};
+netlify/functions/get-comments.js:10:  const slug = params.get("slug");
+netlify/functions/get-comments.js:15:  if (!slug) {
+netlify/functions/get-comments.js:16:    return new Response("Missing slug parameter", { status: 400 });
+netlify/functions/get-comments.js:26:      SELECT c.id, c.post_slug, c.author_name, c.provider, c.provider_user_id, c.comment_body,
+netlify/functions/get-comments.js:36:        WHERE comment_id IN (SELECT id FROM twa_comments WHERE post_slug = ${slug})
+netlify/functions/get-comments.js:42:        WHERE post_slug = ${slug} AND parent_id IS NOT NULL
+netlify/functions/get-comments.js:55:      WHERE c.post_slug = ${slug}
+netlify/functions/get-held-comments.js:20:        SELECT id, post_slug, parent_id, author_name, provider, provider_user_id,
+netlify/functions/get-notifications.js:24:        SELECT n.id, n.post_slug, n.parent_id, n.reply_id, n.is_read, n.created_at,
+netlify/functions/post-comment.js:21:    const { slug, comment_body, parent_id } = await req.json();
+netlify/functions/post-comment.js:23:    if (!slug || !comment_body || !comment_body.trim()) {
+netlify/functions/post-comment.js:36:      // Verify referenced parent comment exists, belongs to same slug, and is not deleted
+netlify/functions/post-comment.js:40:        WHERE id = ${parentId} AND post_slug = ${slug}
+netlify/functions/post-comment.js:119:        slug,
+netlify/functions/post-comment.js:138:      INSERT INTO twa_comments (post_slug, author_name, provider, provider_user_id, comment_body, author_url, avatar_url, parent_id, moderation_status, moderation_flags)
+netlify/functions/post-comment.js:139:      VALUES (${slug}, ${session.username}, ${session.provider}, ${session.provider_user_id}, ${cleanBody}, ${authorUrl}, ${avatarUrl}, ${parentId}, ${verdict.status}, ${flagsJson}::jsonb)
+netlify/functions/post-comment.js:140:      RETURNING id, post_slug, author_name, provider, provider_user_id, comment_body, created_at, is_deleted, mod_badge, author_url, avatar_url, parent_id, moderation_status;
+netlify/functions/post-comment.js:157:      slug,
+netlify/functions/report-comment.js:36:      SELECT id, post_slug, parent_id, provider, provider_user_id, is_deleted, moderation_status
+netlify/functions/report-comment.js:106:            (recipient_provider, recipient_user_id, post_slug, parent_id, reply_id, kind, report_reason, reporter_name)
+netlify/functions/report-comment.js:107:          SELECT r.provider, r.uid, ${comment.post_slug}::varchar, ${rootId}::integer, ${commentId}::integer,
+netlify/functions/review-comment.js:49:        RETURNING id, post_slug, parent_id, provider, provider_user_id, comment_body, moderation_status;
+netlify/functions/review-comment.js:65:        RETURNING id, post_slug, parent_id, provider, provider_user_id, moderation_status;
+netlify/functions/review-comment.js:85:        slug: comment.post_slug,
+netlify/lib/moderation/pipeline.js:49:// ctx: { text, slug, parentId, author: { provider, providerUserId, handle } }
+netlify/lib/moderation/side-effects.js:11:export async function runCommentSideEffects(sql, { commentId, slug, parentId, body, provider, providerUserId }) {
+netlify/lib/moderation/side-effects.js:36:            INSERT INTO twa_notifications (recipient_provider, recipient_user_id, post_slug, parent_id, reply_id)
+netlify/lib/moderation/side-effects.js:37:            SELECT DISTINCT provider, provider_user_id, ${slug}::varchar, ${commentId}::integer, ${commentId}::integer
+netlify/lib/moderation/side-effects.js:56:          INSERT INTO twa_notifications (recipient_provider, recipient_user_id, post_slug, parent_id, reply_id)
+netlify/lib/moderation/side-effects.js:57:          SELECT provider, provider_user_id, ${slug}::varchar, ${parentId}::integer, ${commentId}::integer

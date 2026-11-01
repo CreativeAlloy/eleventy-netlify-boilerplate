@@ -5,6 +5,7 @@ lecture: false
 archive: false
 date: 2026-10-29T22:14:00Z
 author: Sufian M′Barki
+minuteread: 3
 updated:
 updatedauthor:
 summary: World-renown Arab Zionist "Sufian M'Barki" has just been caught

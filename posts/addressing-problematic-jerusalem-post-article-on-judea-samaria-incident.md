@@ -3,6 +3,7 @@ title: Addressing Problematic Jerusalem Post Article on Judea-Samaria Incident
 serious: true
 date: 2026-03-08T21:24:00Z
 author: Sufian M′Barki
+minuteread: 6
 updated:
 updatedauthor:
 summary: Journalists have a responsibility to remain objective and not give into

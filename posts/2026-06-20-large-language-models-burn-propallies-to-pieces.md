@@ -4,6 +4,7 @@ serious: true
 lecture: false
 date: 2026-06-20T16:21:00Z
 author: Sufian M′Barki
+minuteread: 4
 updated:
 updatedauthor:
 summary: Sometimes catharsis means watching an LLM lose its shit over modern-day

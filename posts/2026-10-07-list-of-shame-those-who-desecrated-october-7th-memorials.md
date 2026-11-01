@@ -5,6 +5,7 @@ lecture: false
 archive: true
 date: 2026-10-07T16:53:00Z
 author: Sufian M′Barki
+minuteread: 2
 updated:
 updatedauthor:
 summary: The List of Shame is a table containing all social media profiles who

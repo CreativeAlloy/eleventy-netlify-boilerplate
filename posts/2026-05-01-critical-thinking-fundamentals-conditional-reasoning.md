@@ -4,6 +4,7 @@ serious: false
 lecture: true
 date: 2026-05-01T22:50:00Z
 author: Sufian M′Barki
+minuteread: 7
 updated:
 updatedauthor:
 summary: After exploring categorical syllogisms and polysyllogisms, as well as
