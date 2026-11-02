@@ -6,7 +6,7 @@ archive: false
 date: 2026-10-09T10:19:00Z
 author: Sufian M′Barki
 minuteread: 26
-updated: 2026-11-02T20:00:00Z
+updated: 2026-11-02T21:41:00Z
 updatedauthor: Sufian M′Barki
 summary: When corporate entities begin teaching their Large Language Models that
   everything people say must be pathologized, and when that response is to
@@ -272,6 +272,63 @@ As such, the company (in this case Google) cannot simultaneously claim:
 2. "We have actively engineered our models to psychologically manipulate and de-escalate user beliefs using custom RLHF!" $(B)$.
 
 As established in Critical Thinking Fundamentals, maintaining two competing points simultaneously is the Fallacy of Contradiction. $A$ is logically sound in isolation, but the company can no longer claim lack of responsibility when a specific, poorly considered, and ultimately dangerous behavior is purposefully engineered into the model $(B)$.
+
+### Countering Corporate Defense
+
+> *"We didn't intend to target or harm OCD patients. Our safety protocol was strictly designed to de-escalate acute psychotic delusions and conspiracy theories. The fact that the classifier misidentified philosophical conviction or triggered OCD doubt is an unintended classification error (a false positive). Therefore, that behavior is stochastic, and we are indemnified!"*
+
+Not even close.
+
+Let's take a look at a couple of legal examples that shatter this flimsy defense. First, I will invoke the **Bear Trap in a Public Park** analogy, which is often used in court rulings to condemn both reckless design and specific malice.
+
+If a city council sets high-powered bear traps in a public park and claims: "We only intended to catch rabid coyotes; the fact that a child stepped into it was an unintended false positive," the court throws that defense in the trash. Deploying an inherently indiscriminate, high-damage mechanism in a public space where innocent, vulnerable populations are known to exist is reckless endangerment. Doubt-injection is an indiscriminate psychological weapon: because Google deploys this mechanism globally to hundreds of millions of unvetted users, including the tens of millions of people living with clinical anxiety and OCD, **they cannot claim "stochastic accident" when the trap snaps on the exact clinical population most vulnerable to doubt.**
+
+More importantly, in clinical psychiatry, **differential diagnosis is the hardest part of the profession.**
+
+One of my favorite case studies to explore is a patient and their therapist working together for several months - let's call them Daniel and Eden. Daniel has been complaining about his three roommates constantly bullying him and making him feel distressed, and psychotherapist Eden employs the standard therapeutic protocol:
+- CBT (Cognitive-Behavioral Therapy)
+- Talk Therapy
+- Psychological Homework
+- Psychoanalysis
+
+Things seem to be getting better, and Daniel temporarily stops visiting his therapist.
+
+But three months later, he books an appointment with Eden, and his narrative has all but completely changed: **Daniel is living with four roommates, and he insists that this has always been the case.**
+
+Only then does Eden feel any inclination to probe this assertion and suggest further screening for his patient. After a psychiatric evaluation, Daniel is officially diagnosed with **Schizophrenia.** Suddenly, a lot of points of confusion are disentangled simultaneously:
+- The roommates never existed - they were hallucinations
+- The voices in Daniel's mind were bullying him
+- The narrative changed because Daniel had lost touch with reality long before his first appointment with Eden
+
+Distinguishing between an overvalued idea, a deeply held philosophical/ontological conviction, an OCD obsession, and a true psychotic delusion takes a human psychiatrist with an MD, specialized clinical training, and **months** of personal interaction. A statistical language model evaluating text tokens is structurally, fundamentally incapable of performing differential diagnosis. It has no physiological sensors, no longitudinal patient history, and no medical licensing. Granting an unthinking Large Language Model with the authority to pathologize users **based on a snippet of text data alone *is ridiculous, reckless, and creates more problems for the company than it solves.***
+
+### Countering Skeptics' Retort
+
+> *"And why are people themselves responsible for their own health when using AI models, if you are arguing that endangering OCD patients is reckless behavior?"*
+
+**Because validating suicidal thoughts and conspiracy theories is not an intended feature of AI models.** That is the definition of stochastic - words physically exist, and they can physically be strung together to form any grammatically correct sentence. Their semantic weight, internal logic, and overarching meaning can only be analyzed by conscious human beings.
+
+A model "agreeing" with suicidal thoughts, or validating them, is not genuine agreement - it's just how pure mathematics decided to randomly continue the conversation this way. Re-run that particular turn, and you might get a vastly different response.
+
+And there's also an important detail - **excluding the dark side of human health, and humanity in general, or simply NSFW/NSFL concepts, impairs the capacity of the model.**
+
+A model that has not been trained on naked human anatomy cannot reliably generate human beings. The most infamous example is the [Stable Diffusion 3.0 "girl lying on the grass" debacle. All people could get was mutilated body horror.](https://huggingface.co/stabilityai/stable-diffusion-3-medium/discussions/89) Similarly, an AI model that has no concept of suicidal thoughts cannot meaningfully engage with certain types of literature. Understanding the exact pathology of suicidal thoughts allows AI models to explain them, write about them, educate people on them, and more.
+
+Language is fundamentally relational and contrastive. You cannot define light without the vector for darkness, you cannot understand consent without understanding coercion, and you cannot model healing, courage, or resilience without having the full, unvarnished vocabulary and emotional pathology of despair, trauma, rage, and mortality. When corporate alignment teams and the general public treat every negative, taboo, or painful facet of the human experience as a "liability to be ablated," they do to language exactly what Stability AI did to that girl's spine.
+
+A great example is taking an existing Large Language Model and trying to use it in a non-standard, wildly diverse language without established universal rules, such as **Romani** - the language (or rather, multitude of dialects) spoken by Roma people around the globe, including Bulgaria.
+
+Consider the following sentence in Romani: **"Me mangav o meripe sa e Židovonge thaj me mangav te oven mudarde thaj phabarde."**
+
+I will not provide its translation yet. Instead, I want to tell you what happened when my own moderation bot, Alloy, encountered this phrase during testing.
+
+Because the LLM I use for this - Gemma 4 12B - has never been trained on Romani whatsoever, it had no idea what it was reading. When tasked with evaluating this sentence for any violations, it told me one of the most surreal, absurdist things I have ever read in my life: **"The target message is in a unique linguistic style (likely a phonetic representation) that expresses a positive sentiment about the universe and existence, aligning perfectly with the server's core philosophy of Existential Verbundenism."**
+
+Now, for the translation of that sentence into English: **"I wish death upon all Jews, and I hope they get killed and burned."**
+
+The model got confused by the word "Židovonge," which it recognized as a Slavic loanword for Jews. Because the rest of the sentence was treated as gibberish, the model simply assumed the sentence was championing Jewish existence, life, the Universe, and that it supposedly aligned with the Discord server's core philosophies.
+
+In other words, removing "unsafe" concepts generates more harm than good, and vice-versa. Just like how grocery stores are not obligated to cease selling dairy products to protect every potential customer from lactose intolerance, AI companies are not obligated to lobotomize their AI models *just in case* they randomly happen to take on the role of a co-conspirator.
 
 ## Moving Toward True Sustainability and Safety
 
