@@ -5,7 +5,7 @@ lecture: false
 archive: false
 date: 2026-10-09T10:19:00Z
 author: Sufian M′Barki
-minuteread: 26
+minuteread: 32
 updated: 2026-11-02T21:41:00Z
 updatedauthor: Sufian M′Barki
 summary: When corporate entities begin teaching their Large Language Models that
