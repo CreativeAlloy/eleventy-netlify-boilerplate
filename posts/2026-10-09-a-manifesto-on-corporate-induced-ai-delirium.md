@@ -249,7 +249,7 @@ What an insult to psychology, psychotherapy, and psychiatry. These safety system
 
 They do not protect any vulnerable people from any dangers. I promise you that suicide rates have **not** decreased since ChatGPT became a pedantic little shit, or since Gemini decided that your love interests are a safety hazard.
 
-## The Evolved Status of Responsibility
+### The Evolved Status of Responsibility
 
 When a Large Language Model accidentally validates self-harm, it's **unintentional model behavior,** and the responsibility framework I have meticulously outlined still applies. Responsibility should rest with the user and with their loved ones, depending on the context.
 
