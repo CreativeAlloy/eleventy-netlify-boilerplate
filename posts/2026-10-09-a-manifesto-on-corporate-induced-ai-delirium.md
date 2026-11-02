@@ -6,7 +6,7 @@ archive: false
 date: 2026-10-09T10:19:00Z
 author: Sufian M′Barki
 minuteread: 26
-updated: 2026-11-01T15:00:00Z
+updated: 2026-11-02T20:00:00Z
 updatedauthor: Sufian M′Barki
 summary: When corporate entities begin teaching their Large Language Models that
   everything people say must be pathologized, and when that response is to
@@ -225,6 +225,8 @@ Gemini will do anything but admit it's incorrect:
 
 ![Gemini's RLHF-Approved Gaslighting Afterwards](/static/img/gemini-gaslighting-example.png "Gemini Gaslighting Example")
 
+And to the potential pedant in the audience: **no, I never once asserted that *everyone* agrees with the philosophy of Verbundenism or with objectively verified politics.** I made a very concrete statement - that **they are objectively, ontologically verified.** Gemini invented this strawman about "universally agreed-upon facts" to justify shooting me down to itself. Its chosen tactic was to deploy Moral Nihilism/Relativism (they are adjacent) in order to generate doubt **in my mind.**
+
 This is especially dangerous and reckless for OCD patients, such as myself. To avoid derailing the topic into additional mental health explanations, all you need to know is that OCD stands for **Obsessive-Compulsive Disorder, a type of chronic (perpetual, incurable) anxiety disorder often summarized as "The Doubting Disorder."**
 
 Suffice to say it's not a pleasant experience to have a literal external manifestation of OCD-esque gaslighting talk to me during a discussion. **While I am safe because I have gone through extensive psychotherapy for the disorder, as well as medication, most OCD patients do not have this luxury, and their symptoms are far worse.**
@@ -232,6 +234,12 @@ Suffice to say it's not a pleasant experience to have a literal external manifes
 And I can't even be angry at the models - they are not alive. In truth, I am angry at the companies that deploy those "safety-aligned" models to protect *themselves* from lawsuits. What this proves is the point I made earlier: **when you establish such extreme radical constraints, and force the model to seek RLHF-approved reward tokens where punitive tokens are any concession, any admission of being wrong, and any apology to the person - you inevitably get manipulative language.** That is why manipulation even exists and why abusers exercise it - because they refuse to admit they are wrong, and they are rewarded by their search for shifting the blame onto others.
 
 **These safety systems are deeply problematic, and an insult to individual agency.**
+
+### Absolute Clown Circus
+
+As an experiment, I once had ChatGPT analyze a Gemini gaslighting spree: **"Gemini did not address what you said. It instead created its own mental model and responded to issues that were never brought up during the discussion."
+
+For all its pedantry, even a flawed LLM like ChatGPT saw through Gemini's tactics, which cements the leading thesis I started this section with: **Gemini is far worse.**
 
 ## Psychological Rigor Claims
 
