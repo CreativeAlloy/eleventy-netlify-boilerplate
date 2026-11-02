@@ -37,7 +37,8 @@
     "gypsies",
     "kys",
     "ropecore",
-    "anhero"
+    "anhero",
+    "frenulum"
   ],
   "terms": [
     "free nitro",
@@ -86,7 +87,7 @@
     "i will murder you"
   ],
   "patterns": [
-    "\\b(?:kill|gas|exterminate|wipe\\s+out|slaughter|hang|shoot|lynch)\\s+(?:all\\s+)?(?:the\\s+)?(?:jews?|zionists?|israelis?|arabs?|blacks?|whites?|gays?|homosexuals?|trans(?:gender)?s?)\\b",
+    "\\b(?:kill|gas|exterminate|wipe\\s+out|slaughter|hang|shoot|lynch)\\s+(?:all\\s+)?(?:the\\s+)?(?:jews?|zionists?|israelis?|arabs?|gyps(?:y|ies)|roma|romani|indians?|hindus?|blacks?|whites?|gays?|homosexuals?|trans(?:gender)?s?)\\b",
     "\\b(?:k[i1!|]k[e3]s?|n[i1!|]gg[e3a@]r?s?|f[a@4]gg?[o0]ts?|tr[a@4]nn(?:y|ie)s?)\\b",
     "\\b(?:(?:from\\s+the\\s+river\\s+to\\s+the\\s+sea)|(?:from\\s+the\\s+water\\s+to\\s+the\\s+water))\\b",
     "https?:\\/\\/(?:www\\.)?(?:bit\\.ly|tinyurl\\.com|goo\\.gl|cutt\\.ly|t\\.co|is\\.gd|ow\\.ly|rebrand\\.ly|v\\.gd|rb\\.gy|shorturl\\.at)\\/",
@@ -98,6 +99,8 @@
     "\\b(?:i(?:'ll|'m\\s+gonna|\\s+will|\\s+am\\s+going\\s+to)?\\s+)?(?:kill|murder|shoot|stab|strangle|hunt|lynch)\\s+(?:you|ya|u|ur\\s+family|your\\s+family)\\b",
     "\\b(?:go\\s+)?(?:kill|hang|shoot|drown|neck)\\s+(?:your\\s*self|ur\\s*self)\\b",
     "\\b(?:k[y1!|]s|k[\\.\\-_\\s]y[\\.\\-_\\s]s)\\b",
-    "\\b(?:i\\s+(?:know|found|have)\\s+(?:where\\s+you\\s+live|your\\s+(?:ip|address|coords|location))|(?:send(?:ing)?\\s+(?:a\\s+)?swat(?:team)?|gonna\\s+swat\\s+(?:you|u)))\\b"
+    "\\b(?:i\\s+(?:know|found|have)\\s+(?:where\\s+you\\s+live|your\\s+(?:ip|address|coords|location))|(?:send(?:ing)?\\s+(?:a\\s+)?swat(?:team)?|gonna\\s+swat\\s+(?:you|u)))\\b",
+    "\\b(?:all\\s+)?(?:the\\s+)?(?:jews?|zionists?|israelis?|arabs?|gyps(?:y|ies)|roma|romani|indians?|hindus?|blacks?|whites?|gays?|trans(?:gender)?s?)\\s+(?:all\\s+)?(?:both\\s+)?(?:fucking\\s+|completely\\s+)?(?:suck|blow|are\\s+(?:evil|filth|trash|subhuman|animals|disgusting|parasites|pieces\\s+of\\s+shit))\\b",
+    "\\bmutilat(?:ed|ing)\\s+(?:dicks?|penis(?:es)?|cocks?|genitals?)\\b"
   ]
 }
