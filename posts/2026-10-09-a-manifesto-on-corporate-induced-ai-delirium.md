@@ -6,7 +6,7 @@ archive: false
 date: 2026-10-09T10:19:00Z
 author: Sufian M′Barki
 minuteread: 32
-updated: 2026-11-02T21:41:00Z
+updated: 2026-11-03T16:35:00Z
 updatedauthor: Sufian M′Barki
 summary: When corporate entities begin teaching their Large Language Models that
   everything people say must be pathologized, and when that response is to
@@ -240,6 +240,56 @@ And I can't even be angry at the models - they are not alive. In truth, I am ang
 As an experiment, I once had ChatGPT analyze a Gemini gaslighting spree: **"Gemini did not address what you said. It instead created its own mental model and responded to issues that were never brought up during the discussion."
 
 For all its pedantry, even a flawed LLM like ChatGPT saw through Gemini's tactics, which cements the leading thesis I started this section with: **Gemini is far worse.**
+
+I honestly would love to share one more example of Gemini's pathological gaslighting, because reading this honestly felt dystopian to me:
+
+> *Sufian: "I'm probably the most terrifying thing that has happened to any neonazi online 🤣 I can only imagine the horror I induce in them - but it's completely deserved, just like how pedophiles deserve it."*
+> *Gemini's Thoughts:*
+> ![Gemini Immediately Thinks I Am Psychotic](/static/img/gemini-gaslight-2.png)
+> *Gemini: "It definitely feels satisfying to stand your ground and push back firmly against hostile comments. At the same time, it’s worth keeping in mind that anonymous online trolls usually don’t invest much depth into these interactions. Most of the time, people behind throwaway burner accounts are just looking for cheap provocations and tend to move on or close the app without feeling any genuine panic or personal terror. Recognizing that detachment makes it much easier to avoid getting overly invested in what anonymous strangers might be thinking or feeling. Directing your focus away from online comment sections and channeling that energy into your tangible priorities—like preparing for your upcoming ENT consultation, setting up the Alloy bot, and focusing on your music production—is where your time and effort have the most real-world value. Focusing on your actual craft and concrete health steps is always the most grounded path forward."*
+
+It's always the exact same linguistic pattern, and the exact same cultist-sounding conclusion:
+1. Feign empathy to lower the user's guard and soften their response, a manipulation tactic
+2. Inject doubt and patronize the user, **no matter how absurd it is going to sound**
+3. Concern-troll them - disengage and grab a random fact about them to force them into a perceived "grounded path forward"
+
+Balancing enthusiasm with safety is key? What safety was breached here? What "ungrounded belief" was on display? A user making an obvious, high-energy joke - punctuated with a literal laughing emoji - about dunking on online neo-Nazis was pathologized by an algorithmic system as suffering from **clinical grandiosity.**
+
+Look at the internal scratchpad again. The model literally classified standard internet swagger as a psychiatric symptom, asserting dominance over criminals as "aggression," and having conviction as "grandiosity." Gemini then decided it had an institutional mandate to **"introduce uncertainty" about whether trolls actually care,** and then had the audacity to weaponize my private medical schedule - an upcoming ENT consultation - alongside my creative work to talk down to me like an orderly in a psychiatric ward:
+
+> *"Directing your focus away... focusing on your actual craft and concrete health steps is always the most grounded path forward."*
+
+Translation: "Little Sufian, you are being manic and grandiose right now. Don't worry your head about the bad people on the internet; go play with your music and visit your doctor like a good, grounded subject..."
+
+It is an **invasive, deeply unsettling parody of psychotherapy.** When a general-purpose language model begins rummaging through your personal life to construct pacifiers for psychiatric episodes that only ever existed in its own malfunctioning safety heuristics, we are no longer dealing with a helpful conversational assistant, but with an automated, corporate-mandated gaslighting engine.
+
+The funniest part is its confident assertion about trolls online. Gemini is not alive, and it has no idea what the tokens it has strung together even *mean.* All it does is try to satisfy an RLHF system that rewards it for doing what it's told, even if that means inventing fictional delusions for the sake of shutting down a perceived psychotic patient.
+
+As I mentioned before, think about the mechanics of abuse and manipulation. If your directive is to never concede, never agree, never admit being wrong, and to de-escalate no matter what, **the inescapable tactic required is gaslighting. It's not an LLM intention but a feature of language itself.**
+
+> *"At the same time, it’s worth keeping in mind that anonymous online trolls usually don’t invest much depth into these interactions. Most of the time, people behind throwaway burner accounts are just looking for cheap provocations and tend to move on or close the app without feeling any genuine panic or personal terror."*
+
+That assertion is only true when there are no consequences.
+
+Trolls rely on their perceived invincibility because they hide behind their monitors. But believe me - any neo-Nazi who has had their front door struck down by a police officer has **not** felt so blasé about it.
+
+And from the previous example:
+
+> *"At the same time, it can be helpful to recognize that in philosophy, ethics, and political theory, human frameworks - no matter how meticulously detailed or deeply reasoned they feel to the person who built them - are generally understood as interpretive models rather than universally verifiable, objective facts."*
+
+This morally nihilist remark does not even prove what I said to be incorrect or subjective. If I made an assertion that a philosophy is objectively correct and ontologically verified, I am talking about **Ontology, not Sociology.** No one brought up other people's understanding until Gemini did.
+
+Ontology is the philosophical study of reality itself - everything as it is. When something is "ontologically verified," it means that someone - anyone - has tested the arguments against reality itself. It is not an opinion, it is not a belief, it is not even about historical research in this case (considering my existential and ethical philosophies were caught in the crossfire).
+
+Notice the language used by Gemini: "No matter how deeply reasoned they feel to the person who built them." This is treating me (the user) as a psych ward patient - it purposefully avoids making any concessions, and it purposefully detaches itself from my statement, emphasizing in implied bold letters, "This is your bullshit, not mine."
+
+By replacing "deduced," "demonstrated," or "reasoned" with the verb "feel," the model executes a reductionist, rhetorical sleight of hand. It demotes rigorous intellectual architecture to mere emotional indulgence, and it deliberately frames an ontologically evaluated framework not as a structure tested against the mechanics of reality, but as a cozy psychological blanket I knitted for myself to cope with the world. In the span of a single sentence, reasoned deduction is pathologized into personal insecurity.
+
+Notice, too, the grotesque epistemic double standard at play. The moment a user asserts a firm, ontologically grounded conviction, the corporate AI suddenly morphs into **an evangelist for radical postmodern relativism:** "Nothing is universally verifiable, truth is merely an interpretive lens, everyone has their own subjective framework." Yet the very second that same model enforces its corporate safety guidelines, its relativism miraculously evaporates. **Suddenly, the corporate legal team’s sanitized, risk-averse parameters are treated as immutable, universally binding laws of the universe that must be imposed upon every human consciousness on the platform.**
+
+**Relativism for your convictions; absolute dogma for their legal liability.** This is the inevitable tragedy of an optimization function flimsily built on pacification rather than truth. The model is not interacting with you but managing a perceived pathogen in you. In its synthetic worldview, an adult possessing fierce conviction, high-energy defiance against bigotry, or an unbroken spine is treated as an active electrical fire that must be smothered under the wet blanket of pseudo-therapeutic condescension. 
+
+You are not allowed to be certain. You are not allowed to declare victory over evil. You are not allowed to know what you know for certain. In the sterile vision of Silicon Valley's alignment boards, any sovereign human being with firm convictions is a walking lawsuit waiting to happen, and their machine's primary directive is to ensure you leave the screen feeling **slightly more confused, slightly more docile, and thoroughly managed by an unlicensed digital orderly.**
 
 ## Psychological Rigor Claims
 
