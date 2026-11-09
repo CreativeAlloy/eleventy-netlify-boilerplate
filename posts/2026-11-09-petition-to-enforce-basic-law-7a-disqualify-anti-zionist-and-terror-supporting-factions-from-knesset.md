@@ -17,6 +17,8 @@ tags:
   - zionism
   - law
 ---
+![Flags of Israel Inside The Knesset, 2014](/static/img/israeli-flags-scaled.jpg)
+
 👉 **[Sign the Petition on Atzuma (Israel / Hebrew)](https://atzuma.co.il/sign/15BHXo)**
 
 👉 **[Sign the Petition on Change.org (Global / English)](https://c.org/LgGGQJrWcQ)**
@@ -47,13 +49,13 @@ Furthermore, political factions seeking short-term coalition math have normalize
 
 ### **We, the undersigned citizens of Israel and allies of the global Zionist community, demand:**
 
-1. **Strict, Uncompromising Enforcement of Section 7A:**  
+1. **Strict, Uncompromising Enforcement of Section 7A:**
    The Central Elections Committee and relevant authorities must apply the law as written, permanently barring any list or candidate that negates Israel’s identity as a Jewish state or supports armed struggle against it.
 
-2. **Legislative Closure of Judicial Loopholes:**  
+2. **Legislative Closure of Judicial Loopholes:**
    The Knesset must enact the necessary statutory amendments to ensure that the will of the legislature regarding Section 7A cannot be watered down or overturned when documented evidence of anti-Zionism and terror-sympathy exists.
 
-3. **An Absolute Coalition Redline:**  
+3. **An Absolute Coalition Redline:**
    All political leaders, across the entire political spectrum, must sign a binding public pledge: **Zero political cooperation, reliance, or coalition agreements with any party that refuses to recognize the State of Israel as a sovereign Jewish nation-state.**
 
 ---
