@@ -13,19 +13,18 @@ tags:
   - israel
   - politics
   - petition
+  - atzuma
   - antisemitism
   - zionism
   - law
 ---
-![Flags of Israel Inside The Knesset, 2014](/static/img/israeli-flags-scaled.jpg)
+![Flags of Israel Inside The Knesset, 2014](/static/img/israeli-flags-scaled.jpg "Flags of Israel Inside The Knesset, 2014")
 
-👉 **[Sign the Petition on Atzuma (Israel / Hebrew)](https://atzuma.co.il/sign/15BHXo)**
+👉 **[Sign the Petition on Atzuma](https://atzuma.co.il/sign/15BHXo)**
 
-👉 **[Sign the Petition on Change.org (Global / English)](https://c.org/LgGGQJrWcQ)**
+**This petition is exclusive to Atzuma!** This Wasp Alloy article represents an **English translation** of the petition. If you can read Hebrew, please click the link above and sign it directly on Atzuma. If you need the translation, feel free to proceed.
 
-*Please prioritize the **Atzuma** link, as it directly impacts domestic Israeli visibility. If you cannot read Hebrew, you may sign the **Change.org** petition instead - both represent the exact same mandate. Even better: sign both to maximize both domestic and international pressure!*
-
----
+***
 
 ### **To: The Central Elections Committee of Israel, The Knesset of the State of Israel, and the Leaders of All Zionist Parliamentary Factions**
 
@@ -58,14 +57,10 @@ Furthermore, political factions seeking short-term coalition math have normalize
 3. **An Absolute Coalition Redline:**
    All political leaders, across the entire political spectrum, must sign a binding public pledge: **Zero political cooperation, reliance, or coalition agreements with any party that refuses to recognize the State of Israel as a sovereign Jewish nation-state.**
 
----
-
 True democracy requires self-defense. True Arab-Jewish partnership in Israel can only be built with loyal citizens who seek shared prosperity, civil equality, and peace—**not with anti-Zionist factions that act as mouthpieces for hostile foreign interests.**
 
 **Protect the Knesset. Uphold the Basic Law. Defend the sovereignty of the Jewish State.**
 
-👉 **[Sign the Petition on Atzuma (Israel / Hebrew)](https://atzuma.co.il/sign/15BHXo)**
-
-👉 **[Sign the Petition on Change.org (Global / English)](https://c.org/LgGGQJrWcQ)**
+👉 **[Sign the Petition on Atzuma](https://atzuma.co.il/sign/15BHXo)**
 
 ***Sufian M'Barki***
