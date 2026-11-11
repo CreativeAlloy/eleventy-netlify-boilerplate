@@ -23,7 +23,7 @@ tags:
 
 👉 **[Sign the Petition on Change.org (Global / English)](https://c.org/LgGGQJrWcQ)**
 
-*Please prioritize the **Atzuma** link if possible, as it directly impacts domestic Israeli visibility. If you cannot read Hebrew, you may sign the **Change.org** petition instead—both represent the exact same mandate. Even better: sign both to maximize both domestic and international pressure!*
+*Please prioritize the **Atzuma** link, as it directly impacts domestic Israeli visibility. If you cannot read Hebrew, you may sign the **Change.org** petition instead - both represent the exact same mandate. Even better: sign both to maximize both domestic and international pressure!*
 
 ---
 
